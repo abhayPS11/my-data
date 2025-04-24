@@ -5,8 +5,8 @@ description: Salt is an open-source automation tool used for configuration manag
 download_url: https://pypi.org/project/salt/#history
 works_on_arm: true
 supported_minimum_version:
-    version_number:
-    release_date:
+    version_number: 2016.3.0
+    release_date: 2016/05/26
  
  
 optional_info:
