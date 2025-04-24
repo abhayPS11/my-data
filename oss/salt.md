@@ -16,7 +16,7 @@ optional_info:
     getting_started_resources:
         arm_content:
         partner_content:
-        official_docs: https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/linux-deb.html
+        official_docs: https://docs.saltproject.io/salt/install-guide/en/latest/topics/other-install-types/platform-agnostic.html
     arm_recommended_minimum_version:
         version_number:
         release_date:
