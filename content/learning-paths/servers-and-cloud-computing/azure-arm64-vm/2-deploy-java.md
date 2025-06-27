@@ -114,16 +114,15 @@ Compile and Run Java program :
 javac HttpSingleRequestTest.java
 ava -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 ```
-{{% notice Note %}}
 
--Xms128m  sets the initial heap size for the Java Virtual Machine to 128 MB. 
--Xmx256m sets the maximum heap size for the JVM to 256 MB. 
--XX:+UseG1GC enables the G1 Garbage Collector (Garbage First GC), designed for low pause times and better performance in large heaps.
-
-{{% /notice %}}
+- -Xms128m  sets the initial heap size for the Java Virtual Machine to 128 MB. 
+- -Xmx256m sets the maximum heap size for the JVM to 256 MB. 
+- -XX:+UseG1GC enables the G1 Garbage Collector (Garbage First GC), designed for low pause times and better performance in large heaps.
 
 Output of java program on the ARM VM:
 ```output
+
+root [ / ]#  javac HttpSingleRequestTest.java
 root [ / ]#  java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 Response Generated:
 HTTP/1.1 200 OK
@@ -135,7 +134,6 @@ Response generation took 22125.79 microseconds.
 ```
 Output summary:  
 
-The program generated a fake HTTP 200 OK response with a custom message. 
-
+- The program generated a fake HTTP 200 OK response with a custom message. 
 - It then measured and printed the time taken to generate that response (22125.79 microseconds). 
 - This serves as a basic baseline performance test of string formatting and memory handling on the JVM running on an Azure Arm64 instance. 
