@@ -137,8 +137,5 @@ Output summary:
 
 The program generated a fake HTTP 200 OK response with a custom message. 
 
-It then measured and printed the time taken to generate that response (12332.56 
-microseconds). 
-
-This serves as a basic baseline performance test of string formatting and memory 
-handling on the JVM running on an Azure Arm64 instance. 
+- It then measured and printed the time taken to generate that response (22125.79 microseconds). 
+- This serves as a basic baseline performance test of string formatting and memory handling on the JVM running on an Azure Arm64 instance. 
