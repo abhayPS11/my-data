@@ -1,0 +1,63 @@
+---
+title: Deploy a Java application on an Azure Linux Arm64 virtual machine
+
+minutes_to_complete: 60   
+
+who_is_this_for: This is an advanced topic intended for software developers looking to deploy Java applications on Azure Linux virtual machines running on the Arm64 architecture.
+
+learning_objectives: 
+    - Provision an Azure Arm64 VM using Azure CLI with Ubuntu as the base image.
+    - Deploy a Java application inside an Azure Linux Arm64-based Docker container.
+    - Perform Java benchmarking inside the container running on the Azure Arm64 VM.
+
+prerequisites:
+    - An Azure account. 
+    - A GitHub account.
+    - A machine with [Docker](/install-guides/docker/) installed.
+
+author: odidev
+
+### Tags
+skilllevels: Advanced
+subjects: Java, Java Virtual Machine (JVM), Containers and Virtualization
+cloud_service_providers: Azure
+
+armips:
+    - Neoverse N2
+
+tools_software_languages:
+    - Java
+    - Docker
+
+operatingsystems:
+    - Linux
+
+further_reading:
+  - resource:
+      title: Azure Virtual Machines documentation
+      link: https://learn.microsoft.com/en-us/azure/virtual-machines/
+      type: documentation
+  - resource:
+      title: Azure Container Instances documentation
+      link: https://learn.microsoft.com/en-us/azure/container-instances/
+      type: documentation
+  - resource:
+      title: Docker overview
+      link: https://docs.docker.com/get-started/overview/
+      type: documentation
+  - resource:
+      title: Java on Azure
+      link: https://learn.microsoft.com/en-us/java/azure/
+      type: documentation
+  - resource:
+      title: JMH (Java Microbenchmark Harness) documentation
+      link: https://openjdk.org/projects/code-tools/jmh/
+      type: documentation
+
+
+### FIXED, DO NOT MODIFY
+# ================================================================================
+weight: 1                       # _index.md always has weight of 1 to order correctly
+layout: "learningpathall"       # All files under learning paths have this same wrapper
+learning_path_main_page: "yes"  # This should be surfaced when looking for related content. Only set for _index.md of learning path content.
+---
