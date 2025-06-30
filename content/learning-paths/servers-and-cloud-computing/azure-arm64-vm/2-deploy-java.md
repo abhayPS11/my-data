@@ -78,7 +78,7 @@ export PATH=$JAVA_HOME/bin:$PATH
  
 {{% notice Note %}}
 Azure Linux 3.0 offers the default JDK version 11.0.27. It’s important to ensure that your version of OpenJDK for ARM is at least 11.0.9, or above. There is a large performance gap between OpenJDK-11.0.8 and OpenJDK 11.0.9. A patch added in 11.0.9 reduces false-sharing cache contention. 
-For more information, you can view this ARM community [blog](https://community.arm.com/arm-community-blogs/b/architectures-and-processorsblog/posts/java-performance-on-neoverse-n1). 
+For more information, you can view this ARM community [blog](https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/java-performance-on-neoverse-n1). 
 
 The [ARM Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) also recommends Java/OpenJDK version 11.0.9 as minimum recommended on the ARM platforms.
 {{% /notice %}}
