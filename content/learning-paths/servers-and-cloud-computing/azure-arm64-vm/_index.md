@@ -16,7 +16,7 @@ prerequisites:
     - A machine with [Docker](/install-guides/docker/) installed.
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
 
-author: odidev
+author: Jason Andrews
 
 ### Tags
 skilllevels: Advanced
