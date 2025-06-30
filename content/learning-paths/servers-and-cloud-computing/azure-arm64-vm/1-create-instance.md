@@ -22,7 +22,8 @@ Select “Create”, and fill in the details such as Name, and Region. Choose th
 
 In the “Size” field, click on “See all sizes” and select the D-Series v6 family of VMs. Select “D4ps_v6” from the list and create the VM. 
 
-![image](https://github.com/user-attachments/assets/d1049401-18f8-47d1-b71e-719bef6cf038)
+
+![Screenshot](./Screenshot%202025-06-30%20134024.png)
 
 Now that you have the VM ready and running, you can SSH into the VM using the PEM key, along with the Public IP details. 
 
