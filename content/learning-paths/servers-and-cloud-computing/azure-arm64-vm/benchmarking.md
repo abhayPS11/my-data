@@ -58,7 +58,7 @@ Build the Benchmark:
  mvn clean install
 ```
 
-<img width="756" alt="image" src="https://github.com/user-attachments/assets/8eb33559-0179-47e0-a697-71e5fd66f2e2" />
+![image](https://github.com/user-attachments/assets/792b6721-1889-4606-830f-58bc8ca203ef)
 
 After building, the JMH benchmark jar will be in the target/ directory.
 
