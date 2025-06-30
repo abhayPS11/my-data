@@ -1,5 +1,5 @@
 ---
-title: Deploy a Java application on an Azure Linux Arm64 virtual machine
+title: Run Java applications on the Microsoft Cobalt 100 processors 
 
 minutes_to_complete: 60   
 
