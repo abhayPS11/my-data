@@ -11,7 +11,7 @@ layout: learningpathall
 ### Working inside Azure Linux 3.0 Docker container
 The Azure Linux Container Host is an operating system image that's optimized for running container workloads on Azure Kubernetes Service (AKS). Microsoft maintains the Azure Linux Container Host and based it on CBL-Mariner, an open-source Linux 
 distribution created by Microsoft. 
-To know more about Azure Linux 3.0, kindly refer [here](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux ). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available.  
+To know more about Azure Linux 3.0, kindly refer [here](https://learn.microsoft.com/en-us/azure/azure-linux/how-to-enable-azure-linux-3). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available.  
 Hence, to use the default software stack provided by the Microsoft team, this guide will focus on creating a docker container with Azure Linux 3.0 as a base image and will build 
 and run the Java application inside the container, with the default JDK provided by the Microsoft team via Azure Linux 3.0 environment. 
 
