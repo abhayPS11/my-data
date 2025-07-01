@@ -1,17 +1,16 @@
 ---
 title: Install the JDK and build an application
-weight: 3
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Install Java
 
 ### Working inside Azure Linux 3.0 Docker container
 The Azure Linux Container Host is an operating system image that's optimized for running container workloads on Azure Kubernetes Service (AKS). Microsoft maintains the Azure Linux Container Host and based it on CBL-Mariner, an open-source Linux 
 distribution created by Microsoft. 
-To know more about Azure Linux 3.0, kindly refer [here](https://learn.microsoft.com/en-us/azure/azure-linux/how-to-enable-azure-linux-3). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available.  
+To know more about Azure Linux 3.0, kindly refer [here](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux ). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available.  
 Hence, to use the default software stack provided by the Microsoft team, this guide will focus on creating a docker container with Azure Linux 3.0 as a base image and will build 
 and run the Java application inside the container, with the default JDK provided by the Microsoft team via Azure Linux 3.0 environment. 
 
@@ -21,7 +20,7 @@ The Microsoft Artifact Registry offers updated docker image for the Azure Linux 
 To create a docker container, install docker, and then follow the below instructions: 
 
 ```console
-sudo docker run -it --rm mcr.microsoft.com/azurelinux/base/core:3.0
+$ sudo docker run -it --rm mcr.microsoft.com/azurelinux/base/core:3.0
 ``` 
 
 The default container startup command is bash. tdnf and dnf are the default package managers.
@@ -33,20 +32,20 @@ This Azure Linux 3.0 image does not include Java, so you need to install it.
 First update tdnf:
 
 ```console
-tdnf update -y 
+$ tdnf update -y 
 ``` 
 Then install java-devel:
 
 ```console
-tdnf install -y java-devel  
+$ tdnf install -y java-devel  
 ```
- 
+
 Java-devel installs both the default JRE and JDK provided by Azure Linux 3.0.
 
 Check to ensure that the JRE is properly installed: 
 
 ```console
-java -version 
+$ java -version 
 ``` 
 
 **Your output will look like this:** 
@@ -61,7 +60,7 @@ sharing)
 **Check to ensure that the JDK is properly installed:**
 
 ```console
-javac -version 
+$ javac -version 
 ```
 Your output will look like this:
 
@@ -72,10 +71,10 @@ javac 11.0.27
 Set Java Environment Variable for Arm: 
 
 ```console 
-export JAVA_HOME=/usr/lib/jvm/msopenjdk-11 
-export PATH=$JAVA_HOME/bin:$PATH 
+$ export JAVA_HOME=/usr/lib/jvm/msopenjdk-11 
+$ export PATH=$JAVA_HOME/bin:$PATH 
 ```
- 
+
 {{% notice Note %}}
 Azure Linux 3.0 offers the default JDK version 11.0.27. It’s important to ensure that your version of OpenJDK for ARM is at least 11.0.9, or above. There is a large performance gap between OpenJDK-11.0.8 and OpenJDK 11.0.9. A patch added in 11.0.9 reduces false-sharing cache contention. 
 For more information, you can view this ARM community [blog](https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/java-performance-on-neoverse-n1). 
@@ -111,8 +110,8 @@ public class HttpSingleRequestTest {
 Compile and Run Java program :
 
 ```console
-javac HttpSingleRequestTest.java
-ava -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
+$ javac HttpSingleRequestTest.java
+$ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 ```
 
 - -Xms128m  sets the initial heap size for the Java Virtual Machine to 128 MB. 
@@ -121,19 +120,17 @@ ava -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 
 Output of java program on the ARM VM:
 ```output
-
-root [ / ]#  javac HttpSingleRequestTest.java
-root [ / ]#  java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
+$ javac HttpSingleRequestTest.java
+$ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 Response Generated:
 HTTP/1.1 200 OK
 Content-Type: text/plain
 Content-Length: 29
-
 Tomcat baseline test on ARM64
 Response generation took 22125.79 microseconds.
 ```
-Output summary:  
+Output summary:
 
-- The program generated a fake HTTP 200 OK response with a custom message. 
-- It then measured and printed the time taken to generate that response (22125.79 microseconds). 
-- This serves as a basic baseline performance test of string formatting and memory handling on the JVM running on an Azure Arm64 instance. 
+- The program generated a fake HTTP 200 OK response with a custom message.
+- It then measured and printed the time taken to generate that response (22125.79 microseconds).
+- This serves as a basic baseline performance test of string formatting and memory handling on the JVM running on an Azure Arm64 instance.
