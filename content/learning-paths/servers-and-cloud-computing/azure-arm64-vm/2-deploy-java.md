@@ -10,13 +10,12 @@ layout: learningpathall
 ### Working inside Azure Linux 3.0 Docker container
 The Azure Linux Container Host is an operating system image that's optimized for running container workloads on Azure Kubernetes Service (AKS). Microsoft maintains the Azure Linux Container Host and based it on CBL-Mariner, an open-source Linux 
 distribution created by Microsoft.
-To know more about Azure Linux 3.0, kindly refer [here](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux ). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available for Linux/ARM64.
+To know more about Azure Linux 3.0, kindly refer the [microsoft azure guide for introduction of azure linux](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available for Linux/ARM64.
 Hence, to use the default software stack provided by the Microsoft team, this guide will focus on creating a docker container with Azure Linux 3.0 as a base image and will build
 and run the Java application inside the container, with the default JDK provided by the Microsoft team via Azure Linux 3.0 environment. 
 
 ### Create Azure Linux 3.0 Docker Container 
-The Microsoft Artifact Registry offers updated docker image for the Azure Linux 3.0. Kindly find the details [here](https://mcr.microsoft.com/en-us/artifact/mar/azurelinux/base/core/about). 
-
+The Microsoft Artifact Registry offers updated docker image for the Azure Linux 3.0. Kindly find the details of [Azure Linux Base image](https://mcr.microsoft.com/en-us/artifact/mar/azurelinux/base/core/about).
 To create a docker container, install docker, and then follow the below instructions: 
 
 ```console
@@ -77,7 +76,7 @@ $ export PATH=$JAVA_HOME/bin:$PATH
 
 {{% notice Note %}}
 Azure Linux 3.0 offers the default JDK version 11.0.27. It’s important to ensure that your version of OpenJDK for ARM is at least 11.0.9, or above. There is a large performance gap between OpenJDK-11.0.8 and OpenJDK 11.0.9. A patch added in 11.0.9 reduces false-sharing cache contention. 
-For more information, you can view this ARM community [blog](https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/java-performance-on-neoverse-n1). 
+For more information, you can view this [ARM community blog](https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/java-performance-on-neoverse-n1). 
 
 The [ARM Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) also recommends Java/OpenJDK version 11.0.9 as minimum recommended on the ARM platforms.
 {{% /notice %}}
