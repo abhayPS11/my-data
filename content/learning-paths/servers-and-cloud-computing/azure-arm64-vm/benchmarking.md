@@ -21,7 +21,7 @@ $ tdnf install maven -y
 Create Benchmark Project: 
 
 ```console
-mvn archetype:generate \ 
+$ mvn archetype:generate \ 
   -DinteractiveMode=false \ 
   -DarchetypeGroupId=org.openjdk.jmh \ 
   -DarchetypeArtifactId=jmh-java-benchmark-archetype \ 
@@ -31,7 +31,7 @@ mvn archetype:generate \
   -Dversion=1.0
 ```
 ```console
-cd jmh-benchmark
+$ cd jmh-benchmark
 ```
 Edit the `src/main/java/com/example/MyBenchmark.java` file and add the below code on it: 
 
@@ -55,19 +55,17 @@ This simulates HTTP response generation similar to Tomcat.
 Build the Benchmark:
 
 ```console
- mvn clean install
+$ mvn clean install
 ```
 
-![image](https://github.com/user-attachments/assets/792b6721-1889-4606-830f-58bc8ca203ef)
-
-After building, the JMH benchmark jar will be in the target/ directory.
+After the build is complete, the JMH benchmark jar will be in the target/ directory.
 
 Run the Benchmark: 
 
 ```console 
 $ java -jar target/benchmarks.jar    
 ```
- 
+
 Output: 
 
 ```output 
@@ -95,7 +93,7 @@ with the default Microsoft OpenJDK 11.0.27.
 - Confidence Interval (99.9%): [35.48M, 35.72M] ops/sec
 - Run Count: 25 iterations
 
-## Highlights from Azure Linux Arm64 Benchmarking (Java 11.0.27)
+## Highlights from Azure Linux Arm64 Benchmarking (JDK 11.0.27)
 
 - **Superior Throughput:** Achieved an average of 35.60 million ops/sec.
 - **Stable Performance:** Low standard deviation (±161819.485 ops/sec) and a tight confidence interval suggest consistent benchmarking results.
