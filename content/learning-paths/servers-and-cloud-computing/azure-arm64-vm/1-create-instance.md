@@ -1,18 +1,18 @@
 ---
 title: Create an Arm based cloud VM using Microsoft Cobalt 100 CPU 
-weight: 2
+weight: 3
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Create an Arm based cloud VM using Microsoft Cobalt 100 CPU 
+## Introduction
 
 There are several ways to create an Arm-based Cobalt 100 VM : the Microsoft Azure console, the Azure CLI tool, or using your choice of IaC (Infrastructure as Code). This guide will use the Azure console to create a VM with Arm-based Cobalt 100 Processor. 
 
-The guide focuses on the general purpose VMs of D series. Refer this guide to know more <https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dpsv6-series>. 
+The guide focuses on the general purpose VMs of D series. Refer [this](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dpsv6-series) guide to know more.  
 
-If you have never used the Microsoft Cloud Platform before, please review <https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal>. 
+If you have never used the Microsoft Cloud Platform before, please review [this](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal). 
 
 #### Create an Arm-based Azure Virtual Machine 
 
@@ -22,8 +22,7 @@ Select “Create”, and fill in the details such as Name, and Region. Choose th
 
 In the “Size” field, click on “See all sizes” and select the D-Series v6 family of VMs. Select “D4ps_v6” from the list and create the VM. 
 
-
-![Screenshot](./Screenshot%202025-06-30%20134024.png)
+![Instance Screenshot](./instance.png)
 
 Now that you have the VM ready and running, you can SSH into the VM using the PEM key, along with the Public IP details. 
 
