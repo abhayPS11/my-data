@@ -69,7 +69,7 @@ javac 11.0.27
 
 Set Java Environment Variable for Arm: 
 
-```console 
+```bash { line_numbers = “true” }
 $ export JAVA_HOME=/usr/lib/jvm/msopenjdk-11 
 $ export PATH=$JAVA_HOME/bin:$PATH 
 ```
