@@ -20,8 +20,8 @@ $ tdnf install maven -y
 ```
 Create Benchmark Project: 
 
-```console
-$ mvn archetype:generate \ 
+```bash { line_numbers = “true” }
+mvn archetype:generate \ 
   -DinteractiveMode=false \ 
   -DarchetypeGroupId=org.openjdk.jmh \ 
   -DarchetypeArtifactId=jmh-java-benchmark-archetype \ 
@@ -29,9 +29,7 @@ $ mvn archetype:generate \
   -DgroupId=com.example \ 
   -DartifactId=jmh-benchmark \ 
   -Dversion=1.0
-```
-```console
-$ cd jmh-benchmark
+cd jmh-benchmark
 ```
 Edit the `src/main/java/com/example/MyBenchmark.java` file and add the below code on it: 
 
