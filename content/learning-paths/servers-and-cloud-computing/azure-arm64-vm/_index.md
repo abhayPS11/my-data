@@ -11,10 +11,9 @@ learning_objectives:
     - Perform Java benchmarking inside the container running on the Azure Arm64 VM.
 
 prerequisites:
-    - An Azure account. 
-    - A machine with [Docker](/install-guides/docker/) installed.
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
-
+    - A machine with [Docker](/install-guides/docker/) installed.
+    
 author: Jason Andrews
 
 ### Tags
