@@ -1,18 +1,17 @@
 ---
-title: Run Java applications on the Microsoft Cobalt 100 processors 
+title: Run Java applications on the Microsoft Azure Cobalt 100 processors 
 
 minutes_to_complete: 60   
 
-who_is_this_for: This is an advanced topic intended for software developers looking to deploy Java applications on Azure Linux virtual machines running on the Arm64 architecture.
+who_is_this_for: This is an introductory topic for the software developers who are willing to migrate their Java-based applications from x86_64 platforms to ARM-based platforms, or on Microsoft Azure - Cobalt 100 CPU-based VMs specifically.  Most Java applications will run on Cobalt 100 with no changes needed. 
 
 learning_objectives: 
-    - Provision an Azure Arm64 VM using Azure CLI with Ubuntu as the base image.
+    - Provision an Azure Arm64 VM using Azure console, with Ubuntu as the base image.
     - Deploy a Java application inside an Azure Linux Arm64-based Docker container.
     - Perform Java benchmarking inside the container running on the Azure Arm64 VM.
 
 prerequisites:
     - An Azure account. 
-    - A GitHub account.
     - A machine with [Docker](/install-guides/docker/) installed.
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
 
