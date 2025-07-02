@@ -3,7 +3,7 @@ title:  Transform AArch64 ISO to VHD and Launch an Azure Linux Arm64 VM
 
 minutes_to_complete: 120  
 
-who_is_this_for: This Learning Path is designed for developers and system administrators who want to run custom or community-based AArch64 Linux distributions on Microsoft Azure's Arm64 virtual machines. You'll learn how to convert an AArch64 .iso image into a .vhd format, upload it to Azure, and use it to deploy a fully functional Linux Arm64 VM. This process is ideal for scenarios where prebuilt Arm images are unavailable or when testing with custom OS builds is required.
+who_is_this_for: This Learning Path helps developers and system administrators deploy custom or community AArch64 Linux distributions on Azure Arm64 VMs. It covers converting an iso to a vhd, uploading it to Azure, and launching a fully functional VM—ideal when official Arm images are unavailable or for testing custom OS builds.
 
 
 learning_objectives:
