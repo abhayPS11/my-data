@@ -1,12 +1,21 @@
-# Convert AArch64 ISO to VHD and Deploy Azure Linux Arm64 VM
+---
+title: Convert AArch64 ISO to VHD and Deploy on Azure VM
+weight: 3
+
+### FIXED, DO NOT MODIFY
+layout: learningpathall
+---
+
+
+### Convert AArch64 ISO to VHD and Deploy Azure Linux Arm64 VM
 
 This guide walks through the steps to convert the **Azure Linux 3.0 AArch64 ISO** into a **VHD**, upload it to Azure, and deploy a custom **Linux Arm64 virtual machine** using Azure Shared Image Gallery.
 
 ---
 
-## Step A: Download and Prepare the Raw Disk Image
+#### Step A: Download and Prepare the Raw Disk Image
 
-### 1. Download Azure Linux ISO (AArch64)
+**1. Download Azure Linux ISO (AArch64)**
 ```bash
 wget https://aka.ms/azurelinux-3.0-aarch64.iso
 ```
