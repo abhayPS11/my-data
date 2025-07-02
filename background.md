@@ -6,21 +6,8 @@ weight: 2
 layout: "learningpathall"
 ---
 
-## Why Convert AArch64 ISO to VHD for Azure?
+## Introduction to Azure Linux 3.0
 
-Azure supports custom image deployment through its Shared Image Gallery, allowing users to run their preferred or community Linux distributions—even if they are not officially available in the Azure Marketplace. For Arm64-based workloads, this becomes particularly valuable when working with custom-built operating systems or community-supported AArch64 images.
+Azure Linux 3.0 is Microsoft's in-house, lightweight Linux distribution optimized for running cloud-native workloads on Azure. Designed with performance, security, and reliability in mind, it is fully supported by Microsoft and tailored for containers, microservices, and Kubernetes. With native support for ARM64 (AArch64) architecture, Azure Linux 3.0 enables efficient execution of workloads on energy-efficient ARM-based infrastructure, making it a powerful choice for scalable and cost-effective cloud deployments.
 
-By converting an AArch64 `.iso` file into a `.vhd` (Virtual Hard Disk), developers and system administrators can take advantage of Microsoft Azure’s Arm64 infrastructure, specifically the **Cobalt 100** processor-based VMs. This enables testing, development, and deployment of specialized Linux environments at scale on cloud-native Arm hardware.
-
-## Use Case: Custom Arm64 Linux Images on Azure
-
-Many open-source Linux distributions support AArch64 architecture but do not provide pre-built Azure-compatible images. With this Learning Path, you can:
-
-- Use QEMU to install the OS from ISO into a disk image.
-- Convert the image into VHD format compatible with Azure.
-- Upload it to Azure and deploy a VM using the Shared Image Gallery.
-
-This process gives you flexibility and control over the OS environment while benefiting from the performance and cost advantages of Arm-based cloud computing.
-
-To learn more about Azure’s Cobalt 100 VMs, read the blog:  
-[Announcing the preview of new Azure VMs based on the Azure Cobalt 100 processor](https://techcommunity.microsoft.com/blog/azurecompute/announcing-the-preview-of-new-azure-vms-based-on-the-azure-cobalt-100-processor/4146353).
+As of now, the Azure Marketplace offers official VM images of Azure Linux 3.0 only for x64-based architectures, published by Ntegral Inc. However, native ARM64 (AArch64) images are not yet officially available. This learning path bridges that gap by guiding developers through the process of building a custom ARM64 VM image using the Azure Linux 3.0 ISO. By the end of this path, you'll be able to deploy and run Azure Linux 3.0 VMs on ARM-based Azure infrastructure with confidence.
