@@ -13,9 +13,9 @@ This guide walks through the steps to convert the **Azure Linux 3.0 AArch64 ISO*
 
 ---
 
-#### Step A: Download and Prepare the Raw Disk Image
+**Step A: Download and Prepare the Raw Disk Image**
 
-**1. Download Azure Linux ISO (AArch64)**
+**1.Download Azure Linux ISO (AArch64)**
 ```bash
 wget https://aka.ms/azurelinux-3.0-aarch64.iso
 ```
@@ -25,7 +25,7 @@ qemu-img create -f raw azurelinux-arm64.raw 34359738368
 ```
 Creates a 32 GB empty raw disk image to install the OS.
 
-### Step B: Install Azure Linux Using QEMU
+**Step B: Install Azure Linux Using QEMU**
 
 **3. Boot the ISO and install the OS to the raw image**
 ```bash
@@ -52,7 +52,7 @@ sudo poweroff
 ```
 Installs and enables the Azure Linux Agent required for VM provisioning.
 
-### Step C: Convert Raw Disk to VHD Format
+**Step C: Convert Raw Disk to VHD Format**
 
 **5. Convert the raw disk image to fixed-size VHD**
 ```bash
@@ -60,7 +60,8 @@ qemu-img convert -f raw -o subformat=fixed,force_size -O vpc azurelinux-arm64.ra
 ```
 Converts the raw disk image to a fixed-size VHD format compatible with Azure.
 
-### Step D: Upload VHD and Create Azure Image Gallery
+**Step D: Upload VHD and Create Azure Image Gallery**
+
 **Set environment variables:**
 
 ```bash
@@ -112,7 +113,7 @@ az storage blob upload \
 ```
 Uploads the VHD to your storage container.
 
-### Step E: Create Azure Shared Image Gallery Resources
+**Step E: Create Azure Shared Image Gallery Resources**
 
 **8. Create Shared Image Gallery and Image Definition**
 ```bash
@@ -150,7 +151,7 @@ az sig image-version create \
 ```
 Registers the VHD as a version of your custom image.
 
-### Step F: Deploy Azure Linux Arm64 VM
+**Step F: Deploy Azure Linux Arm64 VM**
 
 **10. (Optional) Retrieve the Image ID**
 ```bash
@@ -178,7 +179,8 @@ az vm create \
 ```
 Deploys a Linux Arm64 VM from your custom image.
 
-### Step G: Access the Created Azure Linux Arm64 VM
+**Step G: Access the Created Azure Linux Arm64 VM**
+
 After successfully creating the VM, you can access it using SSH.
 
 **12. Get the Public IP of the VM**
