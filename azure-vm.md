@@ -11,9 +11,13 @@ layout: learningpathall
 
 This guide walks through the steps to convert the **Azure Linux 3.0 AArch64 ISO** into a **VHD**, upload it to Azure, and deploy a custom **Linux Arm64 virtual machine** using Azure Shared Image Gallery.
 
----
-
 **Step A: Download and Prepare the Raw Disk Image**
+
+Make sure your system has QEMU and required utilities installed. On a Debian-based system (like Ubuntu), run:
+
+```bash
+sudo apt update && sudo apt install qemu-system-arm qemu-system-aarch64 qemu-efi-aarch64 qemu-utils ovmf -y
+```
 
 **Download Azure Linux ISO (AArch64)**
 ```bash
