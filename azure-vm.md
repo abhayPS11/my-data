@@ -15,7 +15,7 @@ This guide walks through the steps to convert the **Azure Linux 3.0 AArch64 ISO*
 
 **Step A: Download and Prepare the Raw Disk Image**
 
-**1.Download Azure Linux ISO (AArch64)**
+**Download Azure Linux ISO (AArch64)**
 ```bash
 wget https://aka.ms/azurelinux-3.0-aarch64.iso
 ```
@@ -66,7 +66,7 @@ Converts the raw disk image to a fixed-size VHD format compatible with Azure.
 
 ```bash
 RESOURCE_GROUP="MyCustomARM64Group"
-LOCATION="eastus"
+LOCATION="centralindia"
 STORAGE_ACCOUNT="mycustomarm64storage"
 CONTAINER_NAME="mycustomarm64container"
 VHD_NAME="azurelinux-arm64.vhd"
@@ -84,6 +84,9 @@ VM_NAME="MyAzureLinuxARMVM"
 ADMIN_USER="azureuser"
 VM_SIZE="Standard_D4ps_v6"
 ```
+{{% notice Note %}}
+You can modify the values of these environment variables—such as RESOURCE_GROUP, VM_NAME, LOCATION, and others—based on your naming preferences, region, and resource requirements.
+{{% /notice %}}
 
 **6. Create Resource Group and Storage Account**
 ```bash
