@@ -168,3 +168,29 @@ az vm create \
   --public-ip-sku Standard
 ```
 Deploys a Linux Arm64 VM from your custom image.
+
+### Step G: Access the Created Azure Linux Arm64 VM
+After successfully creating the VM, you can access it using SSH.
+
+**12. Get the Public IP of the VM**
+```bash
+az vm show \
+  --resource-group "$RESOURCE_GROUP" \
+  --name "$VM_NAME" \
+  --show-details \
+  --query "publicIps" \
+  -o tsv
+```
+
+Retrieves the public IP address of the newly created VM.
+
+**13. Connect via SSH**
+
+```bash
+ssh azureuser@<public-ip-address>
+```
+
+Replace **public-ip-address** with the IP returned in the previous command.
+This uses the SSH key that was automatically generated during VM creation (or your existing one, if specified).
+
+You can now log into your custom Azure Linux Arm64 VM and start using it!
