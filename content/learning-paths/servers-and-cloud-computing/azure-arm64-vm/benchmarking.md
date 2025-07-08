@@ -10,8 +10,8 @@ layout: learningpathall
 Now that you’ve built and run the Tomcat-like response, you can use it to test the JVM performance using JMH. You can also use it to test the performance difference between Cobalt 100 instances and other similar D series x86_64 based instances. 
 
 {{% notice Note %}}
-Before testing, note that you have two options to deploy your Java application on Azure Linux:
-{{% Note %}}
+Before testing, note that you have two options to deploy your Java application on Azure Linux.
+{{% /notice %}}
 
 #### 1. Using Azure Linux Container (Arm64)
 
