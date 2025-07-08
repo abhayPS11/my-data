@@ -9,7 +9,7 @@ learning_objectives:
     - Provision an Azure Arm64 VM using Azure console, with Ubuntu as the base image.
     - Deploy a Java application inside an Azure Linux Arm64-based Docker container.
     - Perform Java benchmarking inside the container running on the Azure Arm64 VM.
-    - 
+    - Perform Java benchmarking directly on the custom Azure Linux ARM64 virtual machine.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
