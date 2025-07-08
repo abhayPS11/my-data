@@ -9,6 +9,16 @@ layout: learningpathall
 ## Test the Java application for Performance 
 Now that you’ve built and run the Tomcat-like response, you can use it to test the JVM performance using JMH. You can also use it to test the performance difference between Cobalt 100 instances and other similar D series x86_64 based instances. 
 
+Before testing, note that you have two options to deploy your Java application on Azure Linux:
+
+#### 1. Using Azure Linux Container (Arm64)
+
+Run your Java application inside a container built on the official Azure Linux Arm64 base image.
+
+#### 2. Using Azure Linux ARM64 VM
+
+Deploy your application directly on an Azure Linux ARM64 VM, which you can create from an AArch64 ISO image (as demonstrated earlier).
+
 ## Run the performance tests using JMH
 
 JMH (Java Microbenchmark Harness) is a Java benchmarking framework developed by the JVM team at Oracle to measure the performance of small code snippets with high precision. It accounts for JVM optimizations like JIT and warm-up to ensure accurate and reproducible results. It measures the throughput, average latency, or execution time. Below steps help benchmark the Tomcat-like operation: 
