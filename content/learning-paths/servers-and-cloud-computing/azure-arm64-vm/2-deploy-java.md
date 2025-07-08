@@ -11,7 +11,9 @@ layout: learningpathall
  1. Use the [Azure Linux 3.0 Docker container](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux) on any supported platform.
  2. Use a custom Azure Linux ARM64 VM, as shown below.
 
-Note: You must create an Azure Linux ARM VM using a custom VHD, since Azure Linux 3.0 ARM64 images are not directly available in the marketplace. Follow [this guide to convert the ISO to a VHD](https://github.com/ArmDeveloperEcosystem/arm-learning-paths/pull/2103) and deploy it as a VM.
+{{% notice Note %}}
+You must create an Azure Linux ARM VM using a custom VHD, since Azure Linux 3.0 ARM64 images are not directly available in the marketplace. Follow [this guide to convert the ISO to a VHD](https://github.com/ArmDeveloperEcosystem/arm-learning-paths/pull/2103) and deploy it as a VM.
+{{% /notice %}}
 
 ### Working inside Azure Linux 3.0 Docker container
 The Azure Linux Container Host is an operating system image that's optimized for running container workloads on Azure Kubernetes Service (AKS). Microsoft maintains the Azure Linux Container Host and based it on CBL-Mariner, an open-source Linux 
