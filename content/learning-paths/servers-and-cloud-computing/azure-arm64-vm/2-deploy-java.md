@@ -6,6 +6,12 @@ weight: 4
 layout: learningpathall
 ---
 
+### You have two deployment options for Java on Azure Linux:
+
+ 1. Use the [Azure Linux 3.0 Docker container](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux) on any supported platform.
+ 2. Use a custom Azure Linux ARM64 VM, as shown below.
+
+Note: You must create an Azure Linux ARM VM using a custom VHD, since Azure Linux 3.0 ARM64 images are not directly available in the marketplace. Follow [this guide to convert the ISO to a VHD](https://github.com/ArmDeveloperEcosystem/arm-learning-paths/pull/2103) and deploy it as a VM.
 
 ### Working inside Azure Linux 3.0 Docker container
 The Azure Linux Container Host is an operating system image that's optimized for running container workloads on Azure Kubernetes Service (AKS). Microsoft maintains the Azure Linux Container Host and based it on CBL-Mariner, an open-source Linux 
@@ -117,7 +123,7 @@ $ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 - -Xmx256m sets the maximum heap size for the JVM to 256 MB. 
 - -XX:+UseG1GC enables the G1 Garbage Collector (Garbage First GC), designed for low pause times and better performance in large heaps.
 
-Output of java program on the ARM VM:
+Output of java program on the ARM VM(Docker container):
 ```output
 $ javac HttpSingleRequestTest.java
 $ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
@@ -133,3 +139,29 @@ Output summary:
 - The program generated a fake HTTP 200 OK response with a custom message.
 - It then measured and printed the time taken to generate that response (22125.79 microseconds).
 - This serves as a basic baseline performance test of string formatting and memory handling on the JVM running on an Azure Arm64 instance.
+
+### 2. Working with a custom Azure Linux ARM64 VM
+
+To install [Java on the Azure Linux ARM VM](https://github.com/abhayPS11/my-data/edit/main/content/learning-paths/servers-and-cloud-computing/azure-arm64-vm/2-deploy-java.md#install-java), follow the same installation steps used for Java.
+
+#### Deploy a Java application with Tomcat-like operation on azure vm
+
+To deploy a Java application with [Tomcat-like functionality on an Azure VM](https://github.com/abhayPS11/my-data/edit/main/content/learning-paths/servers-and-cloud-computing/azure-arm64-vm/2-deploy-java.md#deploy-a-java-application-with-tomcat-like-operation), follow these steps. You can now compile and run the Java file directly on the custom Azure ARM VM.
+
+Output of java program on the ARM VM:
+```output
+$ javac HttpSingleRequestTest.java
+$ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
+Response Generated:
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 29
+Tomcat baseline test on ARM64
+Response generation took 23899.10 microseconds.
+```
+Output summary:
+
+- It simulated an HTTP 200 OK response with a custom message: "Tomcat baseline test on ARM64".
+- The program measured the time taken to generate the response string.
+- The output shows the response was built in approximately 23,899.10 microseconds, providing a baseline for Java string handling performance on the ARM-based VM.
+
