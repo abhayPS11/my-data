@@ -9,21 +9,12 @@ layout: learningpathall
 ## Test the Java application for Performance 
 Now that you’ve built and run the Tomcat-like response, you can use it to test the JVM performance using JMH. You can also use it to test the performance difference between Cobalt 100 instances and other similar D series x86_64 based instances. 
 
-{{% notice Note %}}
-Before testing, note that you have two options to deploy your Java application on Azure Linux.
-{{% /notice %}}
 
-#### 1. Using Azure Linux Container (Arm)
-
-Run your Java application inside a container built on the official Azure Linux Arm64 base image.
-
-#### 2. Using Azure Linux Arm VM
-
-Deploy your application directly on an Azure Linux ARM64 VM, which you can create from an AArch64 ISO image (as demonstrated earlier).
-
-## Run the performance tests using JMH inside the Azure Linux Container
+## Run the performance tests using JMH inside Azure Linux 3.0 (Docker Container or Custom VM)
 
 JMH (Java Microbenchmark Harness) is a Java benchmarking framework developed by the JVM team at Oracle to measure the performance of small code snippets with high precision. It accounts for JVM optimizations like JIT and warm-up to ensure accurate and reproducible results. It measures the throughput, average latency, or execution time. Below steps help benchmark the Tomcat-like operation: 
+
+The following installation and benchmarking steps apply to both Azure Linux virtual machines and Azure Linux-based containers.
 
 Install Maven: 
 
@@ -86,7 +77,7 @@ CI (99.9%): [35479344.588, 35721775.978] (assumes normal distribution)
 # Run complete. Total time: 00:08:21 
 ```
 
-### Benchmark summary on x86_64 based D4s_v6 general purpose Azure VM (JDK 11.0.27) 
+### Benchmark summary on x86_64 based D4s_v4 general purpose Azure VM (JDK 11.0.27) 
 
 The benchmark was executed inside an Azure Linux 3.0 Docker container on an x86_64 VM using the default Microsoft OpenJDK 11.0.27. 
 | Metric                          | Value                                  |
@@ -119,27 +110,8 @@ The benchmark was run using JMH inside an Azure Linux 3.0 Docker container on an
 - **Efficient Execution:** Demonstrates the efficiency of the Arm64 architecture for handling high-throughput Java workloads, even within a containerized Azure Linux environment.
 - **Container Feasibility:** Confirms that Azure Linux 3.0 containers on Arm64 are a viable option for performance-sensitive Java applications, even in the absence of native Arm64 VM images.
 
-## Run the performance tests using JMH on the custom azure linux arm vm
 
-To run JMH-based Java [benchmarking on a custom Azure Linux VM](https://github.com/abhayPS11/my-data/edit/main/content/learning-paths/servers-and-cloud-computing/azure-arm64-vm/benchmarking.md#run-the-performance-tests-using-jmh-inside-the-azure-linux-container), follow these steps:
-
-Now, Run the Benchmark on azure linux custom arm vm: 
-
-```console 
-$ java -jar target/benchmarks.jar    
-```
-
-Output: 
-
-```output
-Result "com.example.MyBenchmark.benchmarkHttpResponse":
-35479679.586 ±(99.9%) 143641.773 ops/s [Average]
-(min, avg, max) = (35074482.802, 35479679.586, 35723842.910), stdev = 191757.658
-CI (99.9%): [35336037.813, 35623321.359] (assumes normal distribution)
-# Run complete. Total time: 00:08:21
-```
-
-### JMH Benchmark Summary — x86_64 Azure Linux VM (D4s_v6)
+### JMH Benchmark Summary on x86_64 Azure Linux VM (D4s_v4)
 
 | Metric                  | Value                            |
 |-------------------------|----------------------------------|
@@ -151,7 +123,7 @@ CI (99.9%): [35336037.813, 35623321.359] (assumes normal distribution)
 | **Max Throughput**      | 15.58 million ops/sec            |
 
 
-### JMH Benchmark Summary — Custom Azure Linux ARM64 VM
+### JMH Benchmark Summary on Custom Azure Linux ARM64 VM
 
 | Metric                  | Value                            |
 |-------------------------|----------------------------------|
