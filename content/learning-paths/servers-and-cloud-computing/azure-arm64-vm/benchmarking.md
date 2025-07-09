@@ -13,11 +13,11 @@ Now that you’ve built and run the Tomcat-like response, you can use it to test
 Before testing, note that you have two options to deploy your Java application on Azure Linux.
 {{% /notice %}}
 
-#### 1. Using Azure Linux Container (Arm64)
+#### 1. Using Azure Linux Container (Arm)
 
 Run your Java application inside a container built on the official Azure Linux Arm64 base image.
 
-#### 2. Using Azure Linux ARM64 VM
+#### 2. Using Azure Linux Arm VM
 
 Deploy your application directly on an Azure Linux ARM64 VM, which you can create from an AArch64 ISO image (as demonstrated earlier).
 
