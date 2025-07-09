@@ -162,7 +162,7 @@ CI (99.9%): [35336037.813, 35623321.359] (assumes normal distribution)
 | **Min Throughput**      | 35.07 million ops/sec            |
 | **Max Throughput**      | 35.72 million ops/sec            |
 
-### Highlights from Azure Linux Arm64 Benchmarking on cutom arm vm (JDK 11.0.27)
+### Highlights from Azure Linux Arm64 Benchmarking on Custom arm vm (JDK 11.0.27)
 
 - **Average throughput:** 35.48 million operations/sec over 25 iterations
 - **Throughput range**: 35.07M to 35.72M ops/sec
