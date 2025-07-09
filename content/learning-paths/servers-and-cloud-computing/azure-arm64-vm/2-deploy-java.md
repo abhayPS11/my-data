@@ -6,21 +6,12 @@ weight: 4
 layout: learningpathall
 ---
 
-### You have two deployment options for Java on Azure Linux:
 
- 1. Use the [Azure Linux 3.0 Docker container](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux) on any supported platform.
- 2. Use a custom Azure Linux ARM64 VM, as shown below.
+### Working Inside Azure Linux 3.0 (Docker Container or Custom VM)
 
-{{% notice Note %}}
-You must create an Azure Linux ARM VM using a custom VHD, since Azure Linux 3.0 ARM64 images are not directly available in the marketplace. Follow [this guide to convert the ISO to a VHD](https://github.com/ArmDeveloperEcosystem/arm-learning-paths/pull/2103) and deploy it as a VM.
-{{% /notice %}}
+Azure Linux 3.0 is a Microsoft-maintained operating system built on CBL-Mariner, an open-source Linux distribution optimized for Azure workloads, including use on Azure Kubernetes Service (AKS) as a container host.
 
-### Working inside Azure Linux 3.0 Docker container
-The Azure Linux Container Host is an operating system image that's optimized for running container workloads on Azure Kubernetes Service (AKS). Microsoft maintains the Azure Linux Container Host and based it on CBL-Mariner, an open-source Linux 
-distribution created by Microsoft.
-To know more about Azure Linux 3.0, kindly refer the [microsoft azure guide for introduction of azure linux](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux). Azure Linux 3.0 offers support for Aarch64. However, the standalone VM image for Azure Linux 3.0 or CBL Mariner 3.0 is not available for Linux/ARM64.
-Hence, to use the default software stack provided by the Microsoft team, this guide will focus on creating a docker container with Azure Linux 3.0 as a base image and will build
-and run the Java application inside the container, with the default JDK provided by the Microsoft team via Azure Linux 3.0 environment. 
+To learn more, refer to the [official Microsoft documentation](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux). Azure Linux 3.0 supports the AArch64 (Arm64) architecture. However, a standalone VM image of Azure Linux 3.0 or CBL-Mariner 3.0 for Arm64 is not publicly available.
 
 ### Create Azure Linux 3.0 Docker Container 
 The Microsoft Artifact Registry offers updated docker image for the Azure Linux 3.0. Kindly find the details of [Azure Linux Base image](https://mcr.microsoft.com/en-us/artifact/mar/azurelinux/base/core/about).
@@ -34,7 +25,11 @@ The default container startup command is bash. tdnf and dnf are the default pack
 
 ### Install Java
 
-This Azure Linux 3.0 image does not include Java, so you need to install it.  
+This Azure Linux 3.0 image does not include Java, so you need to install it. 
+
+{{% notice Note %}}
+The installation, and validation commands are identical for both setups. 
+{{% /notice %}}
 
 First update tdnf:
 
@@ -125,7 +120,7 @@ $ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 - -Xmx256m sets the maximum heap size for the JVM to 256 MB. 
 - -XX:+UseG1GC enables the G1 Garbage Collector (Garbage First GC), designed for low pause times and better performance in large heaps.
 
-Output of java program on the ARM VM(Docker container):
+Output of java program on the ARM :
 ```output
 $ javac HttpSingleRequestTest.java
 $ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
@@ -141,29 +136,4 @@ Output summary:
 - The program generated a fake HTTP 200 OK response with a custom message.
 - It then measured and printed the time taken to generate that response (22125.79 microseconds).
 - This serves as a basic baseline performance test of string formatting and memory handling on the JVM running on an Azure Arm64 instance.
-
-### 2. Working with a custom Azure Linux ARM64 VM
-
-To install [Java on the Azure Linux ARM VM](https://github.com/abhayPS11/my-data/edit/main/content/learning-paths/servers-and-cloud-computing/azure-arm64-vm/2-deploy-java.md#install-java), follow the same installation steps used for Java.
-
-#### Deploy a Java application with Tomcat-like operation on azure vm
-
-To deploy a Java application with [Tomcat-like functionality on an Azure VM](https://github.com/abhayPS11/my-data/edit/main/content/learning-paths/servers-and-cloud-computing/azure-arm64-vm/2-deploy-java.md#deploy-a-java-application-with-tomcat-like-operation), follow these steps. You can now compile and run the Java file directly on the custom Azure ARM VM.
-
-Output of java program on the ARM VM:
-```output
-$ javac HttpSingleRequestTest.java
-$ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
-Response Generated:
-HTTP/1.1 200 OK
-Content-Type: text/plain
-Content-Length: 29
-Tomcat baseline test on ARM64
-Response generation took 23899.10 microseconds.
-```
-Output summary:
-
-- It simulated an HTTP 200 OK response with a custom message: "Tomcat baseline test on ARM64".
-- The program measured the time taken to generate the response string.
-- The output shows the response was built in approximately 23,899.10 microseconds, providing a baseline for Java string handling performance on the ARM-based VM.
 
