@@ -102,36 +102,36 @@ $ ./build/Linux/Release/onnxruntime_perf_test -e cpu -r 100 -m times -s -Z -I /h
 
 The following benchmark results are collected on two different x86_64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4s_v6 Ubuntu-based Azure VM**, and a **D4s_v4 Azure VM created from the Azure Linux 3.0 image published by Ntegral Inc**.
 
-| **Metric**                | **Value on Docker Container**                | **Value on Virtual Machine**   |
-|---------------------------|---------------------------|----------------|
-| Average Inference Time    | 1.4713 ms                 |                |
-| Throughput                | 679.48 inferences/sec     |                |
-| CPU Utilization           | 100%                      |                |
-| Peak Memory Usage         | ~39.8 MB                  |                |
-| P50 Latency               | 1.4622 ms                 |                |
-| Max Latency               | 2.3384 ms                 |                |
-| Latency Consistency       | Consistent                |                |
-| Model Used                | squeezenet-int8.onnx      |                |
-| Environment               | Docker container (x86)    |                |
+| **Metric**               | **Value on Docker Container** | **Value on Virtual Machine** |
+|--------------------------|----------------------------------------|-----------------------------------------|
+| **Average Inference Time** | 1.4713 ms                             | 1.8961 ms                                |
+| **Throughput**             | 679.48 inferences/sec                 | 527.25 inferences/sec                    |
+| **CPU Utilization**        | 100%                                  | 95%                                      |
+| **Peak Memory Usage**      | 39.8 MB                              | 36.1 MB (37851136 bytes)                |
+| **P50 Latency**            | 1.4622 ms                             | 1.8709 ms                                |
+| **Max Latency**            | 2.3384 ms                             | 2.7826 ms                                |
+| **Latency Consistency**    | Consistent                            | Consistent                               |
+| **Model Used**             | `squeezenet-int8.onnx`                | `squeezenet-int8.onnx`                   |
+
 
 ### Benchmark summary on Arm64:
 
 The following benchmark results are collected on two different Arm64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4ps_v6 Ubuntu-based Azure VM**, and a **D4ps_v6 Azure VM created from the Azure Linux 3.0 custom image using the Aarch64 ISO**.
-| **Metric**                | **Value on Docker Container**                | **Value on Virtual Machine**   |
-|---------------------------|---------------------------|----------------|
-| Average Inference Time    | 1.9183 ms                 |                |
-| Throughput                | 521.09 inferences/sec     |                |
-| CPU Utilization           | ~98%                      |                |
-| Peak Memory Usage         | 35.36 MB                  |                |
-| P50 Latency               | 1.91654 ms         |                |
-| Max Latency               | 2.01418 ms         |                |
-| Latency Consistency       | Consistent                |                |
-| Model Used                | squeezenet-int8.onnx      |                |
-| Environment               | Docker container (Arm64)  |                |
 
+| **Metric**                | **Value on Docker Container**         | **Value on Virtual Machine**                |
+|---------------------------|---------------------------------------|---------------------------------------------|
+| **Average Inference Time**| 1.9183 ms                              | 1.9169 ms                                    |
+| **Throughput**            | 521.09 inferences/sec                  | 521.41 inferences/sec                        |
+| **CPU Utilization**       | 98%                                   | 100%                                         |
+| **Peak Memory Usage**     | 35.36 MB                               | 33.57 MB                    |
+| **P50 Latency**           | 1.9165 ms                              | 1.9168 ms                                    |
+| **Max Latency**           | 2.0142 ms                              | 1.9979 ms                                    |
+| **Latency Consistency**   | Consistent                             | Consistent                                   |
+| **Model Used**            | `squeezenet-int8.onnx`                 | `squeezenet-int8.onnx`                       |
 
 
 ### Highlights from Azure Linux Arm64 Benchmarking (ONNX Runtime with SqueezeNet)
-- **Efficient Inference:** Achieved an average inference time of 1.92 ms, demonstrating low-latency performance on Arm-based infrastructure.
-- **Strong Throughput:** Reached 521.09 inferences/sec using the quantized squeezenet-int8.onnx model in a Docker container on Azure D4ps_v6.
-- **Consistent Resource Usage:** Maintained ~98% CPU utilization and only 35.36 MB peak memory, highlighting the suitability of Arm64 VMs for lightweight AI inference workloads.
+- **Low-Latency Inference:** Achieved consistent average inference times of ~1.92 ms across both Docker and VM environments on Arm64.
+- **Strong and Stable Throughput:** Sustained throughput of over 521 inferences/sec using the squeezenet-int8.onnx model on D4ps_v6 instances.
+- **Lightweight Resource Footprint:** Peak memory usage stayed below 36 MB, with CPU utilization reaching ~98–100%, ideal for efficient edge or cloud inference.
+- **Consistent Performance:** P50 and Max latency remained tightly bound across both setups, showcasing reliable performance on Azure Cobalt 100 Arm-based infrastructure.
