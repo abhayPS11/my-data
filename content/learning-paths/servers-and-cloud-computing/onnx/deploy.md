@@ -41,7 +41,7 @@ Create and activate a virtual environment:
 $ python3 -m venv onnx-env
 $ source onnx-env/bin/activate
 ```
-Note: Using a virtual environment isolates ONNX and its dependencies to avoid system conflicts.
+{{% notice Note %}}Using a virtual environment isolates ONNX and its dependencies to avoid system conflicts.{{% /notice %}}
 
 ### Install ONNX and Required Libraries:
 
@@ -51,8 +51,8 @@ $ pip install onnx onnxruntime fastapi uvicorn numpy
 ```
 This installs ONNX libraries along with FastAPI (web serving) and NumPy (for input tensor generation).
 
-Validate ONNX and ONNX Runtime:
-Create **version.py** with below codes:
+### Validate ONNX and ONNX Runtime:
+Create **version.py** as below:
 
 ```python
 import onnx  
@@ -66,18 +66,18 @@ Now, run version.py
 ```console
 $ python3 version.py
 ```
-output:
+
 ```output
 ONNX version: 1.18.0
 ONNX Runtime version: 1.22.0
 ```
-### Download and Validate an ONNX Model :
+### Download and Validate ONNX Model - SqueezeNet:
 SqueezeNet is a lightweight convolutional neural network (CNN) architecture designed to achieve comparable accuracy to AlexNet, but with fewer parameters and smaller model size. 
 
 ```console
 $ wget https://github.com/onnx/models/raw/main/validated/vision/classification/squeezenet/model/squeezenet1.0-12-int8.onnx -O squeezenet-int8.onnx
 ```
-Validate the model: 
+#### Validate the model: 
 
 Create a **vaildation.py** file with the code below for validation for ONNX model. 
 
@@ -88,7 +88,7 @@ model = onnx.load("squeezenet-int8.onnx")
 onnx.checker.check_model(model)
 print("✅ Model is valid!")
 ```
-output:
+
 ```output
 ✅ Model is valid!
 ```
@@ -97,6 +97,7 @@ This downloads a quantized (INT8) classification model on the both VMs, and vali
 ### Baseline testing using ONNX Runtime: 
 Create a **baseline.py** file with the below code for baseline test of ONNX: 
 
+This test measures the inference latency of the ONNX Runtime by timing how long it takes to process a single input using the `squeezenet-int8.onnx model`. It helps evaluate how efficiently the model runs on the target hardware.
 ```python
 import onnxruntime as ort
 import numpy as np
@@ -113,20 +114,20 @@ end = time.time()
 print("Inference time:", end - start)
 ```
 
-Run it:
+Run the baseline test::
 
 ```console
 $ python3 baseline.py
 ```
-output:
 ```output
 Inference time: 0.02060103416442871
 ```
-Inference time is the amount of time it takes for a trained machine learning model to make a prediction (i.e., produce output) after receiving input data. 
+{{% notice Note %}}Inference time is the amount of time it takes for a trained machine learning model to make a prediction (i.e., produce output) after receiving input data. 
 input tensor of shape (1, 3, 224, 224): 
 - 1: batch size 
 - 3: color channels (RGB) 
 - 224 x 224: image resolution (common for models like SqueezeNet)
+{{% /notice %}}
 
 #### Output of ONNX baseline testing on the Arm VM: 
 
