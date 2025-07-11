@@ -66,7 +66,7 @@ Now, run version.py
 ```console
 $ python3 version.py
 ```
-
+output
 ```output
 ONNX version: 1.18.0
 ONNX Runtime version: 1.22.0
