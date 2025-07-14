@@ -1,7 +1,8 @@
 name: Runner Test
 
-on: [push]
-
+on: 
+  push:
+  workflow_dispatch:
 jobs:
   test:
     runs-on: [self-hosted, cos, arm64]
