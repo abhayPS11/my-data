@@ -1,0 +1,10 @@
+name: Runner Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: [self-hosted, cos, arm64]
+    steps:
+      - name: Say Hello
+        run: echo "Hello from COS Arm64!"
