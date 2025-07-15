@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 
-## Deploy GitHub Actions Runner on GCP Arm64 VM and Automate NGINX Deployment
+## Deploy GitHub Actions Runner on GCP Arm64 VM and Automate NGINX Deployment.
 
 This Learning Path is about deploying a self-hosted GitHub Actions Runner on a GCP C4A Arm64 VM running Ubuntu. It walks through installing Git and GitHub CLI, authenticating with GitHub, configuring the runner, and automating the deployment of an NGINX server using GitHub Actions.
 
