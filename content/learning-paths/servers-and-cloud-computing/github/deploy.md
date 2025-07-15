@@ -111,3 +111,47 @@ Current runner version: '2.326.0'
 The runner will now be visible in the GitHub actions:
 
 ![final-runner](./final-runner.png)
+
+## Deploy NGINX Using GitHub Actions
+For simple baseline testing, NGINX is deployed via a GitHub Actions workflow triggered on every push to the `main` branch.
+
+Create the Workflow:
+Create a workflow file at `.github/workflows/deploy-nginx.yaml` with the following content:
+
+```yaml
+
+name: Deploy NGINX
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Install NGINX
+        run: |
+          sudo apt update
+          sudo apt install -y nginx
+
+      - name: Start NGINX
+        run: sudo systemctl start nginx
+```
+ Commit and Push:
+
+ ```console
+git add .
+git commit -m "Add NGINX deploy workflow"
+git push origin main
+```
+Access the NGINX Server
+Once the workflow completes, open your browser and navigate to:
+```
+http://<your-public-IP>
+```
+You should see the NGINX welcome page confirming a successful deployment.
+
+![nginx](./ngnix.png)
+
+
