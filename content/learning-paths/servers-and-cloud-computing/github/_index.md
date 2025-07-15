@@ -16,7 +16,7 @@ prerequisites:
      - Familiarity with [GitHub Actions](https://github.com/features/actions) and Linux command line.
      - A GitHub account. You can sign up [here](https://github.com/signup).     
 
-author: 
+author: Zach Lasiuk
 
 ##### Tags
 skilllevels: Introductory
@@ -24,7 +24,7 @@ subjects: CI-CD
 cloud_service_providers: GCP
 
 armips:
-    - Neoverse-N2
+    - Neoverse-V2
 
 tools_software_languages:
   - GitHub Actions
