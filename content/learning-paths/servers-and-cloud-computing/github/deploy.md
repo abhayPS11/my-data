@@ -24,11 +24,11 @@ $ gh auth login
  ```
 The command gh auth login is used to authenticate the GitHub CLI with your GitHub account. It allows you to securely log in using a web browser or token, enabling the CLI to interact with repositories, actions, and other GitHub features on your behalf.
 
-![Login to GitHub](./gh-auth.png)
+![Login to GitHub](./images/gh-auth.png)
 
 Below is the GitHub login UI:
 
-![GitHub UI](./login-page.png)
+![GitHub UI](./images/login-page.png)
 
 ### Test GitHub CLI and Git 
 Create a test repo: 
@@ -47,13 +47,13 @@ The command `gh repo create test-repo --public` creates a new public GitHub repo
 Go to your repository's Settings > Actions, and under the Runners section, click on "Add Runner" or view existing self-hosted runners.
 If the Actions tab is not visible, ensure Actions are enabled by navigating to Settings > Actions > General, and select "Allow all actions and reusable workflows".
 
-![runner](./newsh-runner.png)
+![runner](./images/newsh-runner.png)
 
 Then, click on the ‘New runner’ button, followed by ‘New self-hosted runner’. In the ‘Add new self-hosted runner’ section, proceed as follows:
 - Select Linux for the operating system.
 - Choose ARM64 for the architecture
 
-![new-runner](./new-runner.png)
+![new-runner](./images/new-runner.png)
 
 Next, execute the following instructions on your machine:
 ```console
@@ -110,7 +110,7 @@ Current runner version: '2.326.0'
 ```
 The runner will now be visible in the GitHub actions:
 
-![final-runner](./final-runner.png)
+![final-runner](./images/final-runner.png)
 
 ## Deploy NGINX Using GitHub Actions
 For simple baseline testing, NGINX is deployed via a GitHub Actions workflow triggered on every push to the `main` branch.
@@ -152,6 +152,6 @@ http://<your-public-IP>
 ```
 You should see the NGINX welcome page confirming a successful deployment.
 
-![nginx](./nginx.png)
+![nginx](./images/nginx.png)
 
 
