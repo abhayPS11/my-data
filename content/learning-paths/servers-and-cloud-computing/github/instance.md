@@ -15,14 +15,13 @@ This guide walks you through provisioning an **Arm64 VM** on GCP using the **Goo
 If you are new to Google Cloud, it's recommended to follow the [GCP Quickstart Guide to Create a VM](https://cloud.google.com/compute/docs/instances/create-start-instance).
 
 
-### ✅ Create an Arm-based Virtual Machine (C4A)
+### Create an Arm-based Virtual Machine (C4A)
 
 To create a VM based on the C4A Arm architecture:
-
 1. Navigate to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Go to **Compute Engine > VM Instances** and click **“Create Instance”**.
 3. Fill in basic details like **Instance Name**, **Region**, and **Zone**.
-4. Under the **Machine Configuration**:
+4.Under the **Machine Configuration**:
    - Set **Architecture** to `Arm64`.
    - Choose the **Series** as `C4A`.
    - Select a machine type such as `c4a-standard-4`.
@@ -33,4 +32,5 @@ To create a VM based on the C4A Arm architecture:
 
 Click **Create**, and the instance will launch.
 
-![Instance Screenshot](./images/gh-auth.png)
+![Instance Screenshot](./images/image.png)
+
