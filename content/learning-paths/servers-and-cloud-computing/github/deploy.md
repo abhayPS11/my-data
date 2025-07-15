@@ -19,3 +19,7 @@ $ sudo apt update
 $ sudo apt install -y git gh
 ```
 Login to GitHub
+```console
+$ gh auth login 
+ ```
+The command gh auth login is used to authenticate the GitHub CLI with your GitHub account. It allows you to securely log in using a web browser or token, enabling the CLI to interact with repositories, actions, and other GitHub features on your behalf.
