@@ -26,7 +26,7 @@ The command gh auth login is used to authenticate the GitHub CLI with your GitHu
 
 ![Login to GitHub](./gh-auth.png)
 
-Belw is the GitHub login UI:
+Below is the GitHub login UI:
 
 ![GitHub UI](./login-page.png)
 
@@ -35,8 +35,8 @@ Create a test repo:
 ```console
 gh repo create test-repo –public
 ```
+Output:
 ```output
-gcpuser@lpprojectubuntuarm64:~$ gh repo create test-repo --public
 ✓ Created repository <your-github-account>/test-repo on GitHub
   https://github.com/<your-github-account>/test-repo
 ```
@@ -152,6 +152,6 @@ http://<your-public-IP>
 ```
 You should see the NGINX welcome page confirming a successful deployment.
 
-![nginx](./ngnix.png)
+![nginx](./nginx.png)
 
 
