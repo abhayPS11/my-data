@@ -1,15 +1,14 @@
 ---
-title:  Deploy GitHub Actions Runner on GCP Arm and Benchmark Performance
+title:  Deploy Self-Hosted GitHub Actions Runner on GCP C4A (Arm64) Instance
  
 minutes_to_complete: 30
 
-who_is_this_for: This Learning Path is for DevOps engineers, system administrators, or developers who want to deploy GitHub Actions Runner on GCP Arm64 instances and analyze its performance using simple CI workflows.
+who_is_this_for: This Learning Path is for DevOps engineers, system administrators, or developers who want to deploy GitHub Actions Runner on GCP Arm64 instances.
 
 learning_objectives:
        - Provision an Arm64 VM on Google Cloud Platform using the Tau C4A instance family.
        - Set up and validate a GitHub Actions self-hosted runner on the Arm64 VM.
        - Deploy a basic CI workflow and verify execution on Arm64 infrastructure.
-       - Benchmark job execution and compare performance with x86-based systems.
 
 prerequisites:
      - A [Google Cloud Platform (GCP)](https://cloud.google.com/free?utm_source=google&hl=en) account with billing enabled.
@@ -19,9 +18,9 @@ prerequisites:
 author: Zach Lasiuk
 
 ##### Tags
-skilllevels: Introductory
+skilllevels: Advanced
 subjects: CI-CD
-cloud_service_providers: GCP
+cloud_service_providers: Google Cloud
 
 armips:
     - Neoverse-V2
