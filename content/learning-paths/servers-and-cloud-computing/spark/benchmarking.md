@@ -76,6 +76,6 @@ The following  benchmark results are collected on an Arm64 environment using the
 | Execution Time         | **1.065 seconds**               |
 
 ### **Highlights from Gcp C4A Arm VM**
-- **Fast Execution:** Spark achieved processing of 10 million records in as low as 1.06 seconds, showcasing the speed of ARM64 on distributed workloads.
-- **Consistent Performance:** Execution time remained stable across multiple runs, confirming reliability of Spark on ARM-based virtual machines.
-- **ARM-Optimized Scalability:** Demonstrates the capability of GCP’s C4A ARM64 VMs to handle high-throughput Spark jobs efficiently in a cost-effective environment.
+- **Fast Execution:** Spark achieved processing of 10 million records in as low as 1.06 seconds, showcasing the speed of Arm on distributed workloads.
+- **Consistent Performance:** Execution time remained stable across multiple runs, confirming reliability of Spark on Arm-based virtual machines.
+- **Arm-Optimized Scalability:** Demonstrates the capability of GCP’s C4A Arm VMs to handle high-throughput Spark jobs efficiently in a cost-effective environment.
