@@ -23,7 +23,7 @@ To create a VM based on the C4A Arm architecture:
       - Fill in basic details like **Instance Name**, **Region**, and **Zone**.
       - Choose the **Series** as `C4A`.
       - Select a machine type such as `c4a-standard-4`.
-![Instance Screenshot](./image.png)
+![Instance Screenshot](./image1.png)
 4. Under the **OS and Storage**, click on **Change**, and select Arm64 based OS Image of your choice. For this Learning Path, we pick **Ubuntu** as the Operating System with **Ubuntu 24.04 LTS Minimal** as the Version. Make sure you pick the version of image for Arm.
 5. Under **Networking**, enable **Allow HTTP traffic** to test workloads like NGINX later.
 6. Click on **Create**, and the instance will launch.
