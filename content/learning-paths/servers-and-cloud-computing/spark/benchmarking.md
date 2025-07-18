@@ -42,20 +42,21 @@ spark-shell < spark_benchmark.scala
 Output:
 
 ```output
-scala> val t0: Long = 15409270671610
+Spark session available as 'spark'.
 
-scala>
+scala> val t0: Long = 2918912787005
+
 scala> val data: scala.collection.immutable.Range.Inclusive = Range 1 to 10000000
-scala> val distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:1
-scala>
-scala>
-scala> val result: Long = 3333333
-scala>
-scala> val t1: Long = 15410335676096
 
-scala>
+scala> val distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:1
+
+scala> val result: Long = 3333333
+
+scala> val t1: Long = 2919836033255
+
 scala> Processed Count: 3333333
-scala> Spark Execution Time: 1.065004486 seconds
+
+scala> Spark Execution Time: 0.92324625 seconds
 ```
 
 This measures:
