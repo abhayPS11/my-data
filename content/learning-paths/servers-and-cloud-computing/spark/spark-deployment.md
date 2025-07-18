@@ -15,11 +15,25 @@ Finally, it includes benchmarking to compare Spark’s performance on Arm64 vers
 ### Install Required Packages 
 
 ```console
-$ sudo apt update && sudo apt install -y openjdk-17-jdk git maven scala curl unzip
+$ sudo dnf update -y
+$ sudo dnf install -y java-17-openjdk java-17-openjdk-devel git maven wget nano curl unzip
 ```
 Verify Java installation: 
 ```console
 $ java -version
+```
+Install scala:
+```console
+$ curl -O https://downloads.lightbend.com/scala/2.13.16/scala-2.13.16.tgz
+$ tar -xzf scala-2.13.16.tgz
+$ sudo mv scala-2.13.16 /opt/scala
+$ export PATH=/opt/scala/bin:$PATH
+$ source ~/.bashrc
+```
+Verify Scala Installation:
+
+```console
+$ scala -version
 ```
 
 ### Clone Apache Spark Repository 
