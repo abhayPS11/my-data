@@ -42,9 +42,7 @@ spark-shell < spark_benchmark.scala
 Output:
 
 ```output
-Spark session available as 'spark'.
-
-scala> val t0: Long = 2918912787005
+scala> val t0: Long = 8746885756395
 
 scala> val data: scala.collection.immutable.Range.Inclusive = Range 1 to 10000000
 
@@ -52,11 +50,11 @@ scala> val distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at
 
 scala> val result: Long = 3333333
 
-scala> val t1: Long = 2919836033255
+scala> val t1: Long = 8747831277207
 
 scala> Processed Count: 3333333
 
-scala> Spark Execution Time: 0.92324625 seconds
+scala> Spark Execution Time: 0.945520812 seconds
 ```
 
 This measures:
@@ -66,15 +64,29 @@ This measures:
   - Total time Spark takes to process the job – Measures end-to-end execution time from job submission to result collection.
 
 ### Benchmark summary on x86_64:
-
+| **Category**         | **Details**                     |
+|----------------------|----------------------------------|
+| Operating System     | RHEL 9 (x86_64)                  |
+| Java Version         | OpenJDK 17                       |
+| Scala Version        | 2.13.16                          |
+| RDD Source           | `Range(1 to 10,000,000)`         |
+| Processed Count      | 3,333,333                        |
+| Start Time (t0)      | 5,437,587,327,891                |
+| End Time (t1)        | 5,438,909,915,151                |
+| Execution Time       | **1,322.59 milliseconds**        |
 ### Benchmark summary on Arm64:
 The following  benchmark results are collected on an Arm64 environment using the C4A VM series (c4a-standard-4) on GCP.
-| **Metric**             | **Value**                       |
-|------------------------|----------------------------------|
-| Input Data Range       | 1 to 10,000,000                 |
-| Transformation Applied | `map(_ * 2).filter(_ % 3 == 0)` |
-| Processed Count        | 3,333,333                       |
-| Execution Time         | **1.065 seconds**               |
+
+| **Category**         | **Details**                     |
+|----------------------|----------------------------------|
+| Operating System     | RHEL 9 (aarch64)                 |
+| Java Version         | OpenJDK 17                       |
+| Scala Version        | 2.13.16                          |
+| RDD Source           | `Range(1 to 10,000,000)`         |
+| Processed Count      | 3,333,333                        |
+| Start Time (t0)      | 8,746,885,756,395                |
+| End Time (t1)        | 8,747,831,277,207                |
+| Execution Time       | **945.52 milliseconds**          |
 
 ### **Highlights from Gcp C4A Arm VM**
 - **Fast Execution:** Spark achieved processing of 10 million records in as low as 1.06 seconds, showcasing the speed of Arm on distributed workloads.
