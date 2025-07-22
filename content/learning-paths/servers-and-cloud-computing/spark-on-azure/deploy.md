@@ -32,8 +32,8 @@ The default container startup command is bash. tdnf and dnf are the default pack
 ### Install Required Packages 
 
 ```console
-$ sudo dnf update -y
-$ sudo dnf install -y java-17-openjdk java-17-openjdk-devel git maven wget nano curl unzip
+$ sudo tdnf update -y
+$ sudo tdnf install -y java-17-openjdk java-17-openjdk-devel git maven wget nano curl unzip tar
 ```
 Verify Java installation: 
 ```console
@@ -50,9 +50,9 @@ $ sudo mv spark-3.5.6-bin-hadoop3 /opt/spark
 Add to `~/.bashrc` or `~/.zshrc` for persistenc
 
 ```cosole
-echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
-echo 'export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin' >> ~/.bashrc
-source ~/.bashrc
+$ echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
+$ echo 'export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin' >> ~/.bashrc
+
 ```
 Apply changes immediate
 
