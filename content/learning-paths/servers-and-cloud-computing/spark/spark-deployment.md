@@ -22,43 +22,32 @@ Verify Java installation:
 ```console
 $ java -version
 ```
-Install scala:
-```console
-$ curl -O https://downloads.lightbend.com/scala/2.13.16/scala-2.13.16.tgz
-$ tar -xzf scala-2.13.16.tgz
-$ sudo mv scala-2.13.16 /opt/scala
-$ export PATH=/opt/scala/bin:$PATH
-$ source ~/.bashrc
-```
-Verify Scala Installation:
+### Install Required Packages 
 
 ```console
-$ scala -version
+$ sudo tdnf update -y
+$ sudo tdnf install -y java-17-openjdk java-17-openjdk-devel git maven wget nano curl unzip tar
 ```
-
-### Clone Apache Spark Repository 
+Verify Java installation: 
 ```console
-$ git clone https://github.com/apache/spark.git 
-$ cd spark
+$ java -version
 ```
-This will clone the latest Spark version 
 
-### Build Spark (for Arm)
-
-To build Spark
+### Install Apache Spark on Arm
 ```console
-$ ./build/mvn -DskipTests clean package 
+$ wget https://downloads.apache.org/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz
+$ tar -xzf spark-3.5.6-bin-hadoop3.tgz
+$ sudo mv spark-3.5.6-bin-hadoop3 /opt/spark
 ```
-This process may take 20–30 minutes depending on the VM. 
-
 ### Set Environment Variables 
 Add to `~/.bashrc` or `~/.zshrc` for persistenc
 
 ```cosole
-$ export SPARK_HOME=~/spark 
-$ export PATH=$SPARK_HOME/bin:$PATH
+$ echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
+$ echo 'export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin' >> ~/.bashrc
+
 ```
-Apply changes immediatel
+Apply changes immediate
 
 ```console
 $ source ~/.bashrc 
@@ -76,14 +65,11 @@ Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 4.1.0-SNAPSHOT
+   /___/ .__/\_,_/_/ /_/\_\   version 3.5.6
       /_/
 
-Using Scala version 2.13.16, OpenJDK 64-Bit Server VM, 17.0.15
-Branch master
-Compiled by user gcpuser on 2025-07-17T06:04:20Z
+Using Scala version 2.12.18, OpenJDK 64-Bit Server VM, 17.0.15
 ```
-Using Scala version 2.13.16, Java HotSpot(TM) 64-Bit Server VM, OpenJDK 17.
 
 Since Apache Spark is installed successfully on your GCP C4A Arm VM, let's now perform simple baseline testing to validate that Spark runs correctly and gives expected output. 
 
@@ -105,10 +91,10 @@ val squared = distData.map(x => x * x).collect()
 println("Squared values: " + squared.mkString(", ")) 
 ```
 Code Explanation:
-  - val data = Seq(1, 2, 3, 4, 5) >>>>>️ Creates a local Scala sequence of integers. 
-  - val distData = spark.sparkContext.parallelize(data)>>>️ Converts the sequence into a distributed RDD for parallel processing. 
-  - val squared = distData.map(x => x * x).collect() ️>>>> Squares each number in the RDD and collects the result back to the driver. 
-  - println("Squared values: " + squared.mkString(", "))>>>>>>Prints the squared values as a comma-separated string.
+  - val data = Seq(1, 2, 3, 4, 5): Creates a local Scala sequence of integers. 
+  - val distData = spark.sparkContext.parallelize(data): Converts the sequence into a distributed RDD for parallel processing. 
+  - val squared = distData.map(x => x * x).collect(): Squares each number in the RDD and collects the result back to the driver. 
+  - println("Squared values: " + squared.mkString(", ")): Prints the squared values as a comma-separated string.
 
 ### Run the Test in Spark Shell
 
@@ -121,5 +107,3 @@ You should see:
 Squared values: 1, 4, 9, 16, 25
 ```
 This confirms that Spark is working correctly with its driver, executor, and cluster manager in local mode. 
-
-
