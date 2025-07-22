@@ -29,7 +29,7 @@ armips:
 tools_software_languages:
     - Apache Spark
     - OpenJDK
-    - Scala
+    - Python
     - Maven
     - Docker
  
@@ -55,8 +55,8 @@ further_reading:
       link: https://spark.apache.org/
       type: documentation
   - resource:
-      title: The Scala programming language official website
-      link: scala-lang.org
+      title: Hadoop official website
+      link: https://hadoop.apache.org/
       type: website
 
 
