@@ -45,6 +45,16 @@ spark-submit benchmark_script.py
 ```
 
 ### Benchmark summary on x86_64:
+The following benchmark results are collected on two different x86_64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4s_v6 Ubuntu-based Azure VM**, and a **D4s_v4 Azure VM created from the Azure Linux 3.0 image published by Ntegral Inc**.
+
+| Metric                 |Value on Docker Container |  Value on Virtual Machine     |
+|------------------------|------------------------|------------------------|
+| Total Job Time         | 5.12 seconds           | 5.27 seconds           |
+| Stage 0 Duration       | 1.57 seconds           | 1.74 seconds           |
+| Avg Task Time          | ~1.40s (per task)      | ~2.74s (per task)    |
+| Write Commit Time      | 16 ms                  | 16 ms                  |
+| Parallelism            | 4 tasks                | 4 tasks                |
+| Data Processed         | 10M rows (Parquet)     | 10M rows (Parquet)     |
 
 ### Benchmark summary on Arm64:
 The following benchmark results are collected on two different Arm64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4ps_v6 Ubuntu-based Azure VM**, and a **D4ps_v6 Azure VM created from the Azure Linux 3.0 custom image using the Aarch64 ISO**.
