@@ -13,8 +13,12 @@ layout: learningpathall
 Apache Spark benchmarking involves measuring the performance of distributed data processing tasks to evaluate execution efficiency. Spark benchmarks focus on job-level metrics such as execution time, task parallelism, and data transformation performance. It is useful for comparing performance across different configurations or hardware (e.g., Arm vs x86). 
 
 ## Benchmarking Steps (Spark-Only Execution Time)
-1. Create a Benchmark Script (Scala)
-Create a simple Spark job that applies transformations and actions on a large dataset:
+Create a file named **spark_benchmark.scala**:
+
+```console
+nano spark_benchmark.scala
+```
+Add the below code:
 
 ```scala
 // spark_benchmark.scala
@@ -42,19 +46,21 @@ spark-shell < spark_benchmark.scala
 Output:
 
 ```output
-scala> val t0: Long = 8746885756395
-
-scala> val data: scala.collection.immutable.Range.Inclusive = Range 1 to 10000000
-
-scala> val distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:1
-
-scala> val result: Long = 3333333
-
-scala> val t1: Long = 8747831277207
-
-scala> Processed Count: 3333333
-
-scala> Spark Execution Time: 0.945520812 seconds
+t0: Long = 4976303800211
+scala>
+scala> val data = 1 to 10000000
+data: scala.collection.immutable.Range.Inclusive = Range 1 to 10000000
+scala> val distData = spark.sparkContext.parallelize(data)
+distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:23
+scala> // Apply Spark transformations
+scala> val result = distData.map(_ * 2).filter(_ % 3 == 0).count()
+result: Long = 3333333
+scala> val t1 = System.nanoTime()
+t1: Long = 4977413471129
+scala> println(s"Processed Count: $result")
+Processed Count: 3333333
+scala> println("Spark Execution Time: " + (t1 - t0) / 1e9 + " seconds")
+Spark Execution Time: 1.109670918 seconds
 ```
 
 This measures:
@@ -64,31 +70,35 @@ This measures:
   - Total time Spark takes to process the job – Measures end-to-end execution time from job submission to result collection.
 
 ### Benchmark summary on x86_64:
-| **Category**         | **Details**                     |
-|----------------------|----------------------------------|
-| Operating System     | RHEL 9 (x86_64)                  |
-| Java Version         | OpenJDK 17                       |
-| Scala Version        | 2.13.16                          |
-| RDD Source           | `Range(1 to 10,000,000)`         |
-| Processed Count      | 3,333,333                        |
-| Start Time (t0)      | 5,437,587,327,891                |
-| End Time (t1)        | 5,438,909,915,151                |
-| Execution Time       | **1,322.59 milliseconds**        |
+The following  benchmark results are collected on an x86_64 environment.
+| **Category**         | **Details**                             |
+|----------------------|------------------------------------------|
+| Operating System     | RHEL 9 (x86_64)                          |
+| Spark Version        | Spark 3.5.6                              |
+| RDD Source           | `1 to 10000000`                          |
+| Transformation       | `.map(_ * 2).filter(_ % 3 == 0).count()` |
+| Processed Count      | 3,333,333                                |
+| Start Time (t0)      | 4959983995185 (nanoseconds)             |
+| End Time (t1)        | 4961625140647 (nanoseconds)             |
+| Execution Time       | 1.641145462 seconds / 1,641.1 milliseconds |
+
+
 ### Benchmark summary on Arm64:
 The following  benchmark results are collected on an Arm64 environment using the C4A VM series (c4a-standard-4) on GCP.
 
-| **Category**         | **Details**                     |
-|----------------------|----------------------------------|
-| Operating System     | RHEL 9 (aarch64)                 |
-| Java Version         | OpenJDK 17                       |
-| Scala Version        | 2.13.16                          |
-| RDD Source           | `Range(1 to 10,000,000)`         |
-| Processed Count      | 3,333,333                        |
-| Start Time (t0)      | 8,746,885,756,395                |
-| End Time (t1)        | 8,747,831,277,207                |
-| Execution Time       | **945.52 milliseconds**          |
+| **Category**         | **Details**                             |
+|----------------------|------------------------------------------|
+| Operating System     | RHEL 9 (Arm64)                          |
+| Spark Version        | Spark 3.5.6                              |
+| RDD Source           | `1 to 10000000`                          |
+| Transformation       | `.map(_ * 2).filter(_ % 3 == 0).count()` |
+| Processed Count      | 3,333,333                                |
+| Start Time (t0)      | 4976303800211 (nanoseconds)             |
+| End Time (t1)        | 4977413471129 (nanoseconds)             |
+| Execution Time       | 1.109670918 seconds / 1,109.7 milliseconds |
+
 
 ### **Highlights from Gcp C4A Arm VM**
-- **Fast Execution:** Spark achieved processing of 10 million records in as low as 1.06 seconds, showcasing the speed of Arm on distributed workloads.
-- **Consistent Performance:** Execution time remained stable across multiple runs, confirming reliability of Spark on Arm-based virtual machines.
-- **Arm-Optimized Scalability:** Demonstrates the capability of GCP’s C4A Arm VMs to handle high-throughput Spark jobs efficiently in a cost-effective environment.
+- **Efficient Spark Execution:** The job completed in ~1.11 seconds, showing strong processing capability of the Arm64-based VM for distributed workloads.
+- **Scalable Parallelism:** With a dataset of 10 million records, Spark efficiently applied map-filter-count operations and delivered consistent output.
+- **Optimized for Arm**: Demonstrates how GCP’s C4A Arm VMs are a cost-effective and performant option for Spark batch jobs or ETL workloads on modern Linux distros like RHEL 9.
