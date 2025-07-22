@@ -39,43 +39,22 @@ Verify Java installation:
 ```console
 $ java -version
 ```
-Install scala:
+
+### Install Apache Spark on Arm
 ```console
-$ curl -O https://downloads.lightbend.com/scala/2.13.16/scala-2.13.16.tgz
-$ tar -xzf scala-2.13.16.tgz
-$ sudo mv scala-2.13.16 /opt/scala
-$ export PATH=/opt/scala/bin:$PATH
-$ source ~/.bashrc
+$ wget https://downloads.apache.org/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz
+$ tar -xzf spark-3.5.6-bin-hadoop3.tgz
+$ sudo mv spark-3.5.6-bin-hadoop3 /opt/spark
 ```
-Verify Scala Installation:
-
-```console
-$ scala -version
-```
-
-### Clone Apache Spark Repository 
-```console
-$ git clone https://github.com/apache/spark.git 
-$ cd spark
-```
-This will clone the latest Spark version 
-
-### Build Spark (for Arm)
-
-To build Spark
-```console
-$ ./build/mvn -DskipTests clean package 
-```
-This process may take 20–30 minutes depending on the VM. 
-
 ### Set Environment Variables 
 Add to `~/.bashrc` or `~/.zshrc` for persistenc
 
 ```cosole
-$ export SPARK_HOME=~/spark 
-$ export PATH=$SPARK_HOME/bin:$PATH
+echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
+echo 'export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin' >> ~/.bashrc
+source ~/.bashrc
 ```
-Apply changes immediatel
+Apply changes immediate
 
 ```console
 $ source ~/.bashrc 
@@ -93,42 +72,39 @@ Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 4.1.0-SNAPSHOT
+   /___/ .__/\_,_/_/ /_/\_\   version 3.5.6
       /_/
 
-Using Scala version 2.13.16, OpenJDK 64-Bit Server VM, 17.0.15
-Branch master
-Compiled by user gcpuser on 2025-07-17T06:04:20Z
+Using Scala version 2.12.18, OpenJDK 64-Bit Server VM, 17.0.15
 ```
 ## Baseline Testing
 Since Apache Spark is installed successfully on your Arm VM, let's now perform simple baseline testing to validate that Spark runs correctly and gives expected output.
 
-Launch Spark Shell:
+Run a simple PySpark script, create a file named `test_spark.py`, and add the below content to it::
+
+```python
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("Test").getOrCreate()
+df = spark.createDataFrame([(1, "ARM64"), (2, "Azure")], ["id", "name"])
+df.show()
+spark.stop()
+```
+Execute with:
 ```console
-spark-shell
+$ spark-submit test_spark.py
 ```
-Expected: It should start the REPL and provide access to `spark` and `sc` contexts.
-
-Run a Simple Job:
-```scala
-val data = Seq(1, 2, 3, 4, 5)
-val distData = sc.parallelize(data)
-val result = distData.reduce(_ + _)
-println(s"Result: $result")
-```
-- **val data = Seq(1, 2, 3, 4, 5)**: Creates a local in-memory Scala sequence of integers.
-- **val distData = sc.parallelize(data)**: Converts the sequence into a distributed RDD using SparkContext.
-- **val result = distData.reduce(_ + _)**: Aggregates the elements in the RDD by summing them in parallel.
-- **println(s"Result: $result")**: Prints the final sum of all elements to the console.
-
 Output:
+
 ```output
-Result: 15
-val data: Seq[Int] = List(1, 2, 3, 4, 5)
-val distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:2
-val result: Int = 15
+25/07/22 05:16:00 INFO CodeGenerator: Code generated in 10.545923 ms
+25/07/22 05:16:00 INFO SparkContext: SparkContext is stopping with exitCode 0.
++---+-----+
+| id| name|
++---+-----+
+|  1|ARM64|
+|  2|Azure|
++---+-----+
 ```
-Output summery:
-- The list List(1, 2, 3, 4, 5) is converted into a distributed RDD using sc.parallelize().
-- A reduce action is performed across the RDD to compute the sum, demonstrating Spark's parallel processing.
-- The final result of the distributed computation is 15.
+Output summary:
+
+The output shows Spark successfully generated code **(10.5ms)** and executed a simple DataFrame operation, displaying the test data **[1, "ARM64"]** and **[2, "Azure"]** before cleanly shutting down **(exitCode 0)**. This confirms a working Spark deployment on Arm64.
