@@ -13,7 +13,7 @@ layout: learningpathall
 Apache Spark benchmarking involves measuring the performance of distributed data processing tasks to evaluate execution efficiency. Spark benchmarks focus on job-level metrics such as execution time, task parallelism, and data transformation performance. It is useful for comparing performance across different configurations or hardware (e.g., Arm vs x86). 
 
 ## Custom Benchmark Script (For Full Control)
-Python/PySpark script to measure performance. For benchmarking create a **benchmark_script.py** file as below:
+Python/PySpark script to measure performance. For benchmarking create a `benchmark_script.py` file as below:
 
 ```python
 from pyspark.sql import SparkSession
