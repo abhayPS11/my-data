@@ -71,7 +71,6 @@ The following benchmark results are collected on two different Arm64 environment
 
 ### **Highlights from Azure Linux Arm64 Benchmarking**
 - **Blazing Speed:** Spark processed 10 million records in under 1.6 seconds (Stage 0), proving Arm’s capability for high-speed distributed workloads.
-- **Rock-Solid Consistency:** Minimal variance in task times (±30ms across 25 runs), demonstrating stable performance on Azure’s Arm VMs.
 - **Efficient Parallelism:** Achieved near-identical task completion times (~1.37s per task) with 4 parallel tasks, highlighting Arm’s thread scalability.
 - **Cost-Effective Performance:** Comparable performance between Docker containers (4.41s) and bare-metal Azure VMs (4.51s), making ARM64 a versatile choice for cloud-native deployments.
 - **Optimized I/O:** Snappy compression and 11ms write commits show Arm’s efficiency in handling data-intensive operations.
