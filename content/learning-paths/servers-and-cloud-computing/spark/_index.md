@@ -16,11 +16,11 @@ prerequisites:
      - Basic understanding of Linux command line and shell scripting.
      - Familiarity with distributed computing concepts and the [Apache Spark architecture](https://spark.apache.org/docs/latest/). 
 
-author: Zach Lasiuk
+author: Jason Andrews
 
 ##### Tags
 skilllevels: Advanced
-subjects: 
+subjects: Performance and Architecture
 cloud_service_providers: Google Cloud
 
 armips:
@@ -28,9 +28,7 @@ armips:
 
 tools_software_languages:
   - Apache Spark
-  - OpenJDK
-  - Scala
-  - Maven
+  - Python
 
 operatingsystems:
     - Linux
