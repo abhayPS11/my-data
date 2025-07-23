@@ -91,10 +91,10 @@ val squared = distData.map(x => x * x).collect()
 println("Squared values: " + squared.mkString(", ")) 
 ```
 Code Explanation:
-  - val data = Seq(1, 2, 3, 4, 5): Creates a local Scala sequence of integers. 
-  - val distData = spark.sparkContext.parallelize(data): Converts the sequence into a distributed RDD for parallel processing. 
-  - val squared = distData.map(x => x * x).collect(): Squares each number in the RDD and collects the result back to the driver. 
-  - println("Squared values: " + squared.mkString(", ")): Prints the squared values as a comma-separated string.
+  - **val data = Seq(1, 2, 3, 4, 5):** Creates a local Scala sequence of integers. 
+  - **val distData = spark.sparkContext.parallelize(data):** Converts the sequence into a distributed RDD for parallel processing. 
+  - **val squared = distData.map(x => x * x).collect():** Squares each number in the RDD and collects the result back to the driver. 
+  - **println("Squared values: " + squared.mkString(", "))**: Prints the squared values as a comma-separated string.
 
 ### Run the Test in Spark Shell
 
