@@ -75,9 +75,9 @@ Welcome to
 
 Using Scala version 2.12.18, OpenJDK 64-Bit Server VM, 17.0.15
 ```
-## Baseline Testing
 Since Apache Spark is installed successfully on your Arm virtual machine, let's now perform simple baseline testing to validate that Spark runs correctly and gives expected output.
 
+## Baseline Testing
 Create a file named **test_spark.py** and add the following simple PySpark script to test your setup:
 
 ```python
