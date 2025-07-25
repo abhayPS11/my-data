@@ -246,7 +246,8 @@ The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtu
 
 ### **Highlights from GCP C4A Arm virtual machine**
 
-- **Whole-stage code generation significantly boosts performance**, improving execution by up to **38×** (e.g., `agg w/o group` from 33.4s to 0.86s).
-- **Vectorized and row-based hash maps** consistently outperform non-codegen and traditional hashmap approaches, especially for aggregation with keys and complex data types (e.g., decimal keys: **6.8× faste**r with vectorized hashmap).
-- **Arm-based Spark shows strong hash performance**, with `fast hash` and `murmur3` achieving up to **3.3× better throughput** than UnsafeRowhash.
- 
+- **Whole-stage codegen improves performance by up to 2.8×**on complex joins (e.g., with long columns).
+- **Simple joins (e.g., on integers)** show **negligible performance gain**, remaining close to 1.0×.
+- **Broadcast and shuffle-based joins**benefit moderately, with **1.4× to 1.5× improvements**.
+- **Overall**, enabling whole-stage codegen consistently improves performance across most join types.
+- **Benchmark results were consistent**across both Docker and VM on Arm64.
