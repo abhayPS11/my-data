@@ -3,34 +3,32 @@ title: Run Spark applications on the Microsoft Azure Cobalt 100 processors
 
 minutes_to_complete: 60   
 
-who_is_this_for: This is an introductory topic for software developers who are looking to migrate their Apache Spark-based workloads from x86_64 platforms to Arm-based platforms. 
+who_is_this_for: This is an introductory topic for software developers who are looking to migrate their Apache Spark-based workloads from x86_64 platforms to Arm-based platforms or on Microsoft Azure Cobalt 100 processors.
 
 learning_objectives: 
-    - Provision an Azure Arm64 VM using Azure console, with Ubuntu as the base image.
+    - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
     - Learn how to create Azure Linux 3.0 Docker container.
-    - Deploy a Spark application inside an Azure Linux 3.0 Arm64-based Docker container, as well as Azure Linux 3.0 custom-image based Azure VM. 
-    - Perform Spark benchmarking inside the container as well as the custom VM.
+    - Deploy a Spark application inside an Azure Linux 3.0 Arm64-based Docker container, as well as Azure Linux 3.0 custom-image based Azure virtual machine.
+    - Perform Spark benchmarking inside the container as well as the custom virtual machine.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
     - A machine with [Docker](/install-guides/docker/) installed.
     - Familiarity with distributed computing concepts and the [Apache Spark architecture](https://spark.apache.org/docs/latest/). 
 
-author: Zach Lasiuk
+author: Jason Andrews
 
 ### Tags
 skilllevels: Advanced
-subjects: 
+subjects: Performance and Architecture
 cloud_service_providers: Microsoft Azure
 
 armips:
-    - Neoverse-N2
+    - Neoverse
 
 tools_software_languages:
     - Apache Spark
-    - OpenJDK
     - Python
-    - Maven
     - Docker
  
 
