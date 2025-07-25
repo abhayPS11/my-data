@@ -234,6 +234,15 @@ Output:
 [success] Total time: 669 s (11:09), completed Jul 24, 2025, 5:41:24 AM
 
 ```
+### Benchmark Results Table Explained:
+
+- **Best Time (ms):** Fastest execution time observed (in milliseconds).
+- **Avg Time (ms):** Average time across all iterations.
+- **Stdev (ms):** Standard deviation of execution times (lower is more stable).
+- **Rate (M/s):** Rows processed per second in millions.
+- **Per Row (ns):** Average time taken per row (in nanoseconds).
+- **Relative Speed comparison:** baseline (1.0X) is the slower version.
+
 ### Benchmark summary on x86_64:
 The following  benchmark results are collected on a c3-standard-4 (4 vCPU, 2 core, 16 GB Memory) x86_64 environment, running RHEL 9.
 
@@ -289,46 +298,37 @@ The following  benchmark results are collected on a c4a-standard-4 (4 vCPU, 16 G
 
 | Benchmark Case             | Sub-Case / Config        | Best Time (ms) | Avg Time (ms) | Stdev (ms) | Rate (M/s) | Per Row (ns) | Relative |
 |----------------------------|--------------------------|----------------|----------------|------------|-------------|----------------|-----------|
-| agg w/o group              | wholestage off           | 32967          | 33442          | 672        | 63.6        | 15.7           | 1.0       |
-| agg w/o group              | wholestage on            | 856            | 857            | 1          | 2451.2      | 0.4            | 38.5      |
-| stddev                     | wholestage off           | 3765           | 3769           | 5          | 27.8        | 35.9           | 1.0       |
-| stddev                     | wholestage on            | 870            | 872            | 2          | 120.6       | 8.3            | 4.3       |
-| kurtosis                   | wholestage off           | 19114          | 19155          | 58         | 5.5         | 182.3          | 1.0       |
-| kurtosis                   | wholestage on            | 943            | 946            | 3          | 111.2       | 9.0            | 20.3      |
-| Aggregate w/ keys          | codegen = F              | 5401           | 5509           | 154        | 15.5        | 64.4           | 1.0       |
-| Aggregate w/ keys          | codegen = T, hashmap = F | 3103           | 3110           | 7          | 27.0        | 37.0           | 1.7       |
-| Aggregate w/ keys          | row-based hashmap = T    | 1004           | 1017           | 11         | 83.5        | 12.0           | 5.4       |
-| Aggregate w/ keys          | vectorized hashmap = T   | 707            | 711            | 3          | 118.7       | 8.4            | 7.6       |
-| Aggregate w/ string key    | codegen = F              | 1938           | 1941           | 4          | 10.8        | 92.4           | 1.0       |
-| Aggregate w/ string key    | codegen = T, hashmap = F | 1208           | 1208           | 0          | 17.4        | 57.6           | 1.6       |
-| Aggregate w/ string key    | row-based hashmap = T    | 820            | 829            | 5          | 25.6        | 39.1           | 2.4       |
-| Aggregate w/ string key    | vectorized hashmap = T   | 756            | 756            | 0          | 27.8        | 36.0           | 2.6       |
-| Aggregate w/ decimal key   | codegen = F              | 1878           | 1886           | 11         | 11.2        | 89.6           | 1.0       |
-| Aggregate w/ decimal key   | codegen = T, hashmap = F | 1116           | 1116           | 0          | 18.8        | 53.2           | 1.7       |
-| Aggregate w/ decimal key   | row-based hashmap = T    | 411            | 423            | 11         | 51.0        | 19.6           | 4.6       |
-| Aggregate w/ decimal key   | vectorized hashmap = T   | 278            | 280            | 2          | 75.4        | 13.3           | 6.8       |
-| Aggregate w/ multiple keys | codegen = F              | 3272           | 3277           | 8          | 6.4         | 156.0          | 1.0       |
-| Aggregate w/ multiple keys | codegen = T, hashmap = F | 1802           | 1804           | 3          | 11.6        | 85.9           | 1.8       |
-| Aggregate w/ multiple keys | row-based hashmap = T    | 1461           | 1468           | 10         | 14.4        | 69.7           | 2.2       |
-| Aggregate w/ multiple keys | vectorized hashmap = T   | 1283           | 1285           | 3          | 16.4        | 61.2           | 2.6       |
-| Max function bytecode size | codegen = F              | 263            | 268            | 4          | 2.5         | 401.6          | 1.0       |
-| Max function bytecode size | hugeMethodLimit = 10000  | 143            | 148            | 8          | 4.6         | 217.4          | 1.8       |
-| Max function bytecode size | hugeMethodLimit = 1500   | 129            | 132            | 3          | 5.1         | 196.6          | 2.0       |
-| Cube                       | wholestage off           | 1572           | 1582           | 14         | 3.3         | 299.9          | 1.0       |
-| Cube                       | wholestage on            | 841            | 843            | 2          | 6.2         | 160.4          | 1.9       |
-| BytesToBytesMap            | UnsafeRowhash            | 137            | 137            | 0          | 153.6       | 6.5            | 1.0       |
-| BytesToBytesMap            | murmur3 hash             | 48             | 48             | 0          | 440.6       | 2.3            | 2.9       |
-| BytesToBytesMap            | fast hash                | 42             | 42             | 0          | 499.2       | 2.0            | 3.3       |
-| BytesToBytesMap    |Aggregate HashMap                 | 23             | 23             | 0          | 913.0       | 1.1            | 5.9       |
-
-### Benchmark Results Table Explained:
-
-- **Best Time (ms):** Fastest execution time observed (in milliseconds).
-- **Avg Time (ms):** Average time across all iterations.
-- **Stdev (ms):** Standard deviation of execution times (lower is more stable).
-- **Rate (M/s):** Rows processed per second in millions.
-- **Per Row (ns):** Average time taken per row (in nanoseconds).
-- **Relative Speed comparison:** baseline (1.0X) is the slower version.
+| agg w/o group              | wholestage off           | 32967          | 33442          | 672        | 63.6        | 15.7           | 1.0X      |
+| agg w/o group              | wholestage on            | 856            | 857            | 1          | 2451.2      | 0.4            | 38.5X     |
+| stddev                     | wholestage off           | 3765           | 3769           | 5          | 27.8        | 35.9           | 1.0X       |
+| stddev                     | wholestage on            | 870            | 872            | 2          | 120.6       | 8.3            | 4.3X       |
+| kurtosis                   | wholestage off           | 19114          | 19155          | 58         | 5.5         | 182.3          | 1.0X       |
+| kurtosis                   | wholestage on            | 943            | 946            | 3          | 111.2       | 9.0            | 20.3X      |
+| Aggregate w/ keys          | codegen = F              | 5401           | 5509           | 154        | 15.5        | 64.4           | 1.0X     |
+| Aggregate w/ keys          | codegen = T, hashmap = F | 3103           | 3110           | 7          | 27.0        | 37.0           | 1.7X      |
+| Aggregate w/ keys          | row-based hashmap = T    | 1004           | 1017           | 11         | 83.5        | 12.0           | 5.4X       |
+| Aggregate w/ keys          | vectorized hashmap = T   | 707            | 711            | 3          | 118.7       | 8.4            | 7.6X      |
+| Aggregate w/ string key    | codegen = F              | 1938           | 1941           | 4          | 10.8        | 92.4           | 1.0X      |
+| Aggregate w/ string key    | codegen = T, hashmap = F | 1208           | 1208           | 0          | 17.4        | 57.6           | 1.6X      |
+| Aggregate w/ string key    | row-based hashmap = T    | 820            | 829            | 5          | 25.6        | 39.1           | 2.4X      |
+| Aggregate w/ string key    | vectorized hashmap = T   | 756            | 756            | 0          | 27.8        | 36.0           | 2.6X       |
+| Aggregate w/ decimal key   | codegen = F              | 1878           | 1886           | 11         | 11.2        | 89.6           | 1.0X       |
+| Aggregate w/ decimal key   | codegen = T, hashmap = F | 1116           | 1116           | 0          | 18.8        | 53.2           | 1.7X       |
+| Aggregate w/ decimal key   | row-based hashmap = T    | 411            | 423            | 11         | 51.0        | 19.6           | 4.6X      |
+| Aggregate w/ decimal key   | vectorized hashmap = T   | 278            | 280            | 2          | 75.4        | 13.3           | 6.8X      |
+| Aggregate w/ multiple keys | codegen = F              | 3272           | 3277           | 8          | 6.4         | 156.0          | 1.0X      |
+| Aggregate w/ multiple keys | codegen = T, hashmap = F | 1802           | 1804           | 3          | 11.6        | 85.9           | 1.8X      |
+| Aggregate w/ multiple keys | row-based hashmap = T    | 1461           | 1468           | 10         | 14.4        | 69.7           | 2.2X      |
+| Aggregate w/ multiple keys | vectorized hashmap = T   | 1283           | 1285           | 3          | 16.4        | 61.2           | 2.6X      |
+| Max function bytecode size | codegen = F              | 263            | 268            | 4          | 2.5         | 401.6          | 1.0X      |
+| Max function bytecode size | hugeMethodLimit = 10000  | 143            | 148            | 8          | 4.6         | 217.4          | 1.8X      |
+| Max function bytecode size | hugeMethodLimit = 1500   | 129            | 132            | 3          | 5.1         | 196.6          | 2.0X      |
+| Cube                       | wholestage off           | 1572           | 1582           | 14         | 3.3         | 299.9          | 1.0X      |
+| Cube                       | wholestage on            | 841            | 843            | 2          | 6.2         | 160.4          | 1.9X      |
+| BytesToBytesMap            | UnsafeRowhash            | 137            | 137            | 0          | 153.6       | 6.5            | 1.0X      |
+| BytesToBytesMap            | murmur3 hash             | 48             | 48             | 0          | 440.6       | 2.3            | 2.9X      |
+| BytesToBytesMap            | fast hash                | 42             | 42             | 0          | 499.2       | 2.0            | 3.3X      |
+| BytesToBytesMap    |Aggregate HashMap                 | 23             | 23             | 0          | 913.0       | 1.1            | 5.9X      |
 
 ### **Highlights from GCP C4A Arm virtual machine**
 
