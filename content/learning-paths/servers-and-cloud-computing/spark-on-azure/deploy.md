@@ -32,10 +32,12 @@ The default container startup command is bash. tdnf and dnf are the default pack
 ```console
 $ sudo tdnf update -y
 $ sudo tdnf install -y java-17-openjdk java-17-openjdk-devel git maven wget nano curl unzip tar
+$ sudo dnf install -y python3 python3-pip
 ```
-Verify Java installation: 
+Verify Java and Python installation: 
 ```console
 $ java -version
+$ python3 --version
 ```
 
 ### Install Apache Spark on Arm
