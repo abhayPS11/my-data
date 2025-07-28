@@ -1,21 +1,21 @@
 ---
-title:  Deploy Self-Hosted GitHub Actions Runner on GCP C4A (Arm64) Instance
+title: Deploy GitHub Actions Self-Hosted Runner on Google Axion C4A virtual machine
  
 minutes_to_complete: 30
 
-who_is_this_for: This Learning Path is for DevOps engineers, system administrators, or developers who want to deploy GitHub Actions Runner on GCP Arm64 instances.
+who_is_this_for: This Learning Path is for DevOps engineers, system administrators, or developers who want to deploy GitHub Actions Self-Hosted Runner on the Google Axion C4A Arm virtual machine.
 
 learning_objectives:
-       - Provision an Arm64 VM on Google Cloud Platform using the Tau C4A instance family.
-       - Set up and validate a GitHub Actions self-hosted runner on the Arm64 VM.
-       - Deploy a basic CI workflow and verify execution on Arm64 infrastructure.
+       - Provision an Arm virtual machine on the Google Cloud Platform using the C4A Google Axion instance family.
+       - Set up and validate a GitHub Actions self-hosted runner on the Arm virtual machine.
+       - Deploy a basic CI workflow with NGINX and verify execution on Arm infrastructure.
 
 prerequisites:
      - A [Google Cloud Platform (GCP)](https://cloud.google.com/free?utm_source=google&hl=en) account with billing enabled.
-     - Familiarity with [GitHub Actions](https://github.com/features/actions) and Linux command line.
+     - Familiarity with [GitHub Actions](https://github.com/features/actions) and the Linux command line.
      - A GitHub account. You can sign up [here](https://github.com/signup).     
 
-author: Zach Lasiuk
+author: Jason Andrews
 
 ##### Tags
 skilllevels: Advanced
@@ -23,11 +23,11 @@ subjects: CI-CD
 cloud_service_providers: Google Cloud
 
 armips:
-    - Neoverse-V2
+    - Neoverse
 
 tools_software_languages:
   - GitHub Actions
-  - Git cli
+  - GitHub CLI
 
 operatingsystems:
     - Linux
