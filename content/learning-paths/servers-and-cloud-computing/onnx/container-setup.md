@@ -1,5 +1,5 @@
 ---
-title: Platform Overview and Container Setup
+title: Azure Linux 3.0 Setup Options
 weight: 4
 
 ### FIXED, DO NOT MODIFY
