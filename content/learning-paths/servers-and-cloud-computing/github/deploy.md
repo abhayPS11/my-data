@@ -13,12 +13,12 @@ This Learning Path shows how to deploy a self-hosted GitHub Actions runner on a 
 
 ### Install Git and GitHub CLI 
 ```console
-$ sudo apt update 
-$ sudo apt install -y git gh
+sudo apt update 
+sudo apt install -y git gh
 ```
 Login to GitHub
 ```console
-$ gh auth login 
+gh auth login 
  ```
 The command `gh auth login` is used to authenticate the GitHub CLI with your GitHub account. It allows you to securely log in using a web browser or token, enabling the CLI to interact with repositories, actions, and other GitHub features on your behalf.
 
@@ -31,7 +31,7 @@ Below is the GitHub login UI:
 ### Test GitHub CLI and Git 
 Create a test repo: 
 ```console
-$ gh repo create test-repo –public
+gh repo create test-repo –public
 ```
 Output:
 ```output
@@ -55,15 +55,15 @@ Then, click on the **New runner** button, followed by **New self-hosted runner**
 
 Next, execute the following instructions on your Google Axion C4A virtual machine:
 ```console
-$ mkdir actions-runner && cd actions-runner# Download the latest runner package
-$ curl -o actions-runner-linux-arm64-2.326.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.326.0/actions-runner-linux-arm64-2.326.0.tar.gz
-$ echo "ee7c229c979c5152e9f12be16ee9e83ff74c9d9b95c3c1aeb2e9b6d07157ec85  actions-runner-linux-arm64-2.326.0.tar.gz" | shasum -a 256 -c# Extract the installer
-$ tar xzf ./actions-runner-linux-arm64-2.326.0.tar.gz
+mkdir actions-runner && cd actions-runner# Download the latest runner package
+curl -o actions-runner-linux-arm64-2.326.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.326.0/actions-runner-linux-arm64-2.326.0.tar.gz
+echo "ee7c229c979c5152e9f12be16ee9e83ff74c9d9b95c3c1aeb2e9b6d07157ec85  actions-runner-linux-arm64-2.326.0.tar.gz" | shasum -a 256 -c# Extract the installer
+tar xzf ./actions-runner-linux-arm64-2.326.0.tar.gz
 ```
 Then, configure the virtual machine with the following command:
 
 ```console
-$ ./config.sh --url https://github.com/<YOUR_USERNAME>/YOUR_REPO --token YOUR_TOKEN
+./config.sh --url https://github.com/<YOUR_USERNAME>/YOUR_REPO --token YOUR_TOKEN
 ```
 Replace `YOUR_USERNAME`, `YOUR_REPO`, and `YOUR_TOKEN` accordingly.
 This command links the runner to your GitHub repo using a one-time registration token.
@@ -98,7 +98,7 @@ Enter any additional labels (ex. label-1,label-2): [press Enter to skip]
 
 Finally, start the runner by executing:
 ```console
-$ ./run.sh
+./run.sh
 ```
 Output:
 
@@ -141,9 +141,9 @@ jobs:
 ### commit and Push:
 
  ```console
-$ git add .
-$ git commit -m "Add NGINX deploy workflow"
-$ git push origin main
+git add .
+git commit -m "Add NGINX deploy workflow"
+git push origin main
 ```
 ### Access the NGINX Server
 Once the workflow completes, open your browser and navigate to:
