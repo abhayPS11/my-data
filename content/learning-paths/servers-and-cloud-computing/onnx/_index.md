@@ -3,21 +3,21 @@ title: Deploy SqueezeNet 1.0 INT8 (opset 12) model with ONNX Runtime on Azure Co
 
 minutes_to_complete: 60   
 
-who_is_this_for: This is an introductory topic for the software developers who are willing to migrate their ONNX based applications from x86_64 platforms to Arm based platforms, or on Microsoft Azure - Cobalt 100 CPU based VMs specifically.  
+who_is_this_for: This is an introductory topic for the software developers who are willing to migrate their ONNX based applications from x86_64 platforms to Arm based platforms, or on Microsoft Azure - Cobalt 100 CPU based virtual machine specifically.
 
-learning_objectives: 
-    - Provision an Azure Arm64 VM using Azure console, with Ubuntu as the base image.
-    - Learn how to create Azure Linux 3.0 Docker container.
-    - Deploy a ONNX based application inside an Azure Linux 3.0 Arm64-based Docker container, as well as Azure Linux 3.0 custom-image based Azure VM. 
-    - Perform ONNX benchmarking inside the container as well as the custom VM.
+learning_objectives:
+    - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
+    - Learn how to create an Azure Linux 3.0 Docker container.
+    - Deploy an ONNX-based application inside an Azure Linux 3.0 Arm based Docker container and an Azure Linux 3.0 custom-image based Azure virtual machine.
+    - Perform ONNX benchmarking inside the container as well as the custom virtual machine.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6).
     - A machine with [Docker](/install-guides/docker/) installed.
     - Basic understanding of Python and machine learning concepts.
     - Familiarity with ONNX Runtime and Azure cloud services.
-    
-author: Zach Lasiuk
+
+author: Jason Andrews
 
 ### Tags
 skilllevels: Advanced
@@ -25,10 +25,11 @@ subjects: ML
 cloud_service_providers: Microsoft Azure
 
 armips:
-    - Neoverse-N2
+    - Neoverse
 
 tools_software_languages:
     - Python
+    - Docker
     - ONNX Runtime
 
 operatingsystems:
