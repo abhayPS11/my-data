@@ -1,5 +1,5 @@
 ---
-title: Deploy GitHub Self-Hosted Runner on Google Axion C4A virtual machine
+title: Install and Set Up GitHub Self-Hosted Runner on Google Cloud C4A Virtual Machine
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -7,9 +7,9 @@ layout: learningpathall
 ---
 
 
-## Deploy GitHub Actions Self-Hosted Runner on Google Axion C4A virtual machine and Automate NGINX Deployment.
+## Set Up GitHub Actions Self-Hosted Runner on Google Axion C4A Virtual Machine
 
-This Learning Path shows how to deploy a self-hosted GitHub Actions runner on a Google Cloud C4A Arm64 virtual machine running Ubuntu. It covers installing Git and GitHub CLI, authenticating with GitHub, configuring the runner, and automating NGINX deployment using GitHub Actions—all on an Arm64 environment for optimized CI/CD workflows.
+This Learning Path shows how to deploy a self-hosted GitHub Actions runner on a Google Cloud C4A Arm64 virtual machine running Ubuntu. It covers installing Git and GitHub CLI, authenticating with GitHub and configuring the runner on an Arm64 environment for optimized CI/CD workflows.
 
 ### Install Git and GitHub CLI 
 ```console
@@ -111,45 +111,3 @@ Current runner version: '2.326.0'
 The runner will now be visible in the GitHub actions:
 
 ![final-runner](./images/final-runner.png)
-
-## Deploy NGINX Using GitHub Actions
-This workflow installs and starts the NGINX web server on a self-hosted runner whenever code is pushed to the main branch.
-
-Create the Workflow:
-Create a workflow file at `.github/workflows/deploy-nginx.yaml` with the following content:
-
-```yaml
-
-name: Deploy NGINX
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  deploy:
-    runs-on: self-hosted
-    steps:
-      - name: Install NGINX
-        run: |
-          sudo apt update
-          sudo apt install -y nginx
-
-      - name: Start NGINX
-        run: sudo systemctl start nginx
-```
-### commit and Push:
-
- ```console
-git add .
-git commit -m "Add NGINX deploy workflow"
-git push origin main
-```
-### Access the NGINX Server
-Once the workflow completes, open your browser and navigate to:
-```
-http://<your-public-IP>
-```
-You should see the NGINX welcome page confirming a successful deployment.
-
-![nginx](./images/nginx.png)
