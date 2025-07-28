@@ -45,6 +45,7 @@ java -Xms128m -Xmx256m -XX:+UseG1GC HttpSingleRequestTest
 
 Output of java program on the Arm virtual machine:
 ```output
+
 Response Generated:
 HTTP/1.1 200 OK
 Content-Type: text/plain
