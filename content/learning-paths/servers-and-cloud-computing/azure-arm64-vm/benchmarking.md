@@ -1,6 +1,6 @@
 ---
-title: Benchmarking via JMH 
-weight: 5
+title: Java Benchmarking Using JMH
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -19,7 +19,7 @@ As noted before, the steps to benchmark remain the same, whether it's a Docker c
 Install Maven: 
 
 ```console 
-$ tdnf install maven -y 
+tdnf install maven -y 
 ```
 Create Benchmark Project: 
 
@@ -56,7 +56,7 @@ This simulates HTTP response generation similar to Tomcat.
 Build the Benchmark:
 
 ```console
-$ mvn clean install
+mvn clean install
 ```
 
 After the build is complete, the JMH benchmark jar will be in the target/ directory.
@@ -64,7 +64,7 @@ After the build is complete, the JMH benchmark jar will be in the target/ direct
 Run the Benchmark: 
 
 ```console 
-$ java -jar target/benchmarks.jar    
+java -jar target/benchmarks.jar    
 ```
 
 
