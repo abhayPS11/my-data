@@ -1,5 +1,5 @@
 ---
-title: Install ONNX, Validate Model, and Measure Performance
+title: Deploy GitHub Self-Hosted Runner on Google Axion C4A virtual machine
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -7,11 +7,9 @@ layout: learningpathall
 ---
 
 
-## Deploy GitHub Actions Runner on GCP Arm64 VM and Automate NGINX Deployment.
+## Deploy GitHub Actions Self-Hosted Runner on Google Axion C4A virtual machine and Automate NGINX Deployment.
 
-This Learning Path is about deploying a self-hosted GitHub Actions Runner on a GCP C4A Arm64 VM running Ubuntu. It walks through installing Git and GitHub CLI, authenticating with GitHub, configuring the runner, and automating the deployment of an NGINX server using GitHub Actions.
-
-The guide highlights how to leverage [C4A instances powered by Arm Neoverse-V2](https://cloud.google.com/blog/products/compute/try-c4a-the-first-google-axion-processor) CPUs to run CI/CD workflows efficiently, offering an Arm-native, cost-effective, and performant solution compared to traditional x86 infrastructure.
+This Learning Path shows how to deploy a self-hosted GitHub Actions runner on a Google Cloud C4A Arm64 virtual machine running Ubuntu. It covers installing Git and GitHub CLI, authenticating with GitHub, configuring the runner, and automating NGINX deployment using GitHub Actions—all on an Arm64 environment for optimized CI/CD workflows.
 
 ### Install Git and GitHub CLI 
 ```console
@@ -22,7 +20,7 @@ Login to GitHub
 ```console
 $ gh auth login 
  ```
-The command gh auth login is used to authenticate the GitHub CLI with your GitHub account. It allows you to securely log in using a web browser or token, enabling the CLI to interact with repositories, actions, and other GitHub features on your behalf.
+The command `gh auth login` is used to authenticate the GitHub CLI with your GitHub account. It allows you to securely log in using a web browser or token, enabling the CLI to interact with repositories, actions, and other GitHub features on your behalf.
 
 ![Login to GitHub](./images/gh-auth.png)
 
@@ -33,7 +31,7 @@ Below is the GitHub login UI:
 ### Test GitHub CLI and Git 
 Create a test repo: 
 ```console
-gh repo create test-repo –public
+$ gh repo create test-repo –public
 ```
 Output:
 ```output
@@ -43,34 +41,36 @@ Output:
 
 The command `gh repo create test-repo --public` creates a new public GitHub repository named **test-repo** using the GitHub CLI. It sets the repository visibility to public, meaning anyone can view it 
 
-### Create the Self-Hosted Runner in GitHub
-Go to your repository's Settings > Actions, and under the Runners section, click on "Add Runner" or view existing self-hosted runners.
-If the Actions tab is not visible, ensure Actions are enabled by navigating to Settings > Actions > General, and select "Allow all actions and reusable workflows".
+### Configure the Self-Hosted Runner
+Go to your repository's **Settings > Actions**, and under the **Runners** section, click on **Add Runner** or view existing self-hosted runners.
+If the **Actions** tab is not visible, ensure Actions are enabled by navigating to **Settings > Actions > General**, and select **Allow all actions and reusable workflows**.
 
 ![runner](./images/newsh-runner.png)
 
-Then, click on the ‘New runner’ button, followed by ‘New self-hosted runner’. In the ‘Add new self-hosted runner’ section, proceed as follows:
+Then, click on the **New runner** button, followed by **New self-hosted runner**. In the **Add new self-hosted runner** section, proceed as follows:
 - Select Linux for the operating system.
 - Choose ARM64 for the architecture
 
 ![new-runner](./images/new-runner.png)
 
-Next, execute the following instructions on your machine:
+Next, execute the following instructions on your Google Axion C4A virtual machine:
 ```console
 $ mkdir actions-runner && cd actions-runner# Download the latest runner package
 $ curl -o actions-runner-linux-arm64-2.326.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.326.0/actions-runner-linux-arm64-2.326.0.tar.gz
 $ echo "ee7c229c979c5152e9f12be16ee9e83ff74c9d9b95c3c1aeb2e9b6d07157ec85  actions-runner-linux-arm64-2.326.0.tar.gz" | shasum -a 256 -c# Extract the installer
 $ tar xzf ./actions-runner-linux-arm64-2.326.0.tar.gz
 ```
-Then, configure the VM with the following command:
+Then, configure the virtual machine with the following command:
 
 ```console
-./config.sh --url https://github.com/<YOUR_USERNAME>/YOUR_REPO --token YOUR_TOKEN
+$ ./config.sh --url https://github.com/<YOUR_USERNAME>/YOUR_REPO --token YOUR_TOKEN
 ```
 Replace `YOUR_USERNAME`, `YOUR_REPO`, and `YOUR_TOKEN` accordingly.
 This command links the runner to your GitHub repo using a one-time registration token.
 
-During the command’s execution, you will be prompted to provide the runner group, the name of the runner, and the work folder name. You can accept the defaults by pressing Enter at each step. The output will resemble:
+During the command’s execution, you will be prompted to provide the runner group, the name of the runner, and the work folder name. You can accept the defaults by pressing **Enter** at each step. The output will resemble as below:
+
+Output:
 
 ```output
 --------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ The runner will now be visible in the GitHub actions:
 ![final-runner](./images/final-runner.png)
 
 ## Deploy NGINX Using GitHub Actions
-For simple baseline testing, NGINX is deployed via a GitHub Actions workflow triggered on every push to the `main` branch.
+This workflow installs and starts the NGINX web server on a self-hosted runner whenever code is pushed to the main branch.
 
 Create the Workflow:
 Create a workflow file at `.github/workflows/deploy-nginx.yaml` with the following content:
@@ -138,14 +138,14 @@ jobs:
       - name: Start NGINX
         run: sudo systemctl start nginx
 ```
- Commit and Push:
+### commit and Push:
 
  ```console
-git add .
-git commit -m "Add NGINX deploy workflow"
-git push origin main
+$ git add .
+$ git commit -m "Add NGINX deploy workflow"
+$ git push origin main
 ```
-Access the NGINX Server
+### Access the NGINX Server
 Once the workflow completes, open your browser and navigate to:
 ```
 http://<your-public-IP>
@@ -153,5 +153,3 @@ http://<your-public-IP>
 You should see the NGINX welcome page confirming a successful deployment.
 
 ![nginx](./images/nginx.png)
-
-
