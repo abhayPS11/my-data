@@ -6,18 +6,22 @@ weight: 2
 layout: "learningpathall"
 ---
 
-## What is the C4A Machine Series (Google Cloud Axion Arm)?
+## Google Axion C4A series
 
-The C4A series is Google Cloud's latest general-purpose VM family powered by Axion, a custom Arm Neoverse V2 CPU. It offers high performance, energy efficiency, and up to 100 Gbps networking—ideal for compute-heavy workloads like CI/CD, web servers, and ML inference.
+The Google Axion C4A series is a family of Arm-based virtual machines built on Google’s custom Axion CPU, which is based on Arm Neoverse-V2 cores. Designed for high-performance and energy-efficient computing, these virtual machines offer strong performance ideal for modern cloud workloads such as CI/CD pipelines, microservices, media processing, and general-purpose applications.
 
-The Google Axion VM instances are of below serie: 
+The C4A series provides a cost-effective alternative to x86 virtual machine while leveraging the scalability and performance benefits of the Arm architecture in Google Cloud.
 
-* The general-purpose `C4A` virtual machine series. 
-
-To learn more about Google Axion, refer to the blog ["Introducing Google Axion Processors, our new Arm-based CPUs"](https://cloud.google.com/blog/products/compute/introducing-googles-new-arm-based-cpu).
+To learn more about Google Axion, refer to the blog [Introducing Google Axion Processors, our new Arm-based CPUs](https://cloud.google.com/blog/products/compute/introducing-googles-new-arm-based-cpu).
 
 ## GitHub Actions and CI/CD
 
-GitHub Actions is a CI/CD platform that helps automate code build, test, and deployment workflows directly from a GitHub repository. It triggers workflows on events like push or pull requests, improving development speed and consistency. 
+GitHub Actions is a powerful CI/CD (Continuous Integration and Continuous Delivery) platform built into GitHub. It allows developers to automate tasks such as building, testing, and deploying code in response to events like code pushes, pull requests, or scheduled jobs—directly from their GitHub repositories. This helps improve development speed, reliability, and collaboration.
 
-A key feature is [self-hosted runners](https://docs.github.com/en/actions/concepts/runners/about-self-hosted-runners), which let teams run workflows on their own machines—including Arm64-based systems—for better hardware control and architecture-specific builds. This is useful for optimizing performance and ensuring compatibility on Arm64 environments. Self-hosted runners also allow private network use and faster execution by leveraging custom or high-performance hardware.
+A key feature of GitHub Actions is [self-hosted runners](https://docs.github.com/en/actions/concepts/runners/about-self-hosted-runners), which let you run workflows on your own infrastructure instead of GitHub’s hosted servers. This is especially useful for:
+
+- Running on custom hardware, including Arm64-based systems (e.g., Google Axion virtual machine), to optimize performance and ensure architecture-specific compatibility.
+- Private network access, allowing secure interaction with internal services or databases.
+- Faster execution, especially for resource-intensive workflows, by using dedicated or high-performance machines.
+
+Self-hosted runners provide more control, flexibility, and cost-efficiency—making them ideal for advanced CI/CD pipelines and platform-specific testing.
