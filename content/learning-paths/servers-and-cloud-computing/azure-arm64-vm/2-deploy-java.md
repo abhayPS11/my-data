@@ -1,5 +1,5 @@
 ---
-title: Install Java on Microsoft Azure Virtual Machine with Cobalt 100 (Arm64) Processors
+title: Install Java on Microsoft Azure Virtual Machine
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -24,7 +24,7 @@ The [Microsoft Artifact Registry](https://mcr.microsoft.com/en-us/artifact/mar/a
 To create a docker container, install docker, and then follow the below instructions: 
 
 ```console
-$ sudo docker run -it --rm mcr.microsoft.com/azurelinux/base/core:3.0
+sudo docker run -it --rm mcr.microsoft.com/azurelinux/base/core:3.0
 ``` 
 
 The default container startup command is bash. tdnf and dnf are the default package managers.
@@ -36,12 +36,12 @@ This Azure Linux 3.0 image does not include Java, so you need to install it.
 First update tdnf:
 
 ```console
-$ tdnf update -y 
+tdnf update -y 
 ``` 
 Then install java-devel:
 
 ```console
-$ tdnf install -y java-devel  
+tdnf install -y java-devel  
 ```
  
 Java-devel installs both the default JRE and JDK provided by Azure Linux 3.0.
@@ -49,7 +49,7 @@ Java-devel installs both the default JRE and JDK provided by Azure Linux 3.0.
 Check to ensure that the JRE is properly installed: 
 
 ```console
-$ java -version 
+java -version 
 ``` 
 
 **Your output will look like this:** 
@@ -64,7 +64,7 @@ sharing)
 **Check to ensure that the JDK is properly installed:**
 
 ```console
-$ javac -version 
+javac -version 
 ```
 Your output will look like this:
 
@@ -75,8 +75,8 @@ javac 11.0.27
 Set Java Environment Variable for Arm: 
 
 ```console 
-$ export JAVA_HOME=/usr/lib/jvm/msopenjdk-11 
-$ export PATH=$JAVA_HOME/bin:$PATH 
+export JAVA_HOME=/usr/lib/jvm/msopenjdk-11 
+export PATH=$JAVA_HOME/bin:$PATH 
 ```
  
 {{% notice Note %}}
