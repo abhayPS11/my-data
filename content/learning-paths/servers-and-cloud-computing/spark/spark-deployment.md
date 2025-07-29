@@ -60,3 +60,4 @@ Welcome to
 
 Using Scala version 2.12.18, OpenJDK 64-Bit Server VM, 17.0.15
 ```
+Spark installation is complete. You can now proceed with the baseline testing.
