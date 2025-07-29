@@ -33,7 +33,7 @@ Create a test repo:
 ```console
 gh repo create test-repo –public
 ```
-Output:
+You should see an output similar to:
 ```output
 ✓ Created repository <your-github-account>/test-repo on GitHub
   https://github.com/<your-github-account>/test-repo
@@ -70,7 +70,7 @@ This command links the runner to your GitHub repo using a one-time registration 
 
 During the command’s execution, you will be prompted to provide the runner group, the name of the runner, and the work folder name. You can accept the defaults by pressing **Enter** at each step. The output will resemble as below:
 
-Output:
+You should see an output similar to:
 
 ```output
 --------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ Finally, start the runner by executing:
 ```console
 ./run.sh
 ```
-Output:
+You should see an output similar to:
 
 ```output
 √ Connected to GitHub
