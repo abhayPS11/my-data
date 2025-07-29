@@ -1,6 +1,6 @@
 ---
-title: Deploy GitHub Self-Hosted Runner on Google Axion C4A virtual machine
-weight: 4
+title: Deploy NGINX on Self-Hosted Runner Using GitHub Actions
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
