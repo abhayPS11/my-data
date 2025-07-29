@@ -1,6 +1,6 @@
 ---
-title: Benchmarking
-weight: 5
+title: Spark Internal Benchmarking
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -12,29 +12,29 @@ Below are the steps to run Spark’s built-in SQL benchmarks using the SBT-based
 
 1. Clone the Apache Spark source code
 ```console
-$ git clone https://github.com/apache/spark.git
+git clone https://github.com/apache/spark.git
 ```
 This downloads the full Spark source including internal test suites and the benchmarking tools.
 
 2. Checkout the desired Spark version
 ```console
-$ cd spark/ && git checkout v4.0.0
+cd spark/ && git checkout v4.0.0
 ```
 Switch to the stable Spark 4.0.0 release, which supports the latest internal benchmarking APIs.
 
 3. Build Spark with benchmarking profile enabled
 ```console
-$ ./build/sbt -Pbenchmarks clean package
+./build/sbt -Pbenchmarks clean package
 ```
 This compiles Spark and its dependencies, enabling the benchmarks build profile for performance testing.
 
 4. Run a built-in benchmark suite
 ```console
-$ ./build/sbt -Pbenchmarks "sql/test:runMain org.apache.spark.sql.execution.benchmark.AggregateBenchmark"
+./build/sbt -Pbenchmarks "sql/test:runMain org.apache.spark.sql.execution.benchmark.AggregateBenchmark"
 ```  
 This executes the AggregateBenchmark, which compares performance of SQL aggregation operations (e.g., SUM, STDDEV) with and without WholeStageCodegen. WholeStageCodegen is an optimization technique used by Spark SQL to improve the performance of query execution by generating Java bytecode for entire query stages (aka whole stages) instead of interpreting them step-by-step.
 
-Output:
+You should see an output similar to:
 ```output
 [info] Running benchmark: agg w/o group
 [info]   Running case: agg w/o group wholestage off
