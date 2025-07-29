@@ -1,5 +1,5 @@
 ---
-title: Benchmarking
+title: Spark Internal Benchmarking
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -12,29 +12,29 @@ Below are the steps to run Spark’s built-in SQL benchmarks using the SBT-based
 
 1. Clone the Apache Spark source code
 ```console
-$ git clone https://github.com/apache/spark.git
+git clone https://github.com/apache/spark.git
 ```
 This downloads the full Spark source including internal test suites and the benchmarking tools.
 
 2. Checkout the desired Spark version
 ```console
-$ cd spark/ && git checkout v4.0.0
+cd spark/ && git checkout v4.0.0
 ```
 Switch to the stable Spark 4.0.0 release, which supports the latest internal benchmarking APIs.
 
 3. Build Spark with benchmarking profile enabled
 ```console
-$ ./build/sbt -Pbenchmarks clean package
+./build/sbt -Pbenchmarks clean package
 ```
 This compiles Spark and its dependencies, enabling the benchmarks build profile for performance testing.
 
 4. Run a built-in benchmark suite
 ```console
-$ ./build/sbt -Pbenchmarks "sql/test:runMain org.apache.spark.sql.execution.benchmark.JoinBenchmark"
+./build/sbt -Pbenchmarks "sql/test:runMain org.apache.spark.sql.execution.benchmark.JoinBenchmark"
 ```  
 This executes the **JoinBenchmark**, which measures the performance of various SQL join operations (e.g., SortMergeJoin, BroadcastHashJoin) under different query plans. It helps evaluate how Spark SQL optimizes and executes join strategies, especially with and without WholeStageCodegen, a technique that compiles entire query stages into efficient bytecode for faster execution.
 
-Output:
+You should see an output similar to::
 ```output
 [info] Running benchmark: Join w long
 [info]   Running case: Join w long wholestage off
@@ -181,7 +181,7 @@ Output:
 
 {{% notice Note %}}
 Benchmarks were conducted on both Docker containers and virtual machines:
-- **Docker:** x86 and ARM64 containers running Azure Linux 3.0 on a D4s_v6 Ubuntu-based Azure virtual machine.
+- **Docker:** x86 and Arm64 containers running Azure Linux 3.0 on a D4s_v6 Ubuntu-based Azure virtual machine.
 - **Virtual machine:** x86 (D4s_v4) virtual machine using the Azure Linux 3.0 image from Ntegral Inc., and Arm64 (D4ps_v6) virtual machine created from a custom Azure Linux 3.0 image using the Aarch64 ISO.
 
 The benchmark results were consistent across platforms:
@@ -218,7 +218,7 @@ The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtua
 |                                           | On         | 31254          | 31346          | 78         | 0.7         | 1490.3         | 1.2X     |
 
 ### Benchmark summary on Arm64:
-The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtual machine created from a custom Azure Linux 3.0 image using the Aarch64 ISO**. 
+The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtual machine created from a custom Azure Linux 3.0 image using the AArch64 ISO**. 
 | Benchmark                              | Wholestage | Best Time (ms) | Avg Time (ms) | Stdev (ms) | Rate (M/s) | Per Row (ns) | Relative |
 |----------------------------------------|------------|----------------|----------------|------------|-------------|----------------|----------|
 | Join w long                             | Off        | 2345           | 2649           | 429        | 8.9         | 111.8          | 1.0X     |
