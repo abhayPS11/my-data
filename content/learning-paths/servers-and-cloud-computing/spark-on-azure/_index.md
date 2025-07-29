@@ -3,12 +3,12 @@ title: Run Spark applications on the Microsoft Azure Cobalt 100 processors
 
 minutes_to_complete: 60   
 
-who_is_this_for: This is an introductory topic for software developers who are looking to migrate their Apache Spark-based workloads from x86_64 platforms to Arm-based platforms or on Microsoft Azure Cobalt 100 processors.
+who_is_this_for: This Learning Path introduces Spark deployment on Microsoft Azure Cobalt 100 (Arm-based) virtual machines. It is designed for developers migrating Spark applications from x86_64 to Arm with minimal or no changes.
 
 learning_objectives: 
     - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
-    - Learn how to create Azure Linux 3.0 Docker container.
-    - Deploy a Spark application inside an Azure Linux 3.0 Arm64-based Docker container, as well as Azure Linux 3.0 custom-image based Azure virtual machine.
+    - Learn how to create an Azure Linux 3.0 Docker container.
+    - Deploy a Spark application inside an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image based Azure virtual machine.
     - Perform Spark benchmarking inside the container as well as the custom virtual machine.
 
 prerequisites:
