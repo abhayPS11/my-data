@@ -1,5 +1,5 @@
 ---
-title: "Background"
+title: "About Cobalt 100 Arm-based processor and Apache Spark"
 
 weight: 2
 
@@ -14,13 +14,7 @@ To learn more about Cobalt 100, refer to the blog [Announcing the preview of new
 
 ## Introduction to Azure Linux 3.0
 
-Azure Linux 3.0 is Microsoft's in-house, lightweight Linux distribution optimized for running cloud-native workloads on Azure. Designed with performance, security, and reliability in mind, it is fully supported by Microsoft and tailored for containers, microservices, and Kubernetes. With native support for Arm64 (Aarch64) architecture, Azure Linux 3.0 enables efficient execution of workloads on energy-efficient Arm-based infrastructure, making it a powerful choice for scalable and cost-effective cloud deployments.
-
-As of now, the Azure Marketplace offers official virtual machine images of Azure Linux 3.0 only for x64-based architectures, published by Ntegral Inc. However, native Arm64 (Aarch64) images are not yet officially available. Hence, for this Learning Path, we create our custom Azure Linux 3.0 virtual machine image for Aarch64, using the [Aarch64 ISO for Azure Linux 3.0](https://github.com/microsoft/azurelinux#iso).
-
-Alternatively, use the [Azure Linux 3.0 Docker container](https://learn.microsoft.com/en-us/azure/azure-linux/intro-azure-linux) on any supported platform.
-
-For this Learning Path, we perform the deployment and benchmarking on both the Azure Linux 3.0 environments, the Docker container, as well as the custom-image-based virtual machine.
+Azure Linux 3.0 is Microsoft's in-house, lightweight Linux distribution optimized for running cloud-native workloads on Azure. Designed with performance, security, and reliability in mind, it is fully supported by Microsoft and tailored for containers, microservices, and Kubernetes. With native support for Arm64 (AArch64) architecture, Azure Linux 3.0 enables efficient execution of workloads on energy-efficient Arm-based infrastructure, making it a powerful choice for scalable and cost-effective cloud deployments.
 
 ## Apache Spark
 
