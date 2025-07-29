@@ -1,5 +1,5 @@
 ---
-title: Deploy GitHub Self-Hosted Runner on Google Axion C4A VM
+title: Deploy Apache Spark on Google Axion C4A virtual machine
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -7,21 +7,11 @@ layout: learningpathall
 ---
 
 
-## Deploy Apache Spark on Google Axion C4A VM.
+## Deploy Apache Spark on Google Axion C4A virtual machine
 
-This Learning Path shows how to deploy Apache Spark on a Google Cloud C4A Arm VM running Ubuntu.It covers installing Java, Scala, Maven, and building Spark from source, followed by functional validation through baseline testing. 
+This Learning Path shows how to deploy Apache Spark on a Google Cloud C4A Arm virtual machine running Red Hat Enterprise Linux. It covers installing Java, Scala, Maven, and Spark, followed by functional validation through baseline testing. 
 Finally, it includes benchmarking to compare Spark’s performance on Arm64 versus x86 architectures—optimizing data processing workloads on cost-efficient Arm-based infrastructure.
 
-### Install Required Packages 
-
-```console
-$ sudo dnf update -y
-$ sudo dnf install -y java-17-openjdk java-17-openjdk-devel git maven wget nano curl unzip
-```
-Verify Java installation: 
-```console
-$ java -version
-```
 ### Install Required Packages 
 
 ```console
@@ -40,14 +30,14 @@ $ tar -xzf spark-3.5.6-bin-hadoop3.tgz
 $ sudo mv spark-3.5.6-bin-hadoop3 /opt/spark
 ```
 ### Set Environment Variables 
-Add to `~/.bashrc` or `~/.zshrc` for persistenc
+Add this line to ~/.bashrc or ~/.zshrc to make the change persistent across terminal sessions.
 
 ```cosole
 $ echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
 $ echo 'export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin' >> ~/.bashrc
 
 ```
-Apply changes immediate
+Apply changes immediately
 
 ```console
 $ source ~/.bashrc 
@@ -71,13 +61,13 @@ Welcome to
 Using Scala version 2.12.18, OpenJDK 64-Bit Server VM, 17.0.15
 ```
 
-Since Apache Spark is installed successfully on your GCP C4A Arm VM, let's now perform simple baseline testing to validate that Spark runs correctly and gives expected output. 
+Since Apache Spark is installed successfully on your GCP C4A Arm virtual machine, let's now perform simple baseline testing to validate that Spark runs correctly and gives expected output. 
 
 ## Spark Baseline Test
 
 Create a simple Spark job file: 
 ```console
-$ nano ~/spark_baseline_test.scala`
+$ nano ~/spark_baseline_test.scala
 ```
 Below is this content of **spark_baseline_test.scala** file:
 
@@ -91,14 +81,19 @@ val squared = distData.map(x => x * x).collect()
 println("Squared values: " + squared.mkString(", ")) 
 ```
 Code Explanation:
-  - **val data = Seq(1, 2, 3, 4, 5):** Creates a local Scala sequence of integers. 
-  - **val distData = spark.sparkContext.parallelize(data):** Converts the sequence into a distributed RDD for parallel processing. 
-  - **val squared = distData.map(x => x * x).collect():** Squares each number in the RDD and collects the result back to the driver. 
-  - **println("Squared values: " + squared.mkString(", "))**: Prints the squared values as a comma-separated string.
+This code is a basic Apache Spark example in Scala, demonstrating how to create an RDD (Resilient Distributed Dataset), perform a transformation, and collect results.
+
+What it does, step by step:
+
+- **val data = Seq(1, 2, 3, 4, 5)** : Creates a local Scala sequence of integers.
+- **val distData = spark.sparkContext.parallelize(data)** : Uses parallelize to convert the local sequence into a distributed RDD (so Spark can operate on it in parallel across cluster nodes or CPU cores).
+- **val squared = distData.map(x => x * x).collect()** : `map(x => x * x)` squares each element in the list, `.collect()` brings all the transformed data back to the driver program as a regular Scala collection.
+- **println("Squared values: " + squared.mkString(", "))** : Prints the squared values, joined by commas.
+
 
 ### Run the Test in Spark Shell
 
-Run it in the interactive shell: 
+Run the test in the interactive shell: 
 ```console
 $ spark-shell < ~/spark_baseline_test.scala 
 ```
