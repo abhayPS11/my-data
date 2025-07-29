@@ -1,19 +1,19 @@
 ---
-title: Deploy Apache Spark on Google Axion C4A VM
+title: Deploy Apache Spark on Google Axion C4A virtual machine
 
 minutes_to_complete: 60
 
-who_is_this_for: This is an advanced topic for anyone who wants to deploy Spark on GCP C4A Arm64 VMs, including installation, baseline testing, and benchmarking. 
+who_is_this_for: This is an introductory topic for the software developers who are willing to migrate their Apache Spark workloads from the x86_64 platforms to Arm-based platforms, or on Google Axion-based C4A virtual machines specifically.  
 
 learning_objectives:
-       - Provision an Arm VM on the Google Cloud Platform using the C4A Google Axion instance family.
+       - Provision an Arm virtual machine on the Google Cloud Platform using the C4A Google Axion instance family, and RHEL 9 as the base image.
        - Understand how to install and configure Apache Spark on Arm-based GCP C4A instances.
-       - Deploy Spark in local mode and validate functionality through baseline testing.
-       - Perform benchmarking to evaluate and compare Apache Spark’s performance on both x86_64 and Arm.
+       - Validate the functionality of spark through baseline testing.
+       - Perform benchmarking to evaluate Apache Spark’s performance on Arm.
 
 prerequisites:
      - A [Google Cloud Platform (GCP)](https://cloud.google.com/free?utm_source=google&hl=en) account with billing enabled.
-     - Basic understanding of Linux command line and shell scripting.
+     - Basic understanding of Linux command line.
      - Familiarity with distributed computing concepts and the [Apache Spark architecture](https://spark.apache.org/docs/latest/). 
 
 author: Jason Andrews
@@ -24,7 +24,7 @@ subjects: Performance and Architecture
 cloud_service_providers: Google Cloud
 
 armips:
-    - Neoverse-V2
+    - Neoverse
 
 tools_software_languages:
   - Apache Spark
