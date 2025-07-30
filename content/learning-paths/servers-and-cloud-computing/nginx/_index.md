@@ -1,57 +1,55 @@
 ---
-title: Run Java applications on the Microsoft Azure Cobalt 100 processors 
+title: Run Nginx on the Microsoft Azure Cobalt 100 processors 
 
-minutes_to_complete: 60   
+minutes_to_complete: 30   
 
-who_is_this_for: This Learning Path introduces Java deployment on Microsoft Azure Cobalt 100 (Arm-based) virtual machines. It is designed for developers migrating Java applications from x86_64 to Arm with minimal or no changes.
+who_is_this_for: This Learning Path introduces NGINX deployment on Microsoft Azure Cobalt 100 (Arm-based) virtual machines. It is intended for system administrators and developers looking to deploy and benchmark NGINX on Arm architecture with minimal adjustments from traditional x86_64 environments.
 
 learning_objectives: 
     - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
     - Learn how to create an Azure Linux 3.0 Docker container.
-    - Deploy a Java application inside an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
-    - Perform Java benchmarking inside the container as well as the custom virtual machine.
+    - Deploy the NGINX web server on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
+    - Perform NGINX baseline testing and benchmarking in both the containerized and virtual machine environments.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
     - A machine with [Docker](/install-guides/docker/) installed.
+    - Network settings (firewalls and security groups) should allow inbound communication on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
 
 author: Jason Andrews
 
 ### Tags
 skilllevels: Advanced
-subjects: Performance and Architecture
+subjects: Web
 cloud_service_providers: Microsoft Azure
 
 armips:
     - Neoverse
 
 tools_software_languages:
-    - Java
+    - NGINX
     - Docker
+    - Wrk
 
 operatingsystems:
     - Linux
 
 further_reading:
   - resource:
-      title: Azure Virtual Machines documentation
-      link: https://learn.microsoft.com/en-us/azure/virtual-machines/
+      title: Nginx official documentation
+      link: https://nginx.org/en/docs/
       type: documentation
   - resource:
-      title: Azure Container Instances documentation
-      link: https://learn.microsoft.com/en-us/azure/container-instances/
+      title: Wrk official documentation
+      link: https://github.com/wg/wrk?tab=readme-ov-file#wrk---a-http-benchmarking-tool
       type: documentation
   - resource:
       title: Docker overview
       link: https://docs.docker.com/get-started/overview/
       type: documentation
   - resource:
-      title: Java on Azure
-      link: https://learn.microsoft.com/en-us/java/azure/
-      type: documentation
-  - resource:
-      title: JMH (Java Microbenchmark Harness) documentation
-      link: https://openjdk.org/projects/code-tools/jmh/
+      title: Nginx on Azure
+      link: https://docs.nginx.com/nginx/deployment-guides/microsoft-azure/virtual-machines-for-nginx/
       type: documentation
 
 
