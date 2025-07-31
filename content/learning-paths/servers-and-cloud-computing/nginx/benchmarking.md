@@ -112,25 +112,25 @@ The following benchmark results are collected on two different x86_64 environmen
 
 | **Category**              | **Metric**                                     | **Value on VM**     | **Value on Docker** |
 | ------------------------- | ---------------------------------------------- | ------------------- | ------------------- |
-| **General Info**          | Server Software                                | nginx/1.25.4        |        |
-|                           | Server Hostname                                | localhost           | *(add value)*       |
-|                           | Server Port                                    | 80                  | *(add value)*       |
-|                           | Document Path                                  | /                   | *(add value)*       |
-|                           | Document Length                                | 615 bytes           | *(add value)*       |
-| **Test Setup**            | Concurrency Level                              | 50                  | *(add value)*       |
-|                           | Time Taken for Tests                           | 0.049 sec           | *(add value)*       |
-|                           | Complete Requests                              | 1000                | *(add value)*       |
-|                           | Failed Requests                                | 0                   | *(add value)*       |
-| **Transfer Stats**        | Total Transferred                              | 848000 bytes        | *(add value)*       |
-|                           | HTML Transferred                               | 615000 bytes        | *(add value)*       |
-|                           | Requests per Second                            | 20,352.51 \[#/sec]  | *(add value)*       |
-|                           | Time per Request (mean)                        | 2.457 ms            | *(add value)*       |
-|                           | Time per Request (across all)                  | 0.049 ms            | *(add value)*       |
-|                           | Transfer Rate                                  | 16,854.42 KB/sec    | *(add value)*       |
-| **Connection Times (ms)** | Connect (min / mean / stdev / median / max)    | 0 / 1 / 0.2 / 1 / 2 | *(add value)*       |
-|                           | Processing (min / mean / stdev / median / max) | 0 / 1 / 0.2 / 1 / 2 | *(add value)*       |
-|                           | Waiting (min / mean / stdev / median / max)    | 0 / 1 / 0.3 / 1 / 2 | *(add value)*       |
-|                           | Total (min / mean / stdev / median / max)      | 1 / 2 / 0.1 / 2 / 3 | *(add value)*       |
+| **General Info**          | Server Software                                | nginx/1.25.4        | nginx/1.25.4        |
+|                           | Server Hostname                                | localhost           | localhost           |
+|                           | Server Port                                    | 80                  | 80                  |
+|                           | Document Path                                  | /                   | /                   |
+|                           | Document Length                                | 615 bytes           | 615 bytes           |
+| **Test Setup**            | Concurrency Level                              | 50                  | 50                  |
+|                           | Time Taken for Tests                           | 0.049 sec           | 0.027 sec           |
+|                           | Complete Requests                              | 1000                | 1000                |
+|                           | Failed Requests                                | 0                   | 0                   |
+| **Transfer Stats**        | Total Transferred                              | 848000 bytes        | 848000 bytes        |
+|                           | HTML Transferred                               | 615000 bytes        | 615000 bytes        |
+|                           | Requests per Second                            | 20,352.51 [#/sec]   | 37,510.78 [#/sec]   |
+|                           | Time per Request (mean)                        | 2.457 ms            | 1.333 ms            |
+|                           | Time per Request (across all)                  | 0.049 ms            | 0.027 ms            |
+|                           | Transfer Rate                                  | 16,854.42 KB/sec    | 31,063.62 KB/sec    |
+| **Connection Times (ms)** | Connect (min / mean / stdev / median / max)    | 0 / 1 / 0.2 / 1 / 2 | 0 / 0 / 0.1 / 0 / 1 |
+|                           | Processing (min / mean / stdev / median / max) | 0 / 1 / 0.2 / 1 / 2 | 0 / 1 / 0.2 / 1 / 1 |
+|                           | Waiting (min / mean / stdev / median / max)    | 0 / 1 / 0.3 / 1 / 2 | 0 / 1 / 0.2 / 1 / 1 |
+|                           | Total (min / mean / stdev / median / max)      | 1 / 2 / 0.1 / 2 / 3 | 1 / 1 / 0.1 / 1 / 2 |
 
 
 ### Benchmark summary on Arm64:
@@ -139,25 +139,25 @@ The following benchmark results are collected on two different Arm64 environment
 
 | **Category**              | **Metric**                                      | **Value on ARM64 VM**   | **Value on Docker**      |
 |---------------------------|--------------------------------------------------|--------------------------|---------------------------|
-| **General Info**          | Server Software                                  | nginx/1.25.4             |                           |
-|                           | Server Hostname                                  | localhost                |                           |
-|                           | Server Port                                      | 80                       |                           |
-|                           | Document Path                                    | /                        |                           |
-|                           | Document Length                                  | 615 bytes                |                           |
-| **Test Setup**            | Concurrency Level                                | 50                       |                           |
-|                           | Time Taken for Tests                             | 0.032 sec                |                           |
-|                           | Complete Requests                                | 1000                     |                           |
-|                           | Failed Requests                                  | 0                        |                           |
-| **Transfer Stats**        | Total Transferred                                | 848000 bytes             |                           |
-|                           | HTML Transferred                                 | 615000 bytes             |                           |
-|                           | Requests per Second                              | 30,876.59 [#/sec]        |                           |
-|                           | Time per Request (mean)                          | 1.619 ms                 |                           |
-|                           | Time per Request (across all)                    | 0.032 ms                 |                           |
-|                           | Transfer Rate                                    | 25,569.67 KB/sec         |                           |
-| **Connection Times (ms)** | Connect (min / mean / stdev / median / max)     | 0 / 1 / 0.1 / 1 / 1      |                           |
-|                           | Processing (min / mean / stdev / median / max)  | 0 / 1 / 0.1 / 1 / 2      |                           |
-|                           | Waiting (min / mean / stdev / median / max)     | 0 / 1 / 0.2 / 1 / 1      |                           |
-|                           | Total (min / mean / stdev / median / max)       | 1 / 2 / 0.1 / 2 / 2      |                           |
+| **General Info**          | Server Software                                  | nginx/1.25.4             | nginx/1.25.4              |
+|                           | Server Hostname                                  | localhost                | localhost                 |
+|                           | Server Port                                      | 80                       | 80                        |
+|                           | Document Path                                    | /                        | /                         |
+|                           | Document Length                                  | 615 bytes                | 615 bytes                 |
+| **Test Setup**            | Concurrency Level                                | 50                       | 50                        |
+|                           | Time Taken for Tests                             | 0.032 sec                | 0.025 sec                 |
+|                           | Complete Requests                                | 1000                     | 1000                      |
+|                           | Failed Requests                                  | 0                        | 0                         |
+| **Transfer Stats**        | Total Transferred                                | 848000 bytes             | 848000 bytes              |
+|                           | HTML Transferred                                 | 615000 bytes             | 615000 bytes              |
+|                           | Requests per Second                              | 30,876.59 [#/sec]        | 40,698.38 [#/sec]         |
+|                           | Time per Request (mean)                          | 1.619 ms                 | 1.229 ms                  |
+|                           | Time per Request (across all)                    | 0.032 ms                 | 0.025 ms                  |
+|                           | Transfer Rate                                    | 25,569.67 KB/sec         | 33,703.35 KB/sec          |
+| **Connection Times (ms)** | Connect (min / mean / stdev / median / max)     | 0 / 1 / 0.1 / 1 / 1      | 0 / 0 / 0.1 / 0 / 1       |
+|                           | Processing (min / mean / stdev / median / max)  | 0 / 1 / 0.1 / 1 / 2      | 0 / 1 / 0.1 / 1 / 1       |
+|                           | Waiting (min / mean / stdev / median / max)     | 0 / 1 / 0.2 / 1 / 1      | 0 / 1 / 0.1 / 1 / 1       |
+|                           | Total (min / mean / stdev / median / max)       | 1 / 2 / 0.1 / 2 / 2      | 1 / 1 / 0.1 / 1 / 1       |
 
 
 ### Highlights from Azure Linux ARM64 Benchmarking
