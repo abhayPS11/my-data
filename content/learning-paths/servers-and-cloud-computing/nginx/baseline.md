@@ -7,34 +7,121 @@ layout: learningpathall
 ---
 
 
-### Baseline Testing with curl
+### Baseline testing with a static website on Nginx
 
-Baseline testing with `curl` confirms Nginx is running and responding correctly with a `200 OK` status.
+1. Install and start Nginx:
 
-#### Run the following command to send a HEAD request to the local Nginx server:
+Install Nginx and ensure it's running as a system service.
+```console
+sudo dnf install nginx -y
+sudo systemctl start nginx
+sudo systemctl enable nginx
+```
+
+2. Create a Static Website Directory:
+
+Prepare a folder to host your HTML content.
+```console
+mkdir -p ~/my-static-site
+```
+3.  Create an HTML file and Web page:
+
+Create a HTML file `nano my-static-site/index.html` with the content below to design a visually appealing static landing page.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to NGINX on Azure Linux</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      text-align: center;
+    }
+    .box {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1> Welcome to NGINX on Azure Linux 3.0!</h1>
+    <p>Your static site is running beautifully on ARM64 </p>
+  </div>
+</body>
+</html>
+```
+4. Create NGINX Config File to Serve Static Website:
+
+Point Nginx to serve your static HTML content.
+```console
+sudo nano /etc/nginx/conf.d/static-site.conf
+```
+Now, add the following configuration:
+
+```nginx
+server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        root /home/azureuser/my-static-site;
+        index index.html;
+    }
+
+    access_log /var/log/nginx/static-access.log;
+    error_log /var/log/nginx/static-error.log;
+}
+```
+Make sure `/home/azureuser/my-static-site` is the correct path to your **index.html**.
+
+5.Test the Nginx Configuration:
 
 ```console
-curl -I http://localhost/
+sudo nginx -t
 ```
-The `curl -I http://localhost/` command sends a HEAD request to Nginx to check its **HTTP** response headers without downloading the page content.
-
 You should see an output similar to:
-
 ```output
-HTTP/1.1 200 OK
-Server: nginx/1.25.4
-Date: Wed, 30 Jul 2025 06:59:19 GMT
-Content-Type: text/html
-Content-Length: 615
-Last-Modified: Tue, 29 Apr 2025 21:56:30 GMT
-Connection: keep-alive
-ETag: "68114b0e-267"
-Accept-Ranges: bytes
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-Output summery:
-- **HTTP/1.1 200 OK**: Nginx is responding successfully.
-- **Server: nginx/1.25.4**: Confirms it's running Nginx.
-- Confirms your web server is reachable on **localhost**.
+6.  Reload or Restart Nginx:
+
+Apply configuration changes and restart the web server.
+```console
+sudo nginx -s reload
+sudo systemctl restart nginx
+```
+
+7. Test the Static Website on browser:
+
+Access your website at your public IP on port 80.
+```console
+http://<your-vm-public-ip>/
+```
+Make sure port 80 is open in your Azure Network Security Group (NSG).
+
+8. You should see the Nginx welcome page confirming a successful deployment:
+
+![Static Website Screenshot](web-page.png)
 
 This verifies the basic functionality of Nginx installation before proceeding to the benchmarking.
