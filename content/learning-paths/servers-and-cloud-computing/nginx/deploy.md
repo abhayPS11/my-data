@@ -53,7 +53,6 @@ Run the following command to send a HEAD request to the local Nginx server:
 ```console
 curl -I http://localhost/
 ```
-
 The `curl -I http://localhost/` command sends a HEAD request to Nginx to check its **HTTP** response headers without downloading the page content.
 
 You should see an output similar to:
@@ -76,6 +75,7 @@ Output summery:
 - Confirms your web server is reachable on **localhost**.
 
 ### Allow HTTP Traffic in Firewall 
+
 Allowing **HTTP** and **HTTPS** traffic in the firewall ensures that your Nginx web server can receive requests from web browsers. 
 ```console
 sudo firewall-cmd --permanent --add-service=http 
@@ -87,7 +87,7 @@ Now you can access the NGINX default page in a browser:
 ```console
 http://<your-vm-public-ip>/ 
 ```
-You should see the NGINX welcome page confirming a successful deployment.
+You should see the Nginx page confirming a successful installation of Nginx.
 ![nginx](./nginx-browser.png)
 
 Nginx installation is complete. You can now proceed with the baseline testing.
