@@ -69,9 +69,9 @@ tar -xzf mongosh-2.2.5-linux-arm64.tgz
 sudo mv mongosh-2.2.5-linux-arm64/bin/mongosh /usr/local/bin/
 ```
 
-8️. Verify Mongodb and mongosh Installation
+### Verify Mongodb and mongosh Installation
 
-Check if mongosh is properly installed.
+Check if MongoDb and mongosh is properly installed.
 ```console
 mongod --version
 mongosh --version
@@ -95,7 +95,7 @@ Build Info: {
 2.5.6
 ```
 
-9️. Connect to MongoDB via mongosh
+### Connect to MongoDB via mongosh
 
 Start interacting with MongoDB through its shell interface.
 ```console
