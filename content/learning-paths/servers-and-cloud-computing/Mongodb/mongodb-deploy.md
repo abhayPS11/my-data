@@ -64,9 +64,8 @@ mongod --dbpath /data/db \
 
 Download and install MongoDB’s command-line shell for Arm
 ```console
-wget https://downloads.mongodb.com/compass/mongosh-2.2.5-linux-arm64.tgz
-tar -xzf mongosh-2.2.5-linux-arm64.tgz
-sudo mv mongosh-2.2.5-linux-arm64/bin/mongosh /usr/local/bin/
+wget https://github.com/mongodb-js/mongosh/releases/download/v2.5.6/mongodb-mongosh-2.5.6.aarch64.rpm
+sudo dnf install -y ./mongodb-mongosh-2.5.6.aarch64.rpm
 ```
 
 ### Verify Mongodb and mongosh Installation
