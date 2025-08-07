@@ -83,7 +83,7 @@ Build Info: {
         "target_arch": "aarch64"
     }
 }
-[gcpuser@lpprojectrhel9arm64 ~]$ mongosh --version
+$ mongosh --version
 2.5.6
 ```
 
@@ -95,7 +95,6 @@ mongosh mongodb://127.0.0.1:27017
 ```
 You should see an output similar to: 
 ```output
-[gcpuser@lpprojectrhel9arm64 ~]$ mongosh mongodb://127.0.0.1:27017
 Current Mongosh Log ID: 6891ebb158db5b705d74e399
 Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6
 Using MongoDB:          8.0.12
