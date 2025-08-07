@@ -7,24 +7,25 @@ layout: learningpathall
 ---
 
 
-Since MongoDB is installed successfully on your GCP C4A Arm virtual machine, let’s now perform simple baseline testing to validate that MongoDB runs correctly and accepts connections as expected.
+Since MongoDB is installed successfully on your GCP C4A Arm virtual machine, follow these steps to validate that the server is running and accepting local connections.
 
 ## MongoDB Baseline Testing (Using `mongosh`) 
 
 1️. Connect to MongoDB:
 
-To establish a local connection to the MongoDB instance.
+Open a shell session to the local MongoDB instance:
 ```console
 mongosh mongodb://127.0.0.1:27017
 ```
 
 2️. Create a Test Database and Collection:
 
-Create a database named **baselineDB** and initialize an empty test collection.
 ```console
 use baselineDB
 db.createCollection("test")
 ```
+This creates a new database **baselineDB** and an empty collection named test.
+
 You should see an output similar to:
 
 ```output
@@ -35,7 +36,6 @@ switched to db baselineDB
 ```
 3️. Insert 10,000 Test Documents:
 
-Insert sample documents to simulate basic data write operations.
 ```javascript
 for (let i = 0; i < 10000; i++) {
   db.test.insertOne({
@@ -45,6 +45,8 @@ for (let i = 0; i < 10000; i++) {
   })
 }
 ```
+This simulates basic write operations with timestamped records.
+
 You should see an output similar to:
 
 ```output
@@ -115,10 +117,11 @@ You should see an output similar to:
 ```
 6️. Delete a Document:
 
-Delete a specific document to test delete functionality.
 ```javascript
 db.test.deleteOne({ record: 100 })
 ```
+Updates the status of record 100.
+
 You should see an output similar to:
 
 ```output
@@ -155,7 +158,7 @@ Insert duration (ms): 4427
 ```
 9️. Clean Up (Optional):
 
-Remove the test database and its contents.
+Deletes the **baselineDB** database and all its contents.
 ```javascript
 db.dropDatabase()
 ```
