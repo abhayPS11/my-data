@@ -24,50 +24,43 @@ Fetch and unpack the MongoDB binaries for ARM64.
 ```console
 wget https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-rhel93-8.0.12.tgz
 tar -xzf mongodb-linux-aarch64-rhel93-8.0.12.tgz
-sudo mv mongodb-linux-aarch64-rhel93-8.0.12 /usr/local/mongodb
+ls mongodb-linux-aarch64-rhel93-8.0.12/bin
 ```
 
 3️. Add MongoDB to System PATH
 
 Enable running mongod from any terminal session.
 ```console
-echo 'export PATH=/usr/local/mongodb/bin:$PATH' >> ~/.bashrc
+echo 'export PATH=~/mongodb-linux-aarch64-rhel93-8.0.12/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-4️. Create Required Directories
+4️. Create a data Directory
 
-Set up the database data directory with correct permissions.
+Set up the database data directory.
 ```console
-sudo mkdir -p /data/db
-sudo chown $USER /data/db
+mkdir -p ~/mongodb-data/db
 ```
 
-5️. Create Log Directory
+5️. Start MongoDB Server 
 
-Ensure MongoDB has a writable log path to avoid startup failure.
+Start MongoDB in the **foreground** (without --fork) to view real-time output and ensure it starts correctly:
 ```console
-mkdir -p ~/mongod-logs
-touch ~/mongod-logs/mongod.log
+~/mongodb-linux-aarch64-rhel93-8.0.12/bin/mongod --dbpath ~/mongodb-data/db
 ```
-
-6️. Start MongoDB Server 
-
-Launch MongoDB without forking to view real-time errors.
+Once confirmed it's working, you can start MongoDB in the **background** with logging:
 ```console
-mongod --dbpath /data/db \
-       --bind_ip 127.0.0.1 \
-       --port 27017 \
-       --logpath ~/mongod-logs/mongod.log
+./mongodb-linux-aarch64-rhel93-8.0.12/bin/mongod --dbpath ~/mongodb-data/db --logpath ~/mongodb-data/mongod.log --fork
 ```
-7️. Install mongosh (MongoDB Shell for Arm)
+{{% notice Note %}}Make sure the **~/mongodb-data/db** directory exists before starting.{{% /notice %}}
+
+6️. Install mongosh (MongoDB Shell for Arm)
 
 Download and install MongoDB’s command-line shell for Arm
 ```console
 wget https://github.com/mongodb-js/mongosh/releases/download/v2.5.6/mongodb-mongosh-2.5.6.aarch64.rpm
 sudo dnf install -y ./mongodb-mongosh-2.5.6.aarch64.rpm
 ```
-
 ### Verify Mongodb and mongosh Installation
 
 Check if MongoDb and mongosh is properly installed.
