@@ -127,7 +127,7 @@ You should see an output similar to:
 ```console
 db.test.findOne({ record: 100 })
 ```
-This will return the document and show that the status field has been updated to "processed".
+This retrieves the document where record is 100, allowing you to verify that its status has been updated to "processed".
 
 You should see output similar to:
 
