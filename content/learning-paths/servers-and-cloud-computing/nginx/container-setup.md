@@ -25,7 +25,9 @@ sudo docker run -it --rm mcr.microsoft.com/azurelinux/base/core:3.0
 The default container startup command is bash. tdnf and dnf are the default package managers.
 
 ### Working with Azure Linux 3.0 OS image
-As of now, the Azure Marketplace offers official virtual machine images of Azure Linux 3.0 only for x64-based architectures, published by Ntegral Inc. However, native Arm64 (AArch64) images are not yet officially available. Hence, for this Learning Path, you can create your own custom Azure Linux 3.0 virtual machine image for AArch64, using the [AArch64 ISO for Azure Linux 3.0 ](https://github.com/microsoft/azurelinux#iso).
+As of now, the Azure Marketplace offers official virtual machine images of Azure Linux 3.0 only for x64-based architectures, published by Ntegral Inc. However, native Arm64 (AArch64) images are not yet officially available. Hence, for this Learning Path, you can create your own custom Azure Linux 3.0 virtual machine image for AArch64 using the [AArch64 ISO for Azure Linux 3.0](https://github.com/microsoft/azurelinux#iso).
+
+Refer [Create an Azure Linux 3.0 virtual machine with Cobalt 100 processors](https://learn.arm.com/learning-paths/servers-and-cloud-computing/azure-vm) for the details.
 
 Whether you're using an Azure Linux 3.0 Docker container, or a virtual machine created from a custom Azure Linux 3.0 image, the deployment and benchmarking steps remain the same.
 
