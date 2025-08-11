@@ -22,7 +22,7 @@ Select “Create”, and fill in the details such as Name, and Region. Choose th
 
 In the “Size” field, click on “See all sizes” and select the D-Series v6 family of virtual machine. Select “D4ps_v6” from the list and create the virtual machine.
 
-![Nginx Screenshot](./instance.png)
+![MongoDb Screenshot](./instance.png)
 
 The virtual machine should be ready and running; you can SSH into the virtual machine using the PEM key, along with the Public IP details.
 
