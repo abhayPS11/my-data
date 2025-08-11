@@ -1,5 +1,5 @@
 ---
-title: "About Cobalt 100 Arm-based processor and Nginx"
+title: "About Cobalt 100 Arm-based processor and MongoDB"
 
 weight: 2
 
@@ -16,11 +16,9 @@ To learn more about Cobalt 100, refer to the blog [Announcing the preview of new
 
 Azure Linux 3.0 is Microsoft's in-house, lightweight Linux distribution optimized for running cloud-native workloads on Azure. Designed with performance, security, and reliability in mind, it is fully supported by Microsoft and tailored for containers, microservices, and Kubernetes. With native support for Arm64 (AArch64) architecture, Azure Linux 3.0 enables efficient execution of workloads on energy-efficient Arm-based infrastructure, making it a powerful choice for scalable and cost-effective cloud deployments.
 
-## About Nginx
+## MongoDB
+MongoDB is a popular open-source NoSQL database designed for high performance, scalability, and flexibility.
 
-Nginx is a high-performance, open-source web server, reverse proxy, load balancer, and HTTP cache. Originally developed by Igor Sysoev, Nginx is known for its event-driven, asynchronous architecture, which enables it to handle high concurrency with low resource usage.
+It stores data in JSON-like BSON documents, making it ideal for modern applications that require dynamic, schema-less data structures.
 
-There are three main variants of Nginx:
-- **Nginx Open Source**– Free and [open-source version available at nginx.org](https://nginx.org)
-- **Nginx Plus**- [Commercial edition of Nginx](https://www.nginx.com/products/nginx/) with features like dynamic reconfig, active health checks, and monitoring.
-- **Nginx Unit**-  A lightweight, dynamic application server that complements Nginx. [Learn more at unit.nginx.org](https://unit.nginx.org/).
+MongoDB is widely used for web, mobile, IoT, and real-time analytics workloads. Learn more from the [MongoDB official website](https://www.mongodb.com/) and its [official documentation](https://www.mongodb.com/docs/).
