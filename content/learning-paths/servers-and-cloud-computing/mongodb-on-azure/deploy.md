@@ -1,5 +1,5 @@
 ---
-title: Install MongoDB on Google Axion C4A virtual machine
+title: Install MongoDB on Microsoft Azure Virtual Machine
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -7,9 +7,9 @@ layout: learningpathall
 ---
 
 
-## Install MongoDB and mongosh on Google Axion C4A virtual machine
+## Install MongoDB and mongosh on Azure Linux 3.0
 
-Install MongoDB and mongosh on GCP RHEL 9 Arm64 by downloading the binaries, setting up environment paths, configuring data and log directories, and starting the server for local access and verification.
+Install MongoDB and mongosh on Azure Linux 3.0 Arm64 by downloading the binaries, setting up environment paths, configuring data and log directories, and starting the server for local access and verification.
 
 1. Install System Dependencies
 
