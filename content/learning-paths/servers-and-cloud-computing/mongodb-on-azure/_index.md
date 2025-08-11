@@ -1,55 +1,51 @@
 ---
-title: Run  on the Microsoft Azure Cobalt 100 processors 
+title: Run MongoDB on the Microsoft Azure Cobalt 100 processors 
 
 minutes_to_complete: 30   
 
-who_is_this_for: This Learning Path introduces Nginx deployment on Microsoft Azure Cobalt 100 (Arm-based) virtual machine. It is intended for system administrators and developers looking to deploy and benchmark Nginx on Arm architecture with minimal adjustments from traditional x86_64 environments.
+who_is_this_for: This Learning Path is designed for software developers looking to migrate their MongoDB workloads from x86_64 to Arm-based platforms, specifically on the Microsoft Azure Cobalt 100 processors.
 
 learning_objectives: 
     - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
     - Learn how to create an Azure Linux 3.0 Docker container.
-    - Deploy the Nginx web server on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
-    - Perform Nginx baseline testing and benchmarking in both the containerized and virtual machine environments.
+    - Deploy the MongoDb on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
+    - Perform MongoDB baseline testing and benchmarking in both the containerized and virtual machine environments.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
     - A machine with [Docker](/install-guides/docker/) installed.
-    - Network settings (firewalls and security groups) should allow inbound communication on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
+    - Basic understanding of Linux command line.
+    - Familiarity with the [MongoDB architecture](https://www.mongodb.com/) and deployment practices on Arm64 platforms.
 
 author: Jason Andrews
 
 ### Tags
 skilllevels: Advanced
-subjects: Web
+subjects: Databases
 cloud_service_providers: Microsoft Azure
 
 armips:
     - Neoverse
 
 tools_software_languages:
-    - Nginx
+    - MongoDB
     - Docker
-    - Apache Bench
+    - 
 
 operatingsystems:
     - Linux
 
 further_reading:
-  - resource:
-      title: Nginx official documentation
-      link: https://nginx.org/en/docs/
-      type: documentation
-  - resource:
-      title: Apache Bench official documentation
-      link: https://httpd.apache.org/docs/2.4/programs/ab.html
-      type: documentation
-  - resource:
-      title: Docker overview
-      link: https://docs.docker.com/get-started/overview/
-      type: documentation
-  - resource:
-      title: Nginx on Azure
-      link: https://docs.nginx.com/nginx/deployment-guides/microsoft-azure/virtual-machines-for-nginx/
+    - resource:
+        title: MongoDB Manual
+        link: https://www.mongodb.com/docs/manual/
+        type: documentation
+    - resource:
+        title: MongoDB Performance Tool
+        link: https://github.com/idealo/mongodb-performance-test#readme
+        type: documentation
+      title: MongoDB on Azure
+      link: https://azure.microsoft.com/en-us/solutions/mongodb
       type: documentation
 
 
