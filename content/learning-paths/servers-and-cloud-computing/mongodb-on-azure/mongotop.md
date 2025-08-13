@@ -1,6 +1,6 @@
 ---
 title: MongoDB Benchmarking with mongotop
-weight: 7
+weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -17,9 +17,7 @@ mongotop 2
 
 You should see an output similar to:
 ```output
-
 2025-08-13T08:02:06.613+0000    connected to: mongodb://localhost/
-
                             ns    total    read    write    2025-08-13T08:02:08Z
                 admin.atlascli      4ms     2ms      2ms
         benchmarkDB.cursorTest      4ms     1ms      2ms
