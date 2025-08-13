@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 ## Monitoring MongoDB Performance
-
+This guide demonstrates how to monitor MongoDB performance using **mongotop**, showing **read/write** activity across collections in **real time**. It includes benchmark results collected on Azure Arm64 virtual machines, providing a reference for expected latencies.
 
 ### Run mongotop — Terminal 2
 
