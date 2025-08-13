@@ -389,3 +389,35 @@ test.admin_system_version_test      2ms     1ms      1ms
                  test.atlascli      2ms     1ms      1ms
     test.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
+```
+
+{{% notice Note %}}
+Benchmarking was performed in both an Azure Linux 3.0 Docker container and an Azure Linux 3.0 virtual machine. The benchmark results were found to be relatively stable.
+{{% /notice %}}
+
+Accordingly, this Learning path includes benchmark results from virtual machines only, for both x86 and Arm64 platforms.
+
+### Benchmark summary on Arm64:
+The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtual machine created from a custom Azure Linux 3.0 image using the AArch64 ISO**.
+
+| Namespace                       | Total | Read | Write |
+|---------------------------------|-------|------|-------|
+| admin.atlascli                  | 2-6ms | 1-2ms | 1-3ms |
+| benchmarkDB.cursorTest          | 2-5ms | 0-2ms | 1-3ms |
+| benchmarkDB.testCollection      | 2-6ms | 1-2ms | 1-3ms |
+| local.system_replset_bench      | 2-5ms | 1-2ms | 1-3ms |
+| test.atlascli                   | 2-6ms | 1-2ms | 1-3ms |
+| config.system_sessions_bench    | 1-5ms | 0-2ms | 1-2ms |
+| config.transactions_bench       | 1-5ms | 0-2ms | 1-2ms |
+| test.system_sessions_bench      | 1-5ms | 1-2ms | 1-3ms |
+| test.admin_system_version_test  | 1-5ms | 0-2ms | 1-2ms |
+| admin.system.version            | 0ms   | 0ms  | 0ms   |
+
+### Highlights from Azure Linux ARM64 Benchmarking
+
+- **Most active namespaces:** admin.atlascli, benchmarkDB.testCollection, benchmarkDB.cursorTest, and test.atlascli — total times 2–6ms.
+- **Read patterns:** Reads across collections are 0–2ms, showing low-latency performance on Arm64.
+- **Write patterns:** Writes are mostly 1–3ms, indicating a balanced workload on Arm64.
+- **Less active namespaces:** config.system_sessions_bench, config.transactions_bench, test.system_sessions_bench — total 1–5ms.
+- **Idle collections:** admin.system.version remains 0ms, showing minimal activity.
+- **Overall observation:** MongoDB operations on Arm64 are lightweight with consistently low-latency reads and writes, confirming efficient Arm64 performance.
