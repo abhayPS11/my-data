@@ -7,8 +7,9 @@ layout: learningpathall
 ---
 
 ## Monitoring MongoDB Performance
+This guide demonstrates real-time MongoDB monitoring using **mongostat** on Arm64 Azure virtual machines. It **shows low-latency, stable insert, query, update, and delete operations**, with consistent memory usage and network throughput, providing a quick health-and-performance overview during benchmarking.
 
-### Monitor with mongostat (Terminal 3)
+### Monitor with mongostat — Terminal 3
 
 ```console
 mongostat 2
