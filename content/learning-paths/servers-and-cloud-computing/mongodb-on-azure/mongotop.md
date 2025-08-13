@@ -8,7 +8,8 @@ layout: learningpathall
 
 ## Monitoring MongoDB Performance
 
-### Run mongotop (monitor per-collection I/O) — Terminal B
+
+### Run mongotop — Terminal 2
 
 ```console
 mongotop 2
