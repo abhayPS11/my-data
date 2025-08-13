@@ -16,7 +16,7 @@ The user will install the official MongoDB database tools, start MongoDB, run a 
 ```console
 wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel93-aarch64-100.12.1.tgz
 tar -xzf mongodb-database-tools-rhel93-aarch64-100.12.1.tgz
-echo "export PATH=\$PATH:/root/mongodb-database-tools-rhel93-aarch64-100.12.1/bin" >> ~/.bashrc
+echo 'export PATH=$PATH:~/mongodb-database-tools-rhel93-aarch64-100.12.1/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
 These commands download and unpack MongoDB’s official monitoring tools (**mongotop** & **mongostat**), then add them to your PATH so they work from any terminal.
