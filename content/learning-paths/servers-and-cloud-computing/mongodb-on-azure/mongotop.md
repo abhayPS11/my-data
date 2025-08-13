@@ -398,6 +398,22 @@ Benchmarking was performed in both an Azure Linux 3.0 Docker container and an Az
 
 Accordingly, this Learning path includes benchmark results from virtual machines only, for both x86 and Arm64 platforms.
 
+### Benchmark summary on x86_64:
+The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtual machine using the Azure Linux 3.0 image published by Ntegral Inc**.
+
+| Namespace                       | Total | Read | Write |
+|---------------------------------|-------|------|-------|
+| admin.atlascli                  | 5ms   | 2ms  | 2ms   |
+| benchmarkDB.testCollection      | 4ms   | 1ms  | 2ms   |
+| local.system_replset_bench      | 4ms   | 1ms  | 2ms   |
+| benchmarkDB.cursorTest          | 3ms   | 1ms  | 2ms   |
+| config.system_sessions_bench    | 3ms   | 1ms  | 2ms   |
+| config.transactions_bench       | 3ms   | 1ms  | 2ms   |
+| test.admin_system_version_test  | 2ms   | 0ms  | 1ms   |
+| test.system_sessions_bench      | 2ms   | 0ms  | 1ms   |
+| test.atlascli                   | 1ms   | 0ms  | 1ms   |
+| admin.system.version            | 0ms   | 0ms  | 0ms   |
+
 ### Benchmark summary on Arm64:
 The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtual machine created from a custom Azure Linux 3.0 image using the AArch64 ISO**.
 
