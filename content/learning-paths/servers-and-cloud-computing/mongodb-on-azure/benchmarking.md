@@ -112,6 +112,7 @@ This is the load generator script, it creates several collections and repeatedly
 
 {{% notice Note %}}
 Before proceeding, the load script and the monitoring tools must be run in separate terminals simultaneously.The load script continuously generates activity in MongoDB, keeping the database busy with multiple operations.
+
 The mongotop and mongostat tools monitor and report this activity in real time as it happens.If all commands are run in the same terminal, the monitoring tools will only start after the script finishes, preventing real-time observation of MongoDB’s performance.
 {{% /notice %}}
 
