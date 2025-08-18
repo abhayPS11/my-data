@@ -51,6 +51,25 @@ insert query update delete getmore command dirty used flushes vsize  res qrw arw
      8    17      8      8     233     0|0  0.0% 0.0%       0 3.53G 154M 0|0 0|0  41.4k    199k    8 Aug 13 08:21:24.609
 ```
 
+### Explanation of mongostat Metrics
+
+- **insert** - Number of document insert operations per second.
+- **query** - Number of query operations (reads) per second.
+- **update** - Number of document update operations per second.
+- **delete** - Number of delete operations per second.
+- **getmore** - Number of getMore operations per second (used when fetching more results from a cursor).
+- **command** - Number of database commands executed per second (e.g., createIndex, count, aggregate).
+- **dirty/used** - Percentage of the WiredTiger cache that is dirty (not yet written to disk) and the percentage actively used.
+- **flushes** - How many times data has been flushed to disk (per second).
+- **vsize** - Virtual memory size of the mongod process.
+- **res** - Resident memory size (actual RAM in use).
+- **qrw arw** - Queued and active readers/writers:
+  - `qrw` = queued read | queued write.
+  - `arw` = active read | active write.
+- **net_in/net_out** - Amount of network traffic coming into (net_in) and going out of (net_out) the database per second.
+- **conn** - Number of active client connections.
+- **time** - Timestamp of the sample.
+
 {{% notice Note %}} Benchmarking was performed in both an Azure Linux 3.0 Docker container and an Azure Linux 3.0 virtual machine. The benchmark results were found to be relatively stable. {{% /notice %}}
 
 Accordingly, this Learning path includes benchmark results from virtual machines only, for both x86 and Arm64 platforms. 
@@ -60,16 +79,16 @@ The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtua
 
 | insert | query | update | delete | getmore | command | dirty | used | flushes | vsize  | res   | qrw | arw | net_in | net_out | conn   | time                   |
 |--------|-------|--------|--------|---------|---------|-------|------|---------|--------|-------|-----|-----|--------|---------|--------|------------------------|
-| 4      | 8     | 4      | 4      | 76      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0|0 | 0|0 | 15.1k | 99.2k  | 10 Aug 13 10:16:38.605 |
-| 8      | 17    | 8      | 8      | 152     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0|0 | 0|0 | 30.1k | 148k   | 11 Aug 13 10:16:40.606 |
-| 4      | 9     | 4      | 4      | 76      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0|0 | 0|0 | 15.0k | 102k   | 11 Aug 13 10:16:42.604 |
-| 8      | 17    | 8      | 8      | 161     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0|0 | 0|0 | 31.2k | 154k   | 11 Aug 13 10:16:44.606 |
-| 4      | 8     | 4      | 4      | 80      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0|0 | 0|0 | 15.7k | 105k   | 11 Aug 13 10:16:46.607 |
-| 8      | 17    | 8      | 8      | 150     | 2|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0|0 | 0|0 | 29.2k | 151k   | 11 Aug 13 10:16:48.605 |
-| 4      | 9     | 4      | 4      | 96      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0|0 | 0|0 | 18.6k | 114k   | 11 Aug 13 10:16:50.606 |
-| 7      | 15    | 7      | 7      | 138     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0|0 | 0|0 | 26.6k | 141k   | 11 Aug 13 10:16:52.603 |
-| 5      | 11    | 5      | 5      | 117     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0|0 | 0|0 | 22.3k | 128k   | 11 Aug 13 10:16:54.605 |
-| 6      | 12    | 6      | 6      | 141     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 148M  | 0|0 | 0|0 | 25.6k | 142k   | 11 Aug 13 10:17:12.605 |
+| 4      | 8     | 4      | 4      | 76      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0/0 | 0/0 | 15.1k | 99.2k  | 10 Aug 13 10:16:38.605 |
+| 8      | 17    | 8      | 8      | 152     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0/0 | 0/0 | 30.1k | 148k   | 11 Aug 13 10:16:40.606 |
+| 4      | 9     | 4      | 4      | 76      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 15.0k | 102k   | 11 Aug 13 10:16:42.604 |
+| 8      | 17    | 8      | 8      | 161     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 31.2k | 154k   | 11 Aug 13 10:16:44.606 |
+| 4      | 8     | 4      | 4      | 80      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 15.7k | 105k   | 11 Aug 13 10:16:46.607 |
+| 8      | 17    | 8      | 8      | 150     | 2|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 29.2k | 151k   | 11 Aug 13 10:16:48.605 |
+| 4      | 9     | 4      | 4      | 96      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 18.6k | 114k   | 11 Aug 13 10:16:50.606 |
+| 7      | 15    | 7      | 7      | 138     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0/0 | 0/0 | 26.6k | 141k   | 11 Aug 13 10:16:52.603 |
+| 5      | 11    | 5      | 5      | 117     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0/0 | 0/0 | 22.3k | 128k   | 11 Aug 13 10:16:54.605 |
+| 6      | 12    | 6      | 6      | 141     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 148M  | 0/0 | 0/0 | 25.6k | 142k   | 11 Aug 13 10:17:12.605 |
 
 
 ### Benchmark summary on Arm64
@@ -77,16 +96,17 @@ The following benchmark results are collected on an Arm64 **D4ps_v6 Azure virtua
 
 | insert | query | update | delete | getmore | command | dirty | used | flushes | vsize | res  | qrw | arw | net_in | net_out | conn | time |
 |--------|-------|--------|--------|---------|---------|-------|------|---------|-------|------|-----|-----|--------|---------|------|------|
-| 8      | 17    | 8      | 8      | 151     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 29.1k  | 145k    | 8    | Aug 13 08:20:30.608 |
-| 4      | 9     | 4      | 4      | 91      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 17.7k  | 109k    | 8    | Aug 13 08:20:32.609 |
-| 9      | 18    | 9      | 9      | 162     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 31.2k  | 156k    | 8    | Aug 13 08:20:34.608 |
-| 4      | 9     | 4      | 4      | 85      | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 16.4k  | 105k    | 8    | Aug 13 08:20:36.608 |
-| 8      | 17    | 8      | 8      | 170     | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 32.5k  | 160k    | 8    | Aug 13 08:20:38.609 |
-| 4      | 9     | 4      | 4      | 85      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 16.3k  | 106k    | 8    | Aug 13 08:20:40.607 |
-| 8      | 17    | 8      | 8      | 175     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 33.1k  | 163k    | 8    | Aug 13 08:20:42.608 |
-| 4      | 9     | 4      | 4      | 90      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 16.9k  | 108k    | 8    | Aug 13 08:20:44.607 |
-| 8      | 17    | 8      | 8      | 179     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 33.8k  | 166k    | 8    | Aug 13 08:20:46.607 |
-| 4      | 8     | 4      | 4      | 89      | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0|0 | 0|0 | 17.1k  | 110k    | 8    | Aug 13 08:20:48.609 |
+| 8      | 17    | 8      | 8      | 151     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 29.1k  | 145k    | Aug 13 08:20:30.608 |
+| 4      | 9     | 4      | 4      | 91      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 17.7k  | 109k    | Aug 13 08:20:32.609 |
+| 9      | 18    | 9      | 9      | 162     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 31.2k  | 156k    | Aug 13 08:20:34.608 |
+| 4      | 9     | 4      | 4      | 85      | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.4k  | 105k    | Aug 13 08:20:36.608 |
+| 8      | 17    | 8      | 8      | 170     | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 32.5k  | 160k    | Aug 13 08:20:38.609 |
+| 4      | 9     | 4      | 4      | 85      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.3k  | 106k    | Aug 13 08:20:40.607 |
+| 8      | 17    | 8      | 8      | 175     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 33.1k  | 163k    | Aug 13 08:20:42.608 |
+| 4      | 9     | 4      | 4      | 90      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.9k  | 108k    | Aug 13 08:20:44.607 |
+| 8      | 17    | 8      | 8      | 179     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 33.8k  | 166k    | Aug 13 08:20:46.607 |
+| 4      | 8     | 4      | 4      | 89      | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 17.1k  | 110k    | Aug 13 08:20:48.609 |
+
 
 ### Highlights from Azure Linux Arm64 Benchmarking
 
