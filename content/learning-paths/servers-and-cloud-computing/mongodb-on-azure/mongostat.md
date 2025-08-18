@@ -79,16 +79,16 @@ The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtua
 
 | insert | query | update | delete | getmore | command | dirty | used | flushes | vsize  | res   | qrw | arw | net_in | net_out | conn   | time                   |
 |--------|-------|--------|--------|---------|---------|-------|------|---------|--------|-------|-----|-----|--------|---------|--------|------------------------|
-| 4      | 8     | 4      | 4      | 76      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0/0 | 0/0 | 15.1k | 99.2k  | 10 Aug 13 10:16:38.605 |
-| 8      | 17    | 8      | 8      | 152     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0/0 | 0/0 | 30.1k | 148k   | 11 Aug 13 10:16:40.606 |
-| 4      | 9     | 4      | 4      | 76      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 15.0k | 102k   | 11 Aug 13 10:16:42.604 |
-| 8      | 17    | 8      | 8      | 161     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 31.2k | 154k   | 11 Aug 13 10:16:44.606 |
-| 4      | 8     | 4      | 4      | 80      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 15.7k | 105k   | 11 Aug 13 10:16:46.607 |
-| 8      | 17    | 8      | 8      | 150     | 2|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 29.2k | 151k   | 11 Aug 13 10:16:48.605 |
-| 4      | 9     | 4      | 4      | 96      | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 18.6k | 114k   | 11 Aug 13 10:16:50.606 |
-| 7      | 15    | 7      | 7      | 138     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0/0 | 0/0 | 26.6k | 141k   | 11 Aug 13 10:16:52.603 |
-| 5      | 11    | 5      | 5      | 117     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0/0 | 0/0 | 22.3k | 128k   | 11 Aug 13 10:16:54.605 |
-| 6      | 12    | 6      | 6      | 141     | 1|0     | 0.0%  | 0.0% | 0       | 2.54G  | 148M  | 0/0 | 0/0 | 25.6k | 142k   | 11 Aug 13 10:17:12.605 |
+| 4      | 8     | 4      | 4      | 76      | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0/0 | 0/0 | 15.1k | 99.2k  | 11 |Aug 13 10:16:38.605 |
+| 8      | 17    | 8      | 8      | 152     | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 145M  | 0/0 | 0/0 | 30.1k | 148k   | 11 |Aug 13 10:16:40.606 |
+| 4      | 9     | 4      | 4      | 76      | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 15.0k | 102k   | 11 |Aug 13 10:16:42.604 |
+| 8      | 17    | 8      | 8      | 161     | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 31.2k | 154k   | 11 |Aug 13 10:16:44.606 |
+| 4      | 8     | 4      | 4      | 80      | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 15.7k | 105k   | 11 |Aug 13 10:16:46.607 |
+| 8      | 17    | 8      | 8      | 150     | 2/0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 29.2k | 151k   | 11 |Aug 13 10:16:48.605 |
+| 4      | 9     | 4      | 4      | 96      | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 146M  | 0/0 | 0/0 | 18.6k | 114k   | 11 |Aug 13 10:16:50.606 |
+| 7      | 15    | 7      | 7      | 138     | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0/0 | 0/0 | 26.6k | 141k   | 11 |Aug 13 10:16:52.603 |
+| 5      | 11    | 5      | 5      | 117     | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 147M  | 0/0 | 0/0 | 22.3k | 128k   | 11 |Aug 13 10:16:54.605 |
+| 6      | 12    | 6      | 6      | 141     | 1/0     | 0.0%  | 0.0% | 0       | 2.54G  | 148M  | 0/0 | 0/0 | 25.6k | 142k   | 11 |Aug 13 10:17:12.605 |
 
 
 ### Benchmark summary on Arm64
@@ -96,23 +96,23 @@ The following benchmark results are collected on an Arm64 **D4ps_v6 Azure virtua
 
 | insert | query | update | delete | getmore | command | dirty | used | flushes | vsize | res  | qrw | arw | net_in | net_out | conn | time |
 |--------|-------|--------|--------|---------|---------|-------|------|---------|-------|------|-----|-----|--------|---------|------|------|
-| 8      | 17    | 8      | 8      | 151     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 29.1k  | 145k    | Aug 13 08:20:30.608 |
-| 4      | 9     | 4      | 4      | 91      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 17.7k  | 109k    | Aug 13 08:20:32.609 |
-| 9      | 18    | 9      | 9      | 162     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 31.2k  | 156k    | Aug 13 08:20:34.608 |
-| 4      | 9     | 4      | 4      | 85      | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.4k  | 105k    | Aug 13 08:20:36.608 |
-| 8      | 17    | 8      | 8      | 170     | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 32.5k  | 160k    | Aug 13 08:20:38.609 |
-| 4      | 9     | 4      | 4      | 85      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.3k  | 106k    | Aug 13 08:20:40.607 |
-| 8      | 17    | 8      | 8      | 175     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 33.1k  | 163k    | Aug 13 08:20:42.608 |
-| 4      | 9     | 4      | 4      | 90      | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.9k  | 108k    | Aug 13 08:20:44.607 |
-| 8      | 17    | 8      | 8      | 179     | 0|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 33.8k  | 166k    | Aug 13 08:20:46.607 |
-| 4      | 8     | 4      | 4      | 89      | 1|0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 17.1k  | 110k    | Aug 13 08:20:48.609 |
+| 8      | 17    | 8      | 8      | 151     | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 29.1k  | 145k    | 8 |Aug 13 08:20:30.608 |
+| 4      | 9     | 4      | 4      | 91      | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 17.7k  | 109k    | 8 |Aug 13 08:20:32.609 |
+| 9      | 18    | 9      | 9      | 162     | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 31.2k  | 156k    | 8 |Aug 13 08:20:34.608 |
+| 4      | 9     | 4      | 4      | 85      | 1/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.4k  | 105k    | 8 |Aug 13 08:20:36.608 |
+| 8      | 17    | 8      | 8      | 170     | 1/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 32.5k  | 160k    | 8 |Aug 13 08:20:38.609 |
+| 4      | 9     | 4      | 4      | 85      | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.3k  | 106k    | 8 |Aug 13 08:20:40.607 |
+| 8      | 17    | 8      | 8      | 175     | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 33.1k  | 163k    | 8 |Aug 13 08:20:42.608 |
+| 4      | 9     | 4      | 4      | 90      | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 16.9k  | 108k    | 8 |Aug 13 08:20:44.607 |
+| 8      | 17    | 8      | 8      | 179     | 0/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 33.8k  | 166k    | 8 |Aug 13 08:20:46.607 |
+| 4      | 8     | 4      | 4      | 89      | 1/0    | 0.0%  | 0.0% | 0       | 3.53G | 154M | 0/0 | 0/0 | 17.1k  | 110k    | 8 |Aug 13 08:20:48.609 |
 
 
 ### Highlights from Azure Linux Arm64 Benchmarking
 
-- **Insert, Query, Update, Delete Rates:** Operations per second are fairly stable, with inserts and queries usually ranging between 4–9 ops/sec for light collections, and updates/deletes slightly higher during load cycles.
-- **Memory Usage:** Resident memory (res) stays consistent around 154 MB, while virtual memory (vsize) is about 3.53 GB. This shows MongoDB is efficiently managing memory on Arm64.
-- **Network Activity:** Network in/out fluctuates between ~17k–41k (net_in) and 105k–199k (net_out), reflecting the workload generated by the script.
-- **Connections:** Connection count is stable at 8, showing MongoDB handles multiple simultaneous connections without spikes.
-- **Command Execution:** Commands, getmore operations, and dirty pages are low (mostly 0–1), indicating MongoDB is not getting blocked by internal tasks.
-- **Overall System Behavior:** The database remains responsive under heavy load, as seen by consistent operation rates and moderate resource usage.
+- **Insert, Query, Update, Delete Rates:** Operation throughput is stable, with inserts and queries typically in the 4–9 ops/sec range, while updates and deletes peak slightly higher during workload bursts.
+- **Memory Usage:** Resident memory remains steady around 154 MB, and virtual memory around **3.53 GB**, confirming efficient memory handling on Arm64.
+- **Network Activity:** Network traffic shows **net_in between ~17k–41k and net_out between 105k–199k**, consistent with the generated workload.
+- **Connections:** Connections remain stable at **8**, demonstrating MongoDB can sustain concurrent client activity without spikes.
+- **Command Execution:** Command, getmore, and dirty page activity stays minimal (**0–1**), indicating no internal blocking or resource contention.
+- **Overall System Behavior:** MongoDB remains responsive under sustained load, with consistent operation rates and moderate resource usage across tests.
