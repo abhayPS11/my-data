@@ -8,9 +8,9 @@ layout: learningpathall
 
 ## Run the performance tests using go test -bench
 
-**go test -bench** is Go’s built-in benchmarking framework that measures the performance of functions by running them repeatedly and reporting execution time (**ns/op**), memory usage, and allocations. It’s simple, reliable, and requires only writing benchmark functions in the standard Go testing package.
+**go test -bench** is Golang’s built-in benchmarking framework that measures the performance of functions by running them repeatedly and reporting execution time (**ns/op**), memory usage, and allocations. It’s simple, reliable, and requires only writing benchmark functions in the standard Golang testing package.
 
-This guide walks you through **benchmarking sorting algorithms** in Go using the built-in **go test -bench framework**. You will learn how to set up a project, write sorting and benchmark functions, run performance tests, and compare results across **VMs and Docker containers on both x86_64 and Arm64 environments**.
+This guide walks you through **benchmarking sorting algorithms** in Golang using the built-in **go test -bench framework**. You will learn how to set up a project, write sorting and benchmark functions, run performance tests, and compare results across **VMs and Docker containers on both x86_64 and Arm64 environments**.
 
 1. Create a Project Folder
 
