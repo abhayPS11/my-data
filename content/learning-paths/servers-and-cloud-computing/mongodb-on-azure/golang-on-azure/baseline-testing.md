@@ -104,5 +104,5 @@ http://< <Public-IP> >:8080
 
 You should see the Golang web page confirming a successful installation of Golang.
 
-![golang](./)
+![golang](./go-web.png)
 Replace <**Public-IP**> with your Azure virtual machine’s actual public IP address. When you visit this link, you should see the styled HTML page being served directly by your Go application.
