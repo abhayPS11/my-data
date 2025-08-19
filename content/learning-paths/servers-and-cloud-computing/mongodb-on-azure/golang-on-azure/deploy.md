@@ -17,6 +17,9 @@ This command downloads the official Go package for Linux Arm64 from the Go websi
 ```console
 wget https://go.dev/dl/go1.25.0.linux-arm64.tar.gz
 ```
+{{% notice Note %}}
+According to the [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/), the minimum recommended version of Golang for Arm platforms is 1.5. Therefore, you can use any version starting from 1.5 up to the latest release.
+{{% /notice %}}
 
 2. Extract the archive into `/usr/local`
 
