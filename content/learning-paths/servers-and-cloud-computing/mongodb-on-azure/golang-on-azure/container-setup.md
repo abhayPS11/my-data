@@ -31,4 +31,4 @@ Refer [Create an Azure Linux 3.0 virtual machine with Cobalt 100 processors](/le
 
 Whether you're using an Azure Linux 3.0 Docker container, or a virtual machine created from a custom Azure Linux 3.0 image, the deployment and benchmarking steps remain the same.
 
-Once the setup has been established, you can proceed with the MongoDB Installation ahead.
+Once the setup has been established, you can proceed with the Golang Installation ahead.
