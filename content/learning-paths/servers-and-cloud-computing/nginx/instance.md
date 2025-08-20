@@ -29,19 +29,19 @@ Creating a virtual machine based on Azure Cobalt 100 is no different from creati
 7. Select "Generate new key pair", and select "RSA SSH Format" as the SSH Key Type. RSA could offer better security with keys longer than 3072 bits. Give a Key pair name to your SSH key.
 8. In the "Inbound port rules", select HTTP (80) and SSH (22) as the inbound ports. The default port for Nginx when handling standard web traffic (HTTP) is 80.
 
-<ATTACH PIC that I shared ...>
+![Nginx Screenshot](./instance1.png)
 
 9. Click on the "Review + Create" tab and review the configuration for your virtual machine. It should look like the following:
 
-<Attach both the pics that I shared with you...>
+![Nginx Screenshot](./instance2.png)
 
 10. Finally, when you are confident about your selection, click on the "Create" button, and click on the "Download Private key and Create Resources" button.
 
-<Attach pic that I shared...>
+![Nginx Screenshot](./instance4.png)
 
 11. Your virtual machine should be ready and running within no time. You can SSH into the virtual machine using the private key, along with the Public IP details.
 
-<Attach pic that I shared...>
+![Nginx Screenshot](./instance5.png)
 
 {{% notice Note %}}
 
