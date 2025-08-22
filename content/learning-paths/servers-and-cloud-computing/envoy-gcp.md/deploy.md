@@ -19,10 +19,11 @@ sudo dnf install -y \
   curl \
   libtool \
   patch \
+  python3 \
   python3-pip \
   unzip \
-  git \
-  python3-virtualenv
+  git
+pip3 install virtualenv
 ```
 
 2. Install Envoy (Static Arm64 Binary)
