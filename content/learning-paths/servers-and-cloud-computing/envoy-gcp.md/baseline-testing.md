@@ -74,7 +74,7 @@ This is the final phase of functional validation, confirming that the proxy is o
 Start the Envoy proxy using your configuration file. This command will keep the terminal occupied, so you will need a new terminal for the next step.
 
 ```console
-envoy -c envoy_config.yaml
+ envoy -c envoy_config.yaml --base-id 1
 ```
 The output should look similar to:
 
@@ -99,24 +99,22 @@ The `-v` flag provides verbose output, showing the full request and response hea
 The output should look similar to:
 
 ```output
-*   Trying ::1:10000...
-* connect to ::1 port 10000 failed: Connection refused
 *   Trying 127.0.0.1:10000...
-* Connected to localhost (127.0.0.1) port 10000 (#0)
+* Connected to 127.0.0.1 (127.0.0.1) port 10000 (#0)
 > GET /get HTTP/1.1
-> Host: localhost:10000
+> Host: 127.0.0.1:10000
 > User-Agent: curl/7.76.1
 > Accept: */*
 >
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 200 OK
-< date: Thu, 21 Aug 2025 11:54:15 GMT
+< date: Fri, 22 Aug 2025 11:20:35 GMT
 < content-type: application/json
-< content-length: 303
+< content-length: 301
 < server: envoy
 < access-control-allow-origin: *
 < access-control-allow-credentials: true
-< x-envoy-upstream-service-time: 82
+< x-envoy-upstream-service-time: 1042
 <
 {
   "args": {},
@@ -124,13 +122,13 @@ The output should look similar to:
     "Accept": "*/*",
     "Host": "httpbin.org",
     "User-Agent": "curl/7.76.1",
-    "X-Amzn-Trace-Id": "Root=1-68a708e7-5f27ad7b428c0e964641f135",
+    "X-Amzn-Trace-Id": "Root=1-68a85282-10af9cfe0385774600509ddd",
     "X-Envoy-Expected-Rq-Timeout-Ms": "15000"
   },
-  "origin": "104.197.177.90",
+  "origin": "34.63.220.63",
   "url": "http://httpbin.org/get"
 }
-* Connection #0 to host localhost left intact
+* Connection #0 to host 127.0.0.1 left intact
 ```
 #### Summary of the curl Output
 
