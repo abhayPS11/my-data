@@ -1,5 +1,5 @@
 ---
-title: Install Envoy on Google Axion C4A virtual machine
+title: How to deploy Envoy on Google Axion C4A Arm virtual machines
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -7,11 +7,10 @@ layout: learningpathall
 ---
 
 
-## Install Envoy on Google Axion C4A virtual machine
+## How to deploy Envoy on a Google Axion C4A Arm virtual machine
 This guide shows you how to install Envoy Proxy v1.30.0 on a Google Cloud Axion C4A virtual machine running RHEL 9. You’ll install the basic tools, download the official static Arm64 Envoy binary, give it executable permissions, and check the version. By the end, Envoy will be installed and ready to use on your GCP virtual machine — without needing Docker or building from source.
 
 1. Install Dependencies
-Use `dnf install` to install the required packages. The `-y` flag is added to automatically approve the installation:
 
 ```console
 sudo dnf install -y \
