@@ -1,5 +1,5 @@
 ---
-title: Functional Validation
+title: Envoy baseline testing on Google Axion C4A Arm Virtual machine
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -9,7 +9,8 @@ layout: learningpathall
 
 Since Envoy is installed successfully on your GCP C4A Arm virtual machine, follow these steps to validate that the Envoy is running.
 
-## Functional Validation
+## Validate Envoy installation with a baseline test
+
 In this section, we covered how to create a minimal Envoy config, start Envoy with it, and verify functionality using `curl`. 
 The test confirmed that Envoy listens on port **10000**, forwards requests to `httpbin.org`, and returns a successful **200 OK** response.
 
