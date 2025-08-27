@@ -19,7 +19,7 @@ Update the system and install required libraries and utilities. Required librari
 
 ```console
 sudo dnf update -y
-sudo dnf install -y libaio bc ncurses-libs libgcc libstdc++ wget curl tar
+sudo dnf install -y libaio bc ncurses-libs libgcc libstdc++ ca-certificates wget curl tar
 sudo ln -s /usr/lib64/libncursesw.so.6 /usr/lib64/libncurses.so.6
 ```
 
