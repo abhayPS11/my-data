@@ -153,8 +153,8 @@ Shown here is a summary of the benchmark results collected on two different x86_
 
 When comparing the results on Arm64 vs x86_64 virtual machines:
 
-- **Consistent Read Performance:** - On Arm64, both Docker and Virtual Machine environments achieved very similar SELECT query times (~0.009–0.011s), showing low latency and high stability for read-heavy workloads.
-- **Slight Variation in Write Performance:** - For INSERT operations, the Docker setup averaged slightly faster (0.017s) than the Virtual Machine (0.020s), although the difference was minimal and both stayed within a narrow range.
+- **Consistent Read Performance:** - On Arm64, both Docker and Virtual Machine environments achieved very similar `SELECT` query times **(~0.009–0.011s)**, showing low latency and high stability for read-heavy workloads.
+- **Slight Variation in Write Performance:** - For `INSERT` operations, the Docker setup averaged slightly faster **(0.017s)** than the Virtual Machine **(0.020s)**, although the difference was minimal and both stayed within a narrow range.
 - **Low Performance Variability:** - The Arm64 results showed very tight min-to-max ranges, indicating predictable performance across multiple test iterations, which is desirable for production workloads.
 - **Key Takeaway:** - Arm64 delivered stable, low-latency MySQL performance in both Docker and VM environments, with negligible differences between the two.
 
