@@ -10,7 +10,7 @@ layout: learningpathall
 
 After installing MySQL on your Arm64 virtual machine, you can perform simple baseline testing to validate that MySQL runs correctly and produces the expected output.
 
-1. Start MySQL 
+### Start MySQL 
 
 Make sure MySQL is running: 
 
@@ -19,14 +19,14 @@ sudo /usr/local/mysql/bin/mysqld_safe --datadir=/usr/local/mysql/data &
 ```
 Starts the MySQL server in safe mode using **/usr/local/mysql/data** as the data directory, running in the background.
 
-2. Connect to MySQL 
+### Connect to MySQL 
 
 ```console
 mysql -u root -p
 ```
 Opens the MySQL client and connects as the root user, prompting you to enter the root password.
 
-3. Create, show and use Database
+### Create, show and use Database
 
 ```sql
 CREATE DATABASE baseline_test;
@@ -67,7 +67,7 @@ mysql> SELECT DATABASE();
 ```
 You created a new database named **baseline_test**, verified its presence with `SHOW DATABASES`, and confirmed it is the active database using `SELECT DATABASE()`.
 
-4. Create and show Table
+### Create and show Table
 
 ```sql
 CREATE TABLE test_table (
@@ -98,7 +98,7 @@ mysql> SHOW TABLES;
 ```
 You successfully created the table **test_table** in the `baseline_test` database and verified its existence using `SHOW TABLES`.
 
-5. Insert Sample Data
+### Insert Sample Data
 
 ```sql
 INSERT INTO test_table (name, value) 
