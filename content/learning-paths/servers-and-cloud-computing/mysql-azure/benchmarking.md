@@ -142,14 +142,20 @@ For easier comparison, shown here is a summary of benchmark results collected on
 ## Benchmark summary on x86_64:
 Shown here is a summary of the benchmark results collected on two different x86_64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4s_v6 Ubuntu-based Azure virtual machine**, and a **D4s_v4 Azure virtual machine created from the Azure Linux 3.0 image published by Ntegral Inc**.           
 
-| Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
-|----------------|-------------|--------------|--------------|---------|------------------|
-| Read (SELECT)  | 0.017       | 0.016        | 0.018        | 10      | 1                |
-| Write (INSERT) | 0.038       | 0.030        | 0.044        | 10      | 1                |
+| Environment        | Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
+|--------------------|----------------|--------------|--------------|--------------|---------|--------------------|
+| **Value on Docker**          | Read (SELECT)  | 0.010        | 0.009        | 0.011        | 10      | 1                  |
+|  **Value on Docker**          | Write (INSERT) | 0.021        | 0.016        | 0.031        | 10      | 1                  |
+| **Value on Virtual Machine**             | Read (SELECT)  | 0.017        | 0.016        | 0.018        | 10      | 1                  |
+| **Value on Virtual Machine**             | Write (INSERT) | 0.038        | 0.030        | 0.044        | 10      | 1                  |
 
 ## Benchmark comparison insights
 
 When comparing the results on Arm64 vs x86_64 virtual machines:
 
+- **Consistent Read Performance:** - On Arm64, both Docker and Virtual Machine environments achieved very similar SELECT query times (~0.009–0.011s), showing low latency and high stability for read-heavy workloads.
+- **Slight Variation in Write Performance:** - For INSERT operations, the Docker setup averaged slightly faster (0.017s) than the Virtual Machine (0.020s), although the difference was minimal and both stayed within a narrow range.
+- **Low Performance Variability:** - The Arm64 results showed very tight min-to-max ranges, indicating predictable performance across multiple test iterations, which is desirable for production workloads.
+- **Key Takeaway:** - Arm64 delivered stable, low-latency MySQL performance in both Docker and VM environments, with negligible differences between the two.
 
 You have now benchmarked MySql on an Azure Cobalt 100 Arm64 virtual machine and compared results with x86_64.
