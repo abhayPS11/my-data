@@ -126,22 +126,21 @@ Benchmark
 - **Number of clients running queries:** Indicates how many simulated users (or connections) ran queries simultaneously during the test.
 - **Average number of queries per client:** Shows the average number of queries each client executed in the benchmark iteration.
 
-{{% notice Note %}}
-Benchmark results on Azure Linux 3.0 were consistent across both Docker containers and virtual machines.
-{{% /notice %}}
-
-
 ## Benchmark summary on Arm64:
-For easier comparison, shown here is a summary of benchmark results collected on an Arm64 `D4ps_v6` Azure virtual machine created from a custom Azure Linux 3.0 image using the AArch64 ISO.
 
-| Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
-|----------------|-------------|--------------|--------------|---------|------------------|
-| Read (SELECT)  | 0.009       | 0.009        | 0.010        | 10      | 1                |
-| Write (INSERT) | 0.020       | 0.020        | 0.022        | 10      | 1                |
+For easier comparison, shown here is a summary of benchmark results collected on two different Arm64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4ps_v6 Ubuntu-based Azure virtual machine**, and a **D4ps_v6 Azure virtual machine created from the Azure Linux 3.0 custom image using the AArch64 ISO**.
+
+| Environment              | Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
+|--------------------------|----------------|--------------|--------------|--------------|---------|--------------------|
+| **Value on Docker**     | Read (SELECT)  | 0.010        | 0.010        | 0.011        | 10      | 1                  |
+| **Value on Docker**     | Write (INSERT) | 0.017        | 0.016        | 0.021        | 10      | 1                  |
+| **Value on Virtual Machine**   | Read (SELECT)  | 0.009        | 0.009        | 0.010        | 10      | 1                  |
+| **Value on Virtual Machine**   | Write (INSERT) | 0.020        | 0.020        | 0.022        | 10      | 1                  |
+
 
 
 ## Benchmark summary on x86_64:
-Shown here is a summary of the benchmark results collected on an `x86_64` `D4s_v4` Azure virtual machine using the Azure Linux 3.0 image published by Ntegral Inc.           
+Shown here is a summary of the benchmark results collected on two different x86_64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4s_v6 Ubuntu-based Azure virtual machine**, and a **D4s_v4 Azure virtual machine created from the Azure Linux 3.0 image published by Ntegral Inc**.           
 
 | Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
 |----------------|-------------|--------------|--------------|---------|------------------|
