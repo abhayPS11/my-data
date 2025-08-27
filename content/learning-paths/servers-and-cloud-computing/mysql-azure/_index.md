@@ -27,8 +27,8 @@ armips:
     - Neoverse
 
 tools_software_languages:
-    - SQL
     - MySQL
+    - mysqlslap
     - Docker
  
 operatingsystems:
