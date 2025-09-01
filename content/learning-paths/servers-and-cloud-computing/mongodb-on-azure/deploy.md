@@ -1,58 +1,55 @@
 ---
 title: Install MongoDB on Microsoft Azure Virtual Machine
-weight: 4
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
 
-## Install MongoDB and mongosh on Azure Linux 3.0
+## Install MongoDB and mongosh on Azure Ubuntu arm
 
-Install MongoDB and mongosh on Azure Linux 3.0 Arm64 by downloading the binaries, setting up environment paths, configuring data and log directories, and starting the server for local access and verification.
+Install MongoDB and mongosh on Azure Ubuntu Arm64 by downloading the binaries, setting up environment paths, configuring data and log directories, and starting the server for local access and verification.
 
 1. Install System Dependencies
 
 Install required system packages to support MongoDB:
 ```console
-sudo dnf install -y libcurl openssl tar wget curl
+sudo apt install -y libcurl openssl tar wget curl
 ```
 
 2. Download annd Extract MongoDB
 
 Fetch and unpack the MongoDB binaries for Arm64:
 ```console
-wget https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-rhel93-8.0.12.tgz
-tar -xzf mongodb-linux-aarch64-rhel93-8.0.12.tgz
-ls mongodb-linux-aarch64-rhel93-8.0.12/bin
+wget https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2404-8.0.12.tgz
+tar -xvzf mongodb-linux-aarch64-ubuntu2404-8.0.12.tgz
+sudo mv mongodb-linux-aarch64-ubuntu2404-8.0.12 /usr/local/mongodb
 ```
 
 3. Add MongoDB to System PATH
 
 Enable running mongod from any terminal session:
 ```console
-echo 'export PATH=~/mongodb-linux-aarch64-rhel93-8.0.12/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+echo 'export PATH=/usr/local/mongodb/bin:$PATH' | sudo tee /etc/profile.d/mongodb.sh
+source /etc/profile.d/mongodb.sh
 ```
 
-4. Create a data Directory
+4. Create a data and log directories
 
 Set up the database data directory:
 ```console
-mkdir -p ~/mongodb-data/db
+sudo mkdir -p /var/lib/mongo
+sudo mkdir -p /var/log/mongodb
+sudo chown -R $USER:$USER /var/lib/mongo /var/log/mongodb
 ```
 
 5. Start MongoDB Server 
 
-Start MongoDB in the **foreground** (without --fork) to view real-time output and ensure it starts correctly:
+Start MongoDB manually:
 ```console
-~/mongodb-linux-aarch64-rhel93-8.0.12/bin/mongod --dbpath ~/mongodb-data/db
+mongod --dbpath /var/lib/mongo --logpath /var/log/mongodb/mongod.log --fork
 ```
-Once confirmed it's working, you can start MongoDB in the **background** with logging:
-```console
-./mongodb-linux-aarch64-rhel93-8.0.12/bin/mongod --dbpath ~/mongodb-data/db --logpath ~/mongodb-data/mongod.log --fork
-```
-{{% notice Note %}}Make sure the **~/mongodb-data/db** directory exists before starting.{{% /notice %}}
 
 6. Install mongosh
 
@@ -60,9 +57,22 @@ Once confirmed it's working, you can start MongoDB in the **background** with lo
 
 Download and install MongoDB’s command-line shell for Arm:
 ```console
-wget https://github.com/mongodb-js/mongosh/releases/download/v2.5.6/mongodb-mongosh-2.5.6.aarch64.rpm
-sudo dnf install -y ./mongodb-mongosh-2.5.6.aarch64.rpm
+wget https://downloads.mongodb.com/compass/mongosh-2.3.8-linux-arm64.tgz
+tar -xvzf mongosh-2.3.8-linux-arm64.tgz
+sudo mv mongosh-2.3.8-linux-arm64 /usr/local/mongosh
 ```
+Extract and move to `/usr/local`
+```console
+tar -xvzf mongosh-2.3.8-linux-arm64.tgz
+sudo mv mongosh-2.3.8-linux-arm64 /usr/local/mongosh
+```
+
+Add mongosh to  System `PATH`
+```console
+echo 'export PATH=/usr/local/mongosh/bin:$PATH' | sudo tee /etc/profile.d/mongosh.sh
+source /etc/profile.d/mongosh.sh
+```
+
 ### Verify Mongodb and mongosh Installation
 
 Check if MongoDb and mongosh is properly installed:
@@ -86,7 +96,7 @@ Build Info: {
     }
 }
 $ mongosh --version
-2.5.6
+2.3.8
 ```
 
 ### Connect to MongoDB via mongosh
@@ -97,22 +107,25 @@ mongosh mongodb://127.0.0.1:27017
 ```
 You should see an output similar to: 
 ```output
-Current Mongosh Log ID: 6891ebb158db5b705d74e399
-Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6
+Current Mongosh Log ID: 68b573411523231d81a00aa0
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.8
 Using MongoDB:          8.0.12
-Using Mongosh:          2.5.6
+Using Mongosh:          2.3.8
+mongosh 2.5.7 is available for download: https://www.mongodb.com/try/download/shell
 
 For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
 
 ------
    The server generated these startup warnings when booting
-   2025-08-05T07:17:45.864+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
-   2025-08-05T07:17:45.864+00:00: Soft rlimits for open file descriptors too low
-   2025-08-05T07:17:45.864+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
-   2025-08-05T07:17:45.864+00:00: We suggest setting the contents of sysfsFile to 0.
-   2025-08-05T07:17:45.864+00:00: Your system has glibc support for rseq built in, which is not yet supported by tcmalloc-google and has critical performance implications. Please set the environment variable GLIBC_TUNABLES=glibc.pthread.rseq=0
+   2025-09-01T09:45:32.382+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2025-09-01T09:45:33.012+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2025-09-01T09:45:33.012+00:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+   2025-09-01T09:45:33.012+00:00: Soft rlimits for open file descriptors too low
+   2025-09-01T09:45:33.012+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2025-09-01T09:45:33.012+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2025-09-01T09:45:33.012+00:00: We suggest setting the contents of sysfsFile to 0.
+   2025-09-01T09:45:33.012+00:00: Your system has glibc support for rseq built in, which is not yet supported by tcmalloc-google and has critical performance implications. Please set the environment variable GLIBC_TUNABLES=glibc.pthread.rseq=0
 ------
-
 test>
 ```
 
