@@ -1,12 +1,12 @@
 ---
-title: MongoDB Benchmarking with mongotop
+title: Monitor MongoDB with mongotop
 weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Monitoring MongoDB Performance
+## Monitoring MongoDB Performance using Mongotop
 This guide demonstrates how to monitor MongoDB performance using **mongotop**, showing **read/write** activity across collections in **real time**. It includes benchmark results collected on Azure Arm64 virtual machines, providing a reference for expected latencies.
 
 ### Run mongotop — Terminal 2
@@ -414,12 +414,28 @@ test.admin_system_version_test      2ms     1ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 ```
+### Explanation of Metrics and Namespaces
 
-{{% notice Note %}}
-Benchmarking was performed in both an Azure Linux 3.0 Docker container and an Azure Linux 3.0 virtual machine. The benchmark results were found to be relatively stable.
-{{% /notice %}}
+**Metrics**
 
-Accordingly, this Learning path includes benchmark results from virtual machines only, for both x86 and Arm64 platforms.
+  - **ns (Namespace)** – Identifies the specific database and collection being measured.
+  - **total** – Total time spent on both read and write operations.
+  - **read** – Time taken by read operations like queries or fetches.
+  - **write** – Time taken by write operations like inserts, updates, or deletes.
+  - **timestamp** – Marks when the metric snapshot was captured.
+
+**Namespaces**
+
+  - **benchmarkDB.testCollection** – Core benchmark collection with balanced read/write load.
+  - **admin.atlascli** – Tracks admin-level client activity.
+  - **benchmarkDB.cursorTest** – Measures cursor operations during benchmarking.
+  - **config.system_sessions_bench** – Benchmarks session handling in config DB.
+  - **config.transactions_bench** – Evaluates transaction performance in config DB.
+  - **local.system_replset_bench** – Tests replication set metadata access.
+  - **test.admin_system_version_test** – Monitors versioning metadata in test DB.
+  - **test.atlascli** – Simulates client-side workload in test DB.
+  - **test.system_sessions_bench** – Benchmarks session handling in test DB.
+  - **admin.system.version** – Static metadata collection with minimal activity.
 
 ### Benchmark summary on x86_64:
 The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtual machine using the Azure Linux 3.0 image published by Ntegral Inc**.
