@@ -24,23 +24,26 @@ netstat -tulnp | grep 27017
 You should see an output similar to:
 
 ```output
-azureus+     976     797  0 05:00 pts/0    00:00:00 grep --color=auto mongod
+mongod --version
+netstat -tulnp | grep 27017
+ubuntu      4288       1  0 10:40 ?        00:00:01 mongod --dbpath /var/lib/mongo --logpath /var/log/mongodb/mongod.log --fork
+ubuntu      4545    1764  0 10:43 pts/0    00:00:00 grep --color=auto mongod
 db version v8.0.12
 Build Info: {
     "version": "8.0.12",
     "gitVersion": "b60fc6875b5fb4b63cc0dbbd8dda0d6d6277921a",
-    "openSSLVersion": "OpenSSL 3.3.3 11 Feb 2025",
+    "openSSLVersion": "OpenSSL 3.0.13 30 Jan 2024",
     "modules": [],
     "allocator": "tcmalloc-google",
     "environment": {
-        "distmod": "rhel93",
+        "distmod": "ubuntu2404",
         "distarch": "aarch64",
         "target_arch": "aarch64"
     }
 }
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
-tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN      1113/./mongodb-linu
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN      4288/mongod
 ```
 
 2. Storage and Health Check
