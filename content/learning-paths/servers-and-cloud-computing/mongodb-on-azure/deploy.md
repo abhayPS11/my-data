@@ -16,7 +16,7 @@ Install MongoDB and mongosh on Azure Ubuntu Arm64 by downloading the binaries, s
 Install required system packages to support MongoDB:
 ```console
 sudo apt update
-sudo apt install -y curl wget tar openssl libcurl4
+sudo apt install -y curl wget tar fio openssl libcurl4 net-tools
 ```
 
 2. Download annd Extract MongoDB
