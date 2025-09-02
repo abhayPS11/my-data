@@ -12,11 +12,7 @@ Azure’s Cobalt 100 is built on Microsoft's first-generation, in-house Arm-base
 
 To learn more about Cobalt 100, refer to the blog [Announcing the preview of new Azure virtual machine based on the Azure Cobalt 100 processor](https://techcommunity.microsoft.com/blog/azurecompute/announcing-the-preview-of-new-azure-vms-based-on-the-azure-cobalt-100-processor/4146353).
 
-## Introduction to Azure Linux 3.0
-
-Azure Linux 3.0 is Microsoft's in-house, lightweight Linux distribution optimized for running cloud-native workloads on Azure. Designed with performance, security, and reliability in mind, it is fully supported by Microsoft and tailored for containers, microservices, and Kubernetes. With native support for Arm64 (AArch64) architecture, Azure Linux 3.0 enables efficient execution of workloads on energy-efficient Arm-based infrastructure, making it a powerful choice for scalable and cost-effective cloud deployments.
-
-## MongoDB
+## Introduction to MongoDB
 MongoDB is a popular open-source NoSQL database designed for high performance, scalability, and flexibility.
 
 It stores data in JSON-like BSON documents, making it ideal for modern applications that require dynamic, schema-less data structures.
