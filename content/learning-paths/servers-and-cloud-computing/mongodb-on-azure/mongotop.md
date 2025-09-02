@@ -9,7 +9,7 @@ layout: learningpathall
 ## Monitoring MongoDB Performance using Mongotop
 This guide demonstrates how to monitor MongoDB performance using **mongotop**, showing **read/write** activity across collections in **real time**. It includes benchmark results collected on Azure Arm64 virtual machines, providing a reference for expected latencies.
 
-### Run mongotop — Terminal 2
+## Run mongotop — Terminal 2
 
 ```console
 mongotop 2
@@ -414,7 +414,7 @@ test.admin_system_version_test      2ms     1ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 ```
-### Explanation of Metrics and Namespaces
+## Explanation of Metrics and Namespaces
 
 **Metrics**
 
@@ -437,25 +437,8 @@ test.admin_system_version_test      2ms     1ms      1ms
   - **test.system_sessions_bench** – Benchmarks session handling in test DB.
   - **admin.system.version** – Static metadata collection with minimal activity.
 
-### Benchmark summary on x86_64:
-The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtual machine using the Azure Linux 3.0 image published by Ntegral Inc**.
-
-| Namespace (ns)                  | Total Time Range | Read Time Range | Write Time Range | Notes |
-| :------------------------------- | :--------------- | :-------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| admin.atlascli                   | 1–4 ms           | 0–2 ms          | 0–2 ms           | Admin CLI operations. |
-| benchmarkDB.cursorTest           | 1–4 ms           | 0–2 ms          | 0–2 ms           | Secondary benchmark load. |
-| benchmarkDB.testCollection       | 0–4 ms           | 0–2 ms          | 0–2 ms           | Main benchmark workload. |
-| config.system_sessions_bench     | 1–3 ms           | 0–2 ms          | 0–1 ms           | System/benchmark sessions. |
-| config.transactions_bench        | 1–3 ms           | 0–1 ms          | 0–1 ms           | Internal transaction benchmark. |
-| local.system_replset_bench       | 1–4 ms           | 0–2 ms          | 0–2 ms           | Local replica set benchmark. |
-| test.admin_system_version_test   | 1–4 ms           | 0–2 ms          | 0–1 ms           | Light version check activity. |
-| test.atlascli                    | 1–4 ms           | 0–2 ms          | 0–2 ms           | CLI/system background operations. |
-| test.system_sessions_bench       | 1–4 ms           | 0–2 ms          | 0–2 ms           | System/benchmark sessions (test namespace). |
-| admin.system.version             | 0–0 ms           | 0–0 ms          | 0–0 ms           | Appears to be inactive or have instantaneous responses. |
-
-
-### Benchmark summary on Arm64:
-The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtual machine created from a custom Azure Linux 3.0 image using the AArch64 ISO**.
+## Benchmark summary on Arm64
+For easier comparison, shown here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Azure ubuntu virtual machine**.
 
 | Namespace (ns)                  | Total Time Range | Read Time Range | Write Time Range | Notes |
 | :------------------------------- | :--------------- | :-------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |
@@ -470,7 +453,25 @@ The following benchmark results were collected on an Arm64 **D4ps_v6 Azure virtu
 | test.system_sessions_bench       | 1–5 ms           | 0–2 ms          | 0–2 ms           | System/benchmark sessions (test namespace). |
 | admin.system.version             | 0–0 ms           | 0–0 ms          | 0–0 ms           | Appears to be inactive or have instantaneous responses. |
 
-### Highlights from Azure Linux ARM64 Benchmarking
+### Benchmark summary on x86_64:
+Shown here is a summary of the benchmark results collected on x86_64 **D4s_v4 Azure ubuntu virtual machine**.
+
+| Namespace (ns)                  | Total Time Range | Read Time Range | Write Time Range | Notes |
+| :------------------------------- | :--------------- | :-------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| admin.atlascli                   | 1–4 ms           | 0–2 ms          | 0–2 ms           | Admin CLI operations. |
+| benchmarkDB.cursorTest           | 1–4 ms           | 0–2 ms          | 0–2 ms           | Secondary benchmark load. |
+| benchmarkDB.testCollection       | 0–4 ms           | 0–2 ms          | 0–2 ms           | Main benchmark workload. |
+| config.system_sessions_bench     | 1–3 ms           | 0–2 ms          | 0–1 ms           | System/benchmark sessions. |
+| config.transactions_bench        | 1–3 ms           | 0–1 ms          | 0–1 ms           | Internal transaction benchmark. |
+| local.system_replset_bench       | 1–4 ms           | 0–2 ms          | 0–2 ms           | Local replica set benchmark. |
+| test.admin_system_version_test   | 1–4 ms           | 0–2 ms          | 0–1 ms           | Light version check activity. |
+| test.atlascli                    | 1–4 ms           | 0–2 ms          | 0–2 ms           | CLI/system background operations. |
+| test.system_sessions_bench       | 1–4 ms           | 0–2 ms          | 0–2 ms           | System/benchmark sessions (test namespace). |
+| admin.system.version             | 0–0 ms           | 0–0 ms          | 0–0 ms           | Appears to be inactive or have instantaneous responses. |
+
+### Highlights from Azure ubuntu ARM64 Benchmarking
+
+When comparing the results on Arm64 vs x86_64 virtual machines:
 
 - **Most active namespaces:** admin.atlascli, benchmarkDB.testCollection, benchmarkDB.cursorTest, and test.atlascli — total times 1–5ms.
 - **Read patterns:** Reads across collections are 0–2ms, showing low-latency performance on Arm64.
