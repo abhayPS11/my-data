@@ -1,6 +1,6 @@
 ---
 title: Benchmarking with Official Kafka Tools
-weight: 7
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -69,7 +69,7 @@ start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.s
 
 ## Benchmark summary on Arm64:
 
-For easier comparison, shown here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Azure ubuntu virtual machine**.
+Here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Ubuntu virtual machine**.
 
 ### Consumer Performance Test
 | Start Time              | End Time                | Data Consumed (MB) | MB/sec  | Messages Consumed | Msg/sec     | Rebalance Time (ms) | Fetch Time (ms) | Fetch MB/sec | Fetch Msg/sec  |
@@ -82,7 +82,7 @@ For easier comparison, shown here is a summary of benchmark results collected on
 | 1,000,000    | 347,463.5163  | 33.14  | 582.94           | 928.00           | 605       | 898       | 921       | 926         |
 
 ## Benchmark summary on x86_64:
-Shown here is a summary of the benchmark results collected on a x86_64 **D4s_v4 Azure ubuntu virtual machine**.           
+Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu virtual machine**.           
 
 ### Consumer Performance Test 
 
@@ -105,5 +105,3 @@ When comparing the results on Arm64 vs x86_64 virtual machines:
 - Overall, Arm64 Azure virtual machine shows **high throughput and low latency** for both Kafka producer and consumer workloads.
 
 You have now benchmarked Kafka on an Azure Cobalt 100 Arm64 virtual machine and compared results with x86_64.
-
-
