@@ -32,7 +32,7 @@ bin/kafka-producer-perf-test.sh \
 You should see output similar to:
 
 ```output
-1000000 records sent, 257003.341043 records/sec (24.51 MB/sec), 880.43 ms avg latency, 1422.00 ms max latency, 799 ms 50th, 1353 ms 95th, 1412 ms 99th, 1421 ms 99.9th.
+1000000 records sent, 347463.516331 records/sec (33.14 MB/sec), 582.94 ms avg latency, 928.00 ms max latency, 605 ms 50th, 898 ms 95th, 921 ms 99th, 926 ms 99.9th.
 ```
 ### Terminal - B Consumer benchmark
 
@@ -52,7 +52,7 @@ You should see output similar to:
 ```output
 WARNING: option [threads] and [num-fetch-threads] have been deprecated and will be ignored by the test
 start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
-2025-08-28 12:05:56:787, 2025-08-28 12:05:57:558, 95.3674, 123.6932, 1000000, 1297016.8612, 261, 510, 186.9950, 1960784.3137
+2025-09-02 06:00:37:795, 2025-09-02 06:00:38:647, 95.3674, 111.9336, 1000000, 1173708.9202, 293, 559, 170.6036, 1788908.7657
 ```
 
 ## Benchmark summary on Arm64:
@@ -69,10 +69,28 @@ start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.s
 
 ## Benchmark summary on Arm64:
 
-For easier comparison, shown here is a summary of benchmark results collected on two different Arm64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4ps_v6 Ubuntu-based Azure virtual machine**, and a **D4ps_v6 Azure virtual machine created from the Azure Linux 3.0 custom image using the AArch64 ISO**.
+For easier comparison, shown here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Azure ubuntu virtual machine**.
 
-| Test Type | Records Processed | Throughput (records/sec) | Throughput (MB/sec) | Avg Latency (ms) | Max Latency (ms) | 50th %ile (ms) | 95th %ile (ms) | 99th %ile (ms) | 99.9th %ile (ms) |
-|-----------|-------------------|--------------------------|---------------------|------------------|------------------|----------------|----------------|----------------|------------------|
-| Producer  | 1,000,000         | 257,003                  | 24.51               | 880              | 1422             | 799            | 1353           | 1412           | 1421             |
-| Consumer  | 1,000,000         | 1,297,017                | 123.69              | N/A              | N/A              | N/A            | N/A            | N/A            | N/A              |
+### Consumer Performance Test
+| Start Time              | End Time                | Data Consumed (MB) | MB/sec  | Messages Consumed | Msg/sec     | Rebalance Time (ms) | Fetch Time (ms) | Fetch MB/sec | Fetch Msg/sec  |
+|--------------------------|-------------------------|--------------------|---------|-------------------|-------------|----------------------|-----------------|--------------|----------------|
+| 2025-09-02 06:00:37:795 | 2025-09-02 06:00:38:647 | 95.3674            | 111.93  | 1,000,000         | 1,173,708.92 | 293                  | 559             | 170.60       | 1,788,908.77   |
+
+### Producer Performance Test
+| Records Sent | Records/sec   | MB/sec | Avg Latency (ms) | Max Latency (ms) | 50th (ms) | 95th (ms) | 99th (ms) | 99.9th (ms) |
+|--------------|---------------|--------|------------------|------------------|-----------|-----------|-----------|-------------|
+| 1,000,000    | 347,463.5163  | 33.14  | 582.94           | 928.00           | 605       | 898       | 921       | 926         |
+
+## Benchmark summary on x86_64:
+Shown here is a summary of the benchmark results collected on a x86_64 **D4s_v4 Azure ubuntu virtual machine**.           
+
+
+## Benchmark comparison insights
+
+When comparing the results on Arm64 vs x86_64 virtual machines:
+
+
+
+You have now benchmarked Kafka on an Azure Cobalt 100 Arm64 virtual machine and compared results with x86_64.
+
 
