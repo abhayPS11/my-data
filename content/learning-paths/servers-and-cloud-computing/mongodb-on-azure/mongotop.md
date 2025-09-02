@@ -440,18 +440,18 @@ test.admin_system_version_test      2ms     1ms      1ms
 ### Benchmark summary on x86_64:
 The following benchmark results are collected on an x86_64 **D4s_v4 Azure virtual machine using the Azure Linux 3.0 image published by Ntegral Inc**.
 
-| Namespace (ns) | Total Time Range | Read Time Range | Write Time Range | Notes |
+| Namespace (ns)                  | Total Time Range | Read Time Range | Write Time Range | Notes |
 | :------------------------------- | :--------------- | :-------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| admin.atlascli | 2–7 ms | 0–2 ms | 1–4 ms | Admin CLI operations. |
-| benchmarkDB.cursorTest | 2–7 ms | 0–3 ms | 1–4 ms | Secondary benchmark load. |
-| benchmarkDB.testCollection | 2–6 ms | 0–2 ms | 1–3 ms | Main benchmark workload. |
-| config.system_sessions_bench | 1–5 ms | 0–2 ms | 1–3 ms | System/benchmark sessions. |
-| config.transactions_bench | 2–6 ms | 0–2 ms | 1–4 ms | Internal transaction benchmark. |
-| local.system_replset_bench | 1–6 ms | 0–2 ms | 1–3 ms | Local replica set benchmark. |
-| test.admin_system_version_test | 2–5 ms | 0–2 ms | 1–3 ms | Light version check activity. |
-| test.atlascli | 1–6 ms | 0–2 ms | 1–3 ms | CLI/system background operations. |
-| test.system_sessions_bench | 2–6 ms | 0–2 ms | 1–3 ms | System/benchmark sessions (test namespace). |
-| admin.system.version | 0–0 ms | 0–0 ms | 0–0 ms | Appears to be inactive or have instantaneous responses. |
+| admin.atlascli                   | 1–4 ms           | 0–2 ms          | 0–2 ms           | Admin CLI operations. |
+| benchmarkDB.cursorTest           | 1–4 ms           | 0–2 ms          | 0–2 ms           | Secondary benchmark load. |
+| benchmarkDB.testCollection       | 0–4 ms           | 0–2 ms          | 0–2 ms           | Main benchmark workload. |
+| config.system_sessions_bench     | 1–3 ms           | 0–2 ms          | 0–1 ms           | System/benchmark sessions. |
+| config.transactions_bench        | 1–3 ms           | 0–1 ms          | 0–1 ms           | Internal transaction benchmark. |
+| local.system_replset_bench       | 1–4 ms           | 0–2 ms          | 0–2 ms           | Local replica set benchmark. |
+| test.admin_system_version_test   | 1–4 ms           | 0–2 ms          | 0–1 ms           | Light version check activity. |
+| test.atlascli                    | 1–4 ms           | 0–2 ms          | 0–2 ms           | CLI/system background operations. |
+| test.system_sessions_bench       | 1–4 ms           | 0–2 ms          | 0–2 ms           | System/benchmark sessions (test namespace). |
+| admin.system.version             | 0–0 ms           | 0–0 ms          | 0–0 ms           | Appears to be inactive or have instantaneous responses. |
 
 
 ### Benchmark summary on Arm64:
