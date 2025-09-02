@@ -7,20 +7,18 @@ who_is_this_for: This Learning Path is designed for software developers looking 
 
 learning_objectives: 
     - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
-    - Learn how to create an Azure Linux 3.0 Docker container.
-    - Deploy the MongoDb on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
-    - Perform MongoDB baseline testing and benchmarking in both the containerized and virtual machine environments.
+    - Deploy the MongoDB on an Azure ubuntu virtual machine.
+    - Perform MongoDB baseline testing and benchmarking in both x86_64 and Arm64 virtual machine.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
-    - A machine with [Docker](/install-guides/docker/) installed.
     - Basic understanding of Linux command line.
     - Familiarity with the [MongoDB architecture](https://www.mongodb.com/) and deployment practices on Arm64 platforms.
 
 author: Jason Andrews
 
 ### Tags
-skilllevels: Advanced
+skilllevels: Introductory
 subjects: Databases
 cloud_service_providers: Microsoft Azure
 
@@ -29,8 +27,8 @@ armips:
 
 tools_software_languages:
     - MongoDB
-    - Docker
-    - 
+    - mongotop
+    - mongostat
 
 operatingsystems:
     - Linux
@@ -44,9 +42,10 @@ further_reading:
         title: MongoDB Performance Tool
         link: https://github.com/idealo/mongodb-performance-test#readme
         type: documentation
-      title: MongoDB on Azure
-      link: https://azure.microsoft.com/en-us/solutions/mongodb
-      type: documentation
+    - resource:        
+        title: MongoDB on Azure
+        link: https://azure.microsoft.com/en-us/solutions/mongodb
+        type: documentation
 
 
 ### FIXED, DO NOT MODIFY
