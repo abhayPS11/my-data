@@ -84,12 +84,25 @@ For easier comparison, shown here is a summary of benchmark results collected on
 ## Benchmark summary on x86_64:
 Shown here is a summary of the benchmark results collected on a x86_64 **D4s_v4 Azure ubuntu virtual machine**.           
 
+### Consumer Performance Test 
+
+| Start Time              | End Time                | Data Consumed (MB) | MB/sec  | Messages Consumed | Msg/sec      | Rebalance Time (ms) | Fetch Time (ms) | Fetch MB/sec | Fetch Msg/sec  |
+|--------------------------|-------------------------|--------------------|---------|-------------------|--------------|----------------------|-----------------|--------------|----------------|
+| 2025-09-02 06:38:05:878 | 2025-09-02 06:38:06:657 | 95.3674            | 122.42  | 1,000,000         | 1,283,697.05 | 206                  | 573             | 166.44       | 1,745,200.70   |
+
+### Producer Performance Test
+
+| Records Sent | Records/sec   | MB/sec | Avg Latency (ms) | Max Latency (ms) | 50th (ms) | 95th (ms) | 99th (ms) | 99.9th (ms) |
+|--------------|---------------|--------|------------------|------------------|-----------|-----------|-----------|-------------|
+| 1,000,000    | 239,923.22    | 22.88  | 914.41           | 1356.00          | 1004      | 1295      | 1342      | 1353        |
 
 ## Benchmark comparison insights
 
 When comparing the results on Arm64 vs x86_64 virtual machines:
 
-
+- **Consumer test** achieved **~112 MB/sec** throughput, processing **1M messages in under 1 sec** with peak fetch rate ~1.79M msg/sec.
+- **Producer test** sustained **~347K records/sec (33 MB/sec)** with sub-second average latency (~583 ms).
+- Overall, Arm64 Azure virtual machine shows **high throughput and low latency** for both Kafka producer and consumer workloads.
 
 You have now benchmarked Kafka on an Azure Cobalt 100 Arm64 virtual machine and compared results with x86_64.
 
