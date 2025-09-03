@@ -30,6 +30,11 @@ sudo tar -xvzf kafka_2.13-4.1.0.tgz
 sudo mv kafka_2.13-4.1.0 kafka
 sudo chown -R $USER:$USER kafka
 ```
+{{% notice Note %}}
+There is an [Arm community blog](https://community.arm.com/arm-community-blogs/b/servers-and-cloud-computing-blog/posts/apache-kafka-benchmarks-on-aws-graviton2) that shows Apache Kafka deployed on AWS Graviton2 instances delivers significant performance and cost benefits compared to equivalent x86-based instances.  
+
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Apache Kafka version **3.5.0** as the minimum recommended on Arm platforms.
+{{% /notice %}}
 
 ### Check installed Kafka version
 
