@@ -12,7 +12,7 @@ Kafka’s official performance tools (**kafka-producer-perf-test.sh** and **kafk
 
 ## Steps for Kafka Benchmarking 
 
-Before starting the benchmark, ensure that **ZooKeeper** and the **Kafka broker** are already running in separate terminals. 
+Before starting the benchmark, ensure that the **Kafka broker** are already running in separate terminals. 
 
 Now, open two new terminals—one for the **producer benchmark** and another for the **consumer benchmark**.
 
