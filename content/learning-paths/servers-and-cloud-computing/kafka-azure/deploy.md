@@ -8,7 +8,7 @@ layout: learningpathall
 
 ## Install Kafka
 
-This guide walks you through installing lates version of Apache Kafka on an Ubuntu Arm virtual machine. You’ll download Kafka, extract it into `/opt`, configure permissions, and verify the installation by checking the installed version.
+This section walks you through installing latest version of Apache Kafka on an Ubuntu Arm virtual machine. You’ll download Kafka, extract it into `/opt`, configure permissions, and verify the installation by checking the installed version.
 
 Follow the below instructions to install Kafka on Ubuntu virtual machine.
 
