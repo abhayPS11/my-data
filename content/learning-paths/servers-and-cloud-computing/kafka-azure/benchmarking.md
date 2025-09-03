@@ -72,14 +72,25 @@ start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.s
 Here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Ubuntu virtual machine**.
 
 ### Consumer Performance Test
-| Start Time              | End Time                | Data Consumed (MB) | MB/sec  | Messages Consumed | Msg/sec     | Rebalance Time (ms) | Fetch Time (ms) | Fetch MB/sec | Fetch Msg/sec  |
-|--------------------------|-------------------------|--------------------|---------|-------------------|-------------|----------------------|-----------------|--------------|----------------|
-| 2025-09-02 06:00:37:795 | 2025-09-02 06:00:38:647 | 95.3674            | 111.93  | 1,000,000         | 1,173,708.92 | 293                  | 559             | 170.60       | 1,788,908.77   |
+
+| Metric                     | Value       | Unit          |
+|-----------------------------|-------------|---------------|
+| Total Time Taken           | 3.929       | Seconds       |
+| Data Consumed              | 95.3674     | MB            |
+| Throughput (Data)          | 24.2727     | MB/sec        |
+| Messages Consumed          | 1,000,001   | Messages      |
+| Throughput (Messages)      | 254,517.94  | Messages/sec  |
+| Rebalance Time             | 3354        | Milliseconds  |
+| Fetch Time                 | 575         | Milliseconds  |
+| Fetch Throughput (Data)    | 165.8564    | MB/sec        |
+| Fetch Throughput (Messages)| 1,739,132.17| Messages/sec  |
 
 ### Producer Performance Test
-| Records Sent | Records/sec   | MB/sec | Avg Latency (ms) | Max Latency (ms) | 50th (ms) | 95th (ms) | 99th (ms) | 99.9th (ms) |
-|--------------|---------------|--------|------------------|------------------|-----------|-----------|-----------|-------------|
-| 1,000,000    | 347,463.5163  | 33.14  | 582.94           | 928.00           | 605       | 898       | 921       | 926         |
+
+| Metric | Records Sent | Records/sec | Throughput | Average Latency | Maximum Latency | 50th Percentile Latency | 95th Percentile Latency | 99th Percentile Latency | 99.9th Percentile Latency |
+|--------|--------------|-------------|------------|-----------------|-----------------|-------------------------|-------------------------|-------------------------|---------------------------|
+| Value  | 1,000,000    | 252,589.0   | 24.09      | 850.85          | 1219.00         | 851                     | 1184                    | 1210                    | 1218                      |
+| Unit   | Records      | Records/sec | MB/sec     | ms              | ms              | ms                      | ms                      | ms                      | ms                        |
 
 ## Benchmark summary on x86_64:
 Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu virtual machine**.           
@@ -100,8 +111,8 @@ Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu v
 
 When comparing the results on Arm64 vs x86_64 virtual machines:
 
-- **Consumer test** achieved **~112 MB/sec** throughput, processing **1M messages in under 1 sec** with peak fetch rate ~1.79M msg/sec.
-- **Producer test** sustained **~347K records/sec (33 MB/sec)** with sub-second average latency (~583 ms).
-- Overall, Arm64 Azure virtual machine shows **high throughput and low latency** for both Kafka producer and consumer workloads.
+- The Kafka **consumer** achieved ~24.27 MB/sec throughput, processing ~254K messages per second.  
+- The Kafka **producer** sustained ~24.09 MB/sec throughput, with an average latency of ~851 ms and a peak latency of ~1219 ms.  
+- These results confirm stable Kafka performance on the Azure Ubuntu Arm64 Virtula machine, suitable for baseline validation and benchmarking. 
 
 You have now benchmarked Kafka on an Azure Cobalt 100 Arm64 virtual machine and compared results with x86_64.
