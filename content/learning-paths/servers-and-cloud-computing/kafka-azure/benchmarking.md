@@ -32,7 +32,7 @@ bin/kafka-producer-perf-test.sh \
 You should see output similar to:
 
 ```output
-1000000 records sent, 347463.516331 records/sec (33.14 MB/sec), 582.94 ms avg latency, 928.00 ms max latency, 605 ms 50th, 898 ms 95th, 921 ms 99th, 926 ms 99.9th.
+1000000 records sent, 252589.0 records/sec (24.09 MB/sec), 850.85 ms avg latency, 1219.00 ms max latency, 851 ms 50th, 1184 ms 95th, 1210 ms 99th, 1218 ms 99.9th.
 ```
 ### Terminal - B Consumer benchmark
 
@@ -50,9 +50,8 @@ bin/kafka-consumer-perf-test.sh \
 You should see output similar to:
 
 ```output
-WARNING: option [threads] and [num-fetch-threads] have been deprecated and will be ignored by the test
 start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
-2025-09-02 06:00:37:795, 2025-09-02 06:00:38:647, 95.3674, 111.9336, 1000000, 1173708.9202, 293, 559, 170.6036, 1788908.7657
+2025-09-03 06:07:13:616, 2025-09-03 06:07:17:545, 95.3674, 24.2727, 1000001, 254517.9435, 3354, 575, 165.8564, 1739132.1739
 ```
 
 ## Benchmark summary on Arm64:
@@ -97,15 +96,24 @@ Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu v
 
 ### Consumer Performance Test 
 
-| Start Time              | End Time                | Data Consumed (MB) | MB/sec  | Messages Consumed | Msg/sec      | Rebalance Time (ms) | Fetch Time (ms) | Fetch MB/sec | Fetch Msg/sec  |
-|--------------------------|-------------------------|--------------------|---------|-------------------|--------------|----------------------|-----------------|--------------|----------------|
-| 2025-09-02 06:38:05:878 | 2025-09-02 06:38:06:657 | 95.3674            | 122.42  | 1,000,000         | 1,283,697.05 | 206                  | 573             | 166.44       | 1,745,200.70   |
+| Metric                     | Value       | Unit          |
+|-----------------------------|-------------|---------------|
+| Total Time Taken            | 3.828       | Seconds       |
+| Data Consumed               | 95.3674     | MB            |
+| Throughput (Data)           | 24.9131     | MB/sec        |
+| Messages Consumed           | 1,000,001   | Messages      |
+| Throughput (Messages)       | 261,233.28  | Messages/sec  |
+| Rebalance Time              | 3244        | Milliseconds  |
+| Fetch Time                  | 584         | Milliseconds  |
+| Fetch Throughput (Data)     | 163.3004    | MB/sec        |
+| Fetch Throughput (Messages) | 1,712,330.48| Messages/sec  |
 
 ### Producer Performance Test
 
-| Records Sent | Records/sec   | MB/sec | Avg Latency (ms) | Max Latency (ms) | 50th (ms) | 95th (ms) | 99th (ms) | 99.9th (ms) |
-|--------------|---------------|--------|------------------|------------------|-----------|-----------|-----------|-------------|
-| 1,000,000    | 239,923.22    | 22.88  | 914.41           | 1356.00          | 1004      | 1295      | 1342      | 1353        |
+| Metric | Records Sent | Records/sec | Throughput | Average Latency | Maximum Latency | 50th Percentile Latency | 95th Percentile Latency | 99th Percentile Latency | 99.9th Percentile Latency |
+|--------|--------------|-------------|------------|-----------------|-----------------|-------------------------|-------------------------|-------------------------|---------------------------|
+| Value  | 1,000,000    | 244,200.2   | 23.29      | 857.17          | 1162.00         | 907                     | 1131                    | 1152                    | 1160                      |
+| Unit   | Records      | Records/sec | MB/sec     | ms              | ms              | ms                      | ms                      | ms                      | ms                        |
 
 ## Benchmark comparison insights
 
