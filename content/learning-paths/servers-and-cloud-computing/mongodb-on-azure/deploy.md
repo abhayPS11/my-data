@@ -1,15 +1,15 @@
 ---
-title: Install MongoDB on Microsoft Azure Virtual Machine
-weight: 5
+title: Install MongoDB and Mongosh
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
 
-## Install MongoDB and mongosh on Azure Ubuntu arm
+## Install MongoDB and Mongosh on the Ubuntu Pro Arm instance
 
-Install MongoDB and mongosh on Azure Ubuntu Arm64 by downloading the binaries, setting up environment paths, configuring data and log directories, and starting the server for local access and verification.
+Install MongoDB and mongosh on Ubuntu Pro Arm64 by downloading the binaries, setting up environment paths, configuring data and log directories, and starting the server for local access and verification.
 
 1. Install System Dependencies
 
@@ -19,7 +19,7 @@ sudo apt update
 sudo apt install -y curl wget tar fio openssl libcurl4 net-tools
 ```
 
-2. Download annd Extract MongoDB
+2. Download and Extract MongoDB
 
 Fetch and unpack the MongoDB binaries for Arm64:
 ```console
@@ -30,7 +30,7 @@ sudo mv mongodb-linux-aarch64-ubuntu2404-8.0.12 /usr/local/mongodb
 
 3. Add MongoDB to System PATH
 
-Enable running mongod from any terminal session:
+Enable running MongoDB from any terminal session:
 ```console
 echo 'export PATH=/usr/local/mongodb/bin:$PATH' | sudo tee /etc/profile.d/mongodb.sh
 source /etc/profile.d/mongodb.sh
@@ -62,21 +62,15 @@ wget https://downloads.mongodb.com/compass/mongosh-2.3.8-linux-arm64.tgz
 tar -xvzf mongosh-2.3.8-linux-arm64.tgz
 sudo mv mongosh-2.3.8-linux-arm64 /usr/local/mongosh
 ```
-Extract and move to `/usr/local`
-```console
-tar -xvzf mongosh-2.3.8-linux-arm64.tgz
-sudo mv mongosh-2.3.8-linux-arm64 /usr/local/mongosh
-```
-
 Add mongosh to  System `PATH`
 ```console
 echo 'export PATH=/usr/local/mongosh/bin:$PATH' | sudo tee /etc/profile.d/mongosh.sh
 source /etc/profile.d/mongosh.sh
 ```
 
-### Verify Mongodb and mongosh Installation
+### Verify MongoDB and mongosh Installation
 
-Check if MongoDb and mongosh is properly installed:
+Check if MongoDB and mongosh is properly installed:
 ```console
 mongod --version
 mongosh --version
