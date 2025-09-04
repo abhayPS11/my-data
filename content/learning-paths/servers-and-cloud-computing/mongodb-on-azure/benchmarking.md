@@ -1,6 +1,6 @@
 ---
 title: MongoDB Benchmarking
-weight: 7
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -17,10 +17,10 @@ The user will install the official MongoDB database tools, start MongoDB, run a 
 wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.deb
 sudo apt update
 sudo apt install -y ./mongodb-database-tools-ubuntu2404-arm64-100.13.0.deb
-echo 'export PATH=$PATH:~/mongodb-database-tools-ubuntu2404-arm64-100.13.0/bin' >> ~/.bashrc
+echo 'export PATH=$PATH:~/mongodb-database-tools-ubuntu2404-arm64-100.13.0/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
-These commands download and unpack MongoDB’s official monitoring tools (**mongotop** & **mongostat**), then add them to your PATH so they work from any terminal.
+These commands download and unpack MongoDB’s official monitoring tools (**mongotop** & **mongostat**), then add them to your PATH so you can run them from any terminal.
 
 2. Verify the Installation
 
@@ -126,7 +126,7 @@ If all commands are run in the same terminal, the monitoring tools will only sta
 mongosh < long_system_load.js
 ```
 
-This tells the MongoDB shell to execute the whole script. The script will run its cycles and print the progress while generating the read/write activity on the server.
+This command tells the MongoDB shell to execute the entire script. The script will run through its cycles and print the progress while generating the read/write activity on the server.
 
 You should see an output similar to:
 ```output
