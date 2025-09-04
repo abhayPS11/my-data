@@ -17,7 +17,7 @@ The user will install the official MongoDB database tools, start MongoDB, run a 
 wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.deb
 sudo apt update
 sudo apt install -y ./mongodb-database-tools-ubuntu2404-arm64-100.13.0.deb
-echo 'export PATH=$PATH:~/mongodb-database-tools-ubuntu2404-arm64-100.13.0/bin" >> ~/.bashrc
+echo 'export PATH=$PATH:~/mongodb-database-tools-ubuntu2404-arm64-100.13.0/bin' >> ~/.bashrc
 source ~/.bashrc
 ```
 These commands download and unpack MongoDB’s official monitoring tools (**mongotop** & **mongostat**), then add them to your PATH so you can run them from any terminal.
