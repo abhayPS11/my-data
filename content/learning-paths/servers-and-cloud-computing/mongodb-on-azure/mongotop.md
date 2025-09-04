@@ -18,379 +18,247 @@ mongotop 2
 
 You should see an output similar to:
 ```output
-                          ns    total    read    write    2025-09-01T11:08:45Z
-              admin.atlascli      3ms     1ms      2ms
-      benchmarkDB.cursorTest      3ms     1ms      2ms
-  benchmarkDB.testCollection      3ms     1ms      2ms
+                          ns    total    read    write    2025-09-04T04:57:21Z
+      benchmarkDB.cursorTest      7ms     1ms      6ms
+              admin.atlascli      4ms     1ms      2ms
 config.system_sessions_bench      3ms     1ms      2ms
-   config.transactions_bench      3ms     1ms      2ms
-  local.system_replset_bench      3ms     1ms      2ms
-               test.atlascli      3ms     1ms      2ms
+  benchmarkDB.testCollection      2ms     0ms      1ms
+   config.transactions_bench      2ms     0ms      1ms
+  local.system_replset_bench      2ms     0ms      1ms
         admin.system.version      0ms     0ms      0ms
+             baselineDB.perf      0ms     0ms      0ms
+   baselineDB.testCollection      0ms     0ms      0ms
       config.system.sessions      0ms     0ms      0ms
-         config.transactions      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:08:47Z
-test.admin_system_version_test      3ms     1ms      1ms
-                admin.atlascli      1ms     0ms      1ms
-        benchmarkDB.cursorTest      1ms     0ms      0ms
-    benchmarkDB.testCollection      1ms     0ms      0ms
-  config.system_sessions_bench      1ms     0ms      0ms
-     config.transactions_bench      1ms     0ms      0ms
-    local.system_replset_bench      1ms     0ms      0ms
-                 test.atlascli      1ms     0ms      1ms
-    test.system_sessions_bench      1ms     0ms      0ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:08:49Z
-                admin.atlascli      3ms     1ms      2ms
-        benchmarkDB.cursorTest      3ms     1ms      2ms
-    benchmarkDB.testCollection      3ms     1ms      1ms
-  config.system_sessions_bench      3ms     1ms      1ms
-     config.transactions_bench      3ms     1ms      1ms
-    local.system_replset_bench      3ms     1ms      1ms
-test.admin_system_version_test      3ms     1ms      2ms
-                 test.atlascli      3ms     1ms      2ms
-    test.system_sessions_bench      3ms     1ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:08:51Z
-                admin.atlascli      2ms     0ms      1ms
-        benchmarkDB.cursorTest      1ms     0ms      1ms
-    benchmarkDB.testCollection      1ms     0ms      0ms
-  config.system_sessions_bench      1ms     0ms      0ms
-     config.transactions_bench      1ms     0ms      0ms
-    local.system_replset_bench      1ms     0ms      1ms
-test.admin_system_version_test      1ms     0ms      0ms
-                 test.atlascli      1ms     0ms      1ms
-    test.system_sessions_bench      1ms     0ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:08:53Z
-                admin.atlascli      4ms     1ms      2ms
-        benchmarkDB.cursorTest      3ms     1ms      2ms
-    benchmarkDB.testCollection      3ms     1ms      1ms
-  config.system_sessions_bench      3ms     1ms      1ms
-     config.transactions_bench      3ms     1ms      1ms
-    local.system_replset_bench      3ms     1ms      2ms
-test.admin_system_version_test      3ms     1ms      1ms
-                 test.atlascli      3ms     1ms      2ms
-    test.system_sessions_bench      3ms     1ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:08:55Z
-                admin.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     0ms      1ms
-        benchmarkDB.cursorTest      1ms     0ms      1ms
-    benchmarkDB.testCollection      1ms     0ms      1ms
-  config.system_sessions_bench      1ms     0ms      1ms
-     config.transactions_bench      1ms     0ms      0ms
-    local.system_replset_bench      1ms     0ms      1ms
-test.admin_system_version_test      1ms     0ms      1ms
-                 test.atlascli      1ms     0ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:08:57Z
-                admin.atlascli      4ms     1ms      2ms
-        benchmarkDB.cursorTest      4ms     1ms      2ms
-    test.system_sessions_bench      4ms     1ms      2ms
-    benchmarkDB.testCollection      3ms     1ms      1ms
-  config.system_sessions_bench      3ms     1ms      1ms
-     config.transactions_bench      3ms     1ms      1ms
-    local.system_replset_bench      3ms     1ms      2ms
-test.admin_system_version_test      3ms     1ms      2ms
-                 test.atlascli      3ms     1ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:08:59Z
-                admin.atlascli      2ms     1ms      1ms
-test.admin_system_version_test      2ms     0ms      1ms
-    test.system_sessions_bench      2ms     0ms      1ms
-        benchmarkDB.cursorTest      1ms     0ms      1ms
-    benchmarkDB.testCollection      1ms     0ms      1ms
-  config.system_sessions_bench      1ms     0ms      0ms
-     config.transactions_bench      1ms     0ms      0ms
-    local.system_replset_bench      1ms     0ms      1ms
-                 test.atlascli      1ms     0ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:01Z
-                admin.atlascli      4ms     1ms      2ms
+                            ns    total    read    write    2025-09-04T04:57:23Z
         benchmarkDB.cursorTest      4ms     1ms      2ms
     benchmarkDB.testCollection      4ms     1ms      2ms
-    local.system_replset_bench      4ms     1ms      2ms
+     config.transactions_bench      4ms     1ms      2ms
 test.admin_system_version_test      4ms     1ms      2ms
                  test.atlascli      4ms     1ms      2ms
     test.system_sessions_bench      4ms     1ms      2ms
-  config.system_sessions_bench      3ms     1ms      1ms
-     config.transactions_bench      3ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:03Z
+    local.system_replset_bench      3ms     1ms      2ms
                 admin.atlascli      2ms     0ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     0ms      1ms
-    local.system_replset_bench      2ms     0ms      1ms
-test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     1ms      1ms
-  config.system_sessions_bench      1ms     0ms      0ms
-     config.transactions_bench      1ms     0ms      0ms
+  config.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:05Z
-                admin.atlascli      4ms     2ms      2ms
-        benchmarkDB.cursorTest      4ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
+                            ns    total    read    write    2025-09-04T04:57:25Z
+                admin.atlascli      4ms     1ms      2ms
+  config.system_sessions_bench      4ms     1ms      2ms
      config.transactions_bench      4ms     1ms      2ms
     local.system_replset_bench      4ms     1ms      2ms
-test.admin_system_version_test      4ms     2ms      2ms
-                 test.atlascli      4ms     2ms      2ms
-    test.system_sessions_bench      4ms     2ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:07Z
-                admin.atlascli      2ms     1ms      1ms
         benchmarkDB.cursorTest      2ms     0ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     0ms      1ms
 test.admin_system_version_test      2ms     0ms      1ms
-                 test.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:09Z
-                admin.atlascli      4ms     2ms      2ms
-        benchmarkDB.cursorTest      4ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    local.system_replset_bench      4ms     2ms      2ms
-test.admin_system_version_test      4ms     2ms      2ms
-                 test.atlascli      4ms     2ms      2ms
-    test.system_sessions_bench      4ms     2ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:11Z
-                admin.atlascli      2ms     1ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
-test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:13Z
-                admin.atlascli      4ms     2ms      2ms
-        benchmarkDB.cursorTest      4ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    local.system_replset_bench      4ms     2ms      2ms
-test.admin_system_version_test      4ms     2ms      2ms
-                 test.atlascli      4ms     2ms      2ms
-    test.system_sessions_bench      4ms     2ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:15Z
-                admin.atlascli      2ms     0ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     0ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     0ms      1ms
-test.admin_system_version_test      2ms     1ms      1ms
                  test.atlascli      2ms     0ms      1ms
     test.system_sessions_bench      2ms     0ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:17Z
-                admin.atlascli      4ms     2ms      2ms
-        benchmarkDB.cursorTest      4ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    local.system_replset_bench      4ms     2ms      2ms
+                            ns    total    read    write    2025-09-04T04:57:27Z
+        benchmarkDB.cursorTest      4ms     1ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
+test.admin_system_version_test      4ms     1ms      2ms
+                 test.atlascli      4ms     1ms      2ms
+    test.system_sessions_bench      4ms     1ms      2ms
+                admin.atlascli      2ms     0ms      1ms
+  config.system_sessions_bench      2ms     0ms      1ms
+     config.transactions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     0ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:29Z
+                admin.atlascli      4ms     1ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
+  config.system_sessions_bench      4ms     1ms      2ms
+     config.transactions_bench      4ms     1ms      2ms
+    local.system_replset_bench      4ms     1ms      2ms
+        benchmarkDB.cursorTest      3ms     1ms      2ms
+test.admin_system_version_test      2ms     0ms      1ms
+                 test.atlascli      2ms     1ms      1ms
+    test.system_sessions_bench      2ms     0ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:31Z
 test.admin_system_version_test      4ms     2ms      2ms
                  test.atlascli      4ms     2ms      2ms
     test.system_sessions_bench      4ms     2ms      2ms
+        benchmarkDB.cursorTest      3ms     1ms      1ms
+                admin.atlascli      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     0ms      1ms
+  config.system_sessions_bench      2ms     1ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
+    local.system_replset_bench      2ms     0ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:19Z
-                admin.atlascli      2ms     1ms      1ms
+                            ns    total    read    write    2025-09-04T04:57:33Z
+                admin.atlascli      4ms     2ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
+  config.system_sessions_bench      4ms     1ms      2ms
+     config.transactions_bench      4ms     1ms      2ms
+    local.system_replset_bench      4ms     1ms      2ms
         benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
+                 test.atlascli      2ms     0ms      1ms
     test.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:21Z
-                admin.atlascli      5ms     2ms      2ms
-                 test.atlascli      5ms     2ms      2ms
-        benchmarkDB.cursorTest      4ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    local.system_replset_bench      4ms     2ms      2ms
+                            ns    total    read    write    2025-09-04T04:57:35Z
+        benchmarkDB.cursorTest      4ms     1ms      2ms
+test.admin_system_version_test      4ms     1ms      2ms
+                 test.atlascli      4ms     1ms      2ms
     test.system_sessions_bench      4ms     1ms      2ms
-test.admin_system_version_test      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:23Z
-test.admin_system_version_test      5ms     2ms      2ms
-    test.system_sessions_bench      3ms     2ms      1ms
-                admin.atlascli      2ms     1ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
+                admin.atlascli      2ms     0ms      1ms
     benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     0ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
+    local.system_replset_bench      2ms     0ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:25Z
-                admin.atlascli      5ms     2ms      2ms
+                            ns    total    read    write    2025-09-04T04:57:37Z
+                admin.atlascli      4ms     1ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
+  config.system_sessions_bench      4ms     1ms      2ms
+     config.transactions_bench      4ms     1ms      2ms
+    local.system_replset_bench      4ms     1ms      2ms
+        benchmarkDB.cursorTest      2ms     0ms      1ms
+test.admin_system_version_test      2ms     0ms      1ms
+                 test.atlascli      2ms     0ms      1ms
+    test.system_sessions_bench      2ms     0ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:39Z
+        benchmarkDB.cursorTest      4ms     2ms      2ms
+test.admin_system_version_test      4ms     1ms      2ms
+                 test.atlascli      4ms     1ms      2ms
+    test.system_sessions_bench      4ms     1ms      2ms
+                admin.atlascli      2ms     0ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     0ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:41Z
+                admin.atlascli      4ms     1ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
   config.system_sessions_bench      4ms     2ms      2ms
      config.transactions_bench      4ms     2ms      2ms
     local.system_replset_bench      4ms     1ms      2ms
-                 test.atlascli      3ms     1ms      1ms
         benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
+                 test.atlascli      2ms     0ms      1ms
     test.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:27Z
+                            ns    total    read    write    2025-09-04T04:57:43Z
         benchmarkDB.cursorTest      5ms     2ms      2ms
-    benchmarkDB.testCollection      5ms     2ms      2ms
-test.admin_system_version_test      5ms     2ms      2ms
-                 test.atlascli      5ms     2ms      2ms
     test.system_sessions_bench      5ms     2ms      2ms
-    local.system_replset_bench      3ms     2ms      1ms
+test.admin_system_version_test      4ms     2ms      2ms
+                 test.atlascli      4ms     1ms      2ms
+    benchmarkDB.testCollection      3ms     2ms      1ms
                 admin.atlascli      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     0ms      1ms
      config.transactions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     0ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:29Z
-                admin.atlascli      2ms     1ms      1ms
+                            ns    total    read    write    2025-09-04T04:57:45Z
+                admin.atlascli      5ms     2ms      3ms
+  config.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      2ms
         benchmarkDB.cursorTest      2ms     1ms      1ms
     benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
     local.system_replset_bench      2ms     1ms      1ms
+test.admin_system_version_test      2ms     1ms      1ms
+                 test.atlascli      2ms     0ms      1ms
+    test.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:47Z
+        benchmarkDB.cursorTest      5ms     2ms      2ms
+    benchmarkDB.testCollection      5ms     2ms      2ms
+    local.system_replset_bench      5ms     2ms      2ms
+test.admin_system_version_test      5ms     2ms      3ms
+                 test.atlascli      5ms     2ms      2ms
+    test.system_sessions_bench      4ms     2ms      2ms
+                admin.atlascli      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     0ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:49Z
+                admin.atlascli      5ms     1ms      3ms
+  config.system_sessions_bench      4ms     1ms      2ms
+        benchmarkDB.cursorTest      2ms     0ms      1ms
+    benchmarkDB.testCollection      2ms     0ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
+    local.system_replset_bench      2ms     0ms      1ms
+test.admin_system_version_test      2ms     0ms      1ms
+                 test.atlascli      2ms     0ms      1ms
+    test.system_sessions_bench      2ms     0ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:51Z
+        benchmarkDB.cursorTest      4ms     1ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
+     config.transactions_bench      4ms     1ms      3ms
+    local.system_replset_bench      4ms     1ms      2ms
+test.admin_system_version_test      4ms     1ms      2ms
+                 test.atlascli      4ms     1ms      2ms
+    test.system_sessions_bench      4ms     1ms      2ms
+                admin.atlascli      2ms     0ms      1ms
+  config.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:57:53Z
+                admin.atlascli      2ms     0ms      1ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     0ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
+    local.system_replset_bench      2ms     0ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
                  test.atlascli      2ms     1ms      1ms
     test.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:31Z
-test.admin_system_version_test      5ms     2ms      2ms
+                            ns    total    read    write    2025-09-04T04:57:55Z
+                admin.atlascli      5ms     2ms      2ms
+     config.transactions_bench      5ms     2ms      2ms
     test.system_sessions_bench      5ms     2ms      2ms
-                admin.atlascli      4ms     2ms      2ms
-        benchmarkDB.cursorTest      4ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
+        benchmarkDB.cursorTest      4ms     1ms      2ms
+    benchmarkDB.testCollection      4ms     1ms      2ms
   config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    local.system_replset_bench      4ms     2ms      2ms
+    local.system_replset_bench      4ms     1ms      2ms
+test.admin_system_version_test      4ms     2ms      2ms
                  test.atlascli      4ms     2ms      2ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:33Z
+                            ns    total    read    write    2025-09-04T04:57:57Z
                 admin.atlascli      2ms     1ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
+        benchmarkDB.cursorTest      2ms     0ms      1ms
     benchmarkDB.testCollection      2ms     1ms      1ms
   config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
+     config.transactions_bench      2ms     0ms      1ms
     local.system_replset_bench      2ms     1ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
+                 test.atlascli      2ms     0ms      1ms
     test.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:35Z
-                admin.atlascli      5ms     2ms      2ms
-        benchmarkDB.cursorTest      5ms     2ms      2ms
-    benchmarkDB.testCollection      5ms     2ms      2ms
-test.admin_system_version_test      5ms     2ms      2ms
-                 test.atlascli      5ms     2ms      2ms
-    test.system_sessions_bench      5ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    local.system_replset_bench      4ms     2ms      2ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:37Z
-                admin.atlascli      2ms     1ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
-test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:39Z
-                admin.atlascli      5ms     2ms      3ms
-    local.system_replset_bench      5ms     2ms      2ms
-    benchmarkDB.testCollection      4ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
-test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:41Z
-        benchmarkDB.cursorTest      5ms     2ms      2ms
-test.admin_system_version_test      5ms     2ms      2ms
-                 test.atlascli      5ms     2ms      2ms
-    test.system_sessions_bench      5ms     2ms      2ms
-    benchmarkDB.testCollection      3ms     1ms      1ms
-                admin.atlascli      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:43Z
-                admin.atlascli      2ms     1ms      1ms
-        benchmarkDB.cursorTest      2ms     1ms      1ms
-    benchmarkDB.testCollection      2ms     1ms      1ms
-  config.system_sessions_bench      2ms     1ms      1ms
-     config.transactions_bench      2ms     1ms      1ms
-    local.system_replset_bench      2ms     1ms      1ms
-test.admin_system_version_test      2ms     1ms      1ms
-                 test.atlascli      2ms     1ms      1ms
-    test.system_sessions_bench      2ms     1ms      1ms
-          admin.system.version      0ms     0ms      0ms
-
-                            ns    total    read    write    2025-09-01T11:09:45Z
+                            ns    total    read    write    2025-09-04T04:57:59Z
                 admin.atlascli      5ms     2ms      3ms
         benchmarkDB.cursorTest      5ms     2ms      3ms
-    benchmarkDB.testCollection      5ms     2ms      2ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+  config.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      3ms
     local.system_replset_bench      5ms     2ms      2ms
-test.admin_system_version_test      5ms     2ms      2ms
-                 test.atlascli      5ms     2ms      2ms
-    test.system_sessions_bench      5ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
+test.admin_system_version_test      5ms     2ms      3ms
+                 test.atlascli      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:47Z
+                            ns    total    read    write    2025-09-04T04:58:01Z
                 admin.atlascli      2ms     1ms      1ms
         benchmarkDB.cursorTest      2ms     1ms      1ms
     benchmarkDB.testCollection      2ms     1ms      1ms
@@ -402,16 +270,160 @@ test.admin_system_version_test      2ms     1ms      1ms
     test.system_sessions_bench      2ms     1ms      1ms
           admin.system.version      0ms     0ms      0ms
 
-                            ns    total    read    write    2025-09-01T11:09:49Z
+                            ns    total    read    write    2025-09-04T04:58:03Z
                 admin.atlascli      5ms     2ms      3ms
-        benchmarkDB.cursorTest      5ms     2ms      2ms
-    benchmarkDB.testCollection      5ms     2ms      2ms
-    local.system_replset_bench      5ms     2ms      2ms
-                 test.atlascli      5ms     2ms      2ms
-  config.system_sessions_bench      4ms     2ms      2ms
-     config.transactions_bench      4ms     2ms      2ms
-    test.system_sessions_bench      4ms     1ms      2ms
+        benchmarkDB.cursorTest      5ms     2ms      3ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+  config.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      3ms
+    local.system_replset_bench      5ms     2ms      3ms
+test.admin_system_version_test      5ms     2ms      3ms
+                 test.atlascli      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:05Z
+     config.transactions_bench      3ms     1ms      1ms
+                admin.atlascli      2ms     1ms      1ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
 test.admin_system_version_test      2ms     1ms      1ms
+                 test.atlascli      2ms     1ms      1ms
+    test.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:07Z
+                admin.atlascli      5ms     2ms      3ms
+        benchmarkDB.cursorTest      5ms     2ms      3ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+  config.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      3ms
+    local.system_replset_bench      5ms     2ms      3ms
+                 test.atlascli      5ms     1ms      3ms
+test.admin_system_version_test      2ms     1ms      1ms
+    test.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:09Z
+test.admin_system_version_test      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
+                admin.atlascli      2ms     1ms      1ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     1ms      1ms
+     config.transactions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
+                 test.atlascli      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:11Z
+                admin.atlascli      5ms     2ms      3ms
+  config.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      3ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
+test.admin_system_version_test      2ms     1ms      1ms
+                 test.atlascli      2ms     1ms      1ms
+    test.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:13Z
+        benchmarkDB.cursorTest      5ms     2ms      3ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+    local.system_replset_bench      5ms     2ms      3ms
+test.admin_system_version_test      5ms     2ms      3ms
+                 test.atlascli      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      3ms     1ms      1ms
+                admin.atlascli      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:15Z
+                admin.atlascli      3ms     1ms      1ms
+     config.transactions_bench      3ms     1ms      1ms
+test.admin_system_version_test      3ms     1ms      1ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+  config.system_sessions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
+                 test.atlascli      2ms     1ms      1ms
+    test.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:17Z
+                admin.atlascli      6ms     2ms      3ms
+  config.system_sessions_bench      6ms     2ms      3ms
+     config.transactions_bench      6ms     2ms      3ms
+        benchmarkDB.cursorTest      5ms     2ms      3ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+    local.system_replset_bench      5ms     2ms      3ms
+test.admin_system_version_test      5ms     2ms      3ms
+                 test.atlascli      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:19Z
+                admin.atlascli      3ms     1ms      1ms
+        benchmarkDB.cursorTest      3ms     1ms      1ms
+    benchmarkDB.testCollection      3ms     1ms      1ms
+  config.system_sessions_bench      3ms     1ms      1ms
+     config.transactions_bench      3ms     1ms      1ms
+    local.system_replset_bench      3ms     1ms      1ms
+test.admin_system_version_test      3ms     1ms      1ms
+                 test.atlascli      3ms     1ms      1ms
+    test.system_sessions_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:21Z
+                admin.atlascli      5ms     2ms      3ms
+        benchmarkDB.cursorTest      5ms     2ms      3ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+  config.system_sessions_bench      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      3ms
+    local.system_replset_bench      5ms     2ms      3ms
+                 test.atlascli      5ms     1ms      3ms
+    test.system_sessions_bench      3ms     1ms      1ms
+test.admin_system_version_test      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:23Z
+test.admin_system_version_test      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
+                admin.atlascli      3ms     1ms      1ms
+  config.system_sessions_bench      3ms     1ms      1ms
+                 test.atlascli      3ms     1ms      1ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+     config.transactions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:25Z
+                admin.atlascli      5ms     2ms      3ms
+  config.system_sessions_bench      4ms     1ms      3ms
+    test.system_sessions_bench      3ms     1ms      1ms
+        benchmarkDB.cursorTest      2ms     1ms      1ms
+    benchmarkDB.testCollection      2ms     1ms      1ms
+     config.transactions_bench      2ms     1ms      1ms
+    local.system_replset_bench      2ms     1ms      1ms
+test.admin_system_version_test      2ms     1ms      1ms
+                 test.atlascli      2ms     1ms      1ms
+          admin.system.version      0ms     0ms      0ms
+
+                            ns    total    read    write    2025-09-04T04:58:27Z
+test.admin_system_version_test      6ms     2ms      3ms
+        benchmarkDB.cursorTest      5ms     2ms      3ms
+    benchmarkDB.testCollection      5ms     2ms      3ms
+     config.transactions_bench      5ms     2ms      3ms
+    local.system_replset_bench      5ms     2ms      3ms
+                 test.atlascli      5ms     2ms      3ms
+    test.system_sessions_bench      5ms     2ms      3ms
+                admin.atlascli      3ms     1ms      1ms
+  config.system_sessions_bench      3ms     2ms      1ms
           admin.system.version      0ms     0ms      0ms
 ```
 ## Explanation of Metrics and Namespaces
@@ -441,17 +453,17 @@ test.admin_system_version_test      2ms     1ms      1ms
 For easier comparison, shown here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Azure ubuntu virtual machine**.
 
 | Namespace (ns)                  | Total Time Range | Read Time Range | Write Time Range | Notes |
-| :------------------------------- | :--------------- | :-------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| admin.atlascli                   | 1–5 ms           | 0–2 ms          | 1–3 ms           | Admin CLI operations. |
-| benchmarkDB.cursorTest           | 1–5 ms           | 0–2 ms          | 0–3 ms           | Secondary benchmark load. |
-| benchmarkDB.testCollection       | 1–5 ms           | 0–2 ms          | 0–2 ms           | Main benchmark workload. |
-| config.system_sessions_bench     | 1–4 ms           | 0–2 ms          | 0–2 ms           | System/benchmark sessions. |
-| config.transactions_bench        | 1–4 ms           | 0–2 ms          | 0–2 ms           | Internal transaction benchmark. |
-| local.system_replset_bench       | 1–5 ms           | 0–2 ms          | 0–2 ms           | Local replica set benchmark. |
-| test.admin_system_version_test   | 1–5 ms           | 0–2 ms          | 0–2 ms           | Light version check activity. |
-| test.atlascli                    | 1–5 ms           | 0–2 ms          | 0–2 ms           | CLI/system background operations. |
-| test.system_sessions_bench       | 1–5 ms           | 0–2 ms          | 0–2 ms           | System/benchmark sessions (test namespace). |
-| admin.system.version             | 0–0 ms           | 0–0 ms          | 0–0 ms           | Appears to be inactive or have instantaneous responses. |
+| :------------------------------- | :--------------- | :-------------- | :--------------- | :------------------------------------------------------------ |
+| admin.atlascli                   | 2–6 ms           | 0–2 ms          | 1–3 ms           | Admin CLI operations. |
+| benchmarkDB.cursorTest           | 2–5 ms           | 0–2 ms          | 1–3 ms           | Cursor benchmark load. |
+| benchmarkDB.testCollection       | 2–5 ms           | 0–2 ms          | 1–3 ms           | Main benchmark workload. |
+| config.system_sessions_bench     | 2–6 ms           | 0–2 ms          | 1–3 ms           | System/benchmark sessions. |
+| config.transactions_bench        | 2–6 ms           | 0–2 ms          | 1–3 ms           | Internal transaction benchmark. |
+| local.system_replset_bench       | 2–5 ms           | 0–2 ms          | 1–3 ms           | Local replica set benchmark. |
+| test.admin_system_version_test   | 2–5 ms           | 0–2 ms          | 1–3 ms           | Version check workload. |
+| test.atlascli                    | 2–5 ms           | 0–2 ms          | 1–3 ms           | CLI/system background operations (test namespace). |
+| test.system_sessions_bench       | 2–5 ms           | 0–2 ms          | 1–3 ms           | Session benchmark (test namespace). |
+| admin.system.version             | 0 ms             | 0 ms            | 0 ms             | Appears inactive or instantaneous responses. |
 
 ### Benchmark summary on x86_64:
 Shown here is a summary of the benchmark results collected on x86_64 **D4s_v4 Azure ubuntu virtual machine**.
