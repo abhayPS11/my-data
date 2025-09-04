@@ -180,7 +180,7 @@ Index Creation Time (ms): 22
 
 ```console
 for i in {1..5}; do
-  /usr/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))' &
+  /usr/local/mongosh/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))' &
 done
 wait
 ```
@@ -190,21 +190,21 @@ It’s a quick way to test how MongoDB handles **multiple users writing data at 
 You should see an output similar to:
 
 ```output
-[1] 3818
-[2] 3819
-[3] 3820
-[4] 3821
-[5] 3822
-switched to db baselineDB;
-[1]   Done                    mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
+[1] 3128
+[2] 3129
+[3] 3130
+[4] 3131
+[5] 3132
 switched to db baselineDB;
 switched to db baselineDB;
+[1]   Done                    /usr/local/mongosh/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
+[2]   Done                    /usr/local/mongosh/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
 switched to db baselineDB;
-[2]   Done                    mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
-[4]-  Done                    mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
-[3]-  Done                    mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
+[3]   Done                    /usr/local/mongosh/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
 switched to db baselineDB;
-[5]+  Done                    mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
+switched to db baselineDB;
+[4]-  Done                    /usr/local/mongosh/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
+[5]+  Done                    /usr/local/mongosh/bin/mongosh --eval 'use baselineDB; db.concurrent.insertMany([...Array(1000).keys()].map(k => ({ test: k, ts: new Date() })))'
 ```
 
 **Five parallel MongoDB shell sessions** were executed, each inserting **1,000** test documents into the baselineDB.concurrent collection. All sessions completed successfully, confirming that concurrent data insertion works as expected.
