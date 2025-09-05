@@ -29,7 +29,7 @@ You should see an output similar to:
 ```output
 libprotoc 3.21.12
 ```
-### Clone and Build ONNX Runtime from Source:
+### Build ONNX Runtime from Source:
 
 The benchmarking tool, **onnxruntime_perf_test**, isn’t available as a pre-built binary artifact for any platform. So, you have to build it from the source, which is expected to take around 40-50 minutes. 
 
