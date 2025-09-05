@@ -1,6 +1,6 @@
 ---
 title: ONNX Installation
-weight: 5
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -36,18 +36,18 @@ This installs ONNX libraries along with FastAPI (web serving) and NumPy (for inp
 Create **version.py** as below:
 
 ```python
-import onnx
-import onnxruntime
+import onnx  
+import onnxruntime 
 
-print("ONNX version:", onnx.__version__)
-print("ONNX Runtime version:", onnxruntime.__version__)
+print("ONNX version:", onnx.version)  
+print("ONNX Runtime version:", onnxruntime.__version__)  
 ```
 Now, run version.py: 
 
 ```console
 python3 version.py
 ```
-Output:
+You should see an output similar to:
 ```output
 ONNX version: 1.18.0
 ONNX Runtime version: 1.22.0
@@ -69,10 +69,10 @@ model = onnx.load("squeezenet-int8.onnx")
 onnx.checker.check_model(model)
 print("✅ Model is valid!")
 ```
-Output:
+You should see an output similar to:
 ```output
 ✅ Model is valid!
 ```
-This downloads a quantized (INT8) classification model on the both virtual machine, and validates its structure using ONNX’s built-in checker. 
+This downloads a quantized (INT8) classification model, and validates its structure using ONNX’s built-in checker. 
 
-ONNX installation and model validation are complete. Proceed with baseline testing.
+ONNX installation and model validation are complete. You can now proceed with the baseline testing.
