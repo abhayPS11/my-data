@@ -1,5 +1,5 @@
 ---
-title: ONNX Installation and Model Validation Guide
+title: ONNX Installation
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -7,14 +7,14 @@ layout: learningpathall
 ---
 
 
-## ONNX Installation on Azure Linux 3.0
+## ONNX Installation on Azure Ubuntu Pro 24.04 LTS
 Install Python, create a virtual environment, and use pip to install ONNX, ONNX Runtime, and dependencies. Verify the setup and validate a sample ONNX model like SqueezeNet.
 
 ### Install Python and Virtual Environment:
 
 ```console
-tdnf update
-tdnf install -y python3 python3-pip python3-virtualenv
+sudo apt update
+sudo apt install -y python3 python3-pip python3-virtualenv
 ```
 Create and activate a virtual environment:
 
@@ -36,11 +36,11 @@ This installs ONNX libraries along with FastAPI (web serving) and NumPy (for inp
 Create **version.py** as below:
 
 ```python
-import onnx  
-import onnxruntime 
+import onnx
+import onnxruntime
 
-print("ONNX version:", onnx.version)  
-print("ONNX Runtime version:", onnxruntime.__version__)  
+print("ONNX version:", onnx.__version__)
+print("ONNX Runtime version:", onnxruntime.__version__)
 ```
 Now, run version.py: 
 
