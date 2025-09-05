@@ -173,6 +173,14 @@ modes can be very significant. Please make sure you use the consistent Blackhole
 Benchmark                           Mode  Cnt         Score        Error  Units
 MyBenchmark.benchmarkHttpResponse  thrpt   25  35659618.044 ± 686946.011  ops/s
 ```
+### Benchmark Metrics Explained  
+
+- **Run Count**: The total number of benchmark iterations executed. A higher run count increases statistical reliability and reduces the effect of outliers.  
+- **Average Throughput**: The mean number of operations executed per second across all iterations. This metric represents the overall sustained performance of the benchmarked workload.
+- **Standard Deviation**: Indicates the amount of variation or dispersion from the average throughput. A smaller standard deviation means more consistent performance.  
+- **Confidence Interval (99.9%)**: The statistical range within which the true average throughput is expected to fall, with 99.9% certainty. Narrow intervals imply more reliable results.  
+- **Min Throughput**: The lowest throughput observed across all iterations, reflecting the worst-case performance scenario.  
+- **Max Throughput**: The highest throughput observed across all iterations, reflecting the best-case performance scenario.  
 
 ### Benchmark summary on Arm64
 
