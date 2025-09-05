@@ -1,5 +1,5 @@
 ---
-title: Baseline Testing of ONNX
+title: Baseline Testing
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -32,11 +32,11 @@ print("Inference time:", end - start)
 Run the baseline test:
 
 ```console
-$ python3 baseline.py
+python3 baseline.py
 ```
-Output:
+You should see an output similar to:
 ```output
-Inference time: 0.02060103416442871
+Inference time: 0.0026061534881591797
 ```
 {{% notice Note %}}Inference time is the amount of time it takes for a trained machine learning model to make a prediction (i.e., produce output) after receiving input data. 
 input tensor of shape (1, 3, 224, 224): 
@@ -45,7 +45,7 @@ input tensor of shape (1, 3, 224, 224):
 - 224 x 224: image resolution (common for models like SqueezeNet)
 {{% /notice %}}
 
-#### Output of ONNX baseline testing on the Arm virtual machine:
+#### Output summary:
 
 - Single inference latency: ~2.60 milliseconds (0.00260 sec) 
 - This shows the initial (cold-start) inference performance of ONNX Runtime on CPU using an optimized int8 quantized model. 
