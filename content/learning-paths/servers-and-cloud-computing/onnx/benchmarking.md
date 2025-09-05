@@ -58,6 +58,39 @@ Now that the benchmarking tool has been built, you can benchmark the **squeezene
 - **Z**: Disable intra-op thread spinning (reduces CPU usage when idle between runs). 
 - **I**: Input the ONNX model path without using input/output test data.
 
+You should see an output similar to:
+
+```output
+Disabling intra-op thread spinning between runs
+Session creation time cost: 0.0102016 s
+First inference time cost: 2 ms
+Total inference time cost: 0.185739 s
+Total inference requests: 100
+Average inference time cost: 1.85739 ms
+Total inference run time: 0.18581 s
+Number of inferences per second: 538.184
+Avg CPU usage: 96 %
+Peak working set size: 36696064 bytes
+Avg CPU usage:96
+Peak working set size:36696064
+Runs:100
+Min Latency: 0.00183404 s
+Max Latency: 0.00190312 s
+P50 Latency: 0.00185674 s
+P90 Latency: 0.00187215 s
+P95 Latency: 0.00187393 s
+P99 Latency: 0.00190312 s
+P999 Latency: 0.00190312 s
+```
+### Benchmark Metrics Explained  
+
+- **Average Inference Time**: The mean time taken to process a single inference request across all runs. Lower values indicate faster model execution.  
+- **Throughput**: The number of inference requests processed per second. Higher throughput reflects the model’s ability to handle larger workloads efficiently.  
+- **CPU Utilization**: The percentage of CPU resources used during inference. A value close to 100% indicates full CPU usage, which is expected during performance benchmarking.  
+- **Peak Memory Usage**: The maximum amount of system memory (RAM) consumed during inference. Lower memory usage is beneficial for resource-constrained environments.  
+- **P50 Latency (Median Latency)**: The time below which 50% of inference requests complete. Represents typical latency under normal load.   
+- **Latency Consistency**: Describes the stability of latency values across all runs. "Consistent" indicates predictable inference performance with minimal jitter.  
+
 ### Benchmark summary on X86
 Here is a summary of benchmark results collected on x86 **D4ps_v6 Ubuntu Pro 24.04 LTS virtual machine**.
 
