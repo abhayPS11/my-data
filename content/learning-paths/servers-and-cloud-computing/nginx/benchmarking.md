@@ -110,11 +110,41 @@ Percentage of the requests served within a certain time (ms)
 - **Percentage served** – Percentile distribution of response times.
 
 ### Benchmark summary on x86_64:
+Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu Pro 24.04 LTS virtual machine**.
+
+| **Category**              | **Metric**                                      | **Value**   |
+|---------------------------|-------------------------------------------------|-------------------------------|
+| **General Info**          | Server Software                                  | nginx/1.24.0                  |
+|                           | Server Hostname                                  | localhost                     |
+|                           | Server Port                                      | 80                            |
+|                           | Document Path                                    | /                             |
+|                           | Document Length                                  | 615 bytes                     |
+| **Test Setup**            | Concurrency Level                                | 50                            |
+|                           | Time Taken for Tests                             | 0.038 sec                     |
+|                           | Complete Requests                                | 1000                          |
+|                           | Failed Requests                                  | 0                             |
+| **Transfer Stats**        | Total Transferred                                | 857,000 bytes                 |
+|                           | HTML Transferred                                 | 615,000 bytes                 |
+|                           | Requests per Second                              | 26,592.21 [#/sec]             |
+|                           | Time per Request (mean)                          | 1.880 ms                      |
+|                           | Time per Request (across all)                    | 0.038 ms                      |
+|                           | Transfer Rate                                    | 22,255.39 KB/sec              |
+| **Connection Times (ms)** | Connect (min / mean / stdev / median / max)      | 0 / 1 / 0.2 / 1 / 1          |
+|                           | Processing (min / mean / stdev / median / max)   | 0 / 1 / 0.2 / 1 / 2          |
+|                           | Waiting (min / mean / stdev / median / max)      | 0 / 1 / 0.2 / 1 / 1          |
+|                           | Total (min / mean / stdev / median / max)        | 1 / 2 / 0.2 / 2 / 2          |
+| **Latency Percentiles**   | 50% of requests served within                    | 2 ms                          |
+|                           | 66% of requests served within                    | 2 ms                          |
+|                           | 75% of requests served within                    | 2 ms                          |
+|                           | 80% of requests served within                    | 2 ms                          |
+|                           | 90% of requests served within                    | 2 ms                          |
+|                           | 95% of requests served within                    | 2 ms                          |
+|                           | 98% of requests served within                    | 2 ms
 
 ### Benchmark summary on Arm64:
 Here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Ubuntu Pro 24.04 LTS virtual machine**.
 
-| **Category**              | **Metric**                                      | **Value on Virtual Machine**   |
+| **Category**              | **Metric**                                      | **Value**   |
 |---------------------------|-------------------------------------------------|-------------------------------|
 | **General Info**          | Server Software                                  | nginx/1.24.0                  |
 |                           | Server Hostname                                  | localhost                     |
@@ -135,8 +165,6 @@ Here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Ubuntu Pr
 |                           | Processing (min / mean / stdev / median / max)   | 0 / 1 / 0.1 / 1 / 1          |
 |                           | Waiting (min / mean / stdev / median / max)      | 0 / 1 / 0.2 / 1 / 1          |
 |                           | Total (min / mean / stdev / median / max)        | 1 / 2 / 0.1 / 2 / 2          |
-
-### Benchmark summary on x86_64:
 
 ### Highlights from Azure Ubuntu Pro 24.04 LTS Arm64 Benchmarking
 
