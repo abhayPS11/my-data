@@ -1,5 +1,5 @@
 ---
-title: Nginx Baseline Testing 
+title: NGINX Baseline Testing 
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -7,8 +7,8 @@ layout: learningpathall
 ---
 
 
-### Baseline testing with a static website on Nginx
-Perform baseline testing of Nginx on an **Azure Ubuntu Pro 24.04 LTS** virtual machine by deploying a custom static HTML page. This verifies that Nginx is correctly serving content on the Arm64 platform.
+### Baseline testing with a static website on NGINX
+Perform baseline testing of NGINX on an **Azure Ubuntu Pro 24.04 LTS** virtual machine by deploying a custom static HTML page. This verifies that NGINX is correctly serving content on the Arm64 platform.
 
 1. Create a Static Website Directory:
 
@@ -61,9 +61,9 @@ Create a HTML file `nano my-static-site/index.html` with the content below to de
 </body>
 </html>
 ```
-3. Move the Website to Nginx's Accessible Directory:
+3. Move the Website to NGINX's Accessible Directory:
 
-Since Nginx runs under the `www-data` user and may not have access to files inside `/home/ubuntu`, move the site to a directory where Nginx has permissions by default:
+Since NGINX runs under the `www-data` user and may not have access to files inside `/home/ubuntu`, move the site to a directory where NGINX has permissions by default:
 
 ```console
 sudo mkdir -p /var/www/my-static-site
@@ -73,13 +73,13 @@ sudo chown -R www-data:www-data /var/www/my-static-site
 
 4. Create NGINX Config File to Serve Static Website:
 
-Point Nginx to serve your static HTML content.
+Point NGINX to serve your static HTML content.
 ```console
 sudo nano /etc/nginx/conf.d/static-site.conf
 ```
 Now, add the following configuration:
 
-```nginx
+```NGINX
 server {
     listen 80;
     server_name localhost;
@@ -95,7 +95,7 @@ server {
 ```
 Make sure `/home/ubuntu/my-static-site` is the correct path to your **index.html**.
 
-5. Test the Nginx Configuration:
+5. Test the NGINX Configuration:
 
 ```console
 sudo nginx -t
@@ -106,7 +106,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-6. Reload or Restart Nginx:
+6. Reload or Restart NGINX:
 
 Apply configuration changes and restart the web server.
 ```console
@@ -122,8 +122,8 @@ http://<your-vm-public-ip>/
 ```
 Make sure port 80 is open in your Azure Network Security Group (NSG).
 
-8. You should see the Nginx welcome page confirming a successful deployment:
+8. You should see the NGINX welcome page confirming a successful deployment:
 
 ![Static Website Screenshot](images/nginx-web.png)
 
-This verifies the basic functionality of Nginx installation before proceeding to the benchmarking.
+This verifies the basic functionality of NGINX installation before proceeding to the benchmarking.
