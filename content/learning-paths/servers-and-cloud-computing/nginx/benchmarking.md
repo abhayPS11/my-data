@@ -6,7 +6,7 @@ weight: 6
 layout: learningpathall
 ---
 
-## Nginx Benchmarking by ApacheBench
+## NGINX Benchmarking by ApacheBench
 
 **ApacheBench (ab)** is a lightweight command-line tool for benchmarking HTTP servers. It measures performance metrics like requests per second, response time, and throughput under concurrent load.
 
