@@ -1,6 +1,6 @@
 ---
 title: Nginx Baseline Testing 
-weight: 6
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -8,7 +8,7 @@ layout: learningpathall
 
 
 ### Baseline testing with a static website on Nginx
-Perform baseline testing of Nginx on Azure Linux 3.0 by deploying a custom static HTML page. This verifies that Nginx is correctly serving content on the Arm64 platform.
+Perform baseline testing of Nginx on an **Azure Ubuntu Pro 24.04 LTS** virtual machine by deploying a custom static HTML page. This verifies that Nginx is correctly serving content on the Arm64 platform.
 
 1. Create a Static Website Directory:
 
@@ -25,7 +25,7 @@ Create a HTML file `nano my-static-site/index.html` with the content below to de
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Welcome to NGINX on Azure Linux</title>
+  <title>Welcome to NGINX on Azure Ubuntu Pro</title>
   <style>
     body {
       background: linear-gradient(to right, #4facfe, #00f2fe);
@@ -55,13 +55,23 @@ Create a HTML file `nano my-static-site/index.html` with the content below to de
 </head>
 <body>
   <div class="box">
-    <h1> Welcome to NGINX on Azure Linux 3.0!</h1>
+    <h1> Welcome to NGINX on Azure Ubuntu Pro 24.04 LTS!</h1>
     <p>Your static site is running beautifully on ARM64 </p>
   </div>
 </body>
 </html>
 ```
-3. Create NGINX Config File to Serve Static Website:
+3. Move the Website to Nginx's Accessible Directory:
+
+Since Nginx runs under the `www-data` user and may not have access to files inside `/home/ubuntu`, move the site to a directory where Nginx has permissions by default:
+
+```console
+sudo mkdir -p /var/www/my-static-site
+sudo cp -r ~/my-static-site/* /var/www/my-static-site/
+sudo chown -R www-data:www-data /var/www/my-static-site
+```
+
+4. Create NGINX Config File to Serve Static Website:
 
 Point Nginx to serve your static HTML content.
 ```console
@@ -75,7 +85,7 @@ server {
     server_name localhost;
 
     location / {
-        root /home/azureuser/my-static-site;
+        root /var/www/my-static-site;
         index index.html;
     }
 
@@ -83,9 +93,9 @@ server {
     error_log /var/log/nginx/static-error.log;
 }
 ```
-Make sure `/home/azureuser/my-static-site` is the correct path to your **index.html**.
+Make sure `/home/ubuntu/my-static-site` is the correct path to your **index.html**.
 
-4. Test the Nginx Configuration:
+5. Test the Nginx Configuration:
 
 ```console
 sudo nginx -t
@@ -96,7 +106,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-5. Reload or Restart Nginx:
+6. Reload or Restart Nginx:
 
 Apply configuration changes and restart the web server.
 ```console
@@ -104,7 +114,7 @@ sudo nginx -s reload
 sudo systemctl restart nginx
 ```
 
-6. Test the Static Website on browser:
+7. Test the Static Website on browser:
 
 Access your website at your public IP on port 80.
 ```console
@@ -112,8 +122,8 @@ http://<your-vm-public-ip>/
 ```
 Make sure port 80 is open in your Azure Network Security Group (NSG).
 
-7. You should see the Nginx welcome page confirming a successful deployment:
+8. You should see the Nginx welcome page confirming a successful deployment:
 
-![Static Website Screenshot](images/web-page.png)
+![Static Website Screenshot](images/nginx-web.png)
 
 This verifies the basic functionality of Nginx installation before proceeding to the benchmarking.
