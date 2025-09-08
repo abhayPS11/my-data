@@ -1,5 +1,5 @@
 ---
-title: Install Nginx
+title: Install NGINX
 weight: 4
 
 ### FIXED, DO NOT MODIFY
@@ -8,11 +8,11 @@ layout: learningpathall
 
 
 
-## Nginx Installation on Azure Ubuntu Pro 24.04 LTS
+## NGINX Installation on Azure Ubuntu Pro 24.04 LTS
 
-Install Nginx using `apt` on your Azure Ubuntu Pro 24.04 LTS virtual machine, start the Nginx service, and allow **HTTP** traffic through the firewall. Then access the default welcome page using your virtual machine’s public IP address in a browser.
+Install NGINX using `apt` on your Azure Ubuntu Pro 24.04 LTS virtual machine, start the NGINX service, and allow **HTTP** traffic through the firewall. Then access the default welcome page using your virtual machine’s public IP address in a browser.
 
-### Install Nginx
+### Install NGINX
 
 ```console
 sudo apt update
@@ -21,7 +21,7 @@ sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
 
-### Verify Nginx
+### Verify NGINX
 
 ```console
 sudo systemctl status nginx
@@ -44,7 +44,7 @@ You should see an output similar to:
              ├─1944 "nginx: worker process"
              └─1945 "nginx: worker process"
 ```
-Also, you can use the below command to see the installed version of Nginx:
+Also, you can use the below command to see the installed version of NGINX:
 
 ```console
 nginx -v
@@ -52,17 +52,17 @@ nginx -v
 {{% notice Note %}}
 There is an [Arm community blog](https://community.arm.com/arm-community-blogs/b/servers-and-cloud-computing-blog/posts/improve-nginx-performance-up-to-32-by-deploying-on-alibaba-cloud-yitian-710-instances) that shows that NGINX version 1.20.1 deployed on Yitian 710 based ECS provides up to 32% more throughput in compared to the equivalent x86 based ECS instances.
  
-The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Nginx version 1.20.1 as the minimum recommended on the Arm platforms.
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends NGINX version 1.20.1 as the minimum recommended on the Arm platforms.
 {{% /notice %}}
 
 ### Validation with curl
-Validation with `curl` confirms that Nginx is correctly installed, running, and serving **HTTP** responses.
+Validation with `curl` confirms that NGINX is correctly installed, running, and serving **HTTP** responses.
 
-Run the following command to send a HEAD request to the local Nginx server:
+Run the following command to send a HEAD request to the local NGINX server:
 ```console
 curl -I http://localhost/
 ```
-The `curl -I http://localhost/` command sends a HEAD request to Nginx to check its **HTTP** response headers without downloading the page content.
+The `curl -I http://localhost/` command sends a HEAD request to NGINX to check its **HTTP** response headers without downloading the page content.
 
 You should see an output similar to:
 
@@ -79,21 +79,21 @@ Accept-Ranges: bytes
 ```
 
 Output summery:
-- **HTTP/1.1 200 OK**: Nginx is responding successfully.
-- **Server: nginx/1.24.0**: Confirms it's running Nginx.
+- **HTTP/1.1 200 OK**: nginx is responding successfully.
+- **Server: nginx/1.24.0**: Confirms it's running nginx.
 - Confirms your web server is reachable on **localhost**.
 
-### Accessing the Nginx Default Page
+### Accessing the NGINX Default Page
 
-You can access the Nginx default page from your Virtual machine’s public IP. Run the following command to display your public URL:
+You can access the NGINX default page from your Virtual machine’s public IP. Run the following command to display your public URL:
 
-Now you can access the NGINX default page in a browser. Run the following command to print your VM’s public URL, then open it in a browser:
+Now you can access the NGINX default page in a browser. Run the following command to print your Virtual machine’s public URL, then open it in a browser:
 ```console
 echo "http://$(curl -s ifconfig.me)/"
 ```
 
-Open the printed URL in a browser. You should see the Nginx welcome page confirming a successful installation.
+Open the printed URL in a browser. You should see the NGINX welcome page confirming a successful installation.
 
-![nginx](images/nginx-browser.png)
+![NGINX](images/nginx-browser.png)
 
-Nginx installation is complete. You can now proceed with the baseline testing ahead.
+NGINX installation is complete. You can now proceed with the baseline testing ahead.
