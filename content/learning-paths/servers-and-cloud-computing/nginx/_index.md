@@ -44,7 +44,7 @@ further_reading:
       link: https://httpd.apache.org/docs/2.4/programs/ab.html
       type: documentation
   - resource:
-      title: Nginx on Azure
+      title: NGINX on Azure
       link: https://docs.nginx.com/nginx/deployment-guides/microsoft-azure/virtual-machines-for-nginx/
       type: documentation
 
