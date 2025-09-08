@@ -8,23 +8,15 @@ layout: learningpathall
 
 
 ### Baseline testing with a static website on Nginx
+Perform baseline testing of Nginx on Azure Linux 3.0 by deploying a custom static HTML page. This verifies that Nginx is correctly serving content on the Arm64 platform.
 
-1. Install and start Nginx:
-
-Install Nginx and ensure it's running as a system service.
-```console
-sudo dnf install nginx -y
-sudo systemctl start nginx
-sudo systemctl enable nginx
-```
-
-2. Create a Static Website Directory:
+1. Create a Static Website Directory:
 
 Prepare a folder to host your HTML content.
 ```console
 mkdir -p ~/my-static-site
 ```
-3.  Create an HTML file and Web page:
+2. Create an HTML file and Web page:
 
 Create a HTML file `nano my-static-site/index.html` with the content below to design a visually appealing static landing page.
 
@@ -69,7 +61,7 @@ Create a HTML file `nano my-static-site/index.html` with the content below to de
 </body>
 </html>
 ```
-4. Create NGINX Config File to Serve Static Website:
+3. Create NGINX Config File to Serve Static Website:
 
 Point Nginx to serve your static HTML content.
 ```console
@@ -93,7 +85,7 @@ server {
 ```
 Make sure `/home/azureuser/my-static-site` is the correct path to your **index.html**.
 
-5.Test the Nginx Configuration:
+4. Test the Nginx Configuration:
 
 ```console
 sudo nginx -t
@@ -104,7 +96,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-6.  Reload or Restart Nginx:
+5. Reload or Restart Nginx:
 
 Apply configuration changes and restart the web server.
 ```console
@@ -112,7 +104,7 @@ sudo nginx -s reload
 sudo systemctl restart nginx
 ```
 
-7. Test the Static Website on browser:
+6. Test the Static Website on browser:
 
 Access your website at your public IP on port 80.
 ```console
@@ -120,8 +112,8 @@ http://<your-vm-public-ip>/
 ```
 Make sure port 80 is open in your Azure Network Security Group (NSG).
 
-8. You should see the Nginx welcome page confirming a successful deployment:
+7. You should see the Nginx welcome page confirming a successful deployment:
 
-![Static Website Screenshot](web-page.png)
+![Static Website Screenshot](images/web-page.png)
 
 This verifies the basic functionality of Nginx installation before proceeding to the benchmarking.
