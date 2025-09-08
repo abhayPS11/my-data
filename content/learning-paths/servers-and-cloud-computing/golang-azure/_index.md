@@ -1,19 +1,17 @@
 ---
-title: Run Golang on the Microsoft Azure Cobalt 100 processors 
+title: Deploy Golang on the Microsoft Azure Cobalt 100 processors 
 
 minutes_to_complete: 40   
 
 who_is_this_for: This Learning Path is designed for software developers looking to migrate their Golang workloads from x86_64 to Arm-based platforms, specifically on the Microsoft Azure Cobalt 100 processors.
 
-learning_objectives: 
-    - Start an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
-    - Learn how to create an Azure Linux 3.0 Docker container.
-    - Deploy the Golang on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
-    - Test and Benchmark Golang in both containerized and virtual machine environments.
+learning_objectives:
+    - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu Pro 24.04 LTS as the base image.
+    - Deploy Golang on an Azure Ubuntu Pro 24.04 LTS Arm64-based virtual machine.
+    - Perform Golang baseline testing and benchmarking on both x86_64 and Arm64 virtual machine.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
-    - A machine with [Docker](/install-guides/docker/) installed.
     - Basic understanding of Linux command line.
     - Familiarity with the [Golang](https://go.dev/) and deployment practices on Arm64 platforms.
 
@@ -29,7 +27,6 @@ armips:
 
 tools_software_languages:
     - Golang
-    - Docker
     - go test -bench
 
 operatingsystems:
