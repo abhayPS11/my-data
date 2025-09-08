@@ -110,7 +110,7 @@ Percentage of the requests served within a certain time (ms)
 
 The following benchmark results are collected on two different x86_64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4s_v6 Ubuntu-based Azure virtual machine**, and a **D4s_v4 Azure virtual machine created from the Azure Linux 3.0 image published by Ntegral Inc**.
 
-| **Category**              | **Metric**                                     | **Value on VM**     | **Value on Docker** |
+| **Category**              | **Metric**                                     | **Value on Virtual Machine**     | **Value on Docker** |
 | ------------------------- | ---------------------------------------------- | ------------------- | ------------------- |
 | **General Info**          | Server Software                                | nginx/1.25.4        | nginx/1.25.4        |
 |                           | Server Hostname                                | localhost           | localhost           |
@@ -137,7 +137,7 @@ The following benchmark results are collected on two different x86_64 environmen
 
 The following benchmark results are collected on two different Arm64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4ps_v6 Ubuntu-based Azure virtual machine**, and a **D4ps_v6 Azure virtual machine created from the Azure Linux 3.0 custom image using the AArch64 ISO**.
 
-| **Category**              | **Metric**                                      | **Value on ARM64 VM**   | **Value on Docker**      |
+| **Category**              | **Metric**                                      | **Value on Virtual Machine**   | **Value on Docker**      |
 |---------------------------|--------------------------------------------------|--------------------------|---------------------------|
 | **General Info**          | Server Software                                  | nginx/1.25.4             | nginx/1.25.4              |
 |                           | Server Hostname                                  | localhost                | localhost                 |
@@ -160,7 +160,7 @@ The following benchmark results are collected on two different Arm64 environment
 |                           | Total (min / mean / stdev / median / max)       | 1 / 2 / 0.1 / 2 / 2      | 1 / 1 / 0.1 / 1 / 1       |
 
 
-### Highlights from Azure Linux ARM64 Benchmarking
+### Highlights from Azure Linux Arm64 Benchmarking
 
 - Achieved **30,876.59 requests/sec**, significantly outperforming x86_64 (20,352.51 requests/sec).
 - Response time per request averaged **1.619 ms**, indicating high efficiency under 50 concurrent connections.
