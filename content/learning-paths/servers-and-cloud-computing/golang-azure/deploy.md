@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 
-## Install Golanglang on Ubuntu Pro 24.04 LTS (Arm64)
+## Install Golang on Ubuntu Pro 24.04 LTS (Arm64)
 This section covers installing the latest Golang version on **Ubuntu Pro 24.04 LTS Arm64**, configuring the environment, and verifying the setup.
 
 1. Download the Golang archive
