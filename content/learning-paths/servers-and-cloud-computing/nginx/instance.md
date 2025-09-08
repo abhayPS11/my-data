@@ -27,7 +27,7 @@ Creating a virtual machine based on Azure Cobalt 100 is no different from creati
 5. Select "SSH public key" as an Authentication type. Azure will automatically generate an SSH key pair for you and allow you to store it for future use. It is a fast, simple, and secure way to connect to your virtual machine.
 6. Fill in the Administrator username for your VM.
 7. Select "Generate new key pair", and select "RSA SSH Format" as the SSH Key Type. RSA could offer better security with keys longer than 3072 bits. Give a Key pair name to your SSH key.
-8. In the "Inbound port rules", select HTTP (80) and SSH (22) as the inbound ports. The default port for Nginx when handling standard web traffic (HTTP) is 80.
+8. In the "Inbound port rules", select HTTP (80) and SSH (22) as the inbound ports. The default port for NGINX when handling standard web traffic (HTTP) is 80.
 
 ![Azure portal VM creation — Azure Cobalt 100 Arm64 virtual machine (D4ps_v6) alt-text#center](images/instance1.png "Figure 2: Allow inbound port rules")
 
