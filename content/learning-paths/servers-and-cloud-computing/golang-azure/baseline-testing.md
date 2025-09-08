@@ -1,6 +1,6 @@
 ---
 title: Golang Baseline Testing 
-weight: 6
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -8,7 +8,7 @@ layout: learningpathall
 
 
 ### Baseline testing of Golang Web Page on Azure Arm64
-This guide demonstrates how to test your Go installation on Azure Arm64 by creating and running a simple Go web server that serves a styled HTML page.
+This section demonstrates how to test your Go installation on an **Azure Ubuntu Pro 24.04 LTS Arm64** VM by creating and running a simple Go web server that serves a styled HTML page.
 
 **1. Create Project Directory**
 
@@ -104,13 +104,13 @@ func main() {
     log.Fatal(http.ListenAndServe(":80", nil))
 }
 ```
-
+{{% notice Note %}}Running on port 80 requires root privileges. Use sudo with the full Go path if needed.{{% /notice %}}
 **4. Run on the Web Server**
 
 Run your Go program with:
 
 ```console
-go run main.go
+sudo /usr/local/go/bin/go run main.go
 ```
 
 This compiles and immediately starts the server. If successful, you’ll see the message:
@@ -120,46 +120,29 @@ This compiles and immediately starts the server. If successful, you’ll see the
 ```
 **5. Allow HTTP Traffic in Firewall**
 
-On Azure Linux 3.0 virtual machines, firewalld runs by default as an additional layer of firewall control. By default, it allows only SSH (22) and a few core services.
-So even if Azure allows HTTP port 80 (port 80 is added to inbound ports during VM creation), your VM’s firewalld may still block it until you run:
+On **Ubuntu Pro 24.04 LTS** virtual machines, **UFW (Uncomplicated Firewall)** is used to manage firewall rules. By default, it allows only SSH (port 22) and blocks most other traffic.  
 
-```console
-sudo firewall-cmd --permanent --add-service=http
-sudo firewall-cmd --reload
-```
-
-You can verify that HTTP is now allowed by listing active services:
-
-```console
-sudo firewall-cmd --list-services
-```
-
-Example output:
-
-```output
-dhcpv6-client http https mdns ssh
-```
-
-If firewall-cmd is not found, ensure your $PATH includes standard directories:
-
-```console
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-```
-So now, when you type firewall-cmd, the shell searches through the updated $PATH, finds /usr/bin/firewall-cmd, and executes it.
-
-However, if you are working inside an Azure Linux 3.0 Docker container hosted on an Ubuntu virtual machine, you must bind the container’s port 80 to the VM’s port 80 and then allow HTTP traffic through the Ubuntu VM’s firewall.
-
-Create the Docker container as follows:
-```console
-sudo docker run -it --rm -p 80:80 mcr.microsoft.com/azurelinux/base/core:3.0
-```
-This command maps container port 80 to the Ubuntu VM’s port 80. The Golang installation steps inside the Azure Linux 3.0 container remain the same as described above.
-
-Now, to allow HTTP in the firewall on your Ubuntu virtual machine, run as follows:
+So even if Azure allows HTTP on port 80 (added to inbound ports during VM creation), your VM’s firewall may still block it until you run:
 
 ```console
 sudo ufw allow 80/tcp
 sudo ufw enable
+```
+You can verify that HTTP is now allowed with:
+
+```console
+sudo ufw status
+```
+You should see an output similar to: 
+```output
+Status: active
+
+To                         Action      From
+--                         ------      ----
+8080/tcp                   ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+8080/tcp (v6)              ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
 ```
 
 **6. Open in Browser**
