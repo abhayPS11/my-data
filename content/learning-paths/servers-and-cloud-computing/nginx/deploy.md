@@ -1,5 +1,5 @@
 ---
-title: Install Nginx on Microsoft Azure Virtual Machine
+title: Install Nginx
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -10,7 +10,7 @@ layout: learningpathall
 
 ## Nginx Installation on Azure Linux 3.0
 
-Install Nginx using `dnf`, start the service, and allow **HTTP/HTTPS** in the firewall. Then access the default welcome page using your virtual machine’s public IP in a browser.
+Install Nginx using `dnf` in the Azure Linux 3.0 environment, start the Nginx service, and allow **HTTP** in the firewall. Then access the default welcome page using your virtual machine’s public IP in a browser.
 
 ### Install Nginx
 
@@ -46,6 +46,12 @@ Also, you can use the below command to see the installed version of Nginx:
 ```console
 nginx -v
 ```
+{{% notice Note %}}
+There is an [Arm community blog](https://community.arm.com/arm-community-blogs/b/servers-and-cloud-computing-blog/posts/improve-nginx-performance-up-to-32-by-deploying-on-alibaba-cloud-yitian-710-instances) that shows that NGINX version 1.20.1 deployed on Yitian 710 based ECS provides up to 32% more throughput in compared to the equivalent x86 based ECS instances.
+ 
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Nginx version 1.20.1 as the minimum recommended on the Arm platforms.
+{{% /notice %}}
+
 ### Validation with curl
 Validation with `curl` confirms that Nginx is correctly installed, running, and serving **HTTP** responses.
 
@@ -76,18 +82,45 @@ Output summery:
 
 ### Allow HTTP Traffic in Firewall 
 
-Allowing **HTTP** and **HTTPS** traffic in the firewall ensures that your Nginx web server can receive requests from web browsers. 
+On Azure Linux 3.0 virtual machines, firewalld runs by default as an additional layer of firewall control. By default, it allows only SSH (22) and a few core services.
+So even if Azure allows HTTP port 80 (port 80 is added to inbound ports during VM creation), your VM’s firewalld may still block it until you run:
 ```console
 sudo firewall-cmd --permanent --add-service=http 
-sudo firewall-cmd --permanent --add-service=https 
 sudo firewall-cmd --reload 
 ```
-Now you can access the NGINX default page in a browser:
-
+You can verify that HTTP is now allowed by listing active services:
 ```console
-http://<your-vm-public-ip>/ 
+sudo firewall-cmd --list-services
 ```
-You should see the Nginx page confirming a successful installation of Nginx.
-![nginx](./nginx-browser.png)
+Example output:
+```output
+dhcpv6-client http https mdns ssh
+```
+If firewall-cmd is not found, ensure your $PATH includes standard directories:
+```console
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+So now, when you type firewall-cmd, the shell searches through the updated $PATH, finds /usr/bin/firewall-cmd, and executes it.
 
-Nginx installation is complete. You can now proceed with the baseline testing.
+However, if you are working inside an Azure Linux 3.0 Docker container hosted on an Ubuntu virtual machine, you must bind the container’s port 80 to the VM’s port 80 and then allow HTTP traffic through the Ubuntu VM’s firewall.
+
+Create the Docker container as follows:
+```console
+sudo docker run -it --rm -p 80:80 mcr.microsoft.com/azurelinux/base/core:3.0
+```
+This command maps container port 80 to the Ubuntu VM’s port 80. The Nginx installation steps inside the Azure Linux 3.0 container remain the same as described above.
+Now, to allow HTTP in the firewall on your Ubuntu virtual machine, run as follows:
+```console
+sudo ufw allow 80/tcp
+sudo ufw enable
+```
+
+Now you can access the NGINX default page in a browser. Run the following command to print your VM’s public URL, then open it in a browser:
+```console
+echo "http://$(curl -s ifconfig.me)/"
+```
+
+You should see the Nginx page confirming a successful installation of Nginx.
+![nginx](images/nginx-browser.png)
+
+Nginx installation is complete. You can now proceed with the baseline testing ahead.
