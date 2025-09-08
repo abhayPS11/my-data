@@ -3,18 +3,18 @@ title: Run Nginx on the Microsoft Azure Cobalt 100 processors
 
 minutes_to_complete: 30   
 
-who_is_this_for: This Learning Path introduces NGINX deployment on Microsoft Azure Cobalt 100 (Arm-based) virtual machines. It is intended for system administrators and developers looking to deploy and benchmark NGINX on Arm architecture with minimal adjustments from traditional x86_64 environments.
+who_is_this_for: This Learning Path introduces Nginx deployment on Microsoft Azure Cobalt 100 (Arm-based) virtual machine. It is intended for system administrators and developers looking to deploy and benchmark Nginx on Arm architecture with minimal adjustments from traditional x86_64 environments.
 
 learning_objectives: 
-    - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
+    - Start an Azure Arm64 virtual machine using Azure console and Ubuntu as the base image.
     - Learn how to create an Azure Linux 3.0 Docker container.
-    - Deploy the NGINX web server on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
-    - Perform NGINX baseline testing and benchmarking in both the containerized and virtual machine environments.
+    - Deploy the Nginx web server on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
+    - Test and Benchmark Nginx in both the containerized and virtual machine environments.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
     - A machine with [Docker](/install-guides/docker/) installed.
-    - Network settings (firewalls and security groups) should allow inbound communication on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
+    - Network settings (firewalls and security groups) should allow inbound communication on ports 22 (SSH) and 80 (HTTP).
 
 author: Jason Andrews
 
@@ -27,9 +27,9 @@ armips:
     - Neoverse
 
 tools_software_languages:
-    - NGINX
+    - Nginx
     - Docker
-    - Wrk
+    - Apache Bench
 
 operatingsystems:
     - Linux
@@ -40,8 +40,8 @@ further_reading:
       link: https://nginx.org/en/docs/
       type: documentation
   - resource:
-      title: Wrk official documentation
-      link: https://github.com/wg/wrk?tab=readme-ov-file#wrk---a-http-benchmarking-tool
+      title: Apache Bench official documentation
+      link: https://httpd.apache.org/docs/2.4/programs/ab.html
       type: documentation
   - resource:
       title: Docker overview
