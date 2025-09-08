@@ -12,11 +12,11 @@ Azure’s Cobalt 100 is built on Microsoft's first-generation, in-house Arm-base
 
 To learn more about Cobalt 100, refer to the blog [Announcing the preview of new Azure virtual machine based on the Azure Cobalt 100 processor](https://techcommunity.microsoft.com/blog/azurecompute/announcing-the-preview-of-new-azure-vms-based-on-the-azure-cobalt-100-processor/4146353).
 
-## Nginx
+## NGINX
 
-Nginx is a high-performance, open-source web server, reverse proxy, load balancer, and HTTP cache. Originally developed by Igor Sysoev, Nginx is known for its event-driven, asynchronous architecture, which enables it to handle high concurrency with low resource usage.
+NGINX is a high-performance, open-source web server, reverse proxy, load balancer, and HTTP cache. Originally developed by Igor Sysoev, NGINX is known for its event-driven, asynchronous architecture, which enables it to handle high concurrency with low resource usage.
 
-There are three main variants of Nginx:
-- **Nginx Open Source**– Free and [open-source version available at nginx.org](https://nginx.org)
-- **Nginx Plus**- [Commercial edition of Nginx](https://www.nginx.com/products/nginx/) with features like dynamic reconfig, active health checks, and monitoring.
-- **Nginx Unit**-  A lightweight, dynamic application server that complements Nginx. [Learn more at unit.nginx.org](https://unit.nginx.org/).
+There are three main variants of NGINX:
+- **NGINX Open Source**– Free and [open-source version available at nginx.org](https://nginx.org)
+- **NGINX Plus**- [Commercial edition of NGINX](https://www.nginx.com/products/nginx/) with features like dynamic reconfig, active health checks, and monitoring.
+- **NGINX Unit**-  A lightweight, dynamic application server that complements NGINX. [Learn more at unit.nginx.org](https://unit.nginx.org/).
