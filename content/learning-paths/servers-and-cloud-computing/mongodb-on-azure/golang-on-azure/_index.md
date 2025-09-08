@@ -6,10 +6,10 @@ minutes_to_complete: 40
 who_is_this_for: This Learning Path is designed for software developers looking to migrate their Golang workloads from x86_64 to Arm-based platforms, specifically on the Microsoft Azure Cobalt 100 processors.
 
 learning_objectives: 
-    - Provision an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
+    - Start an Azure Arm64 virtual machine using Azure console, with Ubuntu as the base image.
     - Learn how to create an Azure Linux 3.0 Docker container.
     - Deploy the Golang on an Azure Linux 3.0 Arm64-based Docker container and an Azure Linux 3.0 custom-image-based Azure virtual machine.
-    - Perform Golang baseline testing and benchmarking using go test -bench in both containerized and virtual machine environments.
+    - Test and Benchmark Golang in both containerized and virtual machine environments.
 
 prerequisites:
     - A [Microsoft Azure](https://azure.microsoft.com/) account with access to Cobalt 100 based instances (Dpsv6). 
@@ -30,7 +30,7 @@ armips:
 tools_software_languages:
     - Golang
     - Docker
-    - Go test-bench
+    - go test -bench
 
 operatingsystems:
     - Linux
