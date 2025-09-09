@@ -88,7 +88,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql>
 ```
 
-6. Create a new database and user (optional)
+6. Create a new user
 
 You are setting up a new area to store your data and giving someone special permissions to use it. This helps you organize your work better and control who can access it:
 
@@ -99,10 +99,10 @@ sudo mysql
 Inside the MySQL shell, run:
 
 ```sql
-CREATE DATABASE mydb;
-CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'MyStrongPassword!';
-GRANT ALL PRIVILEGES ON mydb.* TO 'myuser'@'localhost';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'MyStrongPassword!';
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+;
 EXIT;
 ```
 
@@ -111,12 +111,12 @@ EXIT;
 
 ## Verify Access with New User 
 
-You test logging into MySQL using the new user account to ensure it works and has the proper permissions. In my case new user is `mysuer`
+You test logging into MySQL using the new user account to ensure it works and has the proper permissions. In my case new user is `admin`.
 
 ```console
-mysql -u myuser -p
+mysql -u admin -p
 ```
-- Enter your current myuser password.
+- Enter your current `admin` password.
 
 You should see output similar to the following:
 
