@@ -106,7 +106,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-- Replace **NewStrongPassword!** with the password you want.
+- Replace **MyStrongPassword!** with the password you want.
 - This reloads the privilege tables so your new password takes effect immediately.
 
 ## Verify Access with New User 
