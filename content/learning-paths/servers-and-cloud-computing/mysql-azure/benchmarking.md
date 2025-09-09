@@ -14,7 +14,7 @@ layout: learningpathall
 
 1. Connect to MySQL and Create a Database
 
-To access the MySQL server, use the following command based on whether your `admin` user has a password set or not:
+To access the MySQL server, use the following command based on your `admin` user password:
 
 ```console
 mysql -u admin -p 
@@ -70,7 +70,7 @@ DROP PROCEDURE populate_benchmark_data;
 Once your table is ready, you can use `mysqlslap` to simulate multiple clients performing queries. This helps test MySQL’s performance under load.
 
 ```console
-mysqlslap   --user=admin   --password="NewStrongPassword!"   --host=127.0.0.1   --concurrency=10   --iterations=5   --query="INSERT INTO benchmark_db.benchmark_table (username,score) VALUES('TestUser',123);"   --create-schema=benchmark_db
+mysqlslap   --user=admin   --password="MyStrongPassword!"   --host=127.0.0.1   --concurrency=10   --iterations=5   --query="INSERT INTO benchmark_db.benchmark_table (username,score) VALUES('TestUser',123);"   --create-schema=benchmark_db
 ```
 - **--user / --password:** MySQL login credentials.
 - **--host:** MySQL server address (127.0.0.1 for local).
@@ -93,7 +93,7 @@ Benchmark
 Below command runs a **read benchmark** on your MySQL database using `mysqlslap`. It simulates multiple clients querying the table at the same time and records the results.
 
 ```console
-mysqlslap --user=admin --password="NewStrongPassword!"  --host=127.0.0.1 --concurrency=10 --iterations=5 --query="SELECT * FROM benchmark_db.benchmark_table WHERE record_id < 500;"  --create-schema=benchmark_db  --verbose | tee -a /tmp/mysqlslap_benchmark.log
+mysqlslap --user=admin --password="MyStrongPassword!"  --host=127.0.0.1 --concurrency=10 --iterations=5 --query="SELECT * FROM benchmark_db.benchmark_table WHERE record_id < 500;"  --create-schema=benchmark_db  --verbose | tee -a /tmp/mysqlslap_benchmark.log
 ```
 
 You should see output similar to the following:
@@ -126,6 +126,10 @@ Here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Ubuntu Pr
 ## Benchmark summary on x86_64:   
 Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu Pro 24.04 LTS virtual machine**.    
 
+| Query Type | Average Time (s) | Minimum Time (s) | Maximum Time (s) | Clients | Avg Queries per Client |
+|------------|-----------------|-----------------|-----------------|--------|----------------------|
+| INSERT     | 0.243           | 0.231           | 0.273           | 10     | 1                    |
+| SELECT     | 0.222           | 0.214           | 0.233           | 10     | 1                    |
 
 ## Insights from Benchmark Results
 
