@@ -24,7 +24,7 @@ sudo apt install -y mysql-server
 
 2. Secure MySQL installation
 
-After installing MySQL, you run a script that helps secure the database by setting a root password, removing unnecessary users, disabling remote root access, and deleting test databases.
+After installing MySQL, You are locking down your database so only you can access it safely. It’s like setting up a password and cleaning up unused accounts to make sure no one else can mess with your data.
 
 ```console
 sudo mysql_secure_installation
@@ -38,7 +38,7 @@ Follow the prompts:
 - Reload privilege tables.
 
 3. Start and enable MySQL service
-You start the MySQL service and configure it to automatically launch whenever the system boots:
+You are turning on the database so it starts working and making sure it stays on every time you turn on your computer.:
 
 ```console
 sudo systemctl start mysql
@@ -90,7 +90,7 @@ mysql>
 
 6. Create a new database and user (optional)
 
-You create a new database and user account, assigning full privileges to this user for managing the database.:
+You are setting up a new area to store your data and giving someone special permissions to use it. This helps you organize your work better and control who can access it:
 
 ```console
 sudo mysql
