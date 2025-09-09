@@ -12,21 +12,12 @@ layout: learningpathall
 
 ## Steps for MySQL Benchmarking with mysqlslap
 
-Step 1: Ensure MySQL is Running
+1. Connect to MySQL and Create a Database
+
+To access the MySQL server, use the following command based on whether your `admin` user has a password set or not:
 
 ```console
-sudo /usr/local/mysql/bin/mysqld_safe --datadir=/usr/local/mysql/data &
-ps -ef | grep mysqld
-```
-This command starts the MySQL server in the background using the data in /usr/local/mysql/data. mysqld_safe keeps an eye on MySQL and restarts it automatically if it stops unexpectedly.
-
-2. Connect to MySQL and Create a Database
-
-To access MySQL, use either of these commands depending on whether your root user has a password set:
-
-```console
-mysql -u root -p      # Use this if root has a password (you will be prompted to enter it)
-mysql -u root         # Use this if root has no password (insecure mode)
+mysql -u admin -p 
 ```
 Once logged in, you can create a benchmark_db using SQL commands like:
 
@@ -79,7 +70,7 @@ DROP PROCEDURE populate_benchmark_data;
 Once your table is ready, you can use `mysqlslap` to simulate multiple clients performing queries. This helps test MySQL’s performance under load.
 
 ```console
-mysqlslap   --user=root   --password="NewStrongPassword!"   --host=127.0.0.1   --concurrency=10   --iterations=5   --query="INSERT INTO benchmark_db.benchmark_table (username,score) VALUES('TestUser',123);"   --create-schema=benchmark_db
+mysqlslap   --user=admin   --password="NewStrongPassword!"   --host=127.0.0.1   --concurrency=10   --iterations=5   --query="INSERT INTO benchmark_db.benchmark_table (username,score) VALUES('TestUser',123);"   --create-schema=benchmark_db
 ```
 - **--user / --password:** MySQL login credentials.
 - **--host:** MySQL server address (127.0.0.1 for local).
@@ -91,11 +82,10 @@ mysqlslap   --user=root   --password="NewStrongPassword!"   --host=127.0.0.1   -
 You should see output similar to the following:
 
 ```output
-mysqlslap: [Warning] Using a password on the command line interface can be insecure.
 Benchmark
-        Average number of seconds to run all queries: 0.020 seconds
-        Minimum number of seconds to run all queries: 0.020 seconds
-        Maximum number of seconds to run all queries: 0.022 seconds
+        Average number of seconds to run all queries: 0.267 seconds
+        Minimum number of seconds to run all queries: 0.265 seconds
+        Maximum number of seconds to run all queries: 0.271 seconds
         Number of clients running queries: 10
         Average number of queries per client: 1
 ```
@@ -103,17 +93,16 @@ Benchmark
 Below command runs a **read benchmark** on your MySQL database using `mysqlslap`. It simulates multiple clients querying the table at the same time and records the results.
 
 ```console
-mysqlslap --user=root --password="NewStrongPassword!"  --host=127.0.0.1 --concurrency=10 --iterations=5 --query="SELECT * FROM benchmark_db.benchmark_table WHERE record_id < 500;"  --create-schema=benchmark_db  --verbose | tee -a /tmp/mysqlslap_benchmark.log
+mysqlslap --user=admin --password="NewStrongPassword!"  --host=127.0.0.1 --concurrency=10 --iterations=5 --query="SELECT * FROM benchmark_db.benchmark_table WHERE record_id < 500;"  --create-schema=benchmark_db  --verbose | tee -a /tmp/mysqlslap_benchmark.log
 ```
 
 You should see output similar to the following:
 
 ```output
-mysqlslap: [Warning] Using a password on the command line interface can be insecure.
 Benchmark
-        Average number of seconds to run all queries: 0.009 seconds
-        Minimum number of seconds to run all queries: 0.009 seconds
-        Maximum number of seconds to run all queries: 0.010 seconds
+        Average number of seconds to run all queries: 0.263 seconds
+        Minimum number of seconds to run all queries: 0.261 seconds
+        Maximum number of seconds to run all queries: 0.264 seconds
         Number of clients running queries: 10
         Average number of queries per client: 1
 ```
@@ -127,35 +116,24 @@ Benchmark
 - **Average number of queries per client:** Shows the average number of queries each client executed in the benchmark iteration.
 
 ## Benchmark summary on Arm64:
+Here is a summary of benchmark results collected on an Arm64 **D4ps_v6 Ubuntu Pro 24.04 LTS virtual machine**.
 
-For easier comparison, shown here is a summary of benchmark results collected on two different Arm64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4ps_v6 Ubuntu-based Azure virtual machine**, and a **D4ps_v6 Azure virtual machine created from the Azure Linux 3.0 custom image using the AArch64 ISO**.
+| Query Type | Average Time (s) | Minimum Time (s) | Maximum Time (s) | Clients | Avg Queries per Client |
+|------------|-----------------|-----------------|-----------------|--------|----------------------|
+| INSERT     | 0.267           | 0.265           | 0.271           | 10     | 1                    |
+| SELECT     | 0.263           | 0.261           | 0.264           | 10     | 1                    |
 
-| Environment              | Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
-|--------------------------|----------------|--------------|--------------|--------------|---------|--------------------|
-| **Value on Docker**     | Read (SELECT)  | 0.010        | 0.010        | 0.011        | 10      | 1                  |
-| **Value on Docker**     | Write (INSERT) | 0.017        | 0.016        | 0.021        | 10      | 1                  |
-| **Value on Virtual Machine**   | Read (SELECT)  | 0.009        | 0.009        | 0.010        | 10      | 1                  |
-| **Value on Virtual Machine**   | Write (INSERT) | 0.020        | 0.020        | 0.022        | 10      | 1                  |
-
+## Benchmark summary on x86_64:   
+Here is a summary of the benchmark results collected on x86_64 **D4s_v6 Ubuntu Pro 24.04 LTS virtual machine**.    
 
 
-## Benchmark summary on x86_64:
-Shown here is a summary of the benchmark results collected on two different x86_64 environments: a **Docker container running Azure Linux 3.0 hosted on a D4s_v6 Ubuntu-based Azure virtual machine**, and a **D4s_v4 Azure virtual machine created from the Azure Linux 3.0 image published by Ntegral Inc**.           
+## Insights from Benchmark Results
 
-| Environment        | Benchmark Type | Avg Time (s) | Min Time (s) | Max Time (s) | Clients | Queries per Client |
-|--------------------|----------------|--------------|--------------|--------------|---------|--------------------|
-| **Value on Docker**          | Read (SELECT)  | 0.010        | 0.009        | 0.011        | 10      | 1                  |
-|  **Value on Docker**          | Write (INSERT) | 0.021        | 0.016        | 0.031        | 10      | 1                  |
-| **Value on Virtual Machine**             | Read (SELECT)  | 0.017        | 0.016        | 0.018        | 10      | 1                  |
-| **Value on Virtual Machine**             | Write (INSERT) | 0.038        | 0.030        | 0.044        | 10      | 1                  |
+The benchmark results on the Arm64 virtual machine show:
 
-## Benchmark comparison insights
-
-When comparing the results on Arm64 vs x86_64 virtual machines:
-
-- **Consistent Read Performance:** - On Arm64, both Docker and Virtual Machine environments achieved very similar `SELECT` query times **(~0.009–0.011s)**, showing low latency and high stability for read-heavy workloads.
-- **Slight Variation in Write Performance:** - For `INSERT` operations, the Docker setup averaged slightly faster **(0.017s)** than the Virtual Machine **(0.020s)**, although the difference was minimal and both stayed within a narrow range.
-- **Low Performance Variability:** - The Arm64 results showed very tight min-to-max ranges, indicating predictable performance across multiple test iterations, which is desirable for production workloads.
-- **Key Takeaway:** - Arm64 delivered stable, low-latency MySQL performance in both Docker and VM environments, with negligible differences between the two.
+- **Balanced Performance for Read and Write Queries:** Both `INSERT` and `SELECT` queries performed consistently, with average times of **0.267s** and **0.263s**, respectively.
+- **Low Variability Across Iterations:** The difference between the minimum and maximum times was very small for both query types, indicating stable and predictable behavior under load.
+- **Moderate Workload Handling:** With **10 clients** and an average of **1 query per client**, the system handled concurrent operations efficiently without significant delays.
+- **Key Takeaway:** The MySQL setup on Arm64 provides reliable and steady performance for both data insertion and retrieval tasks, making it a solid choice for applications requiring dependable database operations.
 
 You have now benchmarked MySql on an Azure Cobalt 100 Arm64 virtual machine and compared results with x86_64.
