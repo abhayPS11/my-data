@@ -1,5 +1,5 @@
 ---
-title: Install MySQL on Azure Cobalt 100 processors
+title: Install MySQL
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -7,99 +7,53 @@ layout: learningpathall
 ---
 
 ## Install MySQL on Azure Cobalt 100
-Within your running docker container image or your custom Azure Linux VM, follow the instructions to install MySQL.
+
+This section walks you through installing and securing MySQL on an Azure Arm64 virtual machine. You will set up the database, configure access, and verify it’s running—ready for development and testing.
 
 Start by installing MySQL and other essential tools: 
 
 ## Install MySQL and tools
 
-1. Download Essential tools
-
-Update the system and install required libraries and utilities. Required libraries and utilities, are needed for downloading and extracting MySQL. A library symlink is fixed to ensure the MySQL client works properly.
+1. Update the system and install MySQL
+You update your system's package lists to ensure you get the latest versions and then install the MySQL server using the package manager.
 
 ```console
-sudo dnf update -y
-sudo dnf install -y libaio bc ncurses-libs libgcc libstdc++ ca-certificates wget curl tar
-sudo ln -s /usr/lib64/libncursesw.so.6 /usr/lib64/libncurses.so.6
+sudo apt update
+sudo apt install -y mysql-server
 ```
 
-2. Download MySQL and Extract the tarball
+2. Secure MySQL installation
 
-Download the Arm64 MySQL tarball from the official MySQL website, extract it in `/tmp`, and move it to `/usr/local/mysql`, a standard location for manual installations.
+After installing MySQL, you run a script that helps secure the database by setting a root password, removing unnecessary users, disabling remote root access, and deleting test databases.
 
 ```console
-cd /tmp
-curl -L -O https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.42-linux-glibc2.28-aarch64.tar.xz
-tar -xf mysql-8.0.42-linux-glibc2.28-aarch64.tar.xz 
+sudo mysql_secure_installation
 ```
+Follow the prompts:
 
-3. Move MySQL folder to a standard location 
+- Set a strong password for root.
+- Remove anonymous users.
+- Disallow remote root login.
+- Remove test databases.
+- Reload privilege tables.
 
-```console
-sudo mv mysql-8.0.42-linux-glibc2.28-aarch64 /usr/local/mysql 
-``` 
-
-/usr/local/mysql is a common location for manual MySQL installations. 
-
-4. Create a MySQL system user 
-
-Create a special system user `mysql` to run the database securely. This user cannot log in to the shell and ensures MySQL runs with limited permissions.
+3. Start and enable MySQL service
+You start the MySQL service and configure it to automatically launch whenever the system boots:
 
 ```console
-sudo useradd -r -s /bin/false mysql 
-``` 
-- **-r** creates a system account (no login shell by default). 
-- **-s /bin/false** prevents shell login. 
-
-5. Create the data directory and Set correct ownership
-
-Create a directory for MySQL to store database files and set ownership to the `mysql` user. This allows MySQL to read and write data safely and prevents permission issues.
-
-```console
-sudo mkdir -p /usr/local/mysql/data
-sudo chown -R mysql:mysql /usr/local/mysql 
-sudo chown -R mysql:mysql /usr/local/mysql/data 
+sudo systemctl start mysql
+sudo systemctl enable mysql
 ```
-
-6. Initialize MySQL (with root password) 
-
-Initialize MySQL to set up system tables and the data directory. Using `--initialize`, MySQL generates a temporary root password for first login.
+Check the status:
 
 ```console
-sudo /usr/local/mysql/mysql-8.0.42-linux-glibc2.28-aarch64/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql/mysql-8.0.42-linux-glibc2.28-aarch64 --datadir=/usr/local/mysql/data
+sudo systemctl status mysql
 ```
+You should see `active (running)`.
 
-MySQL sets up the data directory and system tables. During this process, it automatically generates a temporary password for the root user, which looks similar to the following:
+4. Verify MySQL version 
 
-```output
-2025-08-26T11:57:40.729625Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: 6pvuQf<j4<3o 
-```
-You can use this password to log in to the MySQL shell for the first time and then change it to a password of your choice. 
-
-**Optional: Initialize MySQL without a password (insecure, for learning)** 
-
-{{% notice Note %}}Warning: This is insecure and should never be used in production. It’s only for practice or local experiments.{{% /notice %}}
-
-You can set up MySQL so that the `root` user does not require a password—useful for learning or testing on a local machine.
-
-```console
-sudo /usr/local/mysql/mysql-8.0.42-linux-glibc2.28-aarch64/bin/mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
-```
-This will initialize **MySQL without a password** for `root`, perfect for learning or testing locally.
-
-7. Start MySQL server Add MySQL binaries to your PATH
-
-Start the MySQL server in the background using `mysqld_safe`. Add MySQL binaries to the system `PATH` so commands like `mysql` can be run from any location.
-
-```console
-sudo /usr/local/mysql/bin/mysqld_safe --datadir=/usr/local/mysql/data &
-echo 'export PATH=/usr/local/mysql/bin:$PATH' >> ~/.bashrc 
-source ~/.bashrc 
-```
-
-8. Verify MySQL version 
-
-Check the MySQL version to confirm that the server is installed and accessible.
+You check the installed version of MySQL to confirm it’s set up correctly and is running.
 
 ```console
 mysql -V 
@@ -107,27 +61,21 @@ mysql -V
 You should see output similar to the following:
 
 ```output
-mysql  Ver 8.0.42 for Linux on aarch64 (MySQL Community Server - GPL)
+mysql  Ver 8.0.43-0ubuntu0.24.04.1 for Linux on aarch64 ((Ubuntu))
 ```
+5. Access MySQL shell
 
-## Checks that MySQL is installed and accessible. 
+You log in to the MySQL interface using the root user to interact with the database and perform administrative tasks:
 
-1. Connect to MySQL as root 
-
-Log in to MySQL as `root` using the temporary password. Change the root password using `ALTER USER` and apply it with `FLUSH PRIVILEGES` to secure the installation for future use.
-
-```console
-mysql -u root -p
 ```
-- Enter your current root password (temporary password if initialized with --initialize).
-
+sudo mysql
+```
 You should see output similar to the following:
 
 ```output
-Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 8.0.42
+Your MySQL connection id is 17
+Server version: 8.0.43-0ubuntu0.24.04.1 (Ubuntu)
 
 Copyright (c) 2000, 2025, Oracle and/or its affiliates.
 
@@ -137,19 +85,55 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> exit
+mysql>
 ```
-2. Change the Root Password
 
-Change the root password using `ALTER USER` and apply it with `FLUSH PRIVILEGES` to secure the installation for future use.
-Once in the MySQL shell, run:
+6. Create a new database and user (optional)
+
+You create a new database and user account, assigning full privileges to this user for managing the database.:
+
+```console
+sudo mysql
+```
+
+Inside the MySQL shell, run:
 
 ```sql
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewStrongPassword!';
+CREATE DATABASE mydb;
+CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'MyStrongPassword!';
+GRANT ALL PRIVILEGES ON mydb.* TO 'myuser'@'localhost';
 FLUSH PRIVILEGES;
+EXIT;
 ```
 
 - Replace **NewStrongPassword!** with the password you want.
 - This reloads the privilege tables so your new password takes effect immediately.
+
+## Verify Access with New User 
+
+You test logging into MySQL using the new user account to ensure it works and has the proper permissions. In my case new user is `mysuer`
+
+```console
+mysql -u myuser -p
+```
+- Enter your current myuser password.
+
+You should see output similar to the following:
+
+```output
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.43-0ubuntu0.24.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement
+mysql> exit
+```
 
 MySQL installation is complete. You can now proceed with the baseline testing of MySQL in the next section
