@@ -18,37 +18,23 @@ Make sure MySQL is running:
 sudo systemctl start mysql
 sudo systemctl enable mysql
 ```
-
-### Create new Database (baseline_test)
-You need to grant `myuser` permissions on `baseline_test`. First, log in as root or another user with sufficient privileges:
-
-```console
-sudo mysql
-```
-Then, inside the MySQL shell, run:
-
-```console
-CREATE DATABASE baseline_test;
-GRANT ALL PRIVILEGES ON baseline_test.* TO 'myuser'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-```
-
 ### Connect to MySQL 
 
 ```console
-mysql -u myuser -p
+mysql -u admin -p
 ```
-Opens the MySQL client and connects as the new user(myuser), prompting you to enter the root password.
+Opens the MySQL client and connects as the new user(admin), prompting you to enter the root password.
 
 ### Show and use Database
 
 ```sql
+CREATE DATABASE baseline_test;
 SHOW DATABASES;
 USE baseline_test;
 SELECT DATABASE();
 ```
 
+- `CREATE DATABASE baseline_test;` - Creates a new database named baseline_test.
 - `SHOW DATABASES;` - Lists all available databases.
 - `USE baseline_test;` - Switches to the new database.
 - `SELECT DATABASE();` - Confirms the current database in use.
@@ -56,21 +42,24 @@ SELECT DATABASE();
 You should see output similar to:
 
 ```output
+mysql> CREATE DATABASE baseline_test;
+Query OK, 1 row affected (0.01 sec)
+
 mysql> SHOW DATABASES;
 +--------------------+
 | Database           |
 +--------------------+
 | baseline_test      |
+| benchmark_db       |
 | information_schema |
 | mydb               |
+| mysql              |
 | performance_schema |
+| sys                |
 +--------------------+
-4 rows in set (0.00 sec)
+7 rows in set (0.00 sec)
 
 mysql> USE baseline_test;
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
 Database changed
 mysql> SELECT DATABASE();
 +---------------+
@@ -79,7 +68,6 @@ mysql> SELECT DATABASE();
 | baseline_test |
 +---------------+
 1 row in set (0.00 sec)
-
 ```
 You created a new database named **baseline_test**, verified its presence with `SHOW DATABASES`, and confirmed it is the active database using `SELECT DATABASE()`.
 
