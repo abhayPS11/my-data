@@ -68,9 +68,8 @@ Initialize MySQL to set up system tables and the data directory. Using `--initia
 ```console
 sudo /usr/local/mysql/mysql-8.0.42-linux-glibc2.28-aarch64/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql/mysql-8.0.42-linux-glibc2.28-aarch64 --datadir=/usr/local/mysql/data
 ```
-MySQL sets up the data directory and system tables. During this process, it automatically generates a temporary password for the root user, which looks like:
 
-You should see output similar to the following:
+MySQL sets up the data directory and system tables. During this process, it automatically generates a temporary password for the root user, which looks similar to the following:
 
 ```output
 2025-08-26T11:57:40.729625Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: 6pvuQf<j4<3o 
