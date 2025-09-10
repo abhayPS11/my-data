@@ -1,0 +1,8 @@
+steps:
+  - label: ":docker: Build Multi-Arch Docker Image"
+    commands:
+      - docker buildx create --use --name multiarch-builder || true
+      - docker buildx build --platform linux/amd64,linux/arm64 -t my-app:latest . --push
+      - docker run --rm my-app:latest python -c "import platform; print(platform.machine())"
+    agents:
+      - "arch=arm64"
