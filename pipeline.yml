@@ -1,8 +1,8 @@
 steps:
-  - label: ":docker: Build Multi-Arch Docker Image"
+  - label: ":github: Clone and Test Repo"
     commands:
-      - docker buildx create --use --name multiarch-builder || true
-      - docker buildx build --platform linux/amd64,linux/arm64 -t my-app:latest . --push
-      - docker run --rm my-app:latest python -c "import platform; print(platform.machine())"
+      - echo "Running on $(uname -m) architecture"
+      - git clone git@github.com:abhayPS11/test1-arm64.git .
+      - ls -la
     agents:
       - "arch=arm64"
