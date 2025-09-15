@@ -20,6 +20,9 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 5. Click **Create Token**.  
 6. **Copy the token** immediately – you won’t be able to see it again after leaving the page.
 
+![Buildkite Dashboard alt-text#center](images/agent-tocken.png "Figure 1: Create Buildkite agent Tocken")
+
+
 ## 2. Configure Buildkite Agent
 
 Create the configuration directory and file on your SUSE ARM64 VM:
@@ -49,6 +52,8 @@ cat /etc/buildkite-agent/buildkite-agent.cfg
 3. Save it.  
 
 {{% notice Note %}}Make sure the queue name matches the `tags` field in the agent configuration.{{% /notice %}}
+
+![Buildkite Dashboard alt-text#center](images/buildkite-queue.png "Figure 2: Create Buildkite Queue")
 
 ## 4. Configure Buildkite Agent as a Systemd Service
 
