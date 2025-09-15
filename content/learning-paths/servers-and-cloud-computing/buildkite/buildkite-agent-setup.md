@@ -20,15 +20,60 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 5. Click **Create Token**.  
 6. **Copy the token** immediately – you won’t be able to see it again after leaving the page.
 
-
 ## 2. Configure Buildkite Agent
 
 Create the configuration directory and file on your SUSE ARM64 VM:
 
-```bash
+```console
 sudo mkdir -p /etc/buildkite-agent
 sudo tee /etc/buildkite-agent/buildkite-agent.cfg > /dev/null <<EOF
 token="YOUR_AGENT_TOKEN"
 name="buildkite-arm"
 tags="queue=buildkite-queue"
 EOF
+```
+- Replace `YOUR_AGENT_TOKEN` with the token you created.
+- name is the human-readable agent name.
+- tags defines the queue this agent will use (buildkite-queue).
+
+Verify the configuration:
+
+```console
+cat /etc/buildkite-agent/buildkite-agent.cfg
+```
+
+## 3. Create a Queue in Buildkite
+
+1. Go to your **Buildkite Organization → Queues → Create Queue**.  
+2. Name it: `buildkite-queue`.  
+3. Save it.  
+
+{{% notice Note %}}Make sure the queue name matches the `tags` field in the agent configuration.{{% /notice %}}
+
+## 4. Configure Buildkite Agent as a Systemd Service
+
+Create a systemd service file for the agent:
+
+```console
+sudo tee /etc/systemd/system/buildkite-agent.service > /dev/null <<EOF
+[Unit]
+Description=Buildkite Agent
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/buildkite-agent start --config /etc/buildkite-agent/buildkite-agent.cfg --build-path /var/buildkite/builds
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+5. Verify Agent in Buildkite UI
+
+Go to **Buildkite → Agents.**
+
+Confirm that the agent named buildkite-arm is online and connected to the queue buildkite-queue.
+
+![Buildkite Dashboard alt-text#center](images/buildkite-agent.png "Figure 3: Verify Agent")
