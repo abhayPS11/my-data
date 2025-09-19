@@ -66,3 +66,4 @@ http://<VM_IP>:5000/
 ```
 
 
+![Buildkite Dashboard alt-text#center](images/browser.png "Figure 1: Trigger Pipeline")
