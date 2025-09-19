@@ -98,3 +98,4 @@ Make sure to add your Docker credentials as secrets in the Buildkite UI.
 These will be fetched automatically when your pipeline YAML is triggered.
 {{% /notice %}}
 
+![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 2: Set Secrets")
