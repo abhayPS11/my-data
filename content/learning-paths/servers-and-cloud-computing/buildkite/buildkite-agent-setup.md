@@ -25,14 +25,12 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 
 ## 2. Configure Buildkite Agent
 
-Create the configuration directory and file on your SUSE ARM64 VM:
+Create the configuration directory and file on your loacal system:
 
 ```console
-sudo mkdir -p /etc/buildkite-agent
-sudo tee /etc/buildkite-agent/buildkite-agent.cfg > /dev/null <<EOF
+sudo tee /home/gcpuser/.buildkite-agent/buildkite-agent.cfg > /dev/null <<EOF
 token="YOUR_AGENT_TOKEN"
-name="buildkite-arm"
-tags="queue=buildkite-queue"
+tags="queue=buildkite-queue1"
 EOF
 ```
 - Replace `YOUR_AGENT_TOKEN` with the token you created.
@@ -42,43 +40,30 @@ EOF
 Verify the configuration:
 
 ```console
-cat /etc/buildkite-agent/buildkite-agent.cfg
+cat /home/gcpuser/.buildkite-agent/buildkite-agent.cfg
 ```
 
 ## 3. Create a Queue in Buildkite
 
 1. Go to your **Buildkite Organization → Queues → Create Queue**.  
-2. Name it: `buildkite-queue`.  
+2. Name it: `buildkite-queue1`.  
 3. Save it.  
 
 {{% notice Note %}}Make sure the queue name matches the `tags` field in the agent configuration.{{% /notice %}}
 
-![Buildkite Dashboard alt-text#center](images/buildkite-queue.png "Figure 2: Create Buildkite Queue")
+![Buildkite Dashboard alt-text#center](images/queue.png "Figure 2: Create Buildkite Queue")
 
-## 4. Configure Buildkite Agent as a Systemd Service
+## 4. Verify Agent in Buildkite UI
 
-Create a systemd service file for the agent:
+First, you need to run agent from the localy:
 
 ```console
-sudo tee /etc/systemd/system/buildkite-agent.service > /dev/null <<EOF
-[Unit]
-Description=Buildkite Agent
-After=network.target
-
-[Service]
-ExecStart=/usr/local/bin/buildkite-agent start --config /etc/buildkite-agent/buildkite-agent.cfg --build-path /var/buildkite/builds
-Restart=always
-User=root
-
-[Install]
-WantedBy=multi-user.target
-EOF
+sudo /home/gcpuser/.buildkite-agent/bin/buildkite-agent start
 ```
 
-5. Verify Agent in Buildkite UI
-
+Then, Verify by UI
 Go to **Buildkite → Agents.**
 
-Confirm that the agent named buildkite-arm is online and connected to the queue buildkite-queue.
+Confirm that the agent is online and connected to the queue buildkite-queue1.
 
-![Buildkite Dashboard alt-text#center](images/buildkite-agent.png "Figure 3: Verify Agent")
+![Buildkite Dashboard alt-text#center](images/agent.png "Figure 3: Verify Agent")
