@@ -39,9 +39,17 @@ Trigger via Buildkite UI
 - Click **“New Build”**  
 - Select branch → **Start Build**
 
+![Buildkite Dashboard alt-text#center](images/build.png "Figure 1: Trigger Pipeline")
+
+## Verify Multi-Arch Image
+
+Once the build completes:
+
+
+
 ## Monitor the Build
 
 In the Buildkite UI, you can see logs live.
 Your steps (like Docker login, Buildx creation, and multi-arch build) will run on the buildkite-queue1 agent.
 
-
+![Buildkite Dashboard alt-text#center](images/log.png "Figure 2: Monitor Build")
