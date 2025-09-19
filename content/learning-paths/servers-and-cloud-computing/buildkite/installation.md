@@ -8,8 +8,6 @@ layout: learningpathall
 
 ## Install Buildkite on Azure Cobalt 100
 
-### Install Required Packages for Buildkite
-
 ```console
 sudo zypper refresh
 sudo zypper install -y curl unzip
@@ -18,26 +16,50 @@ sudo zypper install -y curl unzip
 ### Download and Install Buildkite Agent
 
 ```console
-sudo mkdir -p /usr/local/bin
-curl -L "https://github.com/buildkite/agent/releases/download/v3.103.1/buildkite-agent-linux-arm64.zip" -o buildkite-agent.zip
-unzip buildkite-agent.zip
-sudo mv buildkite-agent /usr/local/bin/
-sudo chmod +x /usr/local/bin/buildkite-agent
+sudo sh -c "$(curl -sL https://raw.githubusercontent.com/buildkite/agent/main/install.sh)" 
+```
+```output
+  _           _ _     _ _    _ _                                _
+ | |         (_) |   | | |  (_) |                              | |
+ | |__  _   _ _| | __| | | ___| |_ ___    __ _  __ _  ___ _ __ | |_
+ | '_ \| | | | | |/ _` | |/ / | __/ _ \  / _` |/ _` |/ _ \ '_ \| __|
+ | |_) | |_| | | | (_| |   <| | ||  __/ | (_| | (_| |  __/ | | | |_
+ |_.__/ \__,_|_|_|\__,_|_|\_\_|\__\___|  \__,_|\__, |\___|_| |_|\__|
+                                                __/ |
+                                               |___/
+Finding latest release...
+Installing Version: v3.107.0
+Destination: /home/gcpuser/.buildkite-agent
+Downloading https://github.com/buildkite/agent/releases/download/v3.107.0/buildkite-agent-linux-amd64-3.107.0.tar.gz
+
+A default buildkite-agent.cfg has been created for you in /home/gcpuser/.buildkite-agent
+
+Don't forget to update the config with your agent token! You can find it token on your "Agents" page in Buildkite
+
+Successfully installed to /home/gcpuser/.buildkite-agent
+
+You can now start the agent!
+
+  /home/gcpuser/.buildkite-agent/bin/buildkite-agent start
+
+For docs, help and support:
+
+  https://buildkite.com/docs/agent/v3
+
+Happy building! <3
 ```
 
 Verify installation:
 
 ```consloe
-buildkite-agent --version
+/home/gcpuser/.buildkite-agent/bin/buildkite-agent --version
 ```
 
 ```output
-buildkite-agent version 3.103.1+10566.da00408a2cabb0fdfdb5a10fdec70fb034b2db02
+buildkite-agent version 3.107.0+10853.4606e31391a3bad2a5ba62f421ef041c0e4f04ab
 ```
 
-## Install Docker and Enable Buildx
-
-### Install Required Packages
+## Install Docker and Docker Buildx
 
 1. Refresh package repositories:
 
@@ -79,32 +101,31 @@ docker --version
 docker run hello-world
 ```
 
----
-
-## Step 3 – Enable Docker Buildx
-
-1. Create a new Buildx builder instance:
+5. Create Docker config dir for agent user
 
 ```console
-docker buildx create --name mybuilder --use
+mkdir -p /home/gcpuser/.docker
+chmod 700 /home/gcpuser/.docker
 ```
-
-2. Bootstrap the builder:
+Login to Docker Hub (saves creds into config.json)
 
 ```console
-docker buildx inspect --bootstrap
+docker login
 ```
 
-3. Verify Buildx installation and list builders:
+Verify credentials are stored
+
+```
+cat /home/gcpuser/.docker/config.json
+```
+
+
+##  Install Docker Buildx
 
 ```console
-docker buildx ls
+wget https://github.com/docker/buildx/releases/download/v0.26.1/buildx-v0.26.1.linux-arm64
+chmod +x buildx-v0.26.1.linux-arm64
+mkdir -p ~/.docker/cli-plugins
+mv buildx-v0.26.1.linux-arm64 ~/.docker/cli-plugins/docker-buildx
 ```
 
-```output
-NAME/NODE        DRIVER/ENDPOINT                   STATUS    BUILDKIT   PLATFORMS
-mybuilder*       docker-container
- \_ mybuilder0    \_ unix:///var/run/docker.sock   running   v0.24.0    linux/arm64
-default          docker
- \_ default       \_ default                       running   v0.23.2    linux/arm64
-```
