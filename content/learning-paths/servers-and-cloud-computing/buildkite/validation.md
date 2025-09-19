@@ -41,15 +41,28 @@ Trigger via Buildkite UI
 
 ![Buildkite Dashboard alt-text#center](images/build.png "Figure 1: Trigger Pipeline")
 
-## Verify Multi-Arch Image
-
-Once the build completes:
-
-
-
 ## Monitor the Build
 
 In the Buildkite UI, you can see logs live.
 Your steps (like Docker login, Buildx creation, and multi-arch build) will run on the buildkite-queue1 agent.
 
 ![Buildkite Dashboard alt-text#center](images/log.png "Figure 2: Monitor Build")
+
+## Verify Multi-Arch Image
+
+Once the build completes:
+
+![Docker-Hub alt-text#center](images/multi-arch-image.png "Figure 3: Docker image")
+
+```console
+docker pull <DOCKER_USERNAME>/multi-arch-app:latest
+docker run --rm -p 5000:5000 <DOCKER_USERNAME>/multi-arch-app:latest
+```
+
+Then visit:
+
+```console
+http://<VM_IP>:5000/
+```
+
+
