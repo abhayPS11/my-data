@@ -137,3 +137,7 @@ What this does:
 - Makes it executable
 - Moves it into Docker’s plugin directory (`~/.docker/cli-plugins/`)
 - After this, you can run `docker buildx` commands
+wget https://github.com/docker/buildx/releases/download/v0.26.1/buildx-v0.26.1.linux-arm64
+chmod +x buildx-v0.26.1.linux-arm64
+mkdir -p ~/.docker/cli-plugins
+mv buildx-v0.26.1.linux-arm64 ~/.docker/cli-plugins/docker-buildx
