@@ -28,21 +28,37 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 Create the configuration directory and file on your loacal system:
 
 ```console
-sudo tee /home/gcpuser/.buildkite-agent/buildkite-agent.cfg > /dev/null <<EOF
+sudo tee /root/.buildkite-agent/buildkite-agent.cfg > /dev/null <<EOF
 token="YOUR_AGENT_TOKEN"
 tags="queue=buildkite-queue1"
 EOF
 ```
-- Replace `YOUR_AGENT_TOKEN` with the token you created.
-- name is the human-readable agent name.
-- tags defines the queue this agent will use (buildkite-queue).
+- Replace `YOUR_AGENT_TOKEN` with the token you generated from your **Buildkite Agents page**.  
+- `tags` defines the queue this agent will use (`buildkite-queue1` in this example).  
+- The `name` field is optional; if omitted, Buildkite will assign a default name.
+
 
 Verify the configuration:
 
 ```console
-cat /home/gcpuser/.buildkite-agent/buildkite-agent.cfg
+sudo cat /root/.buildkite-agent/buildkite-agent.cfg
 ```
+You should see output similar to:
 
+```output
+# The token from your Buildkite "Agents" page
+token="#######################284svGFRqqcFWdYhiTcuX9JQGw4aySt2KhKLigh6tkZvLxKuSXKnw"
+tags="queue=buildkite-queue1"
+
+# The name of the agent
+name="%hostname-%spawn"
+
+# The number of agents to spawn in parallel (default is "1")
+# spawn=1
+
+# The priority of the agent (higher priorities are assigned work first)
+# priority=1
+```
 ## 3. Create a Queue in Buildkite
 
 1. Go to your **Buildkite Organization → Queues → Create Queue**.  
@@ -58,7 +74,7 @@ cat /home/gcpuser/.buildkite-agent/buildkite-agent.cfg
 First, you need to run agent from the localy:
 
 ```console
-sudo /home/gcpuser/.buildkite-agent/bin/buildkite-agent start
+sudo /root/.buildkite-agent/bin/buildkite-agent start
 ```
 
 Then, Verify by UI
@@ -67,3 +83,5 @@ Go to **Buildkite → Agents.**
 Confirm that the agent is online and connected to the queue buildkite-queue1.
 
 ![Buildkite Dashboard alt-text#center](images/agent.png "Figure 3: Verify Agent")
+
+Buildkite-agent setup is completed, you can now proceed with the multi-arch build using Buildkite.
