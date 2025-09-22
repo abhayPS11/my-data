@@ -12,7 +12,7 @@ Follow these steps to run your pipeline on an ARM-based Buildkite agent.
 
 ## Ensure the Agent is Running
 
-Check that your agent is online and connected to Buildkite:
+Before your pipeline can execute, the Buildkite agent must be running and connected to your Buildkite account:
 
 ```console
 # If running manually
@@ -22,9 +22,16 @@ Check that your agent is online and connected to Buildkite:
 sudo systemctl start buildkite-agent
 sudo systemctl status buildkite-agent
 ```
+- The agent listens for jobs from Buildkite and executes your pipeline steps.
+- Using `systemctl` ensures the agent starts automatically on VM boot.
+- You should see logs showing “Registered agent” to confirm it’s online.
 
 ## Push Your Repo Changes
-Make sure your repo (with Dockerfile, app.py, and pipeline.yml) is pushed to GitHub
+Before triggering the pipeline, your GitHub repository should have:
+
+- `Dockerfile` (defines your multi-arch image)
+- `app.py` (your Python microservice)
+- `pipeline.yml` (Buildkite pipeline steps)
 
 ```console
 git add .
@@ -41,16 +48,23 @@ Trigger via Buildkite UI
 
 ![Buildkite Dashboard alt-text#center](images/build.png "Figure 1: Trigger Pipeline")
 
+- Triggering the pipeline tells Buildkite to start running the steps you defined in your YAML file.
+- The pipeline steps will run on the ARM-based agent you set up.
+
 ## Monitor the Build
 
-In the Buildkite UI, you can see logs live.
-Your steps (like Docker login, Buildx creation, and multi-arch build) will run on the buildkite-queue1 agent.
+You can see the logs of your build live in the Buildkite UI.
+Steps include:
+
+- Docker login
+- Buildx builder creation
+- Multi-arch Docker image build and push
 
 ![Buildkite Dashboard alt-text#center](images/log.png "Figure 2: Monitor Build")
 
 ## Verify Multi-Arch Image
 
-Once the build completes:
+After the pipeline completes successfully:
 
 ![Docker-Hub alt-text#center](images/multi-arch-image.png "Figure 3: Docker image")
 
@@ -58,11 +72,11 @@ Once the build completes:
 docker pull <DOCKER_USERNAME>/multi-arch-app:latest
 docker run --rm -p 80:5000 <DOCKER_USERNAME>/multi-arch-app:latest
 ```
-
-Then visit:
+- Pulling the image ensures it is uploaded to Docker Hub for other systems to use.
+- Running the container on port 80 exposes your microservice to the network.
+- Visiting the VM IP in a browser lets you verify that the application is working, displaying:
 
 ```console
 http://<VM_IP>
 ```
-
 ![Buildkite Dashboard alt-text#center](images/browser.png "Figure 4: Verify Docker Images")
