@@ -56,14 +56,13 @@ Once the build completes:
 
 ```console
 docker pull <DOCKER_USERNAME>/multi-arch-app:latest
-docker run --rm -p 5000:5000 <DOCKER_USERNAME>/multi-arch-app:latest
+docker run --rm -p 80:5000 <DOCKER_USERNAME>/multi-arch-app:latest
 ```
 
 Then visit:
 
 ```console
-http://<VM_IP>:5000/
+http://<VM_IP>
 ```
 
-
-![Buildkite Dashboard alt-text#center](images/browser.png "Figure 1: Trigger Pipeline")
+![Buildkite Dashboard alt-text#center](images/browser.png "Figure 4: Verify Docker Images")
