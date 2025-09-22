@@ -6,7 +6,8 @@ weight: 4
 layout: learningpathall
 ---
 
-## Install Buildkite on Azure Cobalt 100
+## Install Buildkite on a Google Axion C4A Arm VM
+This section guides you through installing the Buildkite agent on a Google Axion C4A Arm VM, enabling it to connect to your Buildkite account and run CI/CD pipelines.
 
 ```console
 sudo zypper refresh
@@ -18,6 +19,12 @@ sudo zypper install -y curl unzip
 ```console
 sudo sh -c "$(curl -sL https://raw.githubusercontent.com/buildkite/agent/main/install.sh)" 
 ```
+This one-line command downloads and runs the official Buildkite installer.  
+It will:  
+- Grab the latest version of the agent  
+- Install it into your home directory (`/home/gcpuser/.buildkite-agent`)  
+- Create a default config file (`buildkite-agent.cfg`) where you’ll later add your agent token  
+
 ```output
   _           _ _     _ _    _ _                                _
  | |         (_) |   | | |  (_) |                              | |
@@ -50,44 +57,39 @@ Happy building! <3
 ```
 
 Verify installation:
+This command checks the version of the Buildkite agent and confirms it installed successfully.
 
 ```consloe
 /home/gcpuser/.buildkite-agent/bin/buildkite-agent --version
 ```
-
+You should see output similar to:
 ```output
 buildkite-agent version 3.107.0+10853.4606e31391a3bad2a5ba62f421ef041c0e4f04ab
 ```
 
 ## Install Docker and Docker Buildx
+Buildkite will use Docker to build and push images. Let’s set it up.
 
-1. Refresh package repositories:
+1. Refresh package repositories and Install required packages:
+
+This updates your system’s software list and installs git, python3-pip and docker:
 
 ```console
 sudo zypper refresh
-```
-
-2. Install required packages:
-
-```console
 sudo zypper install -y git python3 python3-pip docker
 ```
 
-### Enable and Start Docker
+2. Enable and Start Docker
 
-1. Enable Docker to start on boot:
-
+This makes sure Docker runs automatically every time, when your VM starts.
 ```console
 sudo systemctl enable docker
-```
-
-2. Start Docker service:
-
-```console
 sudo systemctl start docker
 ```
 
 3. Optional – Allow running Docker without sudo:
+
+By default, only `root` can run Docker. These commands add your current user (`gcpuser`) to the `docker` group so you don’t need to type `sudo` for every command.
 
 ```console
 sudo usermod -aG docker $(whoami)
@@ -119,8 +121,8 @@ Verify credentials are stored
 cat /home/gcpuser/.docker/config.json
 ```
 
-
 ##  Install Docker Buildx
+Docker Buildx is a plugin that allows building multi-architecture images (e.g., both Arm64 and x86).
 
 ```console
 wget https://github.com/docker/buildx/releases/download/v0.26.1/buildx-v0.26.1.linux-arm64
@@ -129,3 +131,9 @@ mkdir -p ~/.docker/cli-plugins
 mv buildx-v0.26.1.linux-arm64 ~/.docker/cli-plugins/docker-buildx
 ```
 
+What this does:
+
+- Downloads the latest Buildx binary for Arm64
+- Makes it executable
+- Moves it into Docker’s plugin directory (`~/.docker/cli-plugins/`)
+- After this, you can run `docker buildx` commands
