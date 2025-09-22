@@ -24,7 +24,6 @@ To create a virtual machine based on the C4A instance type:
    - Set **Series** to `C4A`.
    - Select `c4a-standard-4` for machine type.
 
-   ![Create a Google Axion C4A Arm virtual machine in the Google Cloud Console with c4a-standard-4 selected alt-text#center](./image1.png "Creating a Google Axion C4A Arm virtual machine in Google Cloud Console")
 
 - Under **OS and Storage**, select **Change**, then choose an Arm64-based OS image. For this Learning Path, use **SUSE**. Ensure you select the **Arm image** variant. Click **Select**.
 - Under **Networking**, enable **Allow HTTP traffic**.
