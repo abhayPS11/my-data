@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 # Buildkite Agent Setup 
-This guide describes the steps to configure a Buildkite agent and queue after installing the Buildkite agent binary on a SUSE ARM64 VM.
+This guide describes the steps to configure a Buildkite agent and queue after installing the Buildkite agent binary on a Google Axion C4A Arm VM.
 
 ## 1. Create an Agent Token
 
