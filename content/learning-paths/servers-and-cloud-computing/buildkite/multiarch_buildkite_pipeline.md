@@ -8,9 +8,11 @@ layout: learningpathall
 
 ## Multi-Arch with Buildkite
 
-After you’ve installed **Docker** and created `.docker/config.json`, you can set up a simple Python microservice to test **multi-architecture builds**.
+After you have installed **Buildkite** and **Docker**, you can set up a simple Python microservice to test **multi-architecture builds**.
 
-## 1. Create Dockerfile
+Make sure you have a GitHub repository ready where you can execute the upcoming steps, including creating the Dockerfile, app.py, and your pipeline.yml.
+
+### Create Dockerfile
 
 Inside your GitHub repo, add a file named `Dockerfile` with this content:
 
@@ -28,7 +30,7 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 ```
 
-## 2. Create app.py
+### Create app.py
 
 In the same repo, add a file named `app.py`:
 
@@ -44,11 +46,11 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
 ```
 
-## 3. Push Repo to GitHub
+### Push Repo to GitHub
 
 Commit and push your repo with both `Dockerfile` and `app.py`.
 
-## 4. Add Deploy Key for Buildkite Agent
+### Add Deploy Key for Buildkite Agent
 
 Generate SSH key for your agent user:
 
@@ -70,7 +72,7 @@ Now go to your GitHub repository:
 
 This allows your Buildkite agent to securely pull from the repository.
 
-## 5 – Create Buildkite Pipeline for Multiarch
+### Create Buildkite Pipeline for Multiarch
 
 In Buildkite, define your pipeline YAML (either in the repo as `pipeline.yml` or through the UI):
 
@@ -95,9 +97,10 @@ steps:
 Make sure to add your Docker credentials as secrets in the Buildkite UI.
 - Navigate to: **Buildkite → Agents → Secrets**
 - Here you can add `DOCKER_USERNAME` and `DOCKER_PASSWORD`.
+
 These will be fetched automatically when your pipeline YAML is triggered.
-> Ensure the Buildkite agent is running and registered before triggering the pipeline.  
-> The `DOCKER_CONFIG` path (`~/.docker`) refers to the agent user’s Docker credentials directory.
 {{% /notice %}}
 
 ![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 2: Set Secrets")
+
+Once your files and pipeline are ready, you can validate that your Buildkite agent is running and ready to execute jobs.
