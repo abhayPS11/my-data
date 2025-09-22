@@ -25,7 +25,7 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 
 ## 2. Configure Buildkite Agent
 
-Create the configuration directory and file on your loacal system:
+Create the configuration directory and file on your local system:
 
 ```console
 sudo tee /root/.buildkite-agent/buildkite-agent.cfg > /dev/null <<EOF
@@ -71,7 +71,7 @@ name="%hostname-%spawn"
 
 ## 4. Verify Agent in Buildkite UI
 
-First, you need to run agent from the localy:
+First, you need to run locally:
 
 ```console
 sudo /root/.buildkite-agent/bin/buildkite-agent start
@@ -84,4 +84,4 @@ Confirm that the agent is online and connected to the queue buildkite-queue1.
 
 ![Buildkite Dashboard alt-text#center](images/agent.png "Figure 3: Verify Agent")
 
-Buildkite-agent setup is completed, you can now proceed with the multi-arch build using Buildkite.
+Buildkite-agent setup is completed; you can now proceed with the multi-arch build using Buildkite.
