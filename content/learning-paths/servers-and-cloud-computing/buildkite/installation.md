@@ -43,7 +43,7 @@ Downloading https://github.com/buildkite/agent/releases/download/v3.107.0/buildk
 
 A default buildkite-agent.cfg has been created for you in /root/.buildkite-agent
 
-Don't forget to update the config with your agent token! You can find it token on your "Agents" page in Buildkite
+Don't forget to update the config with your agent token! You can find the token on your "Agents" page in Buildkite
 
 Successfully installed to /root/.buildkite-agent
 
@@ -51,7 +51,7 @@ You can now start the agent!
 
   /root/.buildkite-agent/bin/buildkite-agent start
 
-For docs, help and support:
+For docs, help, and support:
 
   https://buildkite.com/docs/agent/v3
 
@@ -59,9 +59,9 @@ Happy building! <3
 ```
 
 ### Verify installation
-This command checks the version of the Buildkite agent and confirms it installed successfully.
+This command checks the version of the Buildkite agent and confirms it is installed successfully.
 
-```consloe
+```console
 sudo /root/.buildkite-agent/bin/buildkite-agent --version
 ```
 You should see output similar to:
@@ -72,9 +72,9 @@ buildkite-agent version 3.107.0+10853.4606e31391a3bad2a5ba62f421ef041c0e4f04ab
 ### Install Docker and Docker Buildx
 Buildkite will use Docker to build and push images. Let’s set it up.
 
-1. Refresh package repositories and Install required packages
+1. Refresh package repositories and install required packages
 
-This updates your system’s software list and installs git, python3-pip and docker:
+This updates your system’s software list and installs git, Python3-pip, and Docker:
 
 ```console
 sudo zypper refresh
@@ -96,7 +96,7 @@ docker run hello-world
 ```
 
 ##  Install Docker Buildx
-Docker Buildx is a plugin that allows building multi-architecture images (e.g., both Arm64 and x86).
+Docker Buildx is a plugin that allows building multi-architecture images (e.g., Arm64 and x86).
 
 ```console
 wget https://github.com/docker/buildx/releases/download/v0.26.1/buildx-v0.26.1.linux-arm64
@@ -112,6 +112,6 @@ What this does:
 - Downloads the Buildx binary for **Arm64**
 - Makes it **executable**
 - Moves it into Docker’s CLI plugin directory for the current user (`~/.docker/cli-plugins/`)
-- Optionally, moves it system-wide (`/usr/libexec/docker/cli-plugins/`) so all users can access it
+- Optionally, move it system-wide (`/usr/libexec/docker/cli-plugins/`) so all users can access it
 
-Now Buildkite installation is completed, you can set up the Buildkite agent.
+Now that the Buildkite installation is completed, you can set up the Buildkite agent.
