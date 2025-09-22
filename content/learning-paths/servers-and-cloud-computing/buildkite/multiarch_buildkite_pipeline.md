@@ -96,6 +96,8 @@ Make sure to add your Docker credentials as secrets in the Buildkite UI.
 - Navigate to: **Buildkite → Agents → Secrets**
 - Here you can add `DOCKER_USERNAME` and `DOCKER_PASSWORD`.
 These will be fetched automatically when your pipeline YAML is triggered.
+> Ensure the Buildkite agent is running and registered before triggering the pipeline.  
+> The `DOCKER_CONFIG` path (`~/.docker`) refers to the agent user’s Docker credentials directory.
 {{% /notice %}}
 
 ![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 2: Set Secrets")
