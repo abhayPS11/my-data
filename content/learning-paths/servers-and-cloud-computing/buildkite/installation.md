@@ -103,7 +103,6 @@ wget https://github.com/docker/buildx/releases/download/v0.26.1/buildx-v0.26.1.l
 chmod +x buildx-v0.26.1.linux-arm64
 mkdir -p ~/.docker/cli-plugins
 mv buildx-v0.26.1.linux-arm64 ~/.docker/cli-plugins/docker-buildx
-sudo mkdir -p /usr/libexec/docker/cli-plugins
 sudo mv ~/.docker/cli-plugins/docker-buildx /usr/libexec/docker/cli-plugins/docker-buildx
 sudo chmod +x /usr/libexec/docker/cli-plugins/docker-buildx
 ```
