@@ -31,6 +31,8 @@ CMD ["python", "app.py"]
 ```
 
 ### Create app.py
+This Python code defines a simple Flask web server that listens on all interfaces (0.0.0.0) at port 5000 and responds with "Hello from Arm-based Buildkite runner!" when the root URL (/) is accessed.
+It is essentially a basic “Hello World” web app running on an ARM-based environment.
 
 In the same repo, add a file named `app.py`:
 
@@ -52,7 +54,7 @@ Commit and push your repo with both `Dockerfile` and `app.py`.
 
 ### Add Deploy Key for Buildkite Agent
 
-Generate SSH key for your agent user:
+On your SUSE Arm virtual machine, generate SSH key for your agent user:
 
 ```console
 ssh-keygen -t rsa -b 4096 -C "buildkite-agent" -f ~/.ssh/id_rsa
@@ -70,11 +72,27 @@ Now go to your GitHub repository:
 2. Paste the copied public key
 3. Enable **“Allow write access”**
 
-This allows your Buildkite agent to securely pull from the repository.
+This allows your Buildkite agent to securely pull from the GitHub repository.
 
 ### Create Buildkite Pipeline for Multiarch
 
-In Buildkite, define your pipeline YAML (either in the repo as `pipeline.yml` or through the UI):
+In Buildkite, define your pipeline YAML (through the UI):
+
+1. Go to **Buildkite Dashboard → Pipelines → New Pipeline**.
+
+![Buildkite Dashboard alt-text#center](images/pipeline.png "Figure 1: Create Pipeline")
+
+2. Fill the form:
+
+   - **Git Repository** → your repo URL (SSH or HTTPS)  
+
+3. In the **Steps (YAML Steps)** section, paste your pipeline YAML.
+
+![Buildkite Dashboard alt-text#center](images/yaml.png "Figure 3: YAML steps")
+4. Click **Create Pipeline**.
+
+5. Trigger a new build by clicking **New Build** on your pipeline’s dashboard.
+
 
 ```yaml
 steps:
