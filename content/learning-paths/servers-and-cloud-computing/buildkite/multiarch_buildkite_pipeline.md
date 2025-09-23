@@ -10,7 +10,7 @@ layout: learningpathall
 
 After you have installed **Buildkite** and **Docker**, you can set up a simple Python microservice to test **multi-architecture builds**.
 
-Make sure you have a GitHub repository ready where you can execute the upcoming steps, including creating the Dockerfile, app.py, and your pipeline.yml.
+Make sure you have a GitHub repository ready where you can execute the upcoming steps, including creating the Dockerfile and app.py file.
 
 ### Create Dockerfile
 
@@ -60,7 +60,7 @@ Make sure to add your Docker credentials as secrets in the Buildkite UI.
 
 These will be fetched automatically when your pipeline YAML is triggered.
 
-![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 2: Set Secrets")
+![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 1: Set Secrets")
 
 ### Create Buildkite Pipeline for Multiarch
 
@@ -72,7 +72,7 @@ In Buildkite, define your pipeline YAML (through the UI):
    - **Git Repository:** Enter your repository URL (SSH or HTTPS).  
    - **Pipeline Name:** Enter the desired name for your pipeline.
 
-![Buildkite Dashboard alt-text#center](images/pipeline.png "Figure 1: Create Pipeline")
+![Buildkite Dashboard alt-text#center](images/pipeline.png "Figure 2: Create Pipeline")
 
 3. In the **Steps (YAML Steps)** section, paste your pipeline YAML.
 
