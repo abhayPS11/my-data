@@ -20,7 +20,7 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 5. Click **Create Token**.  
 6. **Copy the token** immediately – you won’t be able to see it again after leaving the page.
 
-![Buildkite Dashboard alt-text#center](images/agent-tocken.png "Figure 1: Create Buildkite agent Tocken")
+![Buildkite Dashboard alt-text#center](images/agent-tocken.png "Figure 1: Create Buildkite agent Token")
 
 
 ## 2. Configure Buildkite Agent
@@ -34,7 +34,7 @@ tags="queue=buildkite-queue1"
 EOF
 ```
 - Replace `YOUR_AGENT_TOKEN` with the token you generated from your **Buildkite Agents page**.  
-- `tags` defines the queue this agent will use (`buildkite-queue1` in this example).  
+- `tags` in Buildkite are key-value labels that let you match pipeline steps to specific agents, ensuring jobs run only on agents with the required tag.
 - The `name` field is optional; if omitted, Buildkite will assign a default name.
 
 
@@ -47,7 +47,7 @@ You should see output similar to:
 
 ```output
 # The token from your Buildkite "Agents" page
-token="#######################284svGFRqqcFWdYhiTcuX9JQGw4aySt2KhKLigh6tkZvLxKuSXKnw"
+token="YOUR-GENERATED-TOKEN-VALUE"
 tags="queue=buildkite-queue1"
 
 # The name of the agent
@@ -77,11 +77,11 @@ First, you need to run locally:
 sudo /root/.buildkite-agent/bin/buildkite-agent start
 ```
 
-Then, Verify by UI
+Then, Verify by UI:
 Go to **Buildkite → Agents.**
 
 Confirm that the agent is online and connected to the queue buildkite-queue1.
 
 ![Buildkite Dashboard alt-text#center](images/agent.png "Figure 3: Verify Agent")
 
-Buildkite-agent setup is completed; you can now proceed with the multi-arch build using Buildkite.
+Buildkite-agent setup is complete, you can now proceed with the multi-arch build using Buildkite.
