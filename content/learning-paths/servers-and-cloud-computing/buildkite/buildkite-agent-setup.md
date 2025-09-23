@@ -20,7 +20,7 @@ Before configuring the agent, you need an agent token from your Buildkite organi
 5. Click **Create Token**.  
 6. **Copy the token** immediately – you won’t be able to see it again after leaving the page.
 
-![Buildkite Dashboard alt-text#center](images/agent-tocken.png "Figure 1: Create Buildkite agent Token")
+![Buildkite Dashboard alt-text#center](images/agent-token.png "Figure 1: Create Buildkite agent Token")
 
 
 ## 2. Configure Buildkite Agent
