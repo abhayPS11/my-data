@@ -67,11 +67,21 @@ After the pipeline completes successfully, you can go to Docker Hub and verify t
 
 ![Docker-Hub alt-text#center](images/multi-arch-image.png "Figure 3: Docker image")
 
+### Test Multi-Arch Image
+```console
+docker pull <DOCKER_USERNAME>/multi-arch-app:latest
+docker run --rm -p 80:5000 <DOCKER_USERNAME>/multi-arch-app:latest
+```
+- Pulling the image ensures it is uploaded to Docker Hub for other systems to use.
+- Running the container on port 80 exposes your microservice to the network.
+- Visiting the VM IP in a browser lets you verify that the application is working, displaying:
+
 ```console
 http://<VM_IP>
 ```
 You should see output similar to:
 
 ![Buildkite Dashboard alt-text#center](images/browser.png "Figure 4: Verify Docker Images")
+
 
 Your pipeline is working, and you have successfully built and deployed the multi-arch Docker image using your Arm-based Buildkite agent.
