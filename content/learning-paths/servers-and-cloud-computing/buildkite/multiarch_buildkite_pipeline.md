@@ -52,27 +52,15 @@ if __name__ == "__main__":
 
 Commit and push your repo with both `Dockerfile` and `app.py`.
 
-### Add Deploy Key for Buildkite Agent
+### Adding Docker Credentials as Buildkite Secrets
 
-On your SUSE Arm virtual machine, generate SSH key for your agent user:
+Make sure to add your Docker credentials as secrets in the Buildkite UI.
+- Navigate to: **Buildkite → Agents → Secrets**
+- Here you can add `DOCKER_USERNAME` and `DOCKER_PASSWORD`.
 
-```console
-ssh-keygen -t rsa -b 4096 -C "buildkite-agent" -f ~/.ssh/id_rsa
-```
-Add Deploy Key for Buildkite Agent
+These will be fetched automatically when your pipeline YAML is triggered.
 
-Copy the public key:
-
-```console
-cat ~/.ssh/id_rsa.pub
-```
-Now go to your GitHub repository:
-
-1. Navigate to **Settings → Deploy Keys → Add Key**
-2. Paste the copied public key
-3. Enable **“Allow write access”**
-
-This allows your Buildkite agent to securely pull from the GitHub repository.
+![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 2: Set Secrets")
 
 ### Create Buildkite Pipeline for Multiarch
 
@@ -87,12 +75,6 @@ In Buildkite, define your pipeline YAML (through the UI):
    - **Git Repository** → your repo URL (SSH or HTTPS)  
 
 3. In the **Steps (YAML Steps)** section, paste your pipeline YAML.
-
-![Buildkite Dashboard alt-text#center](images/yaml.png "Figure 3: YAML steps")
-4. Click **Create Pipeline**.
-
-5. Trigger a new build by clicking **New Build** on your pipeline’s dashboard.
-
 
 ```yaml
 steps:
@@ -109,16 +91,13 @@ steps:
       - docker buildx build --platform linux/amd64,linux/arm64 -t "$(~/.buildkite-agent/bin/buildkite-agent secret get "DOCKER_USERNAME")/multi-arch-app:latest" --push . 
     agents:
       queue: buildkite-queue1
-```
+```   
 
-{{% notice Note %}}
-Make sure to add your Docker credentials as secrets in the Buildkite UI.
-- Navigate to: **Buildkite → Agents → Secrets**
-- Here you can add `DOCKER_USERNAME` and `DOCKER_PASSWORD`.
+![Buildkite Dashboard alt-text#center](images/yaml.png "Figure 3: YAML steps")
+4. Click **Create Pipeline**.
 
-These will be fetched automatically when your pipeline YAML is triggered.
-{{% /notice %}}
+5. Trigger a new build by clicking **New Build** on your pipeline’s dashboard.
 
-![Buildkite Dashboard alt-text#center](images/secrets.png "Figure 2: Set Secrets")
+![Buildkite Dashboard alt-text#center](images/build-p.png "Figure 4: Create Build")
 
 Once your files and pipeline are ready, you can validate that your Buildkite agent is running and ready to execute jobs.
