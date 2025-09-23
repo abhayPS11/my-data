@@ -3,11 +3,11 @@ title: Deploy Multi-Architecture Docker Images with Buildkite on GCP C4A (Arm-ba
 
 minutes_to_complete: 40
 
-who_is_this_for: This introductory topic for software developers migrating Buildkite workloads from x86_64 to Arm-based servers, specifically on Google Cloud C4A virtual machines built on Axion processors.
+who_is_this_for: This is an introductory topic for software developers migrating Buildkite workloads from x86_64 to Arm-based servers, specifically on Google Cloud C4A virtual machines built on Axion processors.
 
 
 learning_objectives:
-  - Provision an Arm-based Virtual Machine (SUSE) on Google Cloud Platform (GCP).
+  - Provision an Arm-based Virtual Machine (SUSE SLES) on Google Cloud Platform (GCP)
   - Install and configure the Buildkite Agent on an Arm64 instance
   - Set up Docker and Buildx for multi-architecture builds
   - Create and test a simple microservice application with Docker and Buildkite
@@ -19,7 +19,7 @@ prerequisites:
   - Basic knowledge of Linux system administration (creating users, installing packages, managing services)
   - Familiarity with [Docker](https://docs.docker.com/get-started/) and container concepts
   - A [GitHub](https://github.com/) account to host your application repository
-  - Familiarity with [Buildkite concepts](https://buildkite.com/docs/tutorials/getting-started) such as agents, pipelines, and queues
+  - Familiarity with [Buildkite concepts](https://buildkite.com/docs/tutorials/getting-started) such as agents, pipelines, secrets, and queues
 
 
 author: Pareena Verma
