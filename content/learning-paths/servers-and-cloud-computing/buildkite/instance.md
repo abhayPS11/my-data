@@ -1,117 +1,32 @@
 ---
-title: Install Buildkite
-weight: 4
+title: Create a Google Axion C4A Arm virtual machine on GCP 
+weight: 3
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Install Buildkite on a Google Axion C4A Arm VM
-This section guides you through installing the Buildkite agent on a Google Axion C4A Arm VM, enabling it to connect to your Buildkite account and run CI/CD pipelines.
+## Overview
 
-```console
-sudo zypper refresh
-sudo zypper install -y curl unzip
-```
+In this section, you will learn how to provision a Google Axion C4A Arm virtual machine on Google Cloud Platform (GCP) using the `c4a-standard-4` (4 vCPUs, 16 GB memory) machine type in the Google Cloud Console.  
 
-### Download and Install Buildkite Agent
+{{% notice Note %}}
+For support on GCP setup, see the Learning Path [Getting started with Google Cloud Platform](https://learn.arm.com/learning-paths/servers-and-cloud-computing/csp/google/).
+{{% /notice %}}
 
-```console
-sudo sh -c "$(curl -sL https://raw.githubusercontent.com/buildkite/agent/main/install.sh)" 
-```
-This one-line command downloads and runs the official Buildkite installer.  
-It will:  
+## Provision a Google Axion C4A Arm VM in Google Cloud Console
 
-- Grab the latest version of the agent (`v3.107.0`)  
-- Install it into **root’s home directory** (`/root/.buildkite-agent`)  
-- Create a default config file (`buildkite-agent.cfg`) where you’ll later add your agent token 
+To create a virtual machine based on the C4A instance type:
+- Navigate to the [Google Cloud Console](https://console.cloud.google.com/).
+- Go to **Compute Engine > VM Instances** and select **Create Instance**. 
+- Under **Machine configuration**:
+   - Populate fields such as **Instance name**, **Region**, and **Zone**.
+   - Set **Series** to `C4A`.
+   - Select `c4a-standard-4` for machine type.
 
-```output
- 
-  _           _ _     _ _    _ _                                _
- | |         (_) |   | | |  (_) |                              | |
- | |__  _   _ _| | __| | | ___| |_ ___    __ _  __ _  ___ _ __ | |_
- | '_ \| | | | | |/ _` | |/ / | __/ _ \  / _` |/ _` |/ _ \ '_ \| __|
- | |_) | |_| | | | (_| |   <| | ||  __/ | (_| | (_| |  __/ | | | |_
- |_.__/ \__,_|_|_|\__,_|_|\_\_|\__\___|  \__,_|\__, |\___|_| |_|\__|
-                                                __/ |
-                                               |___/
-Finding latest release...
-Installing Version: v3.107.0
-Destination: /root/.buildkite-agent
-Downloading https://github.com/buildkite/agent/releases/download/v3.107.0/buildkite-agent-linux-arm64-3.107.0.tar.gz
+   ![Create a Google Axion C4A Arm virtual machine in the Google Cloud Console with c4a-standard-4 selected alt-text#center](images/gcp-vm.png "Creating a Google Axion C4A Arm virtual machine in Google Cloud Console")
 
-A default buildkite-agent.cfg has been created for you in /root/.buildkite-agent
 
-Don't forget to update the config with your agent token! You can find it token on your "Agents" page in Buildkite
-
-Successfully installed to /root/.buildkite-agent
-
-You can now start the agent!
-
-  /root/.buildkite-agent/bin/buildkite-agent start
-
-For docs, help and support:
-
-  https://buildkite.com/docs/agent/v3
-
-Happy building! <3
-```
-
-### Verify installation
-This command checks the version of the Buildkite agent and confirms that it has been installed successfully.
-
-```console
-sudo /root/.buildkite-agent/bin/buildkite-agent --version
-```
-You should see output similar to:
-```output
-buildkite-agent version 3.107.0+10853.4606e31391a3bad2a5ba62f421ef041c0e4f04ab
-```
-
-### Install Docker and Docker Buildx
-Buildkite will use Docker to build and push images. Let’s set it up.
-
-1. Refresh package repositories and install required packages
-
-This updates your system’s software list and installs git, python3-pip and docker:
-
-```console
-sudo zypper refresh
-sudo zypper install -y git python3 python3-pip docker
-```
-
-2. Enable and Start Docker
-
-This makes sure Docker runs automatically every time, when your VM starts:
-```console
-sudo systemctl enable docker
-sudo systemctl start docker
-```
-3. Verify Docker installation
-
-```console
-docker --version
-docker run hello-world
-```
-
-##  Install Docker Buildx
-Docker Buildx is a plugin that allows building multi-architecture images (e.g., both Arm64 and x86).
-
-```console
-wget https://github.com/docker/buildx/releases/download/v0.26.1/buildx-v0.26.1.linux-arm64
-chmod +x buildx-v0.26.1.linux-arm64
-mkdir -p ~/.docker/cli-plugins
-mv buildx-v0.26.1.linux-arm64 ~/.docker/cli-plugins/docker-buildx
-sudo mkdir -p /usr/libexec/docker/cli-plugins
-sudo mv ~/.docker/cli-plugins/docker-buildx /usr/libexec/docker/cli-plugins/docker-buildx
-sudo chmod +x /usr/libexec/docker/cli-plugins/docker-buildx
-```
-What this does:
-
-- Downloads the Buildx binary for **Arm64**
-- Makes it **executable**
-- Moves it into Docker’s CLI plugin directory for the current user (`~/.docker/cli-plugins/`)
-- Optionally, moves it system-wide (`/usr/libexec/docker/cli-plugins/`) so all users can access it
-
-Now that the Buildkite installation is completed, you can set up the Buildkite agent.
+- Under **OS and Storage**, select **Change**, then choose an Arm64-based OS image. For this Learning Path, use **SUSE Linux Enterprise Server**. Pick the preferred version for your Operating System. Ensure you select the **Arm image** variant. Click **Select**.
+- Under **Networking**, enable **Allow HTTP traffic**.
+- Click **Create** to launch the instance.
