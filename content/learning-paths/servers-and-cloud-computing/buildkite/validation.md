@@ -31,11 +31,10 @@ Before triggering the pipeline, your GitHub repository should have:
 
 - `Dockerfile` (defines your multi-arch image)
 - `app.py` (your Python microservice)
-- `pipeline.yml` (Buildkite pipeline steps)
 
 ```console
 git add .
-git commit -m "Add multiarch Dockerfile and pipeline"
+git commit -m "Add multiarch Dockerfile"
 git push origin main
 ```
 ### Trigger the Pipeline
@@ -46,7 +45,7 @@ Trigger via Buildkite UI
 - Click **“New Build”**  
 - Select branch → **Start Build**
 
-![Buildkite Dashboard alt-text#center](images/build.png "Figure 1: Trigger Pipeline")
+![Buildkite Dashboard alt-text#center](images/build-p.png "Figure 1: Trigger Pipeline")
 
 - Triggering the pipeline tells Buildkite to start running the steps you defined in your YAML file.
 - The pipeline steps will run on the ARM-based agent you set up.
@@ -67,14 +66,6 @@ Steps include:
 After the pipeline completes successfully, you can go to Docker Hub and verify the pushed multi-arch images:
 
 ![Docker-Hub alt-text#center](images/multi-arch-image.png "Figure 3: Docker image")
-
-```console
-docker pull <DOCKER_USERNAME>/multi-arch-app:latest
-docker run --rm -p 80:5000 <DOCKER_USERNAME>/multi-arch-app:latest
-```
-- Pulling the image ensures it is uploaded to Docker Hub for other systems to use.
-- Running the container on port 80 exposes your microservice to the network.
-- Visiting the VM IP in a browser lets you verify that the application is working, displaying:
 
 ```console
 http://<VM_IP>
