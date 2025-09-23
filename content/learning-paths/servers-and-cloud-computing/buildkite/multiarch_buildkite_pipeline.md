@@ -67,12 +67,12 @@ These will be fetched automatically when your pipeline YAML is triggered.
 In Buildkite, define your pipeline YAML (through the UI):
 
 1. Go to **Buildkite Dashboard → Pipelines → New Pipeline**.
+2. Fill out the form:
+
+   - **Git Repository:** Enter your repository URL (SSH or HTTPS).  
+   - **Pipeline Name:** Enter the desired name for your pipeline.
 
 ![Buildkite Dashboard alt-text#center](images/pipeline.png "Figure 1: Create Pipeline")
-
-2. Fill the form:
-
-   - **Git Repository** → your repo URL (SSH or HTTPS)  
 
 3. In the **Steps (YAML Steps)** section, paste your pipeline YAML.
 
