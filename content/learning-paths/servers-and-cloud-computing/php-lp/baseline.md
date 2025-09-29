@@ -1,10 +1,18 @@
-# Baseline Setup for PHP-FPM
+---
+title: PHP baseline testing on Google Axion C4A Arm Virtual Machine
+weight: 5
 
-Now that PHP and Apache are installed, let’s configure **PHP-FPM (FastCGI Process Manager)**.  
-This makes PHP faster and more secure because it runs separately from Apache.  
+### FIXED, DO NOT MODIFY
+layout: learningpathall
+---
 
 
-## Configure the PHP-FPM Pool
+## Baseline Setup for PHP-FPM
+This section covers the installation and configuration of **PHP and Apache** on a SUSE Arm-based GCP VM. It includes setting up **PHP-FPM** with a Unix socket, verifying PHP functionality via a test page, and ensuring Apache and PHP-FPM work together correctly.  
+
+### Configure the PHP-FPM Pool
+
+**PHP-FPM:** A FastCGI Process Manager that runs PHP scripts efficiently, handling multiple requests separately from the web server for better performance and security.
 
 A **pool** is basically a set of PHP worker processes that handle requests.  
 
@@ -21,10 +29,12 @@ sudo cp /etc/php8/fpm/php-fpm.d/www.conf.default /etc/php8/fpm/php-fpm.d/www.con
 Open the config file in a text editor:
 
 ```console
-sudo nano /etc/php8/fpm/php-fpm.d/www.conf
+sudo vi /etc/php8/fpm/php-fpm.d/www.conf
 ```
 
-Find this line `; listen = 127.0.0.1:9000`. Replace it with these lines:
+Update the file to use a Unix socket:
+
+Find this line `; listen = 127.0.0.1:9000`. Replace it with these lines.
 
 ```ini
 listen = /run/php-fpm/www.sock
@@ -95,3 +105,5 @@ Replace `<YOUR_VM_PUBLIC_IP>` with the public IP of your GCP VM.
 You should see the PHP Info Page, which confirms Apache and PHP-FPM are working together.
 
 ![PHP-info page alt-text#center](images/php-web.png "Figure 1: PHP info")
+
+This verifies the basic functionality of the PHP installation before proceeding to the benchmarking.
