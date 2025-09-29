@@ -183,18 +183,18 @@ Subjects: 2, Assertions: 0, Failures: 0, Errors: 0
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
-| Benchmark Function   | Iterations | Mode Time (μs) | Variation (%) | Notes                                           |
+| Benchmark Function   | Iterations | Mode Execution Time (μs) | Variation (%) | Notes                                           |
 |---------------------|------------|----------------|---------------|------------------------------------------------|
-| benchStringConcat   | I4         | 13.493         | ±1.80         | Measures performance of string concatenation |
-| benchArrayPush      | I4         | 7.395          | ±1.07         | Measures performance of pushing elements to an array |
+| benchStringConcat   | I4         | 13.493         | ±1.80%        | Measures performance of string concatenation |
+| benchArrayPush      | I4         | 7.395          | ±1.07%         | Measures performance of pushing elements to an array |
 
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
-| Benchmark Function   | Iterations | Mode Execution Time | Variation | Notes                                    |
+| Benchmark Function   | Iterations | Mode Execution Time (μs)| Variation (%) | Notes                                    |
 |---------------------|------------|-------------------|-----------|------------------------------------------|
-| benchStringConcat    | 4          | 13.438 μs         | ±0.82%    | Measures performance of string concatenation |
-| benchArrayPush       | 4          | 8.487 μs          | ±0.51%    | Measures performance of pushing elements to an array|
+| benchStringConcat    | I4         | 13.438 μs         | ±0.82%    | Measures performance of string concatenation |
+| benchArrayPush       | I4          | 8.487 μs          | ±0.51%    | Measures performance of pushing elements to an array|
 
 ### PHP performance benchmarking comparison on Arm64 and x86_64
 When you compare the benchmarking results, you will notice that on the Google Axion C4A Arm-based instances:
