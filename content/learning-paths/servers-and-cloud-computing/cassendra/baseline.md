@@ -7,11 +7,11 @@ layout: learningpathall
 ---
 
 
-Since Cassandra has been successfully installed on your GCP C4A Arm virtual machine, please follow these steps to make sure that it is running.
+Since Cassandra has been successfully installed on your GCP C4A Arm virtual machine, follow these steps to verify that it is running and functioning properly.
 
-## Baseline Testing for Apache Cassandra 5.0.5
+## Baseline Testing for Apache Cassandra
 
-This guide helps verify the installation and perform baseline testing of **Apache Cassandra 5.0.5**.
+This guide helps verify the installation and perform baseline testing of **Apache Cassandra**.
 
 ## Start Cassandra
 
@@ -21,15 +21,14 @@ Run Cassandra in the background:
 cassandra -R
 ```
 
-- `-R` → allows Cassandra to run in the background.  
-- First startup might take **30–60 seconds**.  
+The `-R` flag allows Cassandra to run in the background as a daemon, so you can continue using the terminal. The first startup may take **30–60 seconds** as it initializes the necessary files and processes.
 
-Check logs:
+Check logs to ensure Cassandra started successfully:
 
 ```console
 tail -f ~/cassandra/logs/system.log
 ```
-Look for "Startup complete" at the end.
+Look for the message **"Startup complete"**, which indicates Cassandra is fully initialized.
 
 ### Check Cassandra Status
 ```console
@@ -45,10 +44,10 @@ Status=Up/Down
 --  Address    Load        Tokens  Owns (effective)  Host ID                               Rack
 UN  127.0.0.1  162.51 KiB  16      100.0%            78774686-39f3-47e7-87c3-3abc4f02a835  rack1
 ```
-
-- `UN = Up & Normal` → means Cassandra is running fine.
+The `nodetool status` command displays the health and status of your Cassandra node(s). For a single-node setup, the output should indicate that the node is **Up (U)** and **Normal (N)**. This confirms that your Cassandra instance is running and ready to accept queries.
 
 ### Connect with CQLSH (Cassandra Query Shell)
+**cqlsh** is the interactive command-line shell for Cassandra. It allows you to run Cassandra Query Language (CQL) commands to interact with your database, create keyspaces and tables, insert data, and perform queries.
 
 ```console
 cqlsh
@@ -56,6 +55,7 @@ cqlsh
 You’ll enter the CQL (Cassandra Query Language) shell.
 
 ### Create a Keyspace (like a database)
+A **keyspace** in Cassandra is similar to a database in SQL systems. Here, we create a simple keyspace `testks` with a **replication factor of 1**, meaning data will only be stored on one node (suitable for a single-node setup).
 
 ```sql
 CREATE KEYSPACE testks WITH replication = {'class':'SimpleStrategy','replication_factor' : 1};
@@ -76,6 +76,7 @@ system_auth  system_schema       system_views   testks
 ```
 
 ### Create a Table
+Tables in Cassandra are used to store structured data. This step creates a `users` table with three columns: `id` (unique identifier), `name` (text), and `age` (integer). The `id` column is the primary key.
 
 ```sql
 USE testks;
@@ -88,6 +89,7 @@ CREATE TABLE users (
 ```
 
 ### Insert Data
+We insert two sample rows into the `users` table. The `uuid()` function generates a unique identifier for each row, which ensures that every user entry has a unique primary key.
 
 ```sql
 INSERT INTO users (id, name, age) VALUES (uuid(), 'Alice', 30);
@@ -95,6 +97,7 @@ INSERT INTO users (id, name, age) VALUES (uuid(), 'Bob', 25);
 ```
 
 ### Query Data
+This command retrieves all rows from the `users` table. Successful retrieval confirms that data insertion works correctly and that queries return expected results.
 
 ```sql
 SELECT * FROM users;
