@@ -14,7 +14,7 @@ learning_objectives:
 
 prerequisites:
   - A [Google Cloud Platform (GCP)](https://cloud.google.com/free) account with billing enabled
-  - Familiarity with Cassandra architecture, replication, and [Cassandra partitioning & event-driven I/O](https://cassandra.apache.org/doc/latest/architecture/architecture.html)
+  - Familiarity with Cassandra architecture, replication, and [Cassandra partitioning & event-driven I/O](https://cassandra.apache.org/doc/stable/cassandra/architecture/)
 
 author: Pareena Verma
 
