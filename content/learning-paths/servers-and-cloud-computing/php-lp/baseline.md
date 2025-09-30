@@ -56,21 +56,26 @@ sudo systemctl restart php-fpm
 ```
 
 ## Test PHP
-
-Now let’s confirm PHP is working with Apache.  
+Now that PHP and Apache are installed, let’s verify that everything is working correctly.  
 
 ### Create a Test Page
+We will make a simple PHP file that shows details about the PHP setup.
 
 ```console
 echo "<?php phpinfo(); ?>" | sudo tee /srv/www/htdocs/info.php
 ```
-This creates a simple PHP page that shows your PHP configuration.
+This creates a file named **info.php** inside Apache’s web root directory `(/srv/www/htdocs/)`. When you open this file in a browser, it will display the PHP configuration page.
 
 ### Test from Inside the VM
+Run the following command:
 
 ```console
 curl http://localhost/info.php
 ```
+- `curl` fetches the page from the local Apache server.  
+- If PHP is working, you’ll see a large block of HTML code as output.  
+- This confirms that PHP is correctly connected with Apache.  
+
 You should see an output similar to:
 
 ```output
@@ -94,15 +99,14 @@ h2 a:link, h2 a:visited{color: inherit; background: inherit;}
 Basically, it is the HTML output that confirms PHP is working.
 
 ### Test from Your Browser
-
-Open your browser and go to:
+Now, let’s test it from outside the VM. Open a web browser on your local machine (Chrome, Firefox, Edge, etc.) and enter the following URL in the address bar:
 
 ```console
 http://<YOUR_VM_PUBLIC_IP>/info.php
 ```
-Replace `<YOUR_VM_PUBLIC_IP>` with the public IP of your GCP VM.
+- Replace `<YOUR_VM_PUBLIC_IP>` with the public IP of your GCP VM.
 
-You should see the PHP Info Page, which confirms Apache and PHP-FPM are working together.
+If everything is set up correctly, you will see a PHP Info page in your browser. It looks like this:
 
 ![PHP-info page alt-text#center](images/php-web.png "Figure 1: PHP info")
 
