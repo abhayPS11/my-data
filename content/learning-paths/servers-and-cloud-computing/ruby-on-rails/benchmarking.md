@@ -89,14 +89,18 @@ Computation:  0.410907   0.000000   0.410907 (  0.410919)
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
-
+| Task         | user (sec) | system (sec) | total (sec) | real (sec) |
+|--------------|------------|--------------|-------------|------------|
+| DB Insert    | 1.902564   | 0.061805     | 1.964369    | 2.606764   |
+| DB Query     | 2.725923   | 0.009513     | 2.735436    | 2.735956   |
+| Computation  | 0.331519   | 0.000083     | 0.331602    | 0.331610   |
 
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
 ### Benchmark Results
 
-| Task         | user     | system   | total    | real     |
+| Task         | user (sec) | system (sec) | total (sec) | real (sec) |
 |--------------|----------|----------|----------|----------|
 | DB Insert    | 2.271645 | 0.050236 | 2.321881 | 2.721631 |
 | DB Query     | 3.379849 | 0.009345 | 3.389194 | 3.389613 |
@@ -106,3 +110,7 @@ Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm6
 ### Ruby/Rails performance benchmarking comparison on Arm64 and x86_64
 
 When you compare the benchmarking results, you will notice that on the Google Axion C4A Arm-based instances:
+
+- **Database operations are the main bottleneck:** DB Insert and DB Query take the most time.  
+- **DB Query has the highest latency:** It is the slowest operation at 3.39 seconds.  
+- **Core computation is fast:** Pure Ruby/Rails calculations complete quickly at 0.41 seconds.
