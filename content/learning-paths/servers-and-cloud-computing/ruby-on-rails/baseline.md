@@ -23,6 +23,12 @@ sudo systemctl enable postgresql
 systemctl status postgresql
 ```
 
+This command creates a new PostgreSQL role (user) named `gcpuser` with **superuser privileges**.  
+
+```console
+sudo -u postgres createuser --superuser gcpuser
+```
+
 ### Create a Rails App with PostgreSQL
 
 ```console
