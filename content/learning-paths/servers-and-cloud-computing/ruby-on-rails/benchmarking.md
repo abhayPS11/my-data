@@ -7,9 +7,8 @@ layout: learningpathall
 ---
 
 
-## Ruby on Rails Benchmarking with Custom Workloads
-This section benchmarked Ruby on Rails using custom workloads (DB inserts, queries, and computations) on GCP SUSE VMs, analyzing execution time and performance metrics.  
-
+## Ruby on Rails Benchmarking with built-in Benchmark
+This section benchmarks Ruby on Rails using Ruby’s built-in `Benchmark` library to measure execution time for database inserts, queries, and CPU computations on GCP SUSE VMs, providing insights into performance metrics and bottlenecks.
 
 ### Go into your Rails app folder (for example, db_test_app):
 You need to navigate into the folder of your Rails application. This is where Rails expects your application code, models, and database configurations to be located. All commands related to your app should be run from this folder.
