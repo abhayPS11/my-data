@@ -59,7 +59,12 @@ You should see output similar to:
 ```output
 ruby 3.4.6 (2025-09-16 revision dbd83256b1) +PRISM [aarch64-linux]
 ```
+{{% notice Note %}}
+Ruby 3.4.0 introduced significant performance enhancements, notably improvements to YJIT (Yet Another Ruby JIT), a Ruby just-in-time compiler. These enhancements are particularly beneficial for Arm architectures, as YJIT has been optimized to deliver better performance on such platforms. To leverage these improvements, it is recommended that you upgrade to Ruby 3.4.0 or later.
+You can view [this release note](https://www.ruby-lang.org/en/news/2024/12/25/ruby-3-4-0-released/)
 
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Ruby version 3.4.0, the minimum recommended on the Arm platforms.
+{{% /notice %}}
 ### Install Bundler
 **Bundler** manages Ruby project dependencies and ensures consistent gem versions across environments.
 
