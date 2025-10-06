@@ -1,15 +1,16 @@
 ---
-title: Rails Baseline Testing on Google Axion C4A Arm Virtual Machine
+title: Ruby on Rails Baseline Testing on Google Axion C4A Arm Virtual Machine
 weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Baseline Setup for Rails with PostgreSQL
+## Baseline Setup for Ruby on Rails with PostgreSQL
 This section covers the installation and configuration of **PostgreSQL** and a **Rails application** on a SUSE Arm-based GCP VM. It includes setting up PostgreSQL, creating a Rails app, configuring the database, and starting the Rails server.
 
-###  Install and Configure PostgreSQL
+### Install and Configure PostgreSQL
+PostgreSQL is used with Ruby on Rails as a robust, production-ready relational database that reliably stores and manages application data.
 
 ```console
 sudo zypper install postgresql-devel postgresql-server
@@ -28,29 +29,123 @@ This command creates a new PostgreSQL role (user) named `gcpuser` with **superus
 ```console
 sudo -u postgres createuser --superuser gcpuser
 ```
+- `sudo -u postgres` → Runs the command as the `postgres` user (default PostgreSQL superuser).
+- `createuser --superuser gcpuser` → Creates a PostgreSQL role named `gcpuser` with full admin privileges.
+    - Can create databases
+    - Can create other roles/users
+    - Can grant privileges
+
+This role will be used by Rails to connect to the PostgreSQL database.
 
 ### Create a Rails App with PostgreSQL
 
 ```console
-rails new db_test_app -d postgresql
-cd db_test_app
+rails new db_test_rubyapp -d postgresql
+cd db_test_rubyapp
 bundle install
 ```
-{{% notice Note %}}
-Check config/database.yml and update username/password if needed.
-{{% /notice %}}
+- Creates a new Rails application called `db_test_app`.
+- `d postgresql` → Tells Rails to use PostgreSQL as the database instead of the default SQLite.
 - `bundle install` ensures all required gems are installed.
 
-### Setup Database and Scaffold
+{{% notice Note %}}
+Check `config/database.yml` to ensure the `username` and `password` match your PostgreSQL role `(gcpuser)`.
+{{% /notice %}}
+
+### Verify and Update Database Configuration
+Open the Rails database configuration file:
+
+```console
+nano config/database.yml
+```
+Find the `default`: and `development`: sections.
+Ensure the username matches the PostgreSQL user you created (gcpuser):
+
+You should see output similar to:
+```output
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: gcpuser
+  password:
+  host: localhost
+  pool: 5
+
+development:
+  <<: *default
+  database: db_test_rubyapp_development
+```
+### Create and Initialize the Database
 
 ```console
 rails db:create
+```
+You should see output similar to:
+```output
+Created database 'db_test_rubyapp_development'
+Created database 'db_test_rubyapp_test'
+```
+This means Rails successfully connected to PostgreSQL and created both dev and test databases.
+
+### Generate a Scaffold for Testing
+A database and Scaffold are required to create the actual PostgreSQL database for your Rails app and quickly generate the model, controller, views, and migrations for your data.
+Let’s create a small test model and table — for example, a simple Task tracker:
+
+```console
 rails generate scaffold task title:string due_date:date
+```
+This command automatically generates:
+- Database migration for the tasks table
+- A model (task.rb)
+- A controller and views for CRUD operations
+- **Scaffold** → Automatically generates boilerplate code for CRUD operations, saving time and ensuring your app has working forms and routes.
+
+Then apply the migration:
+
+```console
 rails db:migrate
 ```
-- This creates a simple tasks table with title and due_date.
 
-### Start Rails Server
+You should see output similar to:
+```output
+== 20251006101717 CreateTasks: migrating ======================================
+-- create_table(:tasks)
+   -> 0.0127s
+== 20251006101717 CreateTasks: migrated (0.0128s) =============================
+```
+
+Database schema successfully updated.
+
+### Verify Table and Database Connectivity
+You can confirm that the `tasks` table was created:
+
+```console
+sudo -u postgres psql
+\c db_test_rubyapp_development
+\d tasks
+```
+You should see output similar to:
+```output
+psql (15.10)
+Type "help" for help.
+
+postgres=# \c db_test_rubyapp_development
+You are now connected to database "db_test_rubyapp_development" as user "postgres".
+db_test_rubyapp_development=# \d tasks
+                                          Table "public.tasks"
+   Column   |              Type              | Collation | Nullable |              Default
+------------+--------------------------------+-----------+----------+-----------------------------------
+ id         | bigint                         |           | not null | nextval('tasks_id_seq'::regclass)
+ title      | character varying              |           |          |
+ due_date   | date                           |           |          |
+ created_at | timestamp(6) without time zone |           | not null |
+ updated_at | timestamp(6) without time zone |           | not null |
+Indexes:
+    "tasks_pkey" PRIMARY KEY, btree (id)
+```
+
+
+### Run Rails Server
 
 ```console
 rails server -b 0.0.0.0
@@ -71,7 +166,7 @@ http://[YOUR_VM_EXTERNAL_IP]:3000.
 ```
 - Replace `<YOUR_VM_PUBLIC_IP>` with the public IP of your GCP VM.
 
-If everything is set up correctly, you will see a Rails welcome page in your browser. It looks like this:
+You will see a Rails welcome page in your browser if everything is set up correctly. It looks like this:
 
 ![Rails-info page alt-text#center](images/rails-web.png "Figure 1: Ruby/Rails Welcome Page")
 
