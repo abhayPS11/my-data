@@ -73,7 +73,6 @@ default: &default
 
 development:
   <<: *default
-  database: db_test_rubyapp_development
 ```
 ### Create and Initialize the Database
 
@@ -124,6 +123,10 @@ sudo -u postgres psql
 \c db_test_rubyapp_development
 \d tasks
 ```
+- `sudo -u postgres psql` → Launches the PostgreSQL shell as the superuser `postgres`.
+- `\c db_test_rubyapp_development` → Connects to the Rails app’s development database.
+- `\d tasks` → Displays the schema (columns and types) of the `tasks` table.
+
 You should see output similar to:
 ```output
 psql (15.10)
