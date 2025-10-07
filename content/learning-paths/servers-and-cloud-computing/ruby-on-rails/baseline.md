@@ -152,17 +152,50 @@ Indexes:
 ```
 
 ### Run Rails Server
+Before proceeding to run the Rails server, you need to allow port 3000 from your GCP console. Below are the steps to do that:
+
+a. On the GCP console, navigate to **Firewall** -> **Create Firewall Rule**
+ 
+ ![Firewall Info alt-text#center](images/firewall1.png "Figure 1: Firewall Create")
+
+b. Fill in the details as below:
+
+Give a **name** for your desired port (e.g., `allow-3000-ingress`).
+
+![Allow Ingress alt-text#center](images/firewall2.png "Figure 2: Allow-3000-ingress ")
+ 
+
+Set **Direction of Traffic** to **"Ingress"**.
+
+Set **Target** to **"All Instances in the Network"**. You can also choose **"Specific Tags"**.
+
+Set the **Source IPv4 range** to **"0.0.0.0/0"**, for global access.
+
+![Set Direction of Traffic  alt-text#center](images/firewall3.png "Figure 3: Target Set")
+ 
+In the **"Protocols and Ports"**, click on **"TCP"**, and mention the port number **"3000"**.
+ 
+![Set Protocols and Ports  alt-text#center](images/firewall4.png "Figure 4: Protocols and Ports")
+ 
+ 
+Click on **"Create"**. The Firewall rule will be created successfully and can be viewed in the Firewall Policies Page:
+
+![ Create Firewall rule alt-text#center](images/firewall5.png "Figure 5: Create Firewall rule")
+ 
+Once done, go back to the VM, and execute the below commands to allow port 3000:
+ 
+```console
+sudo firewall-cmd --permanent --add-port=3000/tcp
+sudo firewall-cmd --reload
+```
+Now that you have allowed port 3000 from your console and made it permanent for the VM, you can run the Rails server using the following command:
 
 ```console
 rails server -b 0.0.0.0
 ```
-- Binding to `0.0.0.0` allows access from other machines.
-- Default Rails port is `3000`. Open firewall if needed:
+- `rails server -b 0.0.0.0` → Starts the Rails server and binds it to all network interfaces, not just `localhost`.
+- Binding to `0.0.0.0` allows other machines (or your local browser) to access the Rails app running on the VM using its external IP.
 
-```console
-sudo firewall-cmd --add-port=3000/tcp --permanent
-sudo firewall-cmd --reload
-```
 
 ### Access the Application:
 Open a web browser on your local machine (Chrome, Firefox, Edge, etc.) and enter the following URL in the address bar:
