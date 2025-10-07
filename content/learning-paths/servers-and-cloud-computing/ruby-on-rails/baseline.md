@@ -38,6 +38,7 @@ sudo -u postgres createuser --superuser gcpuser
 This role will be used by Rails to connect to the PostgreSQL database.
 
 ### Create a Rails App with PostgreSQL
+Creates a new Rails application configured to use PostgreSQL as its database.
 
 ```console
 rails new db_test_rubyapp -d postgresql
@@ -75,6 +76,7 @@ development:
   <<: *default
 ```
 ### Create and Initialize the Database
+Initializes and creates the development and test databases for your Rails app using PostgreSQL.
 
 ```console
 rails db:create
@@ -116,7 +118,9 @@ You should see output similar to:
 Database schema successfully updated.
 
 ### Verify Table and Database Connectivity
-You can confirm that the `tasks` table was created:
+The previous command `rails generate scaffold task title:string due_date:date` created a `tasks` table in your PostgreSQL database.
+
+Now, verify that the table exists and has the correct structure following the steps below:
 
 ```console
 sudo -u postgres psql
@@ -146,7 +150,6 @@ db_test_rubyapp_development=# \d tasks
 Indexes:
     "tasks_pkey" PRIMARY KEY, btree (id)
 ```
-
 
 ### Run Rails Server
 
