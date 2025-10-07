@@ -10,21 +10,22 @@ layout: learningpathall
 ## Ruby on Rails Benchmarking with built-in Benchmark
 This section benchmarks Ruby on Rails using Ruby’s built-in `Benchmark` library to measure execution time for database inserts, queries, and CPU computations on GCP SUSE VMs, providing insights into performance metrics and bottlenecks.
 
-### Go into your Rails app folder (for example, db_test_app):
+### Go into your Rails app folder
 You need to navigate into the folder of your Rails application. This is where Rails expects your application code, models, and database configurations to be located. All commands related to your app should be run from this folder.
 
 ```console
-cd ~/db_test_app
+cd ~/db_test_rubyapp
 ````
 
-### Create the benchmark file inside the app:
+### Create the benchmark file inside the app
 We create a new Ruby file named `benchmark.rb` where we will write code to measure performance.
 
 ```console
 nano benchmark.rb
 ```
 
-Benchmark code for measuring Rails app performance:
+### Benchmark code for measuring Rails app performance
+Below mentioned code (`benchmark.rb` file) measures database inserts, queries, and CPU computations in your Rails application using Ruby’s Benchmark library.
 
 ```ruby
 require 'benchmark'
@@ -60,14 +61,20 @@ end
 
 This code gives you a basic understanding of how your Rails app performs under different types of workloads.
 
-### Run the benchmark inside Rails:
+### Run the benchmark inside Rails
+Now that your benchmark file is ready, run it **within the Rails environment** using the following command:
 
 ```console
 rails runner benchmark.rb
 ```
-- `rails runner` → Allows you to run Ruby code in the context of your Rails application.  
+- `rails runner` runs any Ruby script in the context of your Rails application.  
 
-It loads your models, database configuration, and environment, so that your benchmark can interact with the database and application objects.
+- It automatically loads your **Rails environment**, including:
+  - All models (like `Task`)
+  - Database connections
+  - Configuration and dependencies  
+
+- This ensures that your benchmark can interact with the **PostgreSQL database** through ActiveRecord, rather than running as a plain Ruby script.
 
 You should see an output similar to:
 
