@@ -38,13 +38,14 @@ source ~/.bashrc
 - Initializes rbenv in your shell session
 
 ### Install ruby-build Plugin
+**ruby-build** is an rbenv plugin that provides the `rbenv install` command to compile and install different Ruby versions from source.
 
 ```console
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 ```
-**ruby-build** is an rbenv plugin that provides the `rbenv install` command to compile and install different Ruby versions from source.
 
 ### Install Ruby 3.4.6
+Installs Ruby version 3.4.6 and sets it as the default version for your environment.
 
 ```console
 rbenv install 3.4.6
