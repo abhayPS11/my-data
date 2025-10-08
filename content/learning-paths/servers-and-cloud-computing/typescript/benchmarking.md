@@ -9,7 +9,7 @@ layout: learningpathall
 
 ## JMH-style Custom Benchmarking
 
-This section demonstrates how to **benchmark TypeScript functions** using a JMH-style approach with Node.js `perf_hooks`. Unlike simple `console.time` timing, this method performs **repeated iterations**, calculates the **average execution time**, and provides more **reliable and stable performance measurements** on your ARM64 SUSE VM.
+This section demonstrates how to **benchmark TypeScript functions** using a JMH-style approach with Node.js `perf_hooks`. Unlike simple `console.time` timing, this method performs **repeated iterations**, calculates the **average execution time**, and provides more **reliable and stable performance measurements** on your Arm64 SUSE VM.
 
 ### Create the Benchmark Script
 Create a file named `benchmark_jmh.ts` in your project folder:
@@ -50,7 +50,7 @@ console.log(`\nAverage execution time over ${iterations} iterations: ${averageTi
 - **`for` loop** → Executes the target function multiple times and records the duration of each run.  
 - **`totalTime / iterations`** → Calculates the **average execution time** across all runs, similar to how **JMH (Java Microbenchmark Harness)** operates in Java.  
 
-This JMH-style benchmarking approach provides **more accurate and repeatable performance metrics** than a single execution, making it ideal for performance testing on ARM-based systems.
+This JMH-style benchmarking approach provides **more accurate and repeatable performance metrics** than a single execution, making it ideal for performance testing on Arm-based systems.
 
 ### Compile the TypeScript Benchmark
 Compile the TypeScript benchmark file into JavaScript:
