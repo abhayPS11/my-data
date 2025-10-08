@@ -69,18 +69,18 @@ node benchmark_jmh.js
 You should see an output similar to:
 
 ```output
-Iteration 1: 2.322 ms
-Iteration 2: 0.744 ms
-Iteration 3: 1.176 ms
-Iteration 4: 0.668 ms
-Iteration 5: 0.677 ms
+Iteration 1: 2.286 ms
+Iteration 2: 0.749 ms
+Iteration 3: 1.145 ms
+Iteration 4: 0.674 ms
+Iteration 5: 0.671 ms
 Iteration 6: 0.671 ms
-Iteration 7: 0.688 ms
+Iteration 7: 0.672 ms
 Iteration 8: 0.667 ms
-Iteration 9: 0.670 ms
-Iteration 10: 0.672 ms
+Iteration 9: 0.667 ms
+Iteration 10: 0.673 ms
 
-Average execution time over 10 iterations: 0.896 ms
+Average execution time over 10 iterations: 0.888 ms
 ```
 
 ### Benchmark Metrics Explained
@@ -97,17 +97,21 @@ Average execution time over 10 iterations: 0.896 ms
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
+| Iteration | 1     | 2     | 3     | 4     | 5     | 6     | 7     | 8     | 9     | 10    | Average |
+|-----------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|---------|
+| Time (ms) | 3.217 | 0.631 | 0.632 | 0.611 | 0.612 | 0.614 | 0.614 | 0.611 | 0.606 | 0.532 | 0.868   |
+
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
 | Iteration | 1     | 2     | 3     | 4     | 5     | 6     | 7     | 8     | 9     | 10    | Average |
 |-----------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|---------|
-| Time (ms) | 2.322 | 0.744 | 1.176 | 0.668 | 0.677 | 0.671 | 0.688 | 0.667 | 0.670 | 0.672 | 0.896   |
+| Time (ms) | 2.286 | 0.749 | 1.145 | 0.674 | 0.671 | 0.671 | 0.672 | 0.667 | 0.667 | 0.673 | 0.888   |
 
 ### TypeScript performance benchmarking comparison on Arm64 and x86_64
 When you compare the benchmarking results, you will notice that on the Google Axion C4A Arm-based instances:
 
-- The average execution time on Arm64 (~0.896 ms) shows that CPU-bound TypeScript operations run efficiently on Arm-based VMs.  
+- The average execution time on Arm64 (~0.888 ms) shows that CPU-bound TypeScript operations run efficiently on Arm-based VMs.  
 - Initial iterations may show slightly higher times due to JIT compilation or initialization overhead, common to both architectures.  
 - Arm64 demonstrates stable iteration times after the first run, indicating consistent performance for repeated workloads.  
 - Compared to typical x86_64 VMs, Arm64 performance is comparable for lightweight TypeScript computations, with potential advantages in power efficiency and cost for cloud deployments.
