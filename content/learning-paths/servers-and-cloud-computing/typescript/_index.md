@@ -9,7 +9,7 @@ learning_objectives:
   - Provision an Arm-based SUSE SLES virtual machine on Google Cloud (C4A with Axion processors)
   - Install TypeScript on a SUSE Arm64 (C4A) instance
   - Validate TypeScript functionality by creating, compiling, and running a simple TypeScript script on the Arm64 VM
-  - Benchmark TypeScript performance using a JMH-style custom benchmark with perf_hooks on Arm64 (Aarch64) architecture.
+  - Benchmark TypeScript performance using a JMH-style custom benchmark with perf_hooks on Arm64 (Aarch64) architecture
 
 prerequisites:
   - A [Google Cloud Platform (GCP)](https://cloud.google.com/free) account with billing enabled
