@@ -85,6 +85,6 @@ Oct 09 11:15:03 lpprojectsusearm64 circleci-runner[10150]: 11:15:03 6f109 46.059
 Oct 09 11:15:03 lpprojectsusearm64 circleci-runner[10150]: 11:15:03 6f109 46.119ms claim app.loop_name=claim:  mode=agent res>
 Oct 09 11:15:03 lpprojectsusearm64 circleci-runner[10150]: 11:15:03 6f109 46.144ms worker loop: claim:  app.backoff_ms=5000 a>
 ```
-
 Also, you can verify it from the dashboard:
 
+![Self-Hosted Runners alt-text#center](images/dashboard.png "Figure 1: Self-Hosted Runners ")
