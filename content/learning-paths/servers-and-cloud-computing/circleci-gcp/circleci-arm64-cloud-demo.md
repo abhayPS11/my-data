@@ -136,7 +136,15 @@ package.json
   }
 }
 ```
+### Push Code to GitHub
 
+Once all files (`Dockerfile`, `index.js`, `package.json`, `.circleci/config.yml`) are ready, push your project to GitHub so CircleCI can build it automatically.
+
+```console
+git add .
+git commit -m "Add ARM64 CircleCI Node.js demo project"
+git push -u origin main
+```
 ### Start CircleCI Runner and Execute Job
 
 ```console
@@ -145,9 +153,15 @@ sudo systemctl start circleci-runner
 sudo systemctl status circleci-runner
 ```
 
-If the runner status shows active (running), go to your CircleCI Dashboard → Projects and trigger a build.
+After pushing your code to GitHub, open your **CircleCI Dashboard → Projects**, and confirm that your **ARM64 workflow** starts running using your **self-hosted runner**.
+
+If the setup is correct, you’ll see your job running under the resource class you created.
 
 ### Output
 If successful, CircleCI will detect the Arm64 architecture, build your Docker image, and return:
 
+![CircleCI Dashboard alt-text#center](images/output1.png "Figure 1: Show architecture")
 
+![CircleCI Dashboard alt-text#center](images/output2.png "Figure 2: Docker Image")
+
+![CircleCI Dashboard alt-text#center](images/output3.png "Figure 3: Verify App")
