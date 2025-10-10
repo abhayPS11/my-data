@@ -13,7 +13,10 @@ A Resource Class defines a unique identifier for your runner and links it to you
 ### Steps
 
 1. **Go to the CircleCI Web Dashboard**
-   - Navigate to **Self-Hosted Runners** in the sidebar.
+   - From the left sidebar, navigate to **Self-Hosted Runners**.  
+   - You’ll see a screen asking you to accept the **terms of use**.  
+   - **Check the box** that says **“Yes, I agree to the terms”** to enable runners.  
+   - Then click **Self-Hosted Runners** to continue setup.
 
 ![Self-Hosted Runners alt-text#center](images/shrunner0.png "Figure 1: Self-Hosted Runners ")
 
@@ -24,7 +27,7 @@ A Resource Class defines a unique identifier for your runner and links it to you
 
 3. **Fill in the Details**
    - **Namespace:** Your CircleCI username or organization (e.g., `circleci`)  
-   - **Resource Class Name:** A descriptive name for your runner, such as `arm64-medium`
+   - **Resource Class Name:** A descriptive name for your runner, such as `arm64`
 
 ![Self-Hosted Runners alt-text#center](images/shrunner2.png "Figure 3: Details Resource Class & Namespace")
 
@@ -34,3 +37,4 @@ A Resource Class defines a unique identifier for your runner and links it to you
 
 ![Self-Hosted Runners alt-text#center](images/shrunner3.png "Figure 4: Resource Class Token")
    
+Now that your resource class and token are generated, proceed to the next section to set up the CircleCI self-hosted runner.
