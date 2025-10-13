@@ -203,8 +203,12 @@ Once the job starts running, CircleCI will:
 
 ![CircleCI Dashboard alt-text#center](images/output2.png "Figure 2: Docker Image")
 
+- Runs a container from that image.
+
+![CircleCI Dashboard alt-text#center](images/output4.png "Figure 3: Container Run")
+
 - Test the application by hitting the endpoint.
 
-![CircleCI Dashboard alt-text#center](images/output3.png "Figure 3: Verify App")
+![CircleCI Dashboard alt-text#center](images/output3.png "Figure 4: Verify App")
 
 If successful, you will see your CircleCI job running and the app deployed in the CircleCI Dashboard.
