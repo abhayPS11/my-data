@@ -64,5 +64,5 @@ cd $FLINK_HOME
 - Monitor the job in the Web UI or check console logs.
 - Confirm that the job completes successfully.
 
-![Flink Dashboard alt-text#center](images/word-count.png "Figure 2: Word Count Job")
+![Flink Dashboard alt-text#center](images/wordcount.png "Figure 2: Word Count Job")
 
