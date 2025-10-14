@@ -10,6 +10,31 @@ layout: learningpathall
 
 This guide outlines the baseline testing steps for Apache Flink after installation on a SUSE Arm64 VM.
 
+Before proceeding, make sure you have Java and Maven installed and working:  
+
+### Download and Extract Maven
+
+```console
+cd /opt
+sudo wget https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+sudo tar -xvzf apache-maven-3.8.6-bin.tar.gz
+sudo mv apache-maven-3.8.6 /opt/maven
+```
+
+### Set Environment Variables
+
+```console
+echo "export M2_HOME=/opt/maven" >> ~/.bashrc
+echo "export PATH=\$M2_HOME/bin:\$PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+Verify Installation:
+
+```console
+mvn -version
+```
+Now you have installed both Java and Maven on your VM, so proceed with the basic functionality with Flink.
+
 ### Start the Flink Cluster
 Start the Flink cluster using the following command:
 
