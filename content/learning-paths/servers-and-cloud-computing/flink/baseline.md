@@ -10,9 +10,8 @@ layout: learningpathall
 
 This guide outlines the baseline testing steps for Apache Flink after installation on a SUSE Arm64 VM.
 
-Before proceeding, make sure you have Java and Maven installed and working:  
-
 ### Download and Extract Maven
+Before proceeding, make sure you have Java and Maven installed and working:  
 
 ```console
 cd /opt
