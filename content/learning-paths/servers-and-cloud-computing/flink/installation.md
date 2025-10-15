@@ -34,6 +34,8 @@ sudo tar -xzf flink-2.0.0-bin-scala_2.12.tgz
 
 ```console
 sudo mv flink-2.0.0 flink
+sudo chown -R $(whoami):$(id -gn) /opt/flink/log
+sudo chmod -R 755 /opt/flink/log
 ```
 
 ### Configure Environment Variables
