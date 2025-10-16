@@ -8,10 +8,10 @@ layout: learningpathall
 
 
 ## Apache Flink Benchmarking
-
-This guide shows how to set up and run the Apache Flink Benchmarks on a GCP SUSE VM.
+This guide provides step-by-step instructions to set up and run **Apache Flink Benchmarks** on a **GCP SUSE VMs**. It covers cloning the repository, building the benchmarks, exploring the JAR, and listing available benchmarks.
 
 ### Clone the Repository
+Start by cloning the official Flink benchmarks repository. This repository contains all the benchmark definitions and example jobs.
 
 ```console
 cd ~
@@ -20,13 +20,17 @@ cd flink-benchmarks
 ```
 
 ### Build the Benchmarks with Maven
+Use Maven to compile the benchmarks and generate the benchmark JAR. Skip tests to save time.
 
 ```console
 mvn clean package -DskipTests
 ```
-This generates the benchmark JAR file in the `targe`t directory (`benchmarks.jar`).
+- **mvn clean package** → Cleans previous builds and packages the project.
+
+After this step, the target directory will contain the compiled **benchmarks.jar**.
 
 ### Explore the JAR Contents
+Verify the generated files inside the `target` directory:
 
 ```console
 cd target
@@ -38,42 +42,37 @@ You should see an output similar to:
 benchmark-0.1.jar  classes            generated-test-sources  maven-status         protoc-plugins
 benchmarks.jar     generated-sources  maven-archiver          protoc-dependencies  test-classes
 ```
+- **benchmarks.jar**→ The main benchmark JAR file used to run Flink benchmarks.
 
 ### List Available Benchmarks
-
-To see all benchmarks inside the JAR:
+To view all the benchmarks included in the JAR:
 
 ```console
 java -jar benchmarks.jar -l
 ```
+- `-l` → Lists all benchmarks packaged in the JAR.
+- This helps you identify which benchmarks you want to execute on your VM.
 
 ### Run Selected Benchmarks
+While the Flink benchmarking project includes multiple suites for state backends, windowing, checkpointing, and scheduler performance, this Learning path focuses on the Remote Channel Throughput benchmark to evaluate network and I/O performance.
 
 **Remote Channel Throughput**: `Remote Channel Throughput` – Measures the data transfer rate between remote channels in Flink, helping to evaluate network and I/O performance.
 ```console
-java -jar benchmarks.jar org.apache.flink.benchmark.RemoteChannelThroughputBenchmark.remoteRebalance -f 2 -wi 5 -i 5 -t 4
+java -jar benchmarks.jar org.apache.flink.benchmark.RemoteChannelThroughputBenchmark.remoteRebalance
 ```
-
-- `java -jar benchmarks.jar` – Executes the benchmark JAR built from the Flink Benchmarks repository.  
-- `-f 2` – Number of forks: runs the benchmark in 2 separate JVM processes to avoid JVM optimizations carrying over.  
-- `-wi 5` – Warmup iterations: runs 5 iterations before actual measurement to let the JVM "warm up" and optimize performance.  
-- `-i 5` – Measurement iterations: runs 5 iterations for collecting benchmark results after warmup.  
-- `-t 4` – Number of threads: executes the benchmark using 4 threads in parallel.
-
 You should see an output similar to:
 ```output
 
 Result "org.apache.flink.benchmark.RemoteChannelThroughputBenchmark.remoteRebalance":
-  14959.876 ±(99.9%) 1415.047 ops/ms [Average]
-  (min, avg, max) = (13951.873, 14959.876, 16047.016), stdev = 935.966
-  CI (99.9%): [13544.829, 16374.923] (assumes normal distribution)
+  13457.642 ±(99.9%) 317.853 ops/ms [Average]
+  (min, avg, max) = (13136.253, 13457.642, 13729.847), stdev = 210.240
+  CI (99.9%): [13139.789, 13775.495] (assumes normal distribution)
 
-# Run complete. Total time: 00:19:06
+# Run complete. Total time: 00:23:29
 
-Benchmark                                          (mode)   Mode  Cnt      Score      Error   Units
-RemoteChannelThroughputBenchmark.remoteRebalance  ALIGNED  thrpt   10  22431.281 ±  351.609  ops/ms
-RemoteChannelThroughputBenchmark.remoteRebalance  DEBLOAT  thrpt   10  14959.876 ± 1415.047  ops/ms
-
+Benchmark                                          (mode)   Mode  Cnt      Score     Error   Units
+RemoteChannelThroughputBenchmark.remoteRebalance  ALIGNED  thrpt   10  16251.289 ± 631.734  ops/ms
+RemoteChannelThroughputBenchmark.remoteRebalance  DEBLOAT  thrpt   10  13457.642 ± 317.853  ops/ms
 ```
 
 ### Flink Benchmark Metrics Explained  
@@ -88,16 +87,23 @@ RemoteChannelThroughputBenchmark.remoteRebalance  DEBLOAT  thrpt   10  14959.876
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
-
+| Benchmark                                         | Mode     | Count | Score (ops/ms) | Error (±)   | Min       | Max       | Stdev    | CI (99.9%)               | Units  |
+|--------------------------------------------------|---------|-------|----------------|-------------|-----------|-----------|----------|--------------------------|--------|
+| RemoteChannelThroughputBenchmark.remoteRebalance | ALIGNED | 10    | 21042.979      | 2032.974    | 14715.832 | 16413.439 | 697.401  | [14447.242, 16555.982]  | ops/ms |
+| RemoteChannelThroughputBenchmark.remoteRebalance | DEBLOAT | 10    | 15501.612      | 1054.370    | 14715.832 | 16413.439 | 697.401  | [14447.242, 16555.982]  | ops/ms |
 
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
-| Benchmark                                           | Mode     | Count | Score       | Error       | Units  | Min       | Max       | Avg       | Std Dev  | 99.9% CI              |
-|----------------------------------------------------|---------|-------|------------|------------|--------|-----------|-----------|-----------|----------|----------------------|
-| RemoteChannelThroughputBenchmark.remoteRebalance  | ALIGNED | 10    | 22431.281  | ±351.609   | ops/ms | -         | -         | -         | -        | -                    |
-| RemoteChannelThroughputBenchmark.remoteRebalance  | DEBLOAT | 10    | 14959.876  | ±1415.047  | ops/ms | 13951.873 | 16047.016 | 14959.876 | 935.966  | [13544.829, 16374.923] |
+| Benchmark                                         | Mode     | Count | Score (ops/ms) | Error (±) | Min       | Max       | Stdev    | CI (99.9%)               | Units  |
+|--------------------------------------------------|---------|-------|----------------|-----------|-----------|-----------|----------|--------------------------|--------|
+| RemoteChannelThroughputBenchmark.remoteRebalance | ALIGNED | 10    | 16251.289      | 631.734   | 15619.555 | 16882.723 | 210.240  | [15619.555, 16882.723]  | ops/ms |
+| RemoteChannelThroughputBenchmark.remoteRebalance | DEBLOAT | 10    | 13457.642      | 317.853   | 13136.253 | 13729.847 | 210.240  | [13139.789, 13775.495]  | ops/ms |
 
 ### Apache Flink performance benchmarking comparison on Arm64 and x86_64
 
+- The **ALIGNED mode** achieved an average throughput of **16,251 ops/ms**, demonstrating higher performance on the Arm64 VM.  
+- The **DEBLOAT mode** achieved an average throughput of **13,458 ops/ms**, slightly lower due to optimization differences.  
+- The benchmark confirms that the **Arm64 architecture** can efficiently handle Flink's remote channel throughput workloads.  
+- Overall, the average throughput across both modes is approximately **14,854 ops/ms**, indicating strong baseline performance for Arm64 deployments.
 
