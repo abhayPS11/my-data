@@ -36,6 +36,8 @@ mvn -version
 At this point, both Java and Maven are installed and ready to use.
 
 ### Start the Flink Cluster
+Before proceeding to start the Flink cluster, you need to allow port 8081 from your GCP console.
+
 Start the Flink cluster using the provided startup script:
 
 ```console
@@ -90,4 +92,4 @@ cd $FLINK_HOME
 
 ![Flink Dashboard alt-text#center](images/wordcount.png "Figure 2: Word Count Job")
 
-Flink baseline testing has been successfully completed. You can now proceed to Flink benchmarking.
+Flink baseline testing has been completed. You can now proceed to Flink benchmarking.
