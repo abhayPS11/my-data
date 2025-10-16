@@ -28,6 +28,7 @@ armips:
 tools_software_languages:
   - Flink
   - Java
+  - Maven
 
 operatingsystems:
   - Linux
