@@ -87,23 +87,22 @@ RemoteChannelThroughputBenchmark.remoteRebalance  DEBLOAT  thrpt   10  13457.642
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
-| Benchmark                                         | Mode     | Count | Score (ops/ms) | Error (±)   | Min       | Max       | Stdev    | CI (99.9%)               | Units  |
-|--------------------------------------------------|---------|-------|----------------|-------------|-----------|-----------|----------|--------------------------|--------|
-| RemoteChannelThroughputBenchmark.remoteRebalance | ALIGNED | 10    | 21042.979      | 2032.974    | 14715.832 | 16413.439 | 697.401  | [14447.242, 16555.982]  | ops/ms |
-| RemoteChannelThroughputBenchmark.remoteRebalance | DEBLOAT | 10    | 15501.612      | 1054.370    | 14715.832 | 16413.439 | 697.401  | [14447.242, 16555.982]  | ops/ms |
+| Benchmark                                          | Mode     | Count | Score (ops/ms) | Error (±) | Min        | Max        | Stdev    | CI (99.9%)             | Units  |
+|---------------------------------------------------|---------|-------|----------------|-----------|------------|------------|---------|------------------------|--------|
+| RemoteChannelThroughputBenchmark.remoteRebalance | ALIGNED | 30    | 24873.046      | 892.673   | 11195.028  | 12425.761  | 421.057 | [11448.649, 12011.275] | ops/ms |
+| RemoteChannelThroughputBenchmark.remoteRebalance | DEBLOAT | 30    | 11729.962      | 281.313   | 11195.028  | 12425.761  | 421.057 | [11448.649, 12011.275] | ops/ms |
 
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
-| Benchmark                                         | Mode     | Count | Score (ops/ms) | Error (±) | Min       | Max       | Stdev    | CI (99.9%)               | Units  |
-|--------------------------------------------------|---------|-------|----------------|-----------|-----------|-----------|----------|--------------------------|--------|
-| RemoteChannelThroughputBenchmark.remoteRebalance | ALIGNED | 10    | 16251.289      | 631.734   | 15619.555 | 16882.723 | 210.240  | [15619.555, 16882.723]  | ops/ms |
-| RemoteChannelThroughputBenchmark.remoteRebalance | DEBLOAT | 10    | 13457.642      | 317.853   | 13136.253 | 13729.847 | 210.240  | [13139.789, 13775.495]  | ops/ms |
+| Benchmark                                          | Mode     | Count | Score (ops/ms) | Error (±) | Min       | Max       | Stdev   | CI (99.9%)             | Units  |
+|---------------------------------------------------|---------|-------|----------------|-----------|-----------|-----------|---------|------------------------|--------|
+| RemoteChannelThroughputBenchmark.remoteRebalance | ALIGNED | 30    | 17445.341      | 153.256   | 10289.593 | 10687.736 | 89.987  | [10476.390, 10596.633] | ops/ms |
+| RemoteChannelThroughputBenchmark.remoteRebalance | DEBLOAT | 30    | 10536.511      | 60.121    | 10289.593 | 10687.736 | 89.987  | [10476.390, 10596.633] | ops/ms |
 
 ### Apache Flink performance benchmarking comparison on Arm64 and x86_64
 
-- The **ALIGNED mode** achieved an average throughput of **16,251 ops/ms**, demonstrating higher performance on the Arm64 VM.  
-- The **DEBLOAT mode** achieved an average throughput of **13,458 ops/ms**, slightly lower due to optimization differences.  
-- The benchmark confirms that the **Arm64 architecture** can efficiently handle Flink's remote channel throughput workloads.  
+- The **ALIGNED mode** achieved an average throughput of **17,445 ops/ms**, demonstrating higher performance on the Arm64 VM.  
+- The **DEBLOAT mode** achieved an average throughput of **10,537 ops/ms**, slightly lower due to optimization differences.  
+- The benchmark confirms that the **Arm64 architecture** efficiently handles Flink's remote channel throughput workloads.  
 - Overall, the average throughput across both modes is approximately **14,854 ops/ms**, indicating strong baseline performance for Arm64 deployments.
-
