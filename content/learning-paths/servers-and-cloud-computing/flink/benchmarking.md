@@ -64,15 +64,14 @@ You should see an output similar to:
 ```output
 
 Result "org.apache.flink.benchmark.RemoteChannelThroughputBenchmark.remoteRebalance":
-  13457.642 ±(99.9%) 317.853 ops/ms [Average]
-  (min, avg, max) = (13136.253, 13457.642, 13729.847), stdev = 210.240
-  CI (99.9%): [13139.789, 13775.495] (assumes normal distribution)
+  10536.511 ±(99.9%) 60.121 ops/ms [Average]
+  (min, avg, max) = (10289.593, 10536.511, 10687.736), stdev = 89.987
+  CI (99.9%): [10476.390, 10596.633] (assumes normal distribution)
 
-# Run complete. Total time: 00:23:29
-
+# Run complete. Total time: 00:25:14
 Benchmark                                          (mode)   Mode  Cnt      Score     Error   Units
-RemoteChannelThroughputBenchmark.remoteRebalance  ALIGNED  thrpt   10  16251.289 ± 631.734  ops/ms
-RemoteChannelThroughputBenchmark.remoteRebalance  DEBLOAT  thrpt   10  13457.642 ± 317.853  ops/ms
+RemoteChannelThroughputBenchmark.remoteRebalance  ALIGNED  thrpt   30  17445.341 ± 153.256  ops/ms
+RemoteChannelThroughputBenchmark.remoteRebalance  DEBLOAT  thrpt   30  10536.511 ±  60.121  ops/ms
 ```
 
 ### Flink Benchmark Metrics Explained  
