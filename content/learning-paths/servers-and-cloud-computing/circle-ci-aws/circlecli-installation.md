@@ -7,11 +7,11 @@ layout: learningpathall
 ---
 
 ## Install CircleCI CLI on AWS Graviton2 (Neoverse N1) Instance
-This guide explains how to install the **CircleCI Command Line Interface (CLI)** on an **AWS Graviton2 (Neoverse N1) ARM64 EC2 instance**.  
+This guide explains installing the **CircleCI Command Line Interface (CLI)** on an **AWS Graviton2 (Neoverse N1) Arm64 EC2 instance**.  
 The CLI enables you to interact with CircleCI directly from your terminal — for validating configuration files, managing pipelines, and operating self-hosted runners on your EC2 instance.
 
 ### Install Required Packages
-Before installing the CircleCI CLI, make sure your system has the necessary tools for downloading and extracting files.
+Before installing the CircleCI CLI, ensure your system has the necessary tools for downloading and extracting files.
 
 ```console
 sudo apt update && sudo apt install -y curl tar gzip coreutils gpg git
