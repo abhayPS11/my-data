@@ -8,25 +8,29 @@ layout: learningpathall
 
 ## Install CircleCI Machine Runner on AWS Graviton2
 
-This guide explains how to install and configure the **CircleCI Machine Runner** on an **AWS Graviton2 (Neoverse N1) instance**.  
-Using this setup, your self-hosted ARM64 environment can execute CircleCI jobs efficiently.
+This guide provides step-by-step instructions to install and configure the **CircleCI Machine Runner** on an **AWS Graviton2 (Neoverse N1) instance**.  
+With this setup, your self-hosted **Arm64 environment** can efficiently execute CircleCI jobs directly on the Graviton2 architecture, enabling faster builds and improved performance for ARM-based workloads.
+
 
 ### Add CircleCI Package Repository
-
-For Debian/Ubuntu-based systems on AWS Graviton2, add the official CircleCI repository:
+For **Debian/Ubuntu-based systems** running on **AWS Graviton2 (Arm64)**, first add the official CircleCI repository.  
+This ensures you can install the CircleCI Runner package directly using `apt`.
 
 ```console
 curl -s https://packagecloud.io/install/repositories/circleci/runner/script.deb.sh?any=true | sudo bash
 ```
 
+- The `curl` command downloads and executes the repository setup script from CircleCI’s official package server.  
+- It configures the repository on your system, allowing `apt` to fetch and install the CircleCI runner package.  
+- After successful execution, the CircleCI repository will be added under `/etc/apt/sources.list.d/`.
 
 ### Configure the Runner Token
-
-Replace the authentication token in the runner configuration file.
-Use the token obtained from your Resource Class in the CircleCI Dashboard.
+- Each self-hosted runner requires a unique authentication token generated from your Resource Class in the CircleCI Dashboard.  
+- Copy the token from the CircleCI web interface.  
+- Export the token as an environment variable and update the runner configuration file as shown:
 
 ```console
-export RUNNER_AUTH_TOKEN="AUTH_TOKEN "
+export RUNNER_AUTH_TOKEN="YOUR_AUTH_TOKEN"
 sudo sed -i "s/<< AUTH_TOKEN >>/$RUNNER_AUTH_TOKEN/g" /etc/circleci-runner/circleci-runner-config.yaml
 ```
 
@@ -36,6 +40,9 @@ Install the pre-built CircleCI runner package:
 ```console
 sudo apt-get install -y circleci-runner
 ```
+ 
+- Installs the latest CircleCI Machine Runner compatible with your Arm64 instance.  
+- Runner binary and configuration files are located in `/usr/bin/` and `/etc/circleci-runner/`.
 
 ### Configure the Runner Authentication Token
 Update the CircleCI runner configuration with your authentication token. This token is generated from the Resource Class you created in the CircleCI Dashboard.
@@ -78,6 +85,9 @@ Oct 17 06:19:13 ip-172-31-34-224 circleci-runner[2226]: 06:19:13 c34c1 22.392ms 
 Oct 17 06:19:13 ip-172-31-34-224 circleci-runner[2226]: 06:19:13 c34c1 22.479ms claim app.loop_name=claim:  mode=agent result>
 Oct 17 06:19:13 ip-172-31-34-224 circleci-runner[2226]: 06:19:13 c34c1 22.514ms worker loop: claim:  app.backoff_ms=5000 app.>
 ```
+
+This confirms that the CircleCI Runner is actively connected to your CircleCI account and ready to accept jobs.
+
 Also, you can verify it from the dashboard:
 
 ![Self-Hosted Runners alt-text#center](images/runner.png "Figure 1: Self-Hosted Runners ")
