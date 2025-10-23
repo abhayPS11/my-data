@@ -8,20 +8,19 @@ layout: learningpathall
 
 ## Verify CircleCI Arm64 Self-Hosted Runner
 
-This guide demonstrates how to validate your **self-hosted CircleCI runner** on an **Arm64 machine** by running a simple workflow and a sample computation.
-
+This guide demonstrates validating your **self-hosted CircleCI runner** on an **Arm64 machine** by executing a simple workflow and a test computation. This ensures your runner is correctly configured and ready to process jobs.
 
 ### Create a Test Repository
-
-Clone a new GitHub repository for Arm64 runner verification:
+Start by creating a GitHub repository dedicated to verifying your Arm64 runner:
 
 ```console
 git clone https://github.com/<your_repo_name/aws-circleci/
+cd aws-circleci
 ```
+This repository serves as a sandbox to confirm that your CircleCI runner can pick up and run jobs for Arm64 workflows.
 
 ### Add a Sample Script
-
-Create a simple shell script to test the runner:
+Create a minimal shell script that will be used to confirm the runner executes commands correctly:
 
 ```console
 echo 'echo "Hello from CircleCI Arm64 Runner!"' > hello.sh
@@ -29,7 +28,7 @@ chmod +x hello.sh
 ```
 
 ### Define the CircleCI Configuration
-Create a `.circleci/config.yml` file with the following content:
+Create a `.circleci/config.yml` file to define the workflow that will run on your Arm64 runner:
 
 ```yaml
 version: 2.1
@@ -60,9 +59,13 @@ workflows:
     jobs:
       - test-Arm64
 ```
+- Defines a single job `test-Arm64` using a machine executor on a self-hosted Arm64 runner.  
+- Checks CPU architecture with `uname -m` and `lscpu` to verify the runner.  
+- Executes a simple script `hello.sh` to confirm the runner can run commands.  
+- Runs a sample computation step to display CPU info and print.
 
 ### Commit and Push to GitHub
-Push your local repository to GitHub:
+Once all files you created (`hello.sh`, `.circleci/config.yml`) are ready, push your project to GitHub so CircleCI can build and verify the Arm64 runner automatically.
 
 ```console
 git add .
@@ -101,6 +104,6 @@ Once the job starts running, CircleCI will:
   
 - Run sample computation:
 
-  ![Self-Hosted Runners alt-text#center](images/.png "Figure 1: Self-Hosted Runners ")
+  ![Self-Hosted Runners alt-text#center](images/computation.png "Figure 1: Self-Hosted Runners ")
 
-If everything is set up correctly, your CircleCI job will execute, and the application will be deployed, visible in the CircleCI Dashboard.
+All CircleCI jobs have run successfully, the sample computation completed, and all outputs are visible in the CircleCI Dashboard.
