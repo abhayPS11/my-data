@@ -96,6 +96,11 @@ If the setup is correct, you’ll see your job running under the resource class 
 Once the job starts running, CircleCI will:
 
 - Verify Arm64 Runner:
+
+  ![Self-Hosted Runners alt-text#center](images/runnerv1.png "Figure 1: Self-Hosted Runners ")
+  
 - Run sample computation:
+
+  ![Self-Hosted Runners alt-text#center](images/.png "Figure 1: Self-Hosted Runners ")
 
 If everything is set up correctly, your CircleCI job will execute, and the application will be deployed, visible in the CircleCI Dashboard.
