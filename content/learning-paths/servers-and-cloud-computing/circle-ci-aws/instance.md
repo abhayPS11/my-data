@@ -8,7 +8,7 @@ layout: learningpathall
 
 ## Overview
 
-In this section, you will learn how to provision a Google Axion C4A Arm virtual machine on Google Cloud Platform (GCP) using the `c4a-standard-4` (4 vCPUs, 16 GB memory) machine type in the Google Cloud Console.  
+In this section, you will learn how to provision an **AWS Graviton2 Arm64 EC2 instance** on **Amazon Web Services (AWS)** using the **m6g.large** instance type (2 vCPUs, 8 GB memory) in the **AWS Management Console**. 
 
 {{% notice Note %}}
 For support on AWS setup, see the Learning Path [Getting started with AWS](https://learn.arm.com/learning-paths/servers-and-cloud-computing/csp/aws/).
@@ -23,15 +23,16 @@ To create a virtual machine based on the AWS Graviton2 Instance type:
    - Enter an appropriate **Instance name**.  
    - Choose an **Amazon Machine Image (AMI)** such as **Ubuntu 24.04 ARM64**.
 
-        ![Create a Google Axion C4A Arm virtual machine in the Google Cloud Console with c4a-standard-4 selected alt-text#center](images/gcp-vm.png "Creating a Google Axion C4A Arm virtual machine in Google Cloud Console")
+     ![AWS Management Console alt-text#center](images/aws1.png "Figure 1: Amazon Machine Image (AMI)")
+     
+   - Under **Instance type**, select a Graviton2-based type `m6g.large`.
 
-   - Under **Instance type**, select a Graviton2-based type `m6g.large`.  
-   - Configure **Key pair**, **Network settings**, and **Storage** as required.  
-   - Click **Launch Instance** to create the virtual machine.  
+     ![AWS Management Console alt-text#center](images/aws2.png "Figure 2: Instance type")
 
+   - Configure your **Key pair (login)** by either creating a new key pair or selecting an existing one to securely access your instance. 
+   - In **Network settings**, ensure that **Allow HTTP traffic from the internet** and **Allow HTTPS traffic from the internet** are checked.
 
-   ![Create a Google Axion C4A Arm virtual machine in the Google Cloud Console with c4a-standard-4 selected alt-text#center](images/gcp-vm.png "Creating a Google Axion C4A Arm virtual machine in Google Cloud Console")
-
-- Under **OS and Storage**, select **Change**, then choose an Arm64-based OS image. For this Learning Path, use **SUSE Linux Enterprise Server**. Pick the preferred version for your Operating System. Ensure you select the **Arm image** variant. Click **Select**.
-- Under **Networking**, enable **Allow HTTP traffic**.
-- Click **Create** to launch the instance.
+     ![AWS Management Console alt-text#center](images/aws3.png "Figure 3: Network settings")
+  
+   - Adjust **Storage** settings as needed — for most setups, 30 GB of gp3 (SSD) storage is sufficient.  
+   - Click **Launch Instance** to create your EC2 virtual machine.  
