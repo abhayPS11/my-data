@@ -7,8 +7,8 @@ layout: learningpathall
 ---
 
 ## Create a Resource Class for Self-Hosted Runner in CircleCI
-This guide describes how to set up a **Resource Class** in the **CircleCI Web Dashboard** for a **self-hosted runner**.  
-A Resource Class serves as a unique identifier for your runner and connects it to your CircleCI namespace, enabling jobs to utilize your custom machine environment.
+This guide describes creating a **Resource Class** in the **CircleCI Web Dashboard** for a **self-hosted runner**.  
+A Resource Class uniquely identifies the runner and links it to your CircleCI namespace, enabling jobs to run on your custom machine environment.
 
 ### Steps
 
@@ -37,4 +37,4 @@ A Resource Class serves as a unique identifier for your runner and connects it t
 
 ![Self-Hosted Runners alt-text#center](images/shrunner3.png "Figure 4: Resource Class Token")
    
-Now that your resource class and token are generated, you can go ahead and go to the next section to set up the CircleCI self-hosted runner.
+With your Resource Class and token ready, proceed to the next section to set up the CircleCI self-hosted runner.
