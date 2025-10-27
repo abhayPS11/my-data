@@ -43,42 +43,94 @@ redis-cli DBSIZE
 ```
 
 ```output
-(integer) 10001
+(integer) 10000
+```
+
+You can verify by fetching a sample record:
+
+```console
+redis-cli GET key:5000
+```
+
+You should see an output similar to:
+
+```output
+"value-5000"
 ```
 
 ### Perform Basic Data Search Tests
 Retrieve a single key:
 
 ```console
-redis-cli GET key:5000
+redis-cli GET key:1234
 ```
 
-Expected output:
+You should see an output similar to:
 
 ```output
-"value-5000"
+"value-1234"
 ```
+
 
 ### Search for Multiple Keys Using Pattern Matching
 Use the `KEYS` command to search for keys matching a pattern:
 
 ```console
-redis-cli KEYS "key:50*"
+redis-cli KEYS "key:1*"
 ```
-### Search for Multiple Keys Using Pattern Matching
+You should see an output similar to:
 
-Use the `KEYS` command to search for keys matching a pattern:
+```output
+   1) "key:1392"
+   2) "key:1076"
+   3) "key:1683"
+   4) "key:1490"
+   5) "key:117"
+   6) "key:1293"
+   7) "key:1791"
+   8) "key:1891"
+   9) "key:1543"
+..........
+```
 
-```bash
-redis-cli KEYS "key:50*"
+### Production-Safe Searching with SCAN
+Use the `SCAN` command for larger datasets — it’s non-blocking and iterates safely.
 
-Step 3: Use SCAN for Efficient Searching
+```console
+redis-cli SCAN 0 MATCH "key:1*" COUNT 100
+```
 
-The SCAN command is a safer and faster way to iterate over large datasets.
+You should see an output similar to:
 
-Example:
+```output
+1) "9792"
+2) 1) "key:151"
+   2) "key:1845"
+   3) "key:1397"
+   4) "key:1501"
+   5) "key:1994"
+   6) "key:1475"
+   7) "key:1522"
+   8) "key:1884"
+```
 
-redis-cli SCAN 0 MATCH "key:99*"
+Continue scanning until the cursor returns 0 (means iteration complete).
+
+### Measure Data Retrieval Performance
+**Time Single Key Lookup**: 
+
+```console
+(time redis-cli GET key:9000) 2>&1
+```
+You should see an output similar to:
+
+```output
+"value-9000"
+
+real    0m0.002s
+user    0m0.002s
+sys     0m0.000s
+```
 
 
 Output example:
