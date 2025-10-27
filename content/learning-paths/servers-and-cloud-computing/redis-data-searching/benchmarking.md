@@ -78,7 +78,7 @@ Summary:
         0.170     0.056     0.167     0.183     0.191     1.095
 ```
 
-### nBenchmark GET (Read/Search Performance)
+### Benchmark GET (Read/Search Performance)
 Now test data retrieval performance separately.
 
 ```console
