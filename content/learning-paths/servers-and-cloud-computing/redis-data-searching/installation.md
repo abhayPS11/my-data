@@ -7,21 +7,28 @@ layout: learningpathall
 ---
 
 ## Install Redis on GCP VM
+This section provides a complete guide to installing Redis on a **GCP SUSE virtual machine**. Redis will be built from source to ensure compatibility with the Arm architecture and to enable TLS support for secure connections.
 
 ### Prerequisites
-Before building Redis, ensure your system is up-to-date and the required tools are installed.
+Before building Redis, update your package repositories and install essential build tools and libraries.
 
 ```console
 sudo zypper refresh
 sudo zypper install -y gcc gcc-c++ make tcl openssl-devel wget
 ```
 ### Download and Extract Redis Source Code
+This step downloads the Redis 8.2.2 source archive directly from the official GitHub repository, extracts the contents, and navigates into the extracted directory for compilation.
 
 ```console
 wget https://github.com/redis/redis/archive/refs/tags/8.2.2.tar.gz
 tar -xvf 8.2.2.tar.gz
 cd redis-8.2.2
 ```
+{{% notice Note %}}
+Benchmarking is done on Redis 6.0.9. You can view [this Blog](https://community.arm.com/arm-community-blogs/b/infrastructure-solutions-blog/posts/improve-redis-performance-by-deploying-on-alibaba-cloud-yitian-710-instances)
+
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Redis version 6.0.9, the minimum recommended on the Arm platforms.
+{{% /notice %}}
 
 ### Build Redis with TLS Support
 Clean any previous build artifacts (if any):
@@ -29,8 +36,11 @@ Clean any previous build artifacts (if any):
 ```console
 make distclean
 ```
+This removes any residual files from a previous build, ensuring a clean build environment.
 
-Now build Redis dependencies and compile Redis:
+**Now build Redis dependencies and compile Redis:**
+
+Redis relies on several third-party libraries (such as hiredis, jemalloc, and lua) to optimize performance and functionality. After building dependencies, the Redis source is compiled with BUILD_TLS=yes, enabling support for encrypted TLS connections.
 
 ```console
 cd deps
@@ -53,8 +63,10 @@ You should see a file similar to:
 ```output
 -rwxr-xr-x 1 root root 17869216 Oct 23 11:48 redis-server
 ```
+This confirms that Redis compiled successfully and that the `redis-server` binary is present in the `/src` directory. The file’s permissions indicate it is executable.
 
 ### Install Redis System-Wide
+This command installs Redis binaries (`redis-server` and `redis-cli`) into system-wide directories (typically `/usr/local/bin`), allowing you to run Redis commands from any location.
 To make redis-server and redis-cli accessible globally:
 
 ```console
@@ -68,13 +80,13 @@ which redis-server
 which redis-cli
 ```
 
-
 Expected:
 
 ```output
 /usr/local/bin/redis-server
 /usr/local/bin/redis-cli
 ```
+This confirms that Redis binaries are available in your system path, verifying a successful installation.
 
 ### Verify Installation
 Check Redis versions:
@@ -90,3 +102,4 @@ Redis server v=8.2.2 sha=00000000:1 malloc=jemalloc-5.3.0 bits=64 build=72ba144d
 gcpuser@lpprojectsusearm64:~> redis-cli --version
 redis-cli 8.2.2
 ```
+This confirms that Redis has been installed and is ready for use.
