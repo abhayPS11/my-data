@@ -18,7 +18,7 @@ redis-server &
 redis-cli ping
 ```
 ### Benchmark SET (Write Performance)
-The SET benchmark helps validate Redis’s ability to handle high insertion rates efficiently on Arm-based servers.
+The `SET` benchmark helps validate Redis’s ability to handle high insertion rates efficiently on Arm-based servers.
 
 The following command benchmarks data insertion performance:
 
@@ -79,7 +79,6 @@ Summary:
 ```
 
 ### nBenchmark GET (Read/Search Performance)
-
 Now test data retrieval performance separately.
 
 ```console
@@ -156,3 +155,5 @@ Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm6
 |------------|----------------|--------------------|----------------------|---------------------|--------------|
 | SET        | 100,000        | 50                 | 0.65                 | 76,900              | Measures Redis write performance using SET commands |
 | GET        | 100,000        | 50                 | 0.45                 | 110,200             | Measures Redis read performance using GET commands  |
+
+
