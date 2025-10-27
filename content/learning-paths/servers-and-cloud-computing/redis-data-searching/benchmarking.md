@@ -163,4 +163,9 @@ Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm6
 | GET        | 100,000        | 50                 | 0.169            | 0.048     | 0.167     | 0.183     | 0.191     | 0.807     | 150,375.94            | Measures Redis read performance using GET command |
 
 
+ ### Redis benchmarking comparison on Arm64 and x86_64
 
+ - **High Efficiency:** Redis achieved over **150K ops/sec** on both read and write workloads, showcasing strong throughput on **Arm64 (C4A)** architecture.
+- **Low Latency:** Average latency remained around **0.17 ms**, demonstrating consistent response times under concurrency.
+- **Balanced Performance:** Both **SET** and **GET** operations showed nearly identical performance, indicating excellent CPU and memory optimization on **Arm64**.
+- **Energy-Efficient Compute:** The **Arm-based C4A VM** delivers competitive performance-per-watt efficiency, ideal for scalable, sustainable Redis deployments.
