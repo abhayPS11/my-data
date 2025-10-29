@@ -28,7 +28,7 @@ armips:
 tools_software_languages:
   - Django
   - Python
-  - Pip
+  - Gunicorn
   - Apache Bench
 
 operatingsystems:
