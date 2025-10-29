@@ -22,7 +22,7 @@ Make sure all of these are installed before proceeding with your Django setup.
 
 ```console
 sudo zypper install -y python311 python311-pip python311-devel 
-sudo zypper install -y python311-venv git gcc make
+sudo zypper install -y git gcc make
 ```
 
 **Verify the installation:**
