@@ -126,7 +126,7 @@ hello/
 └── urls.py
 ```
 
-### Create a simple view
+#### Create a simple view
 Edit `hello/views.py`. Replace your existing file with this:
 
 ```python
@@ -136,7 +136,7 @@ def home(request):
     return HttpResponse("<h1>Hello, Django on GCP SUSE ARM64!</h1>")
 ```
 
-### Create app URL configuration
+#### Create app URL configuration
 Create a new file hello/urls.py and add:
 
 ```python
@@ -148,7 +148,7 @@ urlpatterns = [
 ]
 ```
 
-### Link the app to the main project
+#### Link the app to the main project
 Replace your default `myproject/urls.py` file with this version.
 
 ```python
@@ -192,13 +192,13 @@ INSTALLED_APPS = [
     'hello',
 ]
 ```
-### Run the server again
+#### Run the server again
 
 ```console
 python manage.py runserver 0.0.0.0:8000
 ```
 
-### Test your app
+#### Test your app
 Open in browser:
 
 ```console
