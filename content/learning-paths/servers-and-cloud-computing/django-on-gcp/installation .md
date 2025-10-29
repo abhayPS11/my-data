@@ -25,6 +25,14 @@ sudo zypper install -y python311 python311-pip python311-devel
 sudo zypper install -y git gcc make
 ```
 
+**Use Python 3.11 as the Default (optional):**
+You can symlink or explicitly use it:
+
+```console
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+sudo update-alternatives --config python3
+```
+
 **Verify the installation:**
 
 ```console
@@ -64,7 +72,3 @@ You should see an output similar to:
 ```output
 5.2.7
 ```
-
-
-
-
