@@ -7,25 +7,28 @@ layout: learningpathall
 ---
 
 ## Django Baseline Testing on GCP SUSE VMs
+This baseline testing guide verifies that your **Django installation**, **web server**, and **basic application routing** are functioning correctly on a **Google Cloud SUSE Linux Arm64 (Axion C4A)** virtual machine.  
+You will first run the Django development server and access it from your browser, then create a simple Django app to ensure routing works.
 
 ### Baseline 1 — View Django Welcome Page
-This verifies that Django is installed and your web server runs properly.
+This test confirms that Django is installed correctly and the server runs successfully.
 
 #### Activate your Python environment
-If already created:
+Before running Django, activate the Python virtual environment you created during installation.
 
 ```console
-source myenv/bin/activate
+source venv/bin/activate
 ```
 
 #### Create a new Django project
+Run the following command to create a new Django project named `myproject`:
 
 ```console
 django-admin startproject myproject
 cd myproject
 ```
 
-This creates:
+This generates the following directory structure:
 
 ```markdown
 myproject/
@@ -36,8 +39,11 @@ myproject/
     ├── asgi.py
     └── wsgi.py
 ```
+- `manage.py` is Django’s command-line utility for project management (running server, migrations, etc.).
+- The inner `myproject/` folder contains the core configuration files that define your project’s settings and URLs.-
 
 #### Run initial migrations
+Migrations prepare your project’s database by creating the required tables for Django’s internal apps (admin, authentication, etc.):
 
 ```console
 python manage.py migrate
@@ -88,6 +94,8 @@ ALLOWED_HOSTS = ['your-external-ip', 'your-domain.com']
 ```console
 python manage.py runserver 0.0.0.0:8000
 ```
+#### Enable Port 8000 in GCP Firewall
+By default, Django only allows access from localhost. To test from your browser using the VM’s external IP, update the ALLOWED_HOSTS list.
 
 #### View in browser
 Open a web browser on your local machine (Chrome, Firefox, Edge, etc.) and enter the following URL in the address bar:
@@ -102,19 +110,19 @@ If everything is set up correctly, you should see the default Django welcome pag
 ![Django welcome page alt-text#center](images/django-welcome-page.png "Figure 1: Django web page")
 
 ### Baseline 2 — Create a Simple Django App
-This confirms Django apps and routing work correctly.
+This test ensures Django’s application routing and view rendering work as expected.
 
 #### Stop the server
-Press Ctrl + C to stop the Django server if running.
+Press `Ctrl + C` to stop the Django server if running.
 
 #### Create a new app
-Inside your Django project directory:
+Within your Django project directory, create a new app named `hello`:
 
 ```console
 python manage.py startapp hello
 ```
 
-**This creates:**
+**This creates the following directory:**
 
 ```markdown
 hello/
@@ -135,6 +143,7 @@ from django.http import HttpResponse
 def home(request):
     return HttpResponse("<h1>Hello, Django on GCP SUSE ARM64!</h1>")
 ```
+This defines a simple view function that sends a basic HTML message as the HTTP response.
 
 #### Create app URL configuration
 Create a new file hello/urls.py and add:
@@ -147,6 +156,7 @@ urlpatterns = [
     path('', views.home, name='home'),
 ]
 ```
+This maps the root URL `(/)`of your app to the `home()` view function.
 
 #### Link the app to the main project
 Replace your default `myproject/urls.py` file with this version.
@@ -176,9 +186,10 @@ urlpatterns = [
     path('', include('hello.urls')),
 ]
 ```
+This tells Django to delegate routing for the root path (`''`) to the `hello` app’s URLs.
 
 #### Add the app to settings
-
+This makes Django aware of your new app so it can load its configuration and routes.
 Edit `myproject/settings.py` → add `'hello'` to INSTALLED_APPS:
 
 ```python
