@@ -100,3 +100,110 @@ http://<YOUR_VM_EXTERNAL_IP>:8000
 If everything is set up correctly, you should see the default Django welcome page (“The install worked successfully!”). It looks like this:
 
 ![Django welcome page alt-text#center](images/django-welcome-page.png "Figure 1: Django web page")
+
+### Baseline 2 — Create a Simple Django App
+This confirms Django apps and routing work correctly.
+
+#### Stop the server
+Press Ctrl + C to stop the Django server if running.
+
+#### Create a new app
+Inside your Django project directory:
+
+```console
+python manage.py startapp hello
+```
+
+**This creates:**
+
+```markdown
+hello/
+├── admin.py
+├── apps.py
+├── models.py
+├── tests.py
+├── views.py
+└── urls.py
+```
+
+### Create a simple view
+Edit `hello/views.py`. Replace your existing file with this:
+
+```python
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("<h1>Hello, Django on GCP SUSE ARM64!</h1>")
+```
+
+### Create app URL configuration
+Create a new file hello/urls.py and add:
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+]
+```
+
+### Link the app to the main project
+Replace your default `myproject/urls.py` file with this version.
+
+```python
+"""myproject URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('hello.urls')),
+]
+```
+
+#### Add the app to settings
+
+Edit `myproject/settings.py` → add `'hello'` to INSTALLED_APPS:
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'hello',
+]
+```
+### Run the server again
+
+```console
+python manage.py runserver 0.0.0.0:8000
+```
+
+### Test your app
+Open in browser:
+
+```console
+http://<YOUR_VM_IP>:8000
+```
+You should see the Django app. It looks like this:
+
+![Django App alt-text#center](images/django-app.png "Figure 2: Django App")
