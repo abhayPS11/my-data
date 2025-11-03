@@ -37,6 +37,7 @@ ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [aarch64-linux]
 
 ```console
 wget https://github.com/puppetlabs/puppet/archive/refs/tags/8.10.0.tar.gz
+tar -xvf 8.10.0.tar.gz
 cd ~/puppet-8.10.0
 sudo /usr/local/bin/gem install semantic_puppet -v "~> 1.0"
 sudo gem install facter -v "~> 4.0"
@@ -47,7 +48,7 @@ sudo gem install hiera
 
 
 ```console
-gem build puppet.gemspec
+sudo gem build puppet.gemspec
 sudo /usr/local/bin/gem install puppet-8.10.0.gem
 ```
 
