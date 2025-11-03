@@ -37,8 +37,12 @@ notify { 'Benchmark Test':
 }
 ```
 
+- **notify** is a built-in Puppet resource type that displays a message during catalog application (like a print or log message).
+- **'Benchmark Test'** is the title of the resource — a unique identifier for this notify action.
+- **message => 'Running Puppet standalone benchmark.'** specifies the text message Puppet will print when applying the manifest.
+
 ### Run the Benchmark Command
-Run Puppet in standalone mode using the `apply` command:
+This step runs Puppet in standalone mode using the `apply` command to execute the benchmark manifest locally while measuring execution time and performance statistics.
 
 ```console
 time puppet apply benchmark.pp --verbose
