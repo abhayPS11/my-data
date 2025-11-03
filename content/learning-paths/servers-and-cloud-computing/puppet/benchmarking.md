@@ -70,17 +70,24 @@ sys     0m0.385s
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
+| Metric | Result |
+|---------|---------|
+| Compiled catalog | 0.01 seconds |
+| Environment | production |
+| Configuration version | 1762165786 |
+| Applied catalog | 0.01 seconds |
+| real | 0m1.072s |
+| user | 0m0.834s |
+| sys | 0m0.213s |
 
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
 | **Metric / Log** | **Output** |
 |-------------------|------------|
-| Compiled catalog | lpprojectsusearm64.c.imperial-time-463411-q5.internal in environment production in 0.01 seconds |
+| Compiled catalog | 0.01 seconds |
 | Environment | production |
 | Configuration version | 1762160712 |
-| Benchmark message | Running Puppet standalone benchmark |
-| Notify resource | /Stage[main]/Main/Notify[Benchmark Test]/message: defined 'message' as 'Running Puppet standalone benchmark.' |
 | Applied catalog | 0.01 seconds |
 | real | 0m1.175s |
 | user | 0m0.779s |
@@ -88,3 +95,8 @@ Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm6
 
 ### Puppet benchmarking comparison on Arm64 and x86_64
 
+- **Catalog compilation:** Completed in just **0.01 seconds**, showing excellent processing speed on **Arm64**.
+- **Environment:** Executed smoothly under the **production** environment.
+- **Configuration version:** Recorded as **1762160712**, confirming successful version tracking.
+- **Catalog application:** Finished in **0.01 seconds**, demonstrating very low execution latency.
+- **Real time:** Total runtime of **1.175 seconds**, reflecting efficient end.
