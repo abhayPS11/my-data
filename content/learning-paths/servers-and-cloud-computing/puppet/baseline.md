@@ -8,6 +8,7 @@ layout: learningpathall
 
 ## Puppet Baseline Testing on GCP SUSE VMs
 
+
 ### Verify Puppet Installation
 Check that Puppet and Facter are correctly installed and respond to version checks:
 
@@ -17,7 +18,7 @@ facter --version
 ruby -v
 ```
 ### Run a Simple Puppet Command
-Test that the Puppet executable runs correctly:
+Check that Puppet responds to commands by running puppet help. Seeing the help menu confirms that Puppet is working properly.
 
 ```console
 puppet help
@@ -61,7 +62,7 @@ Puppet v8.10.0
 ```
 
 ### Test a Simple Puppet Manifest
-Create a small Puppet manifest to verify agent execution:
+Create and run a basic Puppet script to make sure Puppet can apply configurations. If it successfully creates the test file, your Puppet agent functions as expected.
 
 ```bash
 cat <<EOF > test.pp
@@ -83,6 +84,8 @@ Notice: Applied catalog in 0.01 seconds
 
 **Then verify:**
 
+Open the file created by Puppet to confirm the content matches your script. This step validates that Puppet executed your manifest correctly.
+
 ```console
 cat /tmp/puppet_test.txt
 ```
@@ -91,8 +94,9 @@ Output:
 ```output
 Hello from Puppet on SUSE ARM64!
 ```
+
 ### Check Facter Integration
-Run facter to ensure system facts are being collected:
+Run Facter commands to verify that it collects accurate system details like OS and CPU type. This ensures Puppet can gather the facts it needs for automation decisions.
 
 ```console
 facter os
@@ -142,5 +146,4 @@ $facter processors
   physicalcount => 1,
   threads => 1
 }
-
 ```
