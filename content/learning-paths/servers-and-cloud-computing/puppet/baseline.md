@@ -1,0 +1,146 @@
+---
+title: Puppet Baseline Testing on Google Axion C4A Arm Virtual Machine
+weight: 5
+
+### FIXED, DO NOT MODIFY
+layout: learningpathall
+---
+
+## Puppet Baseline Testing on GCP SUSE VMs
+
+### Verify Puppet Installation
+Check that Puppet and Facter are correctly installed and respond to version checks:
+
+```console
+puppet --version
+facter --version
+ruby -v
+```
+### Run a Simple Puppet Command
+Test that the Puppet executable runs correctly:
+
+```console
+puppet help
+```
+
+Output:
+
+```console
+Usage: puppet <subcommand> [options] <action> [options]
+
+Available subcommands:
+
+  Common:
+    agent             The puppet agent daemon
+    apply             Apply Puppet manifests locally
+    config            Interact with Puppet's settings.
+    help              Display Puppet help.
+    lookup            Interactive Hiera lookup
+    module            Creates, installs and searches for modules on the Puppet Forge.
+    resource          The resource abstraction layer shell
+
+
+  Specialized:
+    catalog           Compile, save, view, and convert catalogs.
+    describe          Display help about resource types
+    device            Manage remote network devices
+    doc               Generate Puppet references
+    epp               Interact directly with the EPP template parser/renderer.
+    facts             Retrieve and store facts.
+    filebucket        Store and retrieve files in a filebucket
+    generate          Generates Puppet code from Ruby definitions.
+    node              View and manage node definitions.
+    parser            Interact directly with the parser.
+    plugin            Interact with the Puppet plugin system.
+    script            Run a puppet manifests as a script without compiling a catalog
+    ssl               Manage SSL keys and certificates for puppet SSL clients
+
+See 'puppet help <subcommand> <action>' for help on a specific subcommand action.
+See 'puppet help <subcommand>' for help on a specific subcommand.
+Puppet v8.10.0
+```
+
+### Test a Simple Puppet Manifest
+Create a small Puppet manifest to verify agent execution:
+
+```bash
+cat <<EOF > test.pp
+file { '/tmp/puppet_test.txt':
+  ensure  => file,
+  content => "Hello from Puppet on SUSE ARM64!\n",
+}
+EOF
+```
+```console
+puppet apply test.pp
+```
+
+You should see an output similar to:
+```output
+Notice: Compiled catalog for lpprojectsusearm64.c.imperial-time-463411-q5.internal in environment production in 0.01 seconds
+Notice: Applied catalog in 0.01 seconds
+```
+
+**Then verify:**
+
+```console
+cat /tmp/puppet_test.txt
+```
+
+Output:
+```output
+Hello from Puppet on SUSE ARM64!
+```
+### Check Facter Integration
+Run facter to ensure system facts are being collected:
+
+```console
+facter os
+facter architecture
+facter processors
+```
+
+Output:
+```output
+{
+  architecture => "aarch64",
+  distro => {
+    codename => "n/a",
+    description => "SUSE Linux Enterprise Server 15 SP6",
+    id => "SUSE",
+    release => {
+      full => "15.6",
+      major => "15",
+      minor => "6"
+    }
+  },
+  family => "Suse",
+  hardware => "aarch64",
+  name => "SLES",
+  release => {
+    full => "15.6",
+    major => "15",
+    minor => "6"
+  },
+  selinux => {
+    enabled => false
+  }
+}
+$ facter architecture
+aarch64
+$facter processors
+{
+  cores => 4,
+  count => 4,
+  extensions => [
+    "aarch64"
+  ],
+  isa => "aarch64",
+  models => [
+
+  ],
+  physicalcount => 1,
+  threads => 1
+}
+
+```
