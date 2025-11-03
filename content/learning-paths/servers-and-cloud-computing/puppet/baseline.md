@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 ## Puppet Baseline Testing on GCP SUSE VMs
-
+In this guide, you will perform baseline testing of Puppet on a GCP SUSE Arm64 VM to verify that the installation works correctly. You will check Puppet and Facter versions, run basic Puppet commands, apply a simple manifest, and confirm that system facts are collected accurately.
 
 ### Verify Puppet Installation
 Check that Puppet and Facter are correctly installed and respond to version checks:
