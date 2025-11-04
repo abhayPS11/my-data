@@ -147,3 +147,5 @@ $facter processors
   threads => 1
 }
 ```
+
+With these checks complete, proceed to the Puppet benchmarking section to run workload‑focused tests on the GCP SUSE VMs.
