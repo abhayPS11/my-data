@@ -96,7 +96,7 @@ Hello from Puppet on SUSE ARM64!
 ```
 
 ### Check Facter Integration
-Run Facter commands to verify that it collects accurate system details like OS and CPU type. This ensures Puppet can gather the facts it needs for automation decisions.
+Run `facter` commands to verify that it collects accurate system details like OS and CPU type. This ensures Puppet can gather the facts it needs for automation decisions.
 
 ```console
 facter os
