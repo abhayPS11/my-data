@@ -38,6 +38,10 @@ ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [aarch64-linux]
 ### Install Puppet dependencies
 Installs essential Puppet libraries (`semantic_puppet, facter, hiera`) needed for automation tasks.
 
+- **semantic_puppet** – Provides tools for handling Puppet-specific versioning, modules, and dependency constraints.
+- **facter** – Collects system information (facts) such as OS, IP, and hardware details for Puppet to use in configuration decisions.
+- **hiera** – Key-value lookup tool that manages configuration data outside of Puppet manifests for flexible data separation.
+
 ```console
 wget https://github.com/puppetlabs/puppet/archive/refs/tags/8.10.0.tar.gz
 tar -xvf 8.10.0.tar.gz
@@ -48,6 +52,8 @@ sudo gem install hiera
 ```
 
 ### Build and install the Puppet gem
+The **Puppet gem** provides the core Puppet framework, including its CLI, manifest parser, and resource management engine.
+
 Builds and installs the Puppet 8.10.0 package from source into your Ruby environment.
 
 ```console
@@ -66,3 +72,4 @@ Output:
 ```output
 8.10.0
 ```
+Puppet installation is complete. You can now go ahead with the baseline testing of Puppet in the next section.
