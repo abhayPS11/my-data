@@ -22,6 +22,16 @@ cd ~
 git clone https://github.com/couchbase/libcouchbase.git
 cd libcouchbase
 ```
+
+**Then build and install:**
+
+```console
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+sudo make install
+```
+
 ### Update the Dynamic Linker Configuration
 Tell the OS where to look for the library:
 
@@ -83,11 +93,15 @@ Watch these in real time:
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
+| **Name**     | **Items** | **Resident** | **Ops/sec** | **RAM Used / Quota** | **Disk Used** |
+|---------------|------------|---------------|---------------|-----------------------|---------------|
+| benchmark     | 10,000     | 100%          | 219,961.9     | 36.7 MiB / 1 GiB      | 2.37 MiB      |
+
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
-| Name       | Items  | Resident | Ops/sec | RAM Used/Quota    | Disk Used |
-|-------------|--------|-----------|---------|-------------------|------------|
-| benchmark   | 10,000 | 100%      | 148,891 | 36.2 MiB / 1 GiB  | 13.8 MiB   |
+| **Name**     | **Items** | **Resident** | **Ops/sec** | **RAM Used / Quota** | **Disk Used** |
+|---------------|------------|---------------|---------------|-----------------------|---------------|
+| benchmark     | 10,000     | 100%          | 227,981.1     | 36.8 MiB / 1 GiB      | 26.7 MiB      |
 
 
