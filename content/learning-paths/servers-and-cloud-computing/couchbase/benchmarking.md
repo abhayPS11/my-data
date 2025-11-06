@@ -73,9 +73,21 @@ Go to:
 **Dashboard → Buckets → benchmark → Metrics tab**
 
 Watch these in real time:
-- **Ops/sec** — should match your CLI output (~400k)
+- **Ops/sec** — should match your CLI output
 - **Resident ratio** — how much data stays in memory
 - **Disk write queue** — backlog of writes to disk
 - **CPU and memory usage** — tells you how well ARM cores are handling load
 
 ![Couchebase Dashboard alt-text#center](images/arm-benchmark.png "Monitor Benchmark Log")
+
+### Benchmark summary on x86_64
+To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
+
+### Benchmark summary on Arm64
+Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
+
+| Name       | Items  | Resident | Ops/sec | RAM Used/Quota    | Disk Used |
+|-------------|--------|-----------|---------|-------------------|------------|
+| benchmark   | 10,000 | 100%      | 148,891 | 36.2 MiB / 1 GiB  | 13.8 MiB   |
+
+
