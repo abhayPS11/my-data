@@ -7,6 +7,7 @@ layout: learningpathall
 ---
 
 ## Couchbase Baseline Testing on GCP SUSE VMs
+This section confirms that Couchbase is correctly installed and running on the GCP SUSE Arm64 VM. It includes checking required ports, initializing the cluster, verifying node status, and accessing the Web UI — ensuring the setup is ready for benchmarking.
 
 ### Check Required Ports
 This command checks if those ports are open and active. If you see “LISTEN” next to these ports, it means Couchbase is ready to accept connections.
