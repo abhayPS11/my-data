@@ -77,3 +77,5 @@ Watch these in real time:
 - **Resident ratio** — how much data stays in memory
 - **Disk write queue** — backlog of writes to disk
 - **CPU and memory usage** — tells you how well ARM cores are handling load
+
+![Couchebase Dashboard alt-text#center](images/arm-benchmark.png "Monitor Benchmark Log")
