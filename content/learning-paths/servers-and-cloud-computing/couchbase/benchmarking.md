@@ -122,7 +122,7 @@ Monitor real-time performance metrics such as:
 - **Disk write queue** — backlog of writes to disk
 - **CPU and memory usage** — tells you how well ARM cores are handling load
 
-![Couchebase Dashboard alt-text#center](images/arm-benchmark.png "Monitor Benchmark Log")
+![Couchbase Dashboard alt-text#center](images/arm-benchmark.png "Monitor Benchmark Log")
 
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
