@@ -50,6 +50,12 @@ sudo /usr/local/bin/gem install semantic_puppet -v "~> 1.0"
 sudo gem install facter -v "~> 4.0"
 sudo gem install hiera
 ```
+{{% notice Note %}}
+Puppet 8.8.1 version expands official support for Arm and AArch64, with new agent compatibility for AlmaLinux 9 (AARCH64), Rocky Linux 9 (AARCH64), and Ubuntu 24.04 (ARM). The release ensures compatibility with Ruby 3.3 and resolves multiple agent and catalog-related issues. Security is enhanced with an OpenSSL 3.0.14 upgrade, addressing CVE-2024-4603 and CVE-2024-2511 vulnerabilities.
+You can view [this release note](https://help.puppet.com/osp/current/Content/PuppetCore/PuppetReleaseNotes/release_notes_puppet_x-8-8-1.htm)
+
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Puppet version 8.8.1, the minimum recommended on the Arm platforms.
+{{% /notice %}}
 
 ### Build and install the Puppet gem
 The **Puppet gem** provides the core Puppet framework, including its CLI, manifest parser, and resource management engine.
