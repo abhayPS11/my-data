@@ -7,15 +7,17 @@ layout: learningpathall
 ---
 
 ## TensorFlow Baseline Testing on GCP SUSE VMs
+This section helps you check if TensorFlow is properly installed and working on your **Google Axion C4A Arm64 VM**. You will run small tests to confirm that your CPU can perform TensorFlow operations correctly.
+
 
 ### Verify Installation
-This section helps you make sure **TensorFlow** is installed correctly and running smoothly on your **Google Axion C4A Arm64 virtual machine**.
+This command checks if TensorFlow is installed correctly and prints its version number.
 
 ```console
 python -c "import tensorflow as tf; print(tf.__version__)"
 ```
 ### List Available Devices
-Check which devices TensorFlow can access (CPU, GPU if any):
+This command shows which hardware devices TensorFlow can use — like CPU or GPU. On most VMs, you’ll see only CPU listed.
 
 ```console
 python -c "import tensorflow as tf; print(tf.config.list_physical_devices())"
@@ -27,7 +29,7 @@ You should see an output similar to:
 ```
 
 ### Run a Simple Computation
-Perform a quick matrix multiplication to verify CPU computation:
+This test multiplies two large matrices to check that TensorFlow computations work correctly on your CPU and measures how long it takes.
 
 ```python
 python -c "import tensorflow as tf; import time; 
@@ -43,14 +45,13 @@ You should see an output similar to:
 Computation time: 0.008263111114501953 seconds
 ```
 ### Test Neural Network Execution
-Run a small neural network on dummy data:
-
-Instead of running everything inline in one python -c command, save it as test_nn.py for clarity:
+Create a new file for testing a simple neural network:
 
 ```console
 vi test_nn.py
 ```
-Paste this code into the file:
+This opens a new Python file where you’ll write a short TensorFlow test program.
+Paste the code below into the `test_nn.py` file:
 
 ```python
 import tensorflow as tf
@@ -74,6 +75,7 @@ model.compile(optimizer='adam', loss='mse')
 # Train for 1 epoch
 model.fit(x, y, epochs=1, batch_size=32)
 ```
+This script creates and trains a simple neural network using random data — just to make sure TensorFlow’s deep learning functions work properly.
 
 **Run the Script**
 
