@@ -63,37 +63,7 @@ You should see an output similar to:
 ```output
 Phoronix Test Suite v10.8.4
 
-    To Install:    pts/tensorflow-lite-1.1.0
-
-    Determining File Requirements ..............................................................................................
-    Searching Download Caches ..................................................................................................
-
-    1 Test To Install
-        7 Files To Download [691MB]
-        1500MB Of Disk Space Is Needed
-        8 Seconds Estimated Install Time
-
-    pts/tensorflow-lite-1.1.0:
-        Test Installation 1 of 1
-        7 Files Needed [691 MB]
-        Downloading: tf-lite-20220518.tar.xz                                                                            [2.32MB]
-        Downloading ............................................................................................................
-        Downloading: mobilenet_v1_1.0_224.tgz                                                                          [89.95MB]
-        Downloading ............................................................................................................
-        Downloading: mobilenet_v1_1.0_224_quant.tgz                                                                    [33.45MB]
-        Estimated Download Time: 1m ............................................................................................
-        Downloading: nasnet_mobile_2018_04_27.tgz                                                                      [37.73MB]
-        Estimated Download Time: 1m ............................................................................................
-        Downloading: squeezenet_2018_04_27.tgz                                                                          [8.87MB]
-        Estimated Download Time: 1m ............................................................................................
-        Downloading: inception_resnet_v2_2018_04_27.tgz                                                                  [216MB]
-        Estimated Download Time: 1m ............................................................................................
-        Downloading: inception_v4_2018_04_27.tgz                                                                         [303MB]
-        Estimated Download Time: 1m ............................................................................................
-        Approximate Install Size: 1500 MB
-        Estimated Install Time: 8 Seconds
-        Installing Test @ 05:29:24
-
+    Installed:     pts/tensorflow-lite-1.1.0
 
 
 TensorFlow Lite 2022-05-18:
@@ -158,23 +128,23 @@ TensorFlow Lite 2022-05-18:
     pts/tensorflow-lite-1.1.0 [Model: SqueezeNet]
     Test 1 of 6
     Estimated Trial Run Count:    3
-    Estimated Test Run-Time:      6 Minutes
-    Estimated Time To Completion: 32 Minutes [06:01 UTC]
-        Started Run 1 @ 05:29:42
-        Started Run 2 @ 05:30:47
-        Started Run 3 @ 05:31:51
+    Estimated Test Run-Time:      4 Minutes
+    Estimated Time To Completion: 19 Minutes [07:28 UTC]
+        Started Run 1 @ 07:10:07
+        Started Run 2 @ 07:11:12
+        Started Run 3 @ 07:12:17
 
     Model: SqueezeNet:
-        7438.62
-        7436.32
-        7452.87
+        7366.47
+        7336.11
+        7369.77
 
-    Average: 7442.60 Microseconds
-    Deviation: 0.12%
+    Average: 7357.45 Microseconds
+    Deviation: 0.25%
 
     Comparison of 681 OpenBenchmarking.org samples since 19 May 2022 to 7 October; median result: 3956 Microseconds. Box plot of samples:
     [                                                                                 |-------*-----------------*-----------*-*#*!*]
-                                                                                            This Result (20th Percentile): 7443 ^
+                                                                                            This Result (21st Percentile): 7357 ^
                                                                       ARMv8 Cortex-A72: 76284 ^    2 x Intel Xeon Gold 6342: 3175 ^
                                                                                                   2 x AMD EPYC 7773X: 15378 ^
                                                                                                      AMD Ryzen 5 3400G: 11679 ^
@@ -185,22 +155,22 @@ TensorFlow Lite 2022-05-18:
     Test 2 of 6
     Estimated Trial Run Count:    3
     Estimated Test Run-Time:      4 Minutes
-    Estimated Time To Completion: 16 Minutes [05:48 UTC]
-        Started Run 1 @ 05:33:03
-        Started Run 2 @ 05:34:07
-        Started Run 3 @ 05:35:12
+    Estimated Time To Completion: 16 Minutes [07:28 UTC]
+        Started Run 1 @ 07:13:28
+        Started Run 2 @ 07:14:33
+        Started Run 3 @ 07:15:38
 
     Model: Inception V4:
-        99053.6
-        99952
-        99338
+        98628.8
+        98579.7
+        98556.6
 
-    Average: 99447.9 Microseconds
-    Deviation: 0.46%
+    Average: 98588.4 Microseconds
+    Deviation: 0.04%
 
     Comparison of 661 OpenBenchmarking.org samples since 19 May 2022 to 7 October; median result: 45616 Microseconds. Box plot of samples:
     [                                                               *       |-------------------------------------------*--*-*#*#!*]
-                                                                                          This Result (17th Percentile): 99448 ^
+                                                                                          This Result (17th Percentile): 98588 ^
                                           ARMv8 Cortex-A72: 1222930 ^                            2 x Intel Xeon Gold 5220R: 30260 ^
                                                                                                Intel Xeon E3-1231 v3: 127308 ^
                                                                                                 Intel Core i3-7100: 171470 ^
@@ -211,18 +181,18 @@ TensorFlow Lite 2022-05-18:
     Test 3 of 6
     Estimated Trial Run Count:    3
     Estimated Test Run-Time:      4 Minutes
-    Estimated Time To Completion: 13 Minutes [05:48 UTC]
-        Started Run 1 @ 05:36:24
-        Started Run 2 @ 05:37:28
-        Started Run 3 @ 05:38:33
+    Estimated Time To Completion: 13 Minutes [07:28 UTC]
+        Started Run 1 @ 07:16:49
+        Started Run 2 @ 07:17:54
+        Started Run 3 @ 07:18:58
 
     Model: NASNet Mobile:
-        13640.6
-        13644.6
-        13639.2
+        13387
+        13321.4
+        13479.9
 
-    Average: 13641.5 Microseconds
-    Deviation: 0.02%
+    Average: 13396.1 Microseconds
+    Deviation: 0.59%
 
     Comparison of 531 OpenBenchmarking.org samples since 19 May 2022 to 7 October; median result: 16526 Microseconds. Box plot of samples:
     [                                                                    |-------------------------------------------------------#*]
@@ -233,22 +203,22 @@ TensorFlow Lite 2022-05-18:
     Test 4 of 6
     Estimated Trial Run Count:    3
     Estimated Test Run-Time:      4 Minutes
-    Estimated Time To Completion: 10 Minutes [05:48 UTC]
-        Started Run 1 @ 05:39:44
-        Started Run 2 @ 05:40:48
-        Started Run 3 @ 05:41:53
+    Estimated Time To Completion: 10 Minutes [07:29 UTC]
+        Started Run 1 @ 07:20:09
+        Started Run 2 @ 07:21:14
+        Started Run 3 @ 07:22:18
 
     Model: Mobilenet Float:
-        5130.54
-        5121.6
-        5118.99
+        5019.68
+        5028.87
+        5029.83
 
-    Average: 5123.71 Microseconds
-    Deviation: 0.12%
+    Average: 5026.13 Microseconds
+    Deviation: 0.11%
 
     Comparison of 908 OpenBenchmarking.org samples since 19 May 2022 to 7 October; median result: 2884 Microseconds. Box plot of samples:
     [         *                |-----*------------------------------------------------------*---------------------------*--*#*!#*|*]
-                                                                                       This Result (19th Percentile): 5124 ^
+                                                                                       This Result (19th Percentile): 5026 ^
                                      ^ Intel Core i7-7700: 55387   AMD Ryzen 3 3200U: 23400 ^          Intel Xeon Gold 6342: 1297 ^
               ^ ARMv8 Cortex-A72: 68651                                                          2 x Intel Xeon Gold 6144: 2072 ^
                                                                                                  Intel Xeon E3-1275 v6: 4257 ^
@@ -259,18 +229,18 @@ TensorFlow Lite 2022-05-18:
     Test 5 of 6
     Estimated Trial Run Count:    3
     Estimated Test Run-Time:      4 Minutes
-    Estimated Time To Completion: 7 Minutes [05:49 UTC]
-        Started Run 1 @ 05:43:04
-        Started Run 2 @ 05:44:09
-        Started Run 3 @ 05:45:13
+    Estimated Time To Completion: 7 Minutes [07:29 UTC]
+        Started Run 1 @ 07:23:30
+        Started Run 2 @ 07:24:34
+        Started Run 3 @ 07:25:39
 
     Model: Mobilenet Quant:
-        2220.98
-        2235.72
-        2218.49
+        2209.01
+        2214.74
+        2206.14
 
-    Average: 2225.06 Microseconds
-    Deviation: 0.42%
+    Average: 2209.96 Microseconds
+    Deviation: 0.20%
 
     Comparison of 682 OpenBenchmarking.org samples since 19 May 2022 to 7 October; median result: 3938 Microseconds. Box plot of samples:
     [ |----------------------------------------------------------------------------------------------*-------------------------##*|]
@@ -280,22 +250,22 @@ TensorFlow Lite 2022-05-18:
     pts/tensorflow-lite-1.1.0 [Model: Inception ResNet V2]
     Test 6 of 6
     Estimated Trial Run Count:    3
-    Estimated Time To Completion: 4 Minutes [05:49 UTC]
-        Started Run 1 @ 05:46:25
-        Started Run 2 @ 05:47:29
-        Started Run 3 @ 05:48:34
+    Estimated Time To Completion: 4 Minutes [07:29 UTC]
+        Started Run 1 @ 07:26:50
+        Started Run 2 @ 07:27:55
+        Started Run 3 @ 07:28:59
 
     Model: Inception ResNet V2:
-        90144.9
-        90686.4
-        90503.1
+        89863.4
+        89946.7
+        89852.9
 
-    Average: 90444.8 Microseconds
-    Deviation: 0.30%
+    Average: 89887.7 Microseconds
+    Deviation: 0.06%
 
     Comparison of 596 OpenBenchmarking.org samples since 19 May 2022 to 7 October; median result: 59528 Microseconds. Box plot of samples:
     [                                                                      |*----------------------------------*----------*--*#*!#*]
-                                                                                          This Result (29th Percentile): 90445 ^
+                                                                                          This Result (29th Percentile): 89888 ^
                                                   ARMv8 Cortex-A72: 1086763 ^                         Intel Xeon Gold 6346: 29545 ^
                                                                                                Intel Xeon E5-2609 v4: 145107 ^
                                                                                                 ARMv8 Cortex-A78E: 203200 ^
@@ -304,13 +274,14 @@ TensorFlow Lite 2022-05-18:
     Percentile Classification Of Current Benchmark Run
     SYSTEM
         TensorFlow Lite
-            SqueezeNet:       20th
+            SqueezeNet:       21st
             Inception V4:     17th
-            NASNet Mobile:    67th
+            NASNet Mobile:    68th
             Mobilenet Float:  19th
-            Mobilenet Quant:  80th
+            Mobilenet Quant:  81st
             I.R.V:            29th
                               OpenBenchmarking.org Percentile
+
 ```
 
 ### Benchmark Metrics Explanation
@@ -325,30 +296,31 @@ TensorFlow Lite 2022-05-18:
 ### Benchmark summary on x86_64
 To compare the benchmark results, the following results were collected by running the same benchmark on a `x86 - c4-standard-4` (4 vCPUs, 15 GB Memory) x86_64 VM in GCP, running SUSE:
 
-| **Model**             | **Average Inference Time (µs)** | **Deviation (%)** | **Percentile (vs OpenBenchmarking.org)** | **Median Reference (µs)** |
-|------------------------|----------------------------------|--------------------|------------------------------------------|----------------------------|
-| **SqueezeNet**         | 7187.09                         | 0.27               | 21st                                     | 3956                       | 
-| **Inception V4**       | 108500                          | 0.12               | 16th                                     | 45616                      | 
-| **NASNet Mobile**      | 17111.4                         | 4.01               | 47th                                     | 16526                      |
-| **Mobilenet Float**    | 4103.64                         | 0.78               | 28th                                     | 2884                       | 
-| **Mobilenet Quant**    | 12837.5                         | 1.52               | 11th                                     | 3938                       | 
-| **Inception ResNet V2**| 92700.1                         | 1.36               | 28th                                     | 59528                      | 
+| **Model**               | **Average Inference Time (µs)** | **Deviation (%)** | **Percentile (vs OpenBenchmarking.org)** | **Median Reference (µs)** |
+|--------------------------|-------------------------------:|------------------:|-----------------------------------------:|---------------------------:|
+| **SqueezeNet**           | 7,204.03                       | 0.55              | 21st                                    | 3,956                     |
+| **Inception V4**         | 112,070.0                      | 0.13              | 16th                                    | 45,616                    |
+| **NASNet Mobile**        | 16,479.7                       | 0.60              | 50th                                    | 16,526                    |
+| **Mobilenet Float**      | 4,201.81                       | 0.06              | 27th                                    | 2,884                     |
+| **Mobilenet Quant**      | 13,081.1                       | 1.86              | 11th                                    | 3,938                     |
+| **Inception ResNet V2**  | 91,500.8                       | 1.20              | 28th                                    | 59,528                    |
 
 ### Benchmark summary on Arm64
 Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
 
-| **Model**             | **Average Inference Time (µs)** | **Deviation (%)** | **Percentile (vs OpenBenchmarking.org)** | **Median Reference (µs)** |
-|-------------------------|-------------------------|------------|----------------------------------|-----------------------|
-| **SqueezeNet**          | 7,442.60               | 0.12     | 20th                            | 3,956                 | 
-| **Inception V4**        | 99,447.9               | 0.46      | 17th                            | 45,616                |
-| **NASNet Mobile**       | 13,641.5               | 0.02      | 67th                            | 16,526                | 
-| **Mobilenet Float**     | 5,123.71               | 0.12      | 19th                            | 2,884                 |
-| **Mobilenet Quant**     | 2,225.06               | 0.42      | 80th                            | 3,938                 | 
-| **Inception ResNet V2** | 90,444.8               | 0.30      | 29th                            | 59,528                | 
+| **Model**               | **Average Inference Time (µs)** | **Deviation (%)** | **Percentile (vs OpenBenchmarking.org)** | **Median Reference (µs)** | 
+|--------------------------|-------------------------------:|------------------:|-----------------------------------------:|---------------------------:|
+| **SqueezeNet**           | 7,357.45                       | 0.25              | 21st                                    | 3,956                     |
+| **Inception V4**         | 98,588.4                       | 0.04              | 17th                                    | 45,616                    | 
+| **NASNet Mobile**        | 13,396.1                       | 0.59              | 68th                                    | 16,526                    |
+| **Mobilenet Float**      | 5,026.13                       | 0.11              | 19th                                    | 2,884                     | 
+| **Mobilenet Quant**      | 2,209.96                       | 0.20              | 81st                                    | 3,938                     | 
+| **Inception ResNet V2**  | 89,887.7                       | 0.06              | 29th                                    | 59,528                    |
 
 ### TensorFlow benchmarking comparison on Arm64 and x86_64
 
-- **Arm platform shows strong efficiency in lightweight models**, with **NASNet Mobile** and **Mobilenet Quant** achieving **67th and 80th percentile** performance globally.  
-- **Mobilenet Quant** achieved the **fastest inference** at **2,225 µs**, highlighting Arm’s advantage in quantized model workloads.  
-- **Heavier models** like **Inception V4** and **Inception ResNet V2** show moderate performance due to higher compute intensity.  
-- Overall, **Arm demonstrates competitive inference performance**, especially in **mobile and edge-optimized TensorFlow models**.
+- **Lightweight and quantized models** excelled on Arm64, with **Mobilenet Quant** achieving **81st percentile**, outperforming most global baselines in inference efficiency.  
+- **NASNet Mobile** also performed exceptionally well (**68th percentile**), showcasing Arm’s strong optimization for mobile-oriented architectures.  
+- **Mobilenet Float** and **SqueezeNet** maintained **solid throughput**, reflecting consistent CPU-level efficiency on Arm cores.  
+- **Heavier deep CNNs** like **Inception V4** and **Inception ResNet V2** showed relatively higher inference times — typical for **compute-bound workloads** on CPU-only environments.  
+- **Overall**, Arm64 delivers **competitive inference performance**, especially for lightweight and quantized TensorFlow models, making it ideal for **edge and on-device AI workloads**.
