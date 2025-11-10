@@ -78,5 +78,17 @@ Found 1 outliers among 100 measurements (1.00%)
   1 (1.00%) low mild
 ```
 
+| **Metric** | **Value / Description** |
+|-------------|--------------------------|
+| **Benchmark Function** | fibonacci(20) |
+| **Minimum Time (µs)** | 11.962 |
+| **Mean Time (µs)** | 11.968 |
+| **Maximum Time (µs)** | 11.975 |
+| **Change Range (%)** | -0.5500% → -0.4514% |
+| **p-value** | 0.00 (< 0.05) |
+| **Interpretation** | Change within noise threshold |
+| **Outliers Detected** | 1 (1.00%) |
+| **Outlier Type** | High mild |
+| **Samples Measured** | 100 |
 
 
