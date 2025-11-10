@@ -9,7 +9,7 @@ layout: learningpathall
 ## TensorFlow Baseline Testing on GCP SUSE VMs
 
 ### Verify Installation
-Run a Python command to ensure TensorFlow can be imported:
+This section helps you make sure **TensorFlow** is installed correctly and running smoothly on your **Google Axion C4A Arm64 virtual machine**.
 
 ```console
 python -c "import tensorflow as tf; print(tf.__version__)"
@@ -76,6 +76,7 @@ model.fit(x, y, epochs=1, batch_size=32)
 ```
 
 **Run the Script**
+
 Execute the script with Python:
 
 ```console
@@ -83,9 +84,10 @@ python test_nn.py
 ```
 
 **Output**
+
 TensorFlow will print training progress, like:
 ```output
 32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 1ms/step - loss: 0.1024
 ```
 
-This confirms that TensorFlow are working properly on your Arm64 VM.
+This confirms that TensorFlow is working properly on your Arm64 VM.
