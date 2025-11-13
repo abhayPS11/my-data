@@ -7,6 +7,7 @@ layout: learningpathall
 ---
 
 ## Rust Baseline Testing on GCP SUSE VMs
+This guide demonstrates how to perform baseline testing of Rust on GCP SUSE Arm64 VMs, verifying installation, build functionality, and compilation performance on the Arm-based Axion C4A platform.
 
 ### Verify Installation
 Check the Rust version and toolchain setup:
@@ -59,3 +60,4 @@ real    0m0.186s
 user    0m0.118s
 sys     0m0.071s
 ```
+This confirms that Rust is working properly on your Arm64 VM.
