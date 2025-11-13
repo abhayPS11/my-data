@@ -9,7 +9,7 @@ layout: learningpathall
 ## Rust Installation on GCP SUSE VM
 
 ### System Preparation
-Update your system packages and install basic tools:
+Updates the system and installs essential build tools for compiling Rust programs.
 
 ```console
 sudo zypper refresh
@@ -22,17 +22,17 @@ Rust provides an official installer script via `rustup`, which handles the setup
 ```console
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-When prompted, choose **option 1** (default installation).
+When prompted, you can choose **option 1** (default installation).
 
 ### Configure Rust Environment
-After installation, activate the Rust environment for your session:
+Activates Rust’s environment variables for the current shell session.
 
 ```console
 source $HOME/.cargo/env
 ```
 
 ### Verify Rust Installation
-Check if Rust and Cargo (Rust’s package manager) are properly installed:
+Confirms successful installation of Rust and Cargo by checking their versions.
 
 ```console
 rustc --version
@@ -44,4 +44,4 @@ You should see an output similar to:
 rustc 1.91.0 (f8297e351 2025-10-28)
 cargo 1.91.0 (ea2d97820 2025-10-10)
 ```
-
+Rust installation is complete. You can now go ahead with the baseline testing of Rust in the next section.
