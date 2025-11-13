@@ -13,7 +13,7 @@ learning_objectives:
 
 prerequisites:
   - A [Google Cloud Platform (GCP)](https://cloud.google.com/free) account with billing enabled  
-  - Basic familiarity with [TensorFlow](https://www.tensorflow.org/)
+  - Basic familiarity with [Rust](https://www.rust-lang.org/)
 
 author: Pareena Verma
 
