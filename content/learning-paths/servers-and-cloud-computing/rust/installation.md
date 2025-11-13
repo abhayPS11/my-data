@@ -7,6 +7,7 @@ layout: learningpathall
 ---
 
 ## Rust Installation on GCP SUSE VM
+This guide explains how to install and configure Rust on a GCP SUSE Arm64 VM, ensuring the environment is ready for building and benchmarking Rust applications.
 
 ### System Preparation
 Updates the system and installs essential build tools for compiling Rust programs.
