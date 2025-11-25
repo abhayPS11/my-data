@@ -284,7 +284,7 @@ local   Ready    Reconcile Succeeded (100%)   local      local    2m48s   v1.122
 
 ``` console
 kubectl apply -f example/provider-local/shoot.yaml
-kubectl -n garden get shoots
+kubectl -n garden-local get shoots
 ```
 
 You should see an output similar to:
@@ -292,8 +292,8 @@ You should see an output similar to:
 ```output
 shoot.core.gardener.cloud/local created
 > kubectl -n garden-local get shoots
-NAME    CLOUDPROFILE   PROVIDER   REGION   K8S VERSION   HIBERNATION   LAST OPERATION           STATUS    AGE
-local   local          local      local    1.33.0        Awake         Create Processing (0%)   healthy   10s
+NAME    CLOUDPROFILE   PROVIDER   REGION   K8S VERSION   HIBERNATION   LAST OPERATION            STATUS    AGE
+local   local          local      local    1.33.0        Awake         Create Succeeded (100%)   healthy   3h45m
 ```
 
 ### Add shoot DNS:
