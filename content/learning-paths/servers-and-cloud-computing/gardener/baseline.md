@@ -7,9 +7,10 @@ layout: learningpathall
 ---
 
 ## Gardener Baseline Testing on GCP SUSE VMs
+This section checks whether your Gardener Local setup is working correctly on an Arm-based GCP Axion (C4A) VM before running real workloads.
 
 ### Set Kubeconfig
-
+This tells Kubernetes commands (**kubectl) which cluster to talk to**. Without this, kubectl won’t know where your Gardener cluster is.
 ``` console
 export KUBECONFIG=/home/gcpuser/gardener/kind/kubeconfig.yaml
 ```
@@ -115,7 +116,11 @@ shoot--local--local                         vpn-seed-server-7497c89db-b5p5c     
 ```    
 
 ### Deploy a Test Nginx Pod
-You deploy a simple nginx pod to validate that workloads can run on the cluster.
+This step deploys a simple web server (nginx) to confirm that workloads can run.
+- Creates one nginx pod
+- Confirms Kubernetes can pull images and start containers
+
+When the pod status becomes Running, workload deployment works.
 
 ``` console
 kubectl run test-nginx --image=nginx --restart=Never
@@ -136,7 +141,12 @@ test-nginx   1/1     Running             0          4s
 ```
 
 ### Expose the Pod (ClusterIP Service)
-Expose the nginx pod inside the cluster to test networking and service discovery.
+Pods cannot be accessed directly by other pods reliably.
+So we create a Kubernetes Service.
+- The service gives nginx a stable internal IP
+- It allows other pods to reach nginx using a name
+
+This confirms Kubernetes service networking is working.
 
 ``` console
 kubectl expose pod test-nginx --port=80 --name=test-nginx-svc
@@ -156,7 +166,10 @@ test-nginx-svc   ClusterIP   10.2.194.17   <none>        80/TCP    9s
 A ClusterIP is assigned (example: 10.2.194.17). This confirms that Kubernetes services are functioning.
 
 ### Test Service-to-Pod Connectivity
-Verify that another pod inside the cluster can reach the nginx service.
+Now we verify that one pod can talk to another pod through a service.
+
+- Start a temporary curl pod
+- Send an HTTP request to the nginx service
 
 **Start a curl pod:** Create a temporary curl pod.
 
@@ -215,6 +228,11 @@ This confirms pod-to-service networking.
 ### Test DNS Resolution
 Ensures CoreDNS is functioning and services resolve properly.Runs `nslookup` inside the curl pod to check DNS service discovery.
 
+- `nslookup test-nginx-svc` checks if DNS can resolve the service name
+- `CoreDNS` is responsible for this
+
+If DNS resolves correctly, service discovery is healthy.
+
 ``` console
 kubectl exec curl -- nslookup test-nginx-svc
 ```
@@ -231,7 +249,11 @@ Address: 10.2.194.17
 If DNS fails, networking or CoreDNS is broken.
 
 ### Test Logs and Exec
-Check pod logs and verify that commands can run inside the pod.
+This confirms two important Kubernetes features:
+- Logs – you can debug applications
+- Exec – you can run commands inside containers
+
+If logs show nginx startup and exec returns version info, pod access works.
 
 ``` console
 kubectl logs test-nginx | head
@@ -261,13 +283,15 @@ nginx version: nginx/1.29.3
 - Exec shows nginx version (e.g., `nginx version: nginx/1.25.3`).
 
 ### Delete Test Resources
-Remove test pods and services after validating functionality.
-
+Once testing is complete, temporary resources should be removed.
+- Deletes nginx and curl pods
+- Deletes the service
+- 
 ``` console
 kubectl delete pod test-nginx curl
 kubectl delete svc test-nginx-svc
 ```
-Deletes the nginx and curl pods along with the service.
+Confirms cleanup works and keeps the cluster clean.
 
 You should see an output similar to:
 
@@ -277,4 +301,4 @@ pod "curl" deleted from default namespace
 > kubectl delete svc test-nginx-svc
 service "test-nginx-svc" deleted from default namespace
 ```
-Resources removed successfully.
+After completing these steps, you have confirmed that the Kubernetes cluster and Gardener setup are healthy, core components are functioning correctly, pods start successfully, networking and services operate as expected, DNS resolution works, and the cluster is ready to run real workloads.
