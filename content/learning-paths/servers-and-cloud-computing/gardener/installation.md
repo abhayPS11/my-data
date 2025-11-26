@@ -6,17 +6,19 @@ weight: 4
 layout: learningpathall
 ---
 
-## Install Gardener on GCP SUSEVM
-This guide provides a clean, corrected, fully working setup procedure for running **Gardener Local** on a **GCP SUSE ARM64 VM**, including: - Go 1.24 (manual install) - yq (ARM64 binary) - All CLI tools required
+## Install Gardener on GCP SUSE VM
+This guide provides a clean, corrected, fully working setup procedure for running **Gardener Local** on a **GCP SUSE Arm64 VM**, including: - Go 1.24 (manual install) - yq (Arm64 binary) - All CLI tools required
 for Gardener Local - KinD cluster setup - Shoot creation and kubeconfig extraction.
 
 ### Update System
+This step updates the operating system packages to the latest versions to avoid bugs and compatibility issues.
 
 ``` console
 sudo zypper refresh
 sudo zypper update -y
 ```
 ### Enable SUSE Containers Module
+This enables SUSE’s official container support, so Docker and container tools can work properly.
 
 ``` console
 sudo SUSEConnect -p sle-module-containers/15.5/arm64
@@ -24,7 +26,7 @@ SUSEConnect --list-extensions | grep Containers
 ```
 
 ### Install Docker
-
+Docker is required to run KinD and Kubernetes components as containers. This step installs Docker, starts it, and allows your user to run Docker without sudo.
 ``` console
 sudo zypper refresh
 sudo zypper install -y docker
@@ -35,6 +37,7 @@ docker ps
 ```
 
 ### Install Go 1.24 (Manual)
+Gardener requires a newer Go version than what SUSE provides by default. Here, Go 1.24 is downloaded and installed manually.
 
 ``` console
 cd /tmp
@@ -52,12 +55,14 @@ go version go1.24.0 linux/arm64
 ```
 
 ### Install Git, Build Tools
+These tools are needed to download the Gardener source code and compile components during setup.
 
 ``` console
 sudo zypper install -y git curl tar gzip make gcc
 ```
 
-### Install kubectl (ARM64)
+### Install kubectl
+`kubectl` is the command-line tool for interacting with Kubernetes clusters. It lets you check nodes, pods, and cluster status.
 
 ``` console
 curl -LO https://dl.k8s.io/release/v1.34.0/bin/linux/arm64/kubectl
@@ -74,6 +79,7 @@ Kustomize Version: v5.7.1
 ```
 
 ### Install Helm (ARM64)
+Helm is used to install and manage Kubernetes applications. Gardener uses Helm internally to deploy its components.
 
 ``` console
 curl -sSfL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | console
@@ -87,6 +93,7 @@ version.BuildInfo{Version:"v3.19.2", GitCommit:"8766e718a0119851f10ddbe4577593a4
 ```
 
 ### Install yq (Arm64)
+`yq` is a YAML processing tool used by Gardener scripts to read and modify configuration files.
 
 ``` console
 sudo curl -L -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.43.1/yq_linux_arm64
@@ -101,6 +108,7 @@ yq (https://github.com/mikefarah/yq/) version v4.43.1
 ```
 
 ### Install Kustomize
+Kustomize helps customize Kubernetes YAML files without changing the original manifests.
 
 ``` console
 curl -LO https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.3.0/kustomize_v5.3.0_linux_arm64.tar.gz
@@ -110,6 +118,7 @@ kustomize version
 ```
 
 ### Install Kind
+Kind (Kubernetes in Docker) creates a local Kubernetes cluster inside Docker. Gardener Local runs entirely on this KinD cluster.
 
 ``` console
 curl -Lo kind https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-arm64
@@ -125,6 +134,7 @@ kind v0.30.0 go1.24.6 linux/arm64
 ```
 
 ### Add Required Loopback IPs
+These special loopback IPs are needed so Gardener services and the local API endpoints work correctly.
 
 ``` console
 sudo ip addr add 172.18.255.1/32 dev lo
@@ -133,6 +143,7 @@ ip addr show lo
 ```
 
 ### Add Hosts Entry
+This step maps a Gardener domain name to the local machine so services can be accessed by name.
 
 ``` console
 echo "127.0.0.1 garden.local.gardener.cloud" | sudo tee -a /etc/hosts
@@ -145,6 +156,7 @@ You should see an output similar to:
 ```
 
 ### Clone Gardener Repo
+Here you download the Gardener’s source code and switch to a known, stable release version.
 
 ``` console
 cd ~
@@ -155,6 +167,7 @@ cd gardener
 ```
 
 ### Clean Old KinD Network
+This removes any leftover KinD network from previous runs to avoid IP or port conflicts.
 
 ``` console
 docker network rm kind || true
@@ -162,6 +175,7 @@ docker network ls
 ```
 
 ### Create Gardener KinD Cluster
+This step creates the Kubernetes cluster using KinD and prepares it to run Gardener.
 
 ``` console
 make kind-up
@@ -189,6 +203,7 @@ Kubelet Serving Certificate Signing Requests approved.
 ```
 
 ### If IP/port binding fails (common on SUSE)
+If KinD fails due to networking issues (common on SUSE), re-adding loopback IPs fixes the problem.
 
 ``` console
 sudo ip addr del 172.18.255.1/32 dev lo
@@ -200,6 +215,7 @@ make kind-up
 ```
 
 ### Export kubeconfig
+This config file allows `kubectl` to connect to the newly created Gardener local cluster.
 
 ``` console
 export KUBECONFIG=$PWD/example/gardener-local/kind/local/kubeconfig
@@ -213,6 +229,7 @@ gardener-local-control-plane   Ready    control-plane   41s   v1.32.5
 ```
 
 ### Deploy Gardener Components
+This installs all Gardener control-plane services, including the API server, controller, scheduler, and monitoring tools.
 
 ``` console
 make gardener-up
@@ -264,6 +281,7 @@ vpa-updater-7dd7dccc6d-jdxrg                          1/1     Running   0       
 ```
 
 ### Verify Seed
+This checks whether the “seed” cluster (the infrastructure cluster managed by Gardener) is healthy and ready.
 
 ``` console
 ./hack/usage/wait-for.sh seed local GardenletReady SeedSystemComponentsHealthy ExtensionsReady
@@ -281,6 +299,7 @@ local   Ready    Reconcile Succeeded (100%)   local      local    2m48s   v1.122
 ```
 
 ### Create Shoot Cluster
+A Shoot cluster is a user Kubernetes cluster managed by Gardener. This step creates a sample Shoot running locally.
 
 ``` console
 kubectl apply -f example/provider-local/shoot.yaml
@@ -297,6 +316,7 @@ local   local          local      local    1.33.0        Awake         Create Su
 ```
 
 ### Add shoot DNS:
+These DNS entries allow your system to resolve the Shoot cluster’s API endpoint correctly.
 
 ``` console
 cat <<EOF | sudo tee -a /etc/hosts
@@ -307,6 +327,7 @@ EOF
 ```
 
 ### Get Shoot Admin Kubeconfig
+This generates an admin kubeconfig so you can access and manage the Shoot Kubernetes cluster.
 
 ``` console
 ./hack/usage/generate-admin-kubeconf.sh > admin-kubeconf.yaml
@@ -320,4 +341,4 @@ NAME                                            STATUS   ROLES    AGE   VERSION
 machine-shoot--local--local-local-68499-nhvjl   Ready    worker   12m   v1.33.0
 ```
 
-You now have **Gardener Local running on SUSE ARM64** with Go 1.24, Helm, kubectl, yq, Kustomize, Kind, and a working Shoot cluster.
+You now have **Gardener Local running on SUSE Arm64** with Go 1.24, Helm, kubectl, yq, Kustomize, Kind, and a working Shoot cluster.
