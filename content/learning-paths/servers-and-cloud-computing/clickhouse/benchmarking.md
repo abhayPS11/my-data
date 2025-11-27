@@ -80,11 +80,11 @@ Run on the VM host
 
 ```sql
 clickhouse-benchmark \
-  --host=localhost \
-  --port=9000 \
-  --repetitions=10 \
-  --concurrency=1 \
-  --query="SELECT count(*) FROM bench.hits WHERE url LIKE '/page/%'"
+  --host localhost \
+  --port 9000 \
+  --iterations 10 \
+  --concurrency 1 \
+  --query "SELECT count(*) FROM bench.hits WHERE url LIKE '/page/%'"
 ```
 
 ```output
@@ -115,11 +115,11 @@ localhost:9000, queries: 10, QPS: 63.167, RPS: 63167346.434, MiB/s: 957.833, res
 
 ```sql
 clickhouse-benchmark \
-  --host=localhost \
-  --port=9000 \
-  --repetitions=10 \
-  --concurrency=2 \
-  --query="
+  --host localhost \
+  --port 9000 \
+  --iterations 10 \
+  --concurrency 2 \
+  --query "
     SELECT
         url,
         count(*) AS total
@@ -153,13 +153,12 @@ localhost:9000, queries: 10, QPS: 67.152, RPS: 67151788.647, MiB/s: 1018.251, re
 
 ```sql
 clickhouse-benchmark \
-  --host=localhost \
-  --port=9000 \
-  --repetitions=20 \
-  --concurrency=8 \
-  --query="
-    SELECT
-        count(*)
+  --host localhost \
+  --port 9000 \
+  --iterations 20 \
+  --concurrency 8 \
+  --query "
+    SELECT count(*)
     FROM bench.hits
     WHERE user_id % 10 = 0
   "
@@ -192,13 +191,13 @@ localhost:9000, queries: 20, QPS: 99.723, RPS: 99723096.882, MiB/s: 760.827, res
 
 ```sql
 clickhouse-benchmark \
-  --repetitions=5 \
-  --concurrency=4 \
-  --query="
+  --iterations 5 \
+  --concurrency 4 \
+  --query "
     INSERT INTO bench.hits
     SELECT
         now(),
-        rand(),
+        rand64(),
         '/benchmark'
     FROM numbers(500000)
   "
