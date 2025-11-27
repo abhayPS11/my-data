@@ -39,6 +39,29 @@ ENGINE = MergeTree
 ORDER BY (event_time, user_id);
 ```
 
+```output
+Loaded 1 queries.
+
+Queries executed: 10 (100%).
+
+localhost:9000, queries: 10, QPS: 63.167, RPS: 63167346.434, MiB/s: 957.833, result RPS: 63.167, result MiB/s: 0.000.
+
+0%              0.003 sec.
+10%             0.003 sec.
+20%             0.003 sec.
+30%             0.004 sec.
+40%             0.004 sec.
+50%             0.004 sec.
+60%             0.004 sec.
+70%             0.004 sec.
+80%             0.004 sec.
+90%             0.004 sec.
+95%             0.005 sec.
+99%             0.005 sec.
+99.9%           0.005 sec.
+99.99%          0.005 sec.
+```
+
 Exit client:
 
 ```console
