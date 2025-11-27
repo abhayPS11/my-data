@@ -40,26 +40,9 @@ ORDER BY (event_time, user_id);
 ```
 
 ```output
-Loaded 1 queries.
-
-Queries executed: 10 (100%).
-
-localhost:9000, queries: 10, QPS: 63.167, RPS: 63167346.434, MiB/s: 957.833, result RPS: 63.167, result MiB/s: 0.000.
-
-0%              0.003 sec.
-10%             0.003 sec.
-20%             0.003 sec.
-30%             0.004 sec.
-40%             0.004 sec.
-50%             0.004 sec.
-60%             0.004 sec.
-70%             0.004 sec.
-80%             0.004 sec.
-90%             0.004 sec.
-95%             0.005 sec.
-99%             0.005 sec.
-99.9%           0.005 sec.
-99.99%          0.005 sec.
+Query id: 83485bc4-ad93-4dfc-bafe-c0e2a45c1b34
+Ok.
+0 rows in set. Elapsed: 0.005 sec.
 ```
 
 Exit client:
@@ -104,6 +87,30 @@ clickhouse-benchmark \
   --query="SELECT count(*) FROM bench.hits WHERE url LIKE '/page/%'"
 ```
 
+```output
+Loaded 1 queries.
+
+Queries executed: 10 (100%).
+
+localhost:9000, queries: 10, QPS: 63.167, RPS: 63167346.434, MiB/s: 957.833, result RPS: 63.167, result MiB/s: 0.000.
+
+0%              0.003 sec.
+10%             0.003 sec.
+20%             0.003 sec.
+30%             0.004 sec.
+40%             0.004 sec.
+50%             0.004 sec.
+60%             0.004 sec.
+70%             0.004 sec.
+80%             0.004 sec.
+90%             0.004 sec.
+95%             0.005 sec.
+99%             0.005 sec.
+99.9%           0.005 sec.
+99.99%          0.005 sec.
+```
+
+
 ### Benchmark aggregation query
 
 ```sql
@@ -119,6 +126,27 @@ clickhouse-benchmark \
     FROM bench.hits
     GROUP BY url
   "
+```
+
+```output
+Queries executed: 10 (100%).
+
+localhost:9000, queries: 10, QPS: 67.152, RPS: 67151788.647, MiB/s: 1018.251, result RPS: 6715.179, result MiB/s: 0.153.
+
+0%              0.005 sec.
+10%             0.005 sec.
+20%             0.005 sec.
+30%             0.007 sec.
+40%             0.007 sec.
+50%             0.007 sec.
+60%             0.007 sec.
+70%             0.007 sec.
+80%             0.007 sec.
+90%             0.007 sec.
+95%             0.008 sec.
+99%             0.008 sec.
+99.9%           0.008 sec.
+99.99%          0.008 sec.
 ```
 
 ### Benchmark concurrent read workload
@@ -137,6 +165,29 @@ clickhouse-benchmark \
   "
 ```
 
+```output
+Loaded 1 queries.
+
+Queries executed: 20 (100%).
+
+localhost:9000, queries: 20, QPS: 99.723, RPS: 99723096.882, MiB/s: 760.827, result RPS: 99.723, result MiB/s: 0.001.
+
+0%              0.012 sec.
+10%             0.012 sec.
+20%             0.013 sec.
+30%             0.017 sec.
+40%             0.020 sec.
+50%             0.029 sec.
+60%             0.029 sec.
+70%             0.038 sec.
+80%             0.051 sec.
+90%             0.062 sec.
+95%             0.063 sec.
+99%             0.078 sec.
+99.9%           0.078 sec.
+99.99%          0.078 sec.
+```
+
 ### Measuring insert performance (optional)
 
 ```sql
@@ -151,6 +202,27 @@ clickhouse-benchmark \
         '/benchmark'
     FROM numbers(500000)
   "
+```
+
+```output
+Queries executed: 5 (100%).
+
+localhost:9000, queries: 5, QPS: 20.935, RPS: 10467305.309, MiB/s: 79.859, result RPS: 0.000, result MiB/s: 0.000.
+
+0%              0.060 sec.
+10%             0.060 sec.
+20%             0.060 sec.
+30%             0.060 sec.
+40%             0.068 sec.
+50%             0.068 sec.
+60%             0.068 sec.
+70%             0.069 sec.
+80%             0.069 sec.
+90%             0.073 sec.
+95%             0.073 sec.
+99%             0.073 sec.
+99.9%           0.073 sec.
+99.99%          0.073 sec.
 ```
 
 
