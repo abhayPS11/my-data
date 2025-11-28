@@ -112,8 +112,8 @@ LimitNOFILE=1048576
 [Install]
 WantedBy=multi-user.target
 EOF
-Reload systemd and enable the service:
 ```
+Reload systemd and enable the service:
 
 ```console
 sudo systemctl daemon-reload
