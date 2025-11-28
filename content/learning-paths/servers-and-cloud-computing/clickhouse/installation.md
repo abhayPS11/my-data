@@ -7,6 +7,7 @@ layout: learningpathall
 ---
 
 ## Install ClickHouse on GCP VM
+This guide covers installing, configuring, and validating ClickHouse on a GCP SUSE Linux Arm64 VM. It includes system preparation, installing ClickHouse with the official installer, verifying the setup, starting the server, and connecting via the client. The guide also configures ClickHouse as a systemd service to ensure reliable, automatic startup on Arm-based environments.
 
 ### Install required system packages
 Refresh system repositories and install basic utilities needed to download and run ClickHouse.
@@ -46,6 +47,13 @@ clickhouse --version
 clickhouse server --version
 clickhouse client --version
 clickhouse local --version
+```
+
+You should see an output similar to:
+```output
+ClickHouse local version 25.12.1.168 (official build).
+ClickHouse server version 25.12.1.168 (official build).
+ClickHouse client version 25.12.1.168 (official build).
 ```
 
 ### Create ClickHouse user and directories
@@ -91,6 +99,25 @@ Run a test query to confirm connectivity.
 ```sql
 SELECT version();
 ```
+You should see an output similar to:
+```output
+SELECT version()
+
+Query id: ddd3ff38-c0c6-43c5-8ae1-d9d07af4c372
+
+   ┌─version()───┐
+1. │ 25.12.1.168 │
+   └─────────────┘
+
+1 row in set. Elapsed: 0.001 sec.
+```
+
+{{% notice Note %}}
+Recent benchmarks show that ClickHouse (v22.5.1.2079-stable) delivers up to 26% performance improvements on Arm-based platforms, such as AWS Graviton3, compared to other architectures, highlighting the efficiency of its vectorized execution engine on modern Arm CPUs.
+You can view [this Blog](https://community.arm.com/arm-community-blogs/b/servers-and-cloud-computing-blog/posts/improve-clickhouse-performance-up-to-26-by-using-aws-graviton3)
+
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends ClickHouse version v22.5.1.2079-stable, the minimum recommended on the Arm platforms.
+{{% /notice %}}
 
 ### Create a systemd service
 Set up ClickHouse as a system service so it starts automatically on boot.
@@ -138,6 +165,19 @@ clickhouse client
 
 ```sql
 SELECT version();
+```
+
+You should see an output similar to:
+```output
+SELECT version()
+
+Query id: ddd3ff38-c0c6-43c5-8ae1-d9d07af4c372
+
+   ┌─version()───┐
+1. │ 25.12.1.168 │
+   └─────────────┘
+
+1 row in set. Elapsed: 0.001 sec.
 ```
 
 ClickHouse is now successfully installed, configured, and running on SUSE Linux Arm64 with automatic startup enabled.
