@@ -9,7 +9,7 @@ layout: learningpathall
 ## Install ClickHouse on GCP VM
 
 ### Install required system packages
-Ensure the system has the basic utilities needed for installation.
+Refresh system repositories and install basic utilities needed to download and run ClickHouse.
 
 ```console
 sudo zypper refresh
@@ -17,16 +17,15 @@ sudo zypper install -y curl tar gzip sudo
 ```
 
 ### Download ClickHouse using the official installer
-ClickHouse provides a unified installer that works across architectures, including ARM64.
+Download the official ClickHouse installation script, which works for both x86 and ARM64 systems.
 
 ```console
 curl https://clickhouse.com/ | sh
 ```
-
-This command downloads a single ClickHouse binary in the current directory.
+This command downloads the ClickHouse binary into the current directory.
 
 ### Install ClickHouse components
-Run the installer with root privileges:
+Run the installer with root privileges to install all ClickHouse components.
 
 ```console
 sudo ./clickhouse install
@@ -34,14 +33,13 @@ sudo ./clickhouse install
 
 This installs:
 
-ClickHouse Server
-ClickHouse Client
-ClickHouse Local
-
-Default configuration files under /etc/clickhouse-server
+- **ClickHouse Server** – Runs the core database engine and handles all data storage, queries, and processing.
+- **ClickHouse Client** – Provides a command-line interface to connect to the server and run SQL queries.
+- **ClickHouse Local** – Allows running SQL queries on local files without starting a server.
+- **Default configuration files (/etc/clickhouse-server)** – Stores server settings such as ports, users, storage paths, and performance tuning options.
 
 ### Verify the installed version
-Confirm that ClickHouse components are correctly installed.
+Confirm that all ClickHouse components are installed correctly by checking their versions.
 
 ```console
 clickhouse --version
@@ -51,7 +49,7 @@ clickhouse local --version
 ```
 
 ### Create ClickHouse user and directories
-Create the system user (if it does not already exist):
+Create a dedicated system user and required directories for data, logs, and runtime files.
 
 ```console
 sudo useradd -r -s /sbin/nologin clickhouse || true
@@ -59,8 +57,7 @@ sudo mkdir -p /var/lib/clickhouse
 sudo mkdir -p /var/log/clickhouse-server
 sudo mkdir -p /var/run/clickhouse-server
 ```
-
-Set ownership:
+Set proper ownership so ClickHouse can access these directories.
 
 ```console
 sudo chown -R clickhouse:clickhouse \
@@ -70,34 +67,33 @@ sudo chown -R clickhouse:clickhouse \
 ```
 
 ### Start ClickHouse Server manually (validation)
-Start the server in the foreground to validate the setup:
+You can just run the ClickHouse server in the foreground to confirm the configuration is valid.
 
 ```console
 sudo clickhouse server --config-file=/etc/clickhouse-server/config.xml
 ```
-
-Keep this terminal open.
+Keep this terminal open while testing.
 
 ### Start clickhouse-server with:
- 
+Start ClickHouse using the built-in start command for normal operation.
+
 ```console
 sudo clickhouse start
 ```
 ### Connect using ClickHouse Client
-Open a new terminal and run:
+Open a new terminal and connect to the ClickHouse server.
 
 ```console
 clickhouse client
 ```
-
-Run a test query:
+Run a test query to confirm connectivity.
 
 ```sql
 SELECT version();
 ```
 
 ### Create a systemd service
-Create a systemd service file to manage ClickHouse as a background service:
+Set up ClickHouse as a system service so it starts automatically on boot.
 
 ```console
 sudo tee /etc/systemd/system/clickhouse-server.service <<'EOF'
@@ -118,7 +114,7 @@ LimitNOFILE=1048576
 WantedBy=multi-user.target
 EOF
 ```
-Reload systemd and enable the service:
+**Reload systemd and enable the service:**
 
 ```console
 sudo systemctl daemon-reload
@@ -127,14 +123,14 @@ sudo systemctl start clickhouse-server
 ```
 
 ### Verify ClickHouse service
-Check service status:
+Ensure the ClickHouse server is running correctly as a background service.
 
 ```console
 sudo systemctl status clickhouse-server
 ```
 
 ### Final validation
-Connect again using the client:
+Reconnect to ClickHouse and confirm it is operational.
 
 ```console
 clickhouse client
@@ -144,4 +140,4 @@ clickhouse client
 SELECT version();
 ```
 
-ClickHouse is now successfully installed and running on SUSE Linux ARM64.
+ClickHouse is now successfully installed, configured, and running on SUSE Linux Arm64 with automatic startup enabled.
