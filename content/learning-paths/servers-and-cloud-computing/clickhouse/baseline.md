@@ -11,7 +11,7 @@ This section validates that ClickHouse is functioning correctly and provides a *
 
 
 ### Verify ClickHouse is running
-Check the service status:
+confirms that the ClickHouse server is running correctly under systemd and ready to accept connections.
 
 ```console
 sudo systemctl status clickhouse-server
@@ -30,12 +30,13 @@ sudo systemctl status clickhouse-server
 ```
 
 ### Connect to ClickHouse
+Client connection ensures that the ClickHouse CLI can successfully communicate with the running server.
 
 ```console
 clickhouse client
 ```
 ### Create a test database and table
-Create a database:
+Database and table creation sets up a dedicated test environment and an analytics-optimized MergeTree table for baseline evaluation.
 
 ```sql
 CREATE DATABASE baseline_test;
@@ -76,6 +77,7 @@ Ok.
 ```
 
 ### Insert baseline test data
+Data insertion loads a small, controlled dataset to simulate real event data and validate write functionality.
 Insert sample data (10,000 rows):
 
 ```sql
@@ -97,6 +99,7 @@ Peak memory usage: 3.96 MiB.
 ```
 
 **Verify row count:**
+Row count validation verifies that the inserted data is stored correctly and consistently.
 
 ```sql
 SELECT count(*) FROM events;
@@ -113,6 +116,7 @@ Query id: 644f6556-e69b-4f98-98ec-483ee6869d6e
 ```
 
 ### Baseline read performance test
+Baseline read queries measure basic query performance for filtering, aggregation, and grouping, establishing an initial performance reference on the Arm64 VM.
 Run simple analytical queries:
 
 ```sql
@@ -148,6 +152,3 @@ Query id: b3db69f8-c885-419f-9900-53d258f0b996
 1 row in set. Elapsed: 0.002 sec. Processed 10.00 thousand rows, 40.00 KB (4.08 million rows/s., 16.33 MB/s.)
 Peak memory usage: 785.05 KiB.
 ```
-
-
-
