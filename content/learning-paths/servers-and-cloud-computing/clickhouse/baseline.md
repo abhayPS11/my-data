@@ -43,6 +43,7 @@ CREATE DATABASE baseline_test;
 USE baseline_test;
 ```
 
+You should see an output similar to:
 ```output
 CREATE DATABASE baseline_test
 Query id: bc615167-ecd5-4470-adb0-918d8ce07caf
@@ -68,6 +69,7 @@ ENGINE = MergeTree
 ORDER BY (event_time, user_id);
 ```
 
+You should see an output similar to:
 ```output
 Query id: 62ce9b9c-9a7b-45c8-9a58-fa6302b13a88
 
@@ -89,6 +91,7 @@ SELECT
 FROM numbers(10000);
 ```
 
+You should see an output similar to:
 ```output
 Query id: af860501-d903-4226-9e10-0e34467f7675
 
@@ -105,6 +108,7 @@ Row count validation verifies that the inserted data is stored correctly and con
 SELECT count(*) FROM events;
 ```
 
+You should see an output similar to:
 ```output
 Query id: 644f6556-e69b-4f98-98ec-483ee6869d6e
 
@@ -122,6 +126,8 @@ Run simple analytical queries:
 ```sql
 SELECT count(*) FROM events WHERE event_type = 'click';
 ```
+
+You should see an output similar to:
 ```output
 Query id: bd609de4-c08e-4f9f-804a-ee0528c94e4d
 
@@ -142,6 +148,7 @@ GROUP BY date
 ORDER BY date;
 ```
 
+You should see an output similar to:
 ```output
 Query id: b3db69f8-c885-419f-9900-53d258f0b996
 
