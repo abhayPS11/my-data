@@ -1,5 +1,5 @@
 ---
-title: Couchbase  Baseline Testing on Google Axion C4A Arm Virtual Machine
+title: ClickHouse Baseline Testing on Google Axion C4A Arm Virtual Machine
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 ## ClickHouse Baseline Testing on GCP SUSE VMs
-This section validates that ClickHouse is functioning correctly and provides a **basic performance baseline** on a SUSE Linux ARM64 VM.
+This section validates that ClickHouse is functioning correctly and provides a **basic performance baseline** on a SUSE Linux Arm64 VM.
 
 
 ### Verify ClickHouse is running
@@ -159,3 +159,5 @@ Query id: b3db69f8-c885-419f-9900-53d258f0b996
 1 row in set. Elapsed: 0.002 sec. Processed 10.00 thousand rows, 40.00 KB (4.08 million rows/s., 16.33 MB/s.)
 Peak memory usage: 785.05 KiB.
 ```
+
+The baseline tests confirm that ClickHouse is stable, functional, and performing efficiently on the Arm64 VM. With core operations validated, the setup is now ready for detailed performance benchmarking.
