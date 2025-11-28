@@ -78,6 +78,11 @@ sudo clickhouse server --config-file=/etc/clickhouse-server/config.xml
 
 Keep this terminal open.
 
+### Start clickhouse-server with:
+ 
+```console
+sudo clickhouse start
+```
 ### Connect using ClickHouse Client
 Open a new terminal and run:
 
