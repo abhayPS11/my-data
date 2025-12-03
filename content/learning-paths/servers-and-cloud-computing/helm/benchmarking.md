@@ -60,6 +60,10 @@ This warm-up ensures the real benchmark measures Helm performance, not setup ove
 helm uninstall warmup -n helm-bench
 ```
 
+{{% notice Note %}}
+Helm does not provide native concurrency or throughput metrics. Concurrency benchmarking is performed by executing multiple Helm CLI operations in parallel and measuring overall completion time.
+{{% /notice %}}
+
 ### Concurrent Helm Install Benchmark (No Wait)
 Run multiple Helm installs in parallel using background jobs.
 
