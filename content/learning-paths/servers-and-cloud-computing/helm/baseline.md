@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 ## Helm Baseline Testing on GCP SUSE VMs
-The goal of baseline testing is to confirm that Helm works correctly on an ARM64-based Kubernetes cluster by validating core Helm workflows such as install, upgrade, and uninstall.
+This guide walks you through baseline testing to confirm that Helm works correctly on an Arm64-based Kubernetes cluster by validating core workflows such as install, upgrade, and uninstall.
 
 ### Add Helm Repository
 Add the Bitnami Helm chart repository and update the local index:
