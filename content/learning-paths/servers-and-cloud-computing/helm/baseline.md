@@ -31,6 +31,7 @@ Install a sample NGINX application using a Helm chart:
 ```console
 helm install nginx bitnami/nginx
 ```
+Deploy a simple test app to validate that Helm can create releases on the cluster.
 
 You should see an output similar to:
 ```output
@@ -53,6 +54,8 @@ Verify that the Helm release is created:
 ```console
 helm list
 ```
+
+Confirm Helm recorded the release and that the deployment exists.
 
 You should see an output similar to:
 ```output
@@ -87,13 +90,14 @@ All pods should be in the **Running** state.
 
 
 ### Validate Helm Lifecycle
-This step confirms that Helm supports the full application lifecycle on ARM64.
+This step confirms that Helm supports the full application lifecycle on Arm64.
 
 #### Upgrade the Release
 
 ```console
 helm upgrade nginx bitnami/nginx
 ```
+Test Helm's ability to update an existing release to a new revision.
 
 You should see an output similar to:
 ```output
@@ -101,6 +105,7 @@ Release "nginx" has been upgraded. Happy Helming!
 ```
 
 #### Uninstall the Release
+Ensure Helm can cleanly remove the release and associated resources.
 
 ```console
 helm uninstall nginx
