@@ -1,6 +1,6 @@
 ---
 title: RabbitMQ Use Case – Event Processing with Python Workers
-weight: 5
+weight: 6
 layout: learningpathall
 ---
 
