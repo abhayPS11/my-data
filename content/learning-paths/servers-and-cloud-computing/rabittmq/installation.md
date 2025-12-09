@@ -19,7 +19,7 @@ RabbitMQ requires Erlang to be installed before setting up the server.
 - Outbound internet access
 
 ### Refresh System Repositories
-Update system metadata to ensure the latest package information is available.
+This step updates the system’s package list so the operating system knows about the latest software available from its repositories.
 
 ```console
 sudo zypper refresh
@@ -90,4 +90,11 @@ Confirm the installed RabbitMQ version.
 
 ```console
 sudo rabbitmqctl version
+```
+
+### Access RabbitMQ Management UI
+By default, the management UI is available at:
+
+```cpp
+http://<VM-IP>:15672
 ```
