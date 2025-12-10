@@ -93,8 +93,33 @@ sudo rabbitmqctl version
 ```
 
 ### Access RabbitMQ Management UI
-By default, the management UI is available at:
+Create a new RabbitMQ user for remote access
 
-```cpp
-http://<VM-IP>:15672
+- Create a new `admin` user
+
+**Run these commands on the VM:**
+
+```console
+sudo rabbitmqctl add_user admin StrongPassword123
+sudo rabbitmqctl set_user_tags admin administrator
+sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 ```
+
+**Log in to Management UI**
+
+- **URL**: http://<VM_IP>:15672
+- **Username**: admin
+- **Password**: StrongPassword123
+
+This is the production-safe approach.
+
+Now, let’s test it from outside the VM. Open a web browser on your local machine (Chrome, Firefox, Edge, etc.) and enter the following URL in the address bar:
+
+```console
+[http://<YOUR_VM_PUBLIC_IP>/info.php](http://<VM_IP>:15672)
+```
+- Replace `<VM_IP>` with the public IP of your GCP VM.
+
+If everything is set up correctly, you will see a RabbitMQ login page in your browser. It looks like this:
+
+![PHP-info page alt-text#center](images/php-web.png "Figure 1: PHP info")
