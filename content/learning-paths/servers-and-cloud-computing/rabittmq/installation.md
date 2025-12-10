@@ -122,4 +122,4 @@ Now, let’s test it from outside the VM. Open a web browser on your local machi
 
 If everything is set up correctly, you will see a RabbitMQ login page in your browser. It looks like this:
 
-![PHP-info page alt-text#center](images/php-web.png "Figure 1: PHP info")
+![RabbitMQ page alt-text#center](images/rabbitmq.png "Figure 1: RabbitMQ Login page")
