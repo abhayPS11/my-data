@@ -34,12 +34,16 @@ RabbitMQ is used as a **message broker** to decouple message production from mes
 - Python 3.8+
 - `pika` Python client library installed
 
+### Install Python Dependencies
+Installs Python and the RabbitMQ Python client needed to build a consumer.
+
 ```console
 sudo zypper install -y python3 python3-pip
 pip3 install pika
 ```
 
 ### RabbitMQ Topology
+This use case uses a direct exchange topology for exact-match routing.
 
 **Exchanges**
 - **notifications (direct):** Routes WhatsApp notification messages based on an exact routing key match.
@@ -53,7 +57,12 @@ pip3 install pika
 - Queue: **whatsapp.notifications**– Final destination where messages are delivered for processing.
 
 ### Declare RabbitMQ Resources
+Creates the required exchange, queue, and binding for WhatsApp notifications.
 
+- `Declare exchange`: Creates a durable direct exchange named notifications to route messages using exact routing keys.
+- `Declare queue`: Creates a durable queue whatsapp.notifications to persist WhatsApp notification messages until consumed.
+- `Declare binding`: Links the notifications exchange to the whatsapp.notifications queue using the whatsapp routing key.
+  
 ```console
 ./rabbitmqadmin declare exchange \
   name=notifications \
@@ -69,8 +78,11 @@ pip3 install pika
   destination=whatsapp.notifications \
   routing_key=whatsapp
 ```
+Each command confirms successful creation with messages like **exchange declared, queue declared, and binding declared**.
 
 **Validate the setup:**
+
+Validates that RabbitMQ resources exist and are correctly connected.
 
 ```console
 ./rabbitmqadmin list queues name messages
@@ -78,8 +90,21 @@ pip3 install pika
 ./rabbitmqadmin list bindings
 ```
 
+- `list queues` displays all queues along with the number of messages currently stored in each queue.
+- `list exchanges` lists all exchanges and their types, allowing verification of correct exchange configuration.
+- `list bindings` shows how exchanges, queues, and routing keys are connected.
+
+**Output shows:**
+
+- notifications exchange of type direct
+- whatsapp.notifications durable queue
+- Correct routing key binding (whatsapp)
+- Zero or more queued messages
+
+Confirms topology correctness before consuming messages.
+
 ```output
-gcpuser@lpprojectsusearm64:~> ./rabbitmqadmin list queues name messages
+> ./rabbitmqadmin list queues name messages
 +------------------------+----------+
 |          name          | messages |
 +------------------------+----------+
@@ -88,7 +113,8 @@ gcpuser@lpprojectsusearm64:~> ./rabbitmqadmin list queues name messages
 | testqueue              | 1        |
 | whatsapp.notifications | 0        |
 +------------------------+----------+
-gcpuser@lpprojectsusearm64:~> ./rabbitmqadmin list exchanges name type
+
+> ./rabbitmqadmin list exchanges name type
 +--------------------+---------+
 |        name        |  type   |
 +--------------------+---------+
@@ -102,7 +128,8 @@ gcpuser@lpprojectsusearm64:~> ./rabbitmqadmin list exchanges name type
 | events             | topic   |
 | notifications      | direct  |
 +--------------------+---------+
-gcpuser@lpprojectsusearm64:~> ./rabbitmqadmin list bindings
+
+> ./rabbitmqadmin list bindings
 +---------------+------------------------+------------------------+
 |    source     |      destination       |      routing_key       |
 +---------------+------------------------+------------------------+
@@ -113,13 +140,14 @@ gcpuser@lpprojectsusearm64:~> ./rabbitmqadmin list bindings
 | events        | order.events           | order.*                |
 | notifications | whatsapp.notifications | whatsapp               |
 +---------------+------------------------+------------------------+
-gcpuser@lpprojectsusearm64:~>
 ```
 
 ### WhatsApp Worker Implementation
 The worker attaches as a **blocking consumer** to the `whatsapp.notifications` queue and processes incoming messages.
 
-`whatsapp_worker.py`
+Create a `whatsapp_worker.py` file with the content below:
+
+This Python script implements a **RabbitMQ consumer (worker)** that processes WhatsApp notification messages from a queue in a reliable and controlled manner.
 
 ```python
 import pika
@@ -151,7 +179,7 @@ channel.queue_declare(queue=QUEUE_NAME, durable=True)
 print("[DEBUG] Setting QoS...")
 channel.basic_qos(prefetch_count=1)
 
-print("✅ WhatsApp Worker started. Waiting for messages...")
+print("WhatsApp Worker started. Waiting for messages...")
 
 def send_whatsapp(ch, method, properties, body):
     data = json.loads(body.decode())
@@ -161,7 +189,7 @@ def send_whatsapp(ch, method, properties, body):
     # Simulate external WhatsApp API call
     time.sleep(1)
 
-    print("[Worker] Message sent successfully ✅")
+    print("[Worker] Message sent successfully")
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 channel.basic_consume(
@@ -180,24 +208,27 @@ Run the worker in a dedicated terminal session:
 ```console
 python3 whatsapp_worker.py
 ```
-output:
+
+The worker is running correctly and waiting for messages without exiting.
+
+**output:**
 
 ```output
 [DEBUG] Connecting to RabbitMQ...
 [DEBUG] Declaring queue...
 [DEBUG] Setting QoS...
-✅ WhatsApp Worker started. Waiting for messages...
+WhatsApp Worker started. Waiting for messages...
 [DEBUG] Starting consumer loop (this should BLOCK)...
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: Your order #1234 has been confirmed
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 ```
 
 The process must block without returning to the shell prompt.
 
 ### Publish a Test Message
-From another terminal:
+From another terminal: Publishes a WhatsApp notification message to RabbitMQ.
 
 ```console
 ./rabbitmqadmin publish \
@@ -207,40 +238,46 @@ From another terminal:
 ```
 
 ### Message Consumption Validation
-The worker terminal displays:
+The worker terminal displays logs similar to:
 
 ```output
 [DEBUG] Connecting to RabbitMQ...
 [DEBUG] Declaring queue...
 [DEBUG] Setting QoS...
-✅ WhatsApp Worker started. Waiting for messages...
+WhatsApp Worker started. Waiting for messages...
 [DEBUG] Starting consumer loop (this should BLOCK)...
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: Your order #1234 has been confirmed
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: Your order #1234 has been confirmed
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +9111
 [Worker] Message content: Test-1
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: Validation test
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: Hello from RabbitMQ
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: Hello from RabbitMQ
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: FINAL validation test
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 [Worker] Sending WhatsApp message to +911234567890
 [Worker] Message content: FINAL validation test
-[Worker] Message sent successfully ✅
+[Worker] Message sent successfully
 ```
+**What this confirms:**
 
+- Message routing works correctly
+- Queue consumption is successful
+- Manual acknowledgments are applied
+
+End-to-end message flow validated.
 
 ### Verify Queue State
 
@@ -261,6 +298,8 @@ Expected output:
 +------------------------+----------+-----------+
 ```
 
+**What this confirms:**
 
-```
-
+- Messages were consumed successfully
+- One active consumer is connected
+- No backlog remains in the queue
