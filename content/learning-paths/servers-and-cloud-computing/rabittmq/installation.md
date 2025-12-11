@@ -55,6 +55,12 @@ wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v4.2.0/rabbit
 sudo rpm -Uvh rabbitmq-server-4.2.0-1.el8.noarch.rpm
 ```
 
+{{% notice Note %}}
+RabbitMQ version 3.11.0 introduced significant performance enhancements for Arm-based architectures. This version requires Erlang 25.0 or later, which brings Just-In-Time (JIT) compilation and modern flame graph profiling tooling to both x86 and ARM64 CPUs. These features result in improved performance on ARM64 architectures.
+You can view [this release note](https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.11.0.md)
+
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends RabbitMQ version 3.11.0, the minimum recommended on the Arm platforms.
+{{% /notice %}}
 ### Enable and Start RabbitMQ Service
 Enable RabbitMQ to start automatically on boot and start the service immediately.
 
