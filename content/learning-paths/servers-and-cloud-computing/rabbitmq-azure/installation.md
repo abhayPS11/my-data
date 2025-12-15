@@ -45,6 +45,12 @@ make clean
 make -j$(nproc)
 sudo make install
 ```
+### Make Erlang PATH persistent (IMPORTANT)
+
+```console
+echo 'export ERLANG_HOME=/usr/local/erlang-26' | sudo tee /etc/profile.d/erlang.sh
+echo 'export PATH=$ERLANG_HOME/bin:$PATH' | sudo tee -a /etc/profile.d/erlang.sh
+```
 
 ### Download and install RabbitMQ
 
