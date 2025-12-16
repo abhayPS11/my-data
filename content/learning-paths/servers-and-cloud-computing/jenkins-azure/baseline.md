@@ -58,8 +58,17 @@ http://<VM_PUBLIC_IP>:8080
 Follow the on-screen steps:
 
 1. Paste the initial admin password
+
+![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+
 2. Select **Install suggested plugins**
+
+![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+
 3. Create an admin user
+
+![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+
 4. Finish setup and reach the Jenkins dashboard
 
 ### Baseline Verification (ARM)
@@ -100,7 +109,9 @@ Navigate to:
 http://<VM_PUBLIC_IP>:8080
 ```
 
-Log in using your Jenkins credentials.
+**Log in using your Jenkins credentials:**
+
+![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
 
 ### Step 2: Create a New Pipeline Job
 
