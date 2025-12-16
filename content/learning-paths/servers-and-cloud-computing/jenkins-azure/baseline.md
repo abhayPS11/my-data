@@ -162,6 +162,8 @@ Click **Save**.
 1. On the job page, click **Build Now**
 2. A build number will appear under **Build History**
 
+![ Jenkins UI alt-text#center](images/jenkins-Job.png "Figure 7: Run Pipeline")
+
 ### Step 5: View Console Output
 
 1. Click the build number (for example, `#1`)
