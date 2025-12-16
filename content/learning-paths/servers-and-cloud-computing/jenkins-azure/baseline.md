@@ -155,14 +155,12 @@ pipeline {
 
 Click **Save**.
 
-![Jenkins UI alt-text#center](images/jenkins-pipeline.png "Figure 6: Pipeline ")
+![Jenkins UI alt-text#center](images/jenkins-pipeline.png "Figure 6: Create Pipeline ")
 
 ### Step 4: Run the Pipeline
 
 1. On the job page, click **Build Now**
 2. A build number will appear under **Build History**
-
-![ Jenkins UI alt-text#center](images/jenkins-Job.png "Figure 7: Run Pipeline")
 
 ### Step 5: View Console Output
 
