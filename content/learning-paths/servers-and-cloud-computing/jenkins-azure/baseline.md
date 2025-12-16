@@ -11,9 +11,12 @@ This document validates a **working Jenkins LTS setup** on an **Azure Ubuntu 24.
 It focuses on **service health, network access, ARM verification, and a first pipeline run**.
 
 ### Network Verification
+This section verifies that Jenkins is reachable over the network and properly exposed on the expected port.
+
 Ensure Jenkins is listening on port **8080** and that the port is allowed at both the Azure and VM levels.
 
-### Verify Jenkins is listening on port 8080
+#### Verify Jenkins is listening on port 8080
+Confirm that the Jenkins service is actively listening on port 8080 on the VM.
 
 ```console
 ss -lntp | grep 8080
@@ -24,8 +27,10 @@ Expected output indicates Jenkins is listening:
 LISTEN 0 50 *:8080 *:*
 ```
 
-### Azure Network Security Group (NSG)
-Confirm the following inbound rule exists in the Azure portal:
+#### Azure Network Security Group (NSG)
+Ensure inbound access to Jenkins is allowed at the Azure networking layer.
+
+Verify that an inbound NSG rule exists with the following configuration:
 
 * **Port**: 8080
 * **Protocol**: TCP
@@ -33,29 +38,52 @@ Confirm the following inbound rule exists in the Azure portal:
 * **Source**: Internet (or your IP range)
 
 ### Retrieve Initial Admin Password
+This step retrieves the automatically generated Jenkins administrator password required for first-time login.
 
 ```console
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
-Copy the password.
+Copy and securely store this password for UI access.
 
-### Access Jenkins UI
+### Verify Jenkins User and Home Directory
+Validate that the Jenkins service user exists and that the Jenkins home directory is correctly configured.
 
-Open Jenkins in your local browser:
-
-```text
-http://<VM_PUBLIC_IP>:8080
+```console
+id jenkins
+ls -ld /var/lib/jenkins
 ```
 
-Example:
+### Verify Jenkins Process
+Confirm that the Jenkins process is running and managed by the system.
+
+```console
+ps -ef | grep jenkins
+```
+
+### Verify ARM Architecture
+Ensure the VM is running on Arm64 architecture.
+
+```console
+uname -m
+```
+
+You should see an output similar to: 
+```text
+aarch64
+```
+
+### Access Jenkins UI
+This step confirms browser-based access to the Jenkins web interface.
+
+**Open Jenkins in a local browser:**
 
 ```text
 http://<VM_PUBLIC_IP>:8080
 ```
 
 ### Complete UI Setup
-Follow the on-screen steps:
+Complete the initial Jenkins setup using the web interface.
 
 1. Paste the initial admin password
 
@@ -71,39 +99,11 @@ Follow the on-screen steps:
 
 4. Finish setup and reach the Jenkins dashboard
 
-### Baseline Verification (ARM)
+### Execute First Jenkins Pipeline
+This section confirms Jenkins can run jobs successfully on Arm.
 
-### Verify Jenkins User and Home Directory
-
-```console
-id jenkins
-ls -ld /var/lib/jenkins
-```
-
-### Verify Jenkins Process
-
-```console
-ps -ef | grep jenkins
-```
-
-### Verify ARM Architecture
-
-```console
-uname -m
-```
-
-Expected output:
-
-```text
-aarch64
-```
-
-### Execute Your First Jenkins Pipeline
-This section confirms Jenkins can run jobs successfully on ARM.
-
-### Step 1: Open Jenkins Dashboard
-
-Navigate to:
+#### Step 1: Open Jenkins Dashboard
+Navigate to the Jenkins dashboard and authenticate using the configured credentials.
 
 ```text
 http://<VM_PUBLIC_IP>:8080
@@ -113,13 +113,14 @@ http://<VM_PUBLIC_IP>:8080
 
 ![ Jenkins UI alt-text#center](images/jenkins-login-page.png "Figure 4: Jenkins Login Page")
 
-### Step 2: Create a New Pipeline Job
+#### Step 2: Create a New Pipeline Job
+Create a basic pipeline job to validate execution capability.
 
 1. Click **New Item** (left sidebar)
 2. Enter item name:
 
 ```text
-arm-baseline-pipeline
+armbaseline-pipeline
 ```
 
 3. Select **Pipeline**
@@ -127,7 +128,8 @@ arm-baseline-pipeline
 
 ![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 5: New Item")
 
-### Step 3: Add the Pipeline Script
+#### Step 3: Add the Pipeline Script
+Configure a simple pipeline to validate ARM architecture and Java availability.
 
 Scroll to the **Pipeline** section.
 
@@ -157,14 +159,16 @@ Click **Save**.
 
 ![Jenkins UI alt-text#center](images/jenkins-pipeline.png "Figure 6: Create Pipeline ")
 
-### Step 4: Run the Pipeline
+#### Step 4: Run the Pipeline
+Trigger the pipeline execution and observe build progress.
 
 1. On the job page, click **Build Now**
 2. A build number will appear under **Build History**
 
 ![ Jenkins UI alt-text#center](images/jenkins-job.png "Figure 7: Run Pipeline")
 
-### Step 5: View Console Output
+#### Step 5: View Console Output
+Review the pipeline logs to confirm successful execution.
 
 1. Click the build number (for example, `#1`)
 2. Click **Console Output**
