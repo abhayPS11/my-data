@@ -3,7 +3,7 @@ title: Deploy RabbitMQ on Microsoft Azure Cobalt 100 Arm processors
 
 minutes_to_complete: 30
 
-who_is_this_for: This learning path is designed for software engineers, platform engineers, and DevOps practitioners migrating messaging and event-driven workloads from x86_64 to Arm-based servers, specifically on Microsoft Azure Cobalt 100 Arm processors.
+who_is_this_for: This learning path is intended for software developers deploying and optimizing RabbitMQ workloads on Linux/Arm64 environments, specifically on Microsoft Azure Cobalt 100 Arm processors.
 
 learning_objectives:
   - Provision an Azure Arm-based Ubuntu Pro 24.04 virtual machine (Cobalt 100)
