@@ -114,7 +114,7 @@ arm-baseline-pipeline
 3. Select **Pipeline**
 4. Click **OK**
 
-![ Jenkins UI alt-text#center](images/.png "Figure 1: New Item")
+![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
 
 ### Step 3: Add the Pipeline Script
 
@@ -144,7 +144,7 @@ pipeline {
 
 Click **Save**.
 
-![Jenkins UI alt-text#center](images/.png "Figure 2: Pipeline ")
+![Jenkins UI alt-text#center](images/jenkins-pipeline.png "Figure 2: Pipeline ")
 
 ### Step 4: Run the Pipeline
 
@@ -156,7 +156,7 @@ Click **Save**.
 1. Click the build number (for example, `#1`)
 2. Click **Console Output**
 
-![Jenkins UI alt-text#center](images/.png "Figure 3: Console Output ")
+![Jenkins UI alt-text#center](images/jenkins-output.png "Figure 3: Console Output ")
 
 ### Baseline Validation Result
 
