@@ -114,6 +114,8 @@ arm-baseline-pipeline
 3. Select **Pipeline**
 4. Click **OK**
 
+![ Jenkins UI alt-text#center](images/.png "Figure 1: New Item")
+
 ### Step 3: Add the Pipeline Script
 
 Scroll to the **Pipeline** section.
@@ -142,6 +144,8 @@ pipeline {
 
 Click **Save**.
 
+![Jenkins UI alt-text#center](images/.png "Figure 2: Pipeline ")
+
 ### Step 4: Run the Pipeline
 
 1. On the job page, click **Build Now**
@@ -152,17 +156,7 @@ Click **Save**.
 1. Click the build number (for example, `#1`)
 2. Click **Console Output**
 
-Expected output:
-
-```text
-Architecture:
-aarch64
-
-Java Version:
-openjdk version "17.0.x"
-```
-
----
+![Jenkins UI alt-text#center](images/.png "Figure 3: Console Output ")
 
 ### Baseline Validation Result
 
