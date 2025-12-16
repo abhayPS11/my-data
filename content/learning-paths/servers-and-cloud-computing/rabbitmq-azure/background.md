@@ -14,10 +14,8 @@ To learn more about Cobalt 100, refer to the blog [Announcing the preview of new
 
 ## RabbitMQ
 
-RabbitMQ is an open-source **message broker** that enables applications to communicate asynchronously using messaging patterns such as queues, publish/subscribe, and routing. It acts as an intermediary that reliably receives, stores, and forwards messages between producers and consumers.
+RabbitMQ is an open-source message broker that enables asynchronous communication between applications using messaging patterns such as queues, publish/subscribe, and routing. 
 
-RabbitMQ helps decouple application components, improve scalability, and increase fault tolerance by ensuring messages are not lost and can be processed independently. It supports multiple messaging protocols, including AMQP, and provides features such as message durability, acknowledgments, routing via exchanges, and flexible delivery guarantees.
-
-RabbitMQ is widely used for **event-driven architectures**, **background job processing**, **microservices communication**, and **notification systems**. It integrates easily with many programming languages and platforms.
+It helps decouple system components, improve scalability, and increase reliability by ensuring messages are delivered and processed independently.
 
 Learn more from the [RabbitMQ official website](https://www.rabbitmq.com/) and the [official documentation](https://www.rabbitmq.com/documentation.html).
