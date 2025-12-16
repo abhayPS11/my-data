@@ -59,15 +59,15 @@ Follow the on-screen steps:
 
 1. Paste the initial admin password
 
-![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+![ Jenkins UI alt-text#center](images/initial-setup.png "Figure 1: Initial-Jenkins_page")
 
 2. Select **Install suggested plugins**
 
-![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+![ Jenkins UI alt-text#center](images/jenkins-plugins.png "Figure 2: New Item")
 
 3. Create an admin user
 
-![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+![ Jenkins UI alt-text#center](images/jenkins-admin.png "Figure 3: Install Plugins")
 
 4. Finish setup and reach the Jenkins dashboard
 
@@ -111,7 +111,7 @@ http://<VM_PUBLIC_IP>:8080
 
 **Log in using your Jenkins credentials:**
 
-![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+![ Jenkins UI alt-text#center](images/jenkins-login-page.png "Figure 4: Jenkins Login Page")
 
 ### Step 2: Create a New Pipeline Job
 
@@ -125,7 +125,7 @@ arm-baseline-pipeline
 3. Select **Pipeline**
 4. Click **OK**
 
-![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 1: New Item")
+![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 5: New Item")
 
 ### Step 3: Add the Pipeline Script
 
@@ -155,7 +155,7 @@ pipeline {
 
 Click **Save**.
 
-![Jenkins UI alt-text#center](images/jenkins-pipeline.png "Figure 2: Pipeline ")
+![Jenkins UI alt-text#center](images/jenkins-pipeline.png "Figure 6: Pipeline ")
 
 ### Step 4: Run the Pipeline
 
@@ -167,7 +167,7 @@ Click **Save**.
 1. Click the build number (for example, `#1`)
 2. Click **Console Output**
 
-![Jenkins UI alt-text#center](images/jenkins-output.png "Figure 3: Console Output ")
+![Jenkins UI alt-text#center](images/jenkins-output.png "Figure 7: Console Output ")
 
 ### Baseline Validation Result
 
