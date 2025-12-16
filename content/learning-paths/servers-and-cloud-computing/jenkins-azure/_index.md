@@ -3,7 +3,7 @@ title: Deploy Jenkins on Microsoft Azure Cobalt 100 processors
 
 minutes_to_complete: 30   
 
-who_is_this_for: This Learning Path is designed for software developers, DevOps engineers, and platform teams who want to deploy and validate Jenkins on Arm-based Microsoft Azure virtual machines for CI/CD workloads.
+who_is_this_for: This learning path is intended for software developers deploying and optimizing Jenkins workloads on Linux/Arm64 environments, specifically on Microsoft Azure Cobalt 100 Arm processors.
 
 learning_objectives: 
     - Provision an Azure Arm64 virtual machine using the Azure console, with Ubuntu Pro 24.04 LTS as the base image
