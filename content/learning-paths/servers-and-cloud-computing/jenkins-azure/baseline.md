@@ -54,11 +54,22 @@ id jenkins
 ls -ld /var/lib/jenkins
 ```
 
+You should see an output similar to:
+```output
+drwxr-xr-x 12 jenkins jenkins 4096 Dec 16 06:11 /var/lib/jenkins
+```
+
 ### Verify Jenkins Process
 Confirm that the Jenkins process is running and managed by the system.
 
 ```console
 ps -ef | grep jenkins
+```
+
+You should see an output similar to:
+```output
+jenkins    11986       1  9 06:04 ?        00:00:38 /usr/bin/java -Djava.awt.headless=true -jar /usr/share/java/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080
+azureus+   15126    2233  0 06:11 pts/0    00:00:00 grep --color=auto jenkins
 ```
 
 ### Verify ARM Architecture
