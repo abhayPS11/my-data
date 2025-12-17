@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 ## Install Jenkins on GCP SUSE Arm64
-This section covers the installation of **Jenkins (Latest Stable LTS)** on a **GCP SUSE Linux Enterprise Server (SLES) Arm64 VM**. The goal is to prepare a clean, ARM-native Jenkins environment that will be used later for CI/CD use cases.
+This section covers the installation of **Jenkins (Latest Stable LTS)** on a **GCP SUSE Linux Enterprise Server (SLES) Arm64 VM**. The goal is to prepare a clean, Arm-native Jenkins environment that will be used later for CI/CD use cases.
 
 ### System Preparation
 Update the system and install required utilities.
@@ -31,10 +31,11 @@ Verify Java installation:
 java -version
 ```
 
-Expected output includes:
-
+You should see an output similar to:
 ```text
-openjdk version "17"
+openjdk version "17.0.13" 2024-10-15
+OpenJDK Runtime Environment (build 17.0.13+11-suse-150400.3.48.2-aarch64)
+OpenJDK 64-Bit Server VM (build 17.0.13+11-suse-150400.3.48.2-aarch64, mixed mode, sharing)
 ```
 
 ### Add Jenkins Official Repository (Stable LTS)
@@ -73,16 +74,22 @@ Verify service status:
 sudo systemctl status jenkins
 ```
 
-Expected state:
-
-```text
-Active: active (running)
+You should see an output similar to:
+```output
+● jenkins.service - Jenkins Continuous Integration Server
+     Loaded: loaded (/usr/lib/systemd/system/jenkins.service; enabled; vendor preset: disabled)
+     Active: active (running) since Wed 2025-12-17 08:08:22 UTC; 1h 56min ago
 ```
 
-## Step 6: Verify Jenkins Version
+### Verify Jenkins Version
 
 ```console
 jenkins --version
 ```
 
-This section completes the installation of Jenkins LTS on a GCP SUSE Arm64 VM using Java 17. Jenkins service health, version validation, network accessibility, and initial UI setup are verified. The system is now ready for ARM-native CI/CD use cases.
+You should see an output similar to:
+```output
+2.528.3
+```
+
+This section completes the installation of Jenkins LTS on a GCP SUSE Arm64 VM using Java 17. Jenkins service health, version validation, network accessibility, and initial UI setup are verified. The system is now ready for Arm-native CI/CD use cases.
