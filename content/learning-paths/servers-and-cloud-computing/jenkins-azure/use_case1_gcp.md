@@ -8,7 +8,7 @@ layout: learningpathall
 
 
 ## Jenkins Use Case - Arm-Native Go CI Pipeline on Jenkins (GCP SUSE Arm64)
-This use case demonstrates how to validate **ARM-native CI execution** on a **GCP SUSE Arm64 VM** using Jenkins.
+This use case demonstrates how to validate **Arm-native CI execution** on a **GCP SUSE Arm64 VM** using Jenkins.
 A simple Go application is built and executed to confirm that Jenkins, Go, and the underlying system are running natively on **aarch64**.
 
 ### Network Verification
@@ -18,17 +18,14 @@ Ensure Jenkins is listening on port **8080** and accessible.
 ss -lntp | grep 8080
 ```
 
-Expected output includes:
-
+You should see an output similar to:
 ```output
 LISTEN 0 50 *:8080 *:*
 ```
-
-Verify that the firewall (if enabled) allows port 8080 and that the GCP firewall rule permits inbound traffic on this port.
-
+Also, confirm that the VM firewall and GCP firewall rules allow inbound traffic on port **8080**.
 
 ### Retrieve Initial Admin Password
-This step retrieves the automatically generated Jenkins administrator password required for first-time login.
+Jenkins generates a one-time administrator password during the first startup. This step retrieves that password so you can log in to the UI.
 
 ```console
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
@@ -37,9 +34,9 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 Copy and securely store this password for UI access.
 
 ### Access Jenkins UI
-This step confirms browser-based access to the Jenkins web interface.
+This step verifies that the Jenkins web interface is accessible from your browser.
 
-**Open Jenkins in a local browser:**
+Open Jenkins using the VM’s public IP address:
 
 ```text
 http://<VM_PUBLIC_IP>:8080
@@ -63,8 +60,10 @@ Complete the initial Jenkins setup using the web interface.
 4. Finish setup and reach the Jenkins dashboard
 
 ### Prepare Go Application on the VM
+This section prepares a simple Go application that will be built and executed by Jenkins.
 
 #### Install Go
+Install the Go programming language on the SUSE Arm64 VM.
 
 ```console
 sudo zypper install -y go
@@ -76,13 +75,13 @@ Verify Go installation:
 go version
 ```
 
-Expected output:
-
+You should see an output similar to:
 ```output
-go version go1.x.x linux/arm64
+go version go1.x.x linux/Arm64
 ```
 
 #### Create a Sample Go Application
+Create a small Go program to use in the Jenkins pipeline.
 
 ```console
 mkdir -p ~/go-demo
@@ -98,42 +97,49 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Println("Hello from Go on ARM64 via Jenkins")
+    fmt.Println("Hello from Go on Arm64 via Jenkins")
 }
 EOF
 ```
 
-Initialize Go module:
+**Initialize the Go module:**
 
 ```console
 go mod init go-demo
 ```
 
-Test locally:
+Test the application locally to ensure it works:
 
 ```console
 go run main.go
 ```
 
 ### Create Jenkins Pipeline Job
+This section creates a Jenkins pipeline to build and run the Go application automatically.
 
 #### Step 1: Create New Job
+Create a new Jenkins pipeline job.
 
 * Open Jenkins UI
+
 * Click **New Item**
-* Job name: `go-arm-ci`
+
+* Job name: `go-Arm-ci`
+
 * Select **Pipeline**
+
 * Click **OK**
 
 ![ Jenkins UI alt-text#center](images/jenkins-go.png "Figure 4: Create Job")
 
 #### Step 2: Configure Pipeline Script
+Define the steps Jenkins will execute during the build.
 
-Scroll to the **Pipeline** section and select:
+In the **Pipeline** section:
 
-**Definition:** Pipeline script
+* Set **Definition** to **Pipeline script**
 
-Paste the following script:
+* Paste the following script:
 
 ```groovy
 pipeline {
@@ -175,18 +181,20 @@ Click **Save**.
 ![ Jenkins UI alt-text#center](images/go-pipeline.png "Figure 5: Create Job")
 
 #### Step 3: Run the Pipeline
+Trigger the pipeline to verify execution.
 
 * On the job page, click **Build Now**
+
 * Click the build number
-* Open **Console Output**
 
 ![ Jenkins UI alt-text#center](images/go-build.png "Figure 6: Run Job")
 
 #### Step 4: View Console Output
-Review the pipeline logs to confirm successful execution.
+Review the console logs to confirm that the Go application was built and executed successfully.
 
-1. Click the build number (for example, `#1`)
-2. Click **Console Output**
+* Click the build number (for example, `#1`)
+
+* Click **Console Output**
 
 ![Jenkins UI alt-text#center](images/jenkins-output.png "Figure 8: Console Output ")
 
@@ -202,5 +210,5 @@ This use case confirms:
 
 ### Use Case Summary
 
-This use case validates an ARM-native Jenkins CI pipeline by building and executing a Go application on a GCP SUSE Arm64 VM.
-It confirms correct Jenkins configuration, Go module handling, and native ARM execution suitable for cloud-native CI workloads.
+This use case validates an Arm-native Jenkins CI pipeline by building and executing a Go application on a GCP SUSE Arm64 VM.
+It confirms correct Jenkins configuration, Go module handling, and native Arm execution suitable for cloud-native CI workloads.
