@@ -117,7 +117,7 @@ go run main.go
 
 ### Create Jenkins Pipeline Job
 
-### Step 1: Create New Job
+#### Step 1: Create New Job
 
 * Open Jenkins UI
 * Click **New Item**
@@ -125,9 +125,9 @@ go run main.go
 * Select **Pipeline**
 * Click **OK**
 
+![ Jenkins UI alt-text#center](images/jenkins-go.png "Figure 4: Create Job")
 
-
-### Step 2: Configure Pipeline Script
+#### Step 2: Configure Pipeline Script
 
 Scroll to the **Pipeline** section and select:
 
@@ -172,38 +172,35 @@ pipeline {
 
 Click **Save**.
 
----
+![ Jenkins UI alt-text#center](images/go-pipeline.png "Figure 5: Create Job")
 
-## Run the Pipeline
+#### Step 3: Run the Pipeline
 
 * On the job page, click **Build Now**
 * Click the build number
 * Open **Console Output**
 
----
+![ Jenkins UI alt-text#center](images/go-build.png "Figure 6: Run Job")
 
-## Expected Output
+#### Step 4: View Console Output
+Review the pipeline logs to confirm successful execution.
 
-```output
-aarch64
-go version go1.x.x linux/arm64
-Hello from Go on ARM64 via Jenkins
-```
+1. Click the build number (for example, `#1`)
+2. Click **Console Output**
 
----
+![Jenkins UI alt-text#center](images/jenkins-output.png "Figure 8: Console Output ")
 
-## Validation Criteria
+
+### Validation Criteria
 
 This use case confirms:
 
-* Jenkins jobs execute successfully on ARM64
+* Jenkins jobs execute successfully on Arm64
 * Go toolchain runs natively on aarch64
 * Jenkins workspace and filesystem handling are correct
 * End-to-end CI execution works on GCP SUSE Arm64
 
----
-
-## Use Case Summary
+### Use Case Summary
 
 This use case validates an ARM-native Jenkins CI pipeline by building and executing a Go application on a GCP SUSE Arm64 VM.
 It confirms correct Jenkins configuration, Go module handling, and native ARM execution suitable for cloud-native CI workloads.
