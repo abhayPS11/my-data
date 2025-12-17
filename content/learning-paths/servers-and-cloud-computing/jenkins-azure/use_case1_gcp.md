@@ -1,6 +1,6 @@
 ---
 title: Jenkins Use Case 1 – Arm-Native Go CI Pipeline on Jenkins (GCP SUSE Arm64)
-weight: 6 
+weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
