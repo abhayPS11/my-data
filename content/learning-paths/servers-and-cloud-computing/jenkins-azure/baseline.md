@@ -128,6 +128,7 @@ http://<VM_PUBLIC_IP>:8080
 Create a basic pipeline job to validate execution capability.
 
 1. Click **New Item** (left sidebar)
+
 2. Enter item name:
 
 ```text
@@ -135,6 +136,7 @@ armbaseline-pipeline
 ```
 
 3. Select **Pipeline**
+
 4. Click **OK**
 
 ![ Jenkins UI alt-text#center](images/jenkins-item.png "Figure 5: New Item")
@@ -174,6 +176,7 @@ Click **Save**.
 Trigger the pipeline execution and observe build progress.
 
 1. On the job page, click **Build Now**
+
 2. A build number will appear under **Build History**
 
 ![ Jenkins UI alt-text#center](images/jenkins-job.png "Figure 7: Run Pipeline")
@@ -182,6 +185,7 @@ Trigger the pipeline execution and observe build progress.
 Review the pipeline logs to confirm successful execution.
 
 1. Click the build number (for example, `#1`)
+
 2. Click **Console Output**
 
 ![Jenkins UI alt-text#center](images/jenkins-output.png "Figure 8: Console Output ")
