@@ -1,6 +1,6 @@
 ---
 title: Jenkins Use Case 2 – Docker-based CI Pipeline on ARM64
-weight: 6 
+weight: 9
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
