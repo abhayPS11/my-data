@@ -107,18 +107,22 @@ http://<VM_PUBLIC_IP>:8080
 #### Step 2: Create a new Pipeline job
 
 * Open Jenkins UI
+  
 * Click **New Item**
+
 * Job name: `docker-arm-ci`
+
 * Select **Pipeline**
+
 * Click **OK**
 
-![ Jenkins UI alt-text#center](images/jenkins-go.png "Figure 4: Create Job")
+![ Jenkins UI alt-text#center](images/new-item.png "Figure 1: Create Item")
 
 #### Step 3: Jenkins Pipeline Script (Docker ARM Validation)
 
-Scroll to the **Pipeline** section and select:
+* Scroll to the **Pipeline** section and select:
 
-**Definition:** Pipeline script
+* **Definition:** Pipeline script
 
 Paste the following into the Pipeline script section:
 
@@ -128,14 +132,14 @@ pipeline {
 
   stages {
     stage('Environment Check') {
-      steps {
+      Steps {
         sh 'uname -m'
         sh 'docker version'
       }
     }
 
     stage('Build Docker Image') {
-      steps {
+      Steps {
         sh '''
           cd docker-demo
           docker build -t arm64-docker-test .
@@ -144,7 +148,7 @@ pipeline {
     }
 
     stage('Run Docker Container') {
-      steps {
+      Steps {
         sh '''
           docker run --rm arm64-docker-test
         '''
@@ -156,33 +160,36 @@ pipeline {
 
 Click **Save**.
 
-#### step 4: Execute the Pipeline
-* On the job page, click **Build Now**
-* Click the build number
-* Open **Console Output**
-  
+![ Jenkins UI alt-text#center](images/docker-pipeline.png "Figure 2: Create Pipeline")
 
-#### step 4: View console output
+
+#### Step 4: Execute the Pipeline
+
+* On the job page, click **Build Now**
+
+* Click the build number
+  
+![ Jenkins UI alt-text#center](images/docker-build.png "Figure 3: Execute Job")
+
+#### Step 4: View console output
 
 Review the pipeline logs to confirm successful execution.
 
-1. Click the build number (for example, `#1`)
-2. Click **Console Output**
+* Click the build number (for example, `#1`)
 
+* Click **Console Output**
 
+![ Jenkins UI alt-text#center](images/docker-output.png "Figure 3: Output")
 
-This confirms:
+### The output confirms
 
-Jenkins is running on ARM64
+- Jenkins is running on Arm64
+- Docker is Arm-native
+- Jenkins can build and run containers
+- End-to-end Docker CI works on Arm
 
-Docker is ARM-native
+### Use Case Summary
 
-Jenkins can build and run containers
-
-End-to-end Docker CI works on ARM
-
-8. Use Case 2 Baseline Summary
-
-This use case validates Docker-based CI pipelines using Jenkins on a GCP SUSE ARM64 VM.
-Docker installation, Jenkins–Docker integration, ARM-native image builds, and container execution are successfully verified.
-The system is now ready for ARM-native containerized CI/CD workloads.
+This use case validates Docker-based CI pipelines using Jenkins on a GCP SUSE Arm64 VM.
+Docker installation, Jenkins–Docker integration, Arm-native image builds, and container execution are successfully verified.
+The system is now ready for Arm-native containerized CI/CD workloads.
