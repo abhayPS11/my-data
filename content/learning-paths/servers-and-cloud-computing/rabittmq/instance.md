@@ -1,6 +1,6 @@
 ---
 title: Create a Google Axion C4A Arm virtual machine on GCP 
-weight: 6
+weight: 7
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
