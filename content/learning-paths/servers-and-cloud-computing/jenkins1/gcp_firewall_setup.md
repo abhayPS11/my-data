@@ -13,7 +13,7 @@ In this section, you create a Firewall Rule within the Microsoft Azure Console t
 To allow external traffic on port **8080** for your application running on an Azure Virtual Machine, you must open the port in the **Network Security Group (NSG)** attached to the VM's network interface or subnet.
 
 {{% notice Note %}}
-For support on GCP setup, see the Learning Path [Getting started with Google Cloud Platform](/learning-paths/servers-and-cloud-computing/csp/google/).
+For support on Azure setup, see the Learning Path [Getting started with Microsoft Azure Platform](/learning-paths/servers-and-cloud-computing/csp/azure/).
 {{% /notice %}}
 
 
@@ -31,8 +31,13 @@ Next, in the left menu, click **Networking** and in the **Networking** select **
 
 
 ### Create an Inbound Rule for Port 8080
-Navigate to **Create port rule**, select **Inbound port rule**, and configure it using the following details. After filling in the details, click **Add** to save the rule.
 
-![Create a firewall rule](images/port_rule.png "Network settings")
+Navigate to **Create port rule**, select **Inbound port rule**.
 
-The network firewall rule is now created
+![Create a firewall rule](images/port_rule.png "Create rule")
+
+Next, configure it using the following details. After filling in the details, click **Add** to save the rule.
+
+![Create a firewall rule](images/inbound_rule.png "Network settings")
+
+The network firewall rule has now been created
