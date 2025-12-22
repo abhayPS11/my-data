@@ -35,6 +35,6 @@ Next, enter "allow-tcp-8080" in the **Target tags** text field. Set **Source IPv
 
 Finally, select **Specified protocols and ports** under the **Protocols and ports** section. Select the **TCP** checkbox, enter "8080" in the **Ports** text field, and select **Create**.
 
-![Specifying the TCP port to expose](images/network-port4.png "Specifying the TCP port to expose")
+![Specifying the TCP port to expose](images/network-port.png "Specifying the TCP port to expose")
 
 The network firewall rule is now created, and you can continue with the VM creation.
