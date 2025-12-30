@@ -23,6 +23,7 @@ The Pub/Sub topic acts as the **ingestion entry point** for streaming log events
 
 This topic will receive streaming log messages from producers.
 
+![ GCP onsole alt-text#center](images/pub_sub1.png "Figure 1: Pub/Sub Topic")
 
 ### Create Pub/Sub Subscription
 
@@ -36,6 +37,8 @@ The subscription allows **Dataflow to pull messages** from the topic.
    - **Ack deadline:** Default (10 seconds)
 4. Click **Create**
 
+![ GCP onsole alt-text#center](images/pub_sub2.png "Figure 2: Pub/Sub Subscription")
+
 This subscription will later be referenced by the Dataflow pipeline.
 
 ### Verify Pub/Sub Resources
@@ -46,6 +49,8 @@ Navigate to **Pub/Sub → Topics** and confirm:
 - Subscription: `logs-sub`
 
 This confirms the messaging layer is ready.
+
+![ GCP onsole alt-text#center](images/verify_pub_sub.png "Figure 3: Pub/Sub Resources")
 
 ### Identify Compute Engine Service Account
 
@@ -83,6 +88,8 @@ Grant the following roles to the **Compute Engine default service account**:
 4. Assign the roles listed above
 5. Save
 
+![ GCP onsole alt-text#center](images/roles.png "Figure 4: Required IAM Roles")
+
 VM OAuth scopes are limited by default. IAM roles are authoritative.
 
 ### Create GCS Bucket for Dataflow (UI)
@@ -97,6 +104,8 @@ Dataflow requires a Cloud Storage bucket for staging and temp files.
    - **Region:** `us-central1`
 4. Leave defaults for storage class and access control
 5. Click **Create**
+
+![ GCP onsole alt-text#center](images/bucket.png "Figure 5: GCS Bucket")
 
 ### Grant Bucket Access
 
