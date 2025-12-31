@@ -7,12 +7,20 @@ layout: learningpathall
 ---
 
 ## Dataflow Streaming ETL (Pub/Sub → ClickHouse)
-This guide implements the **core real-time pipeline** using:
+This section implements a real-time streaming ETL pipeline that ingests events from Pub/Sub, processes them using Dataflow (Apache Beam), and writes them into ClickHouse running on a GCP Axion (Arm64) VM.
 
-- Existing **Pub/Sub topic and subscription**
-- **Dataflow (Apache Beam)** for streaming ETL
-- **ClickHouse** running on a **GCP Axion (Arm64) VM**
+## Pipeline Overview
+Flow
 
+```bash
+Pub/Sub → Dataflow (Apache Beam) → ClickHouse (Axion VM)
+```
+
+**Key components:**
+
+- Pub/Sub: event ingestion
+- Dataflow: streaming ETL and transformation
+- ClickHouse: real-time analytical storage on Arm64
 
 ### Install Python 3.11 on the Axion VM
 Install Python 3.11 and the required system packages
@@ -60,7 +68,7 @@ Connect to ClickHouse on the Axion VM:
 clickhouse client
 ```
 
-Create the database and table used by Dataflow:
+**Creates the target database and table for streaming inserts:**
 
 ```sql
 CREATE DATABASE IF NOT EXISTS realtime;
@@ -127,12 +135,18 @@ Successful output confirms:
 - IAM is functioning correctly
 
 ### Create Dataflow Streaming ETL Script
-
 Create the Dataflow pipeline file:
 
-`vi dataflow_etl.py`
+Purpose
+Defines a streaming Beam pipeline that:
 
+- Reads JSON events from Pub/Sub
+- Parses messages
+- Writes rows to ClickHouse over HTTP
 
+```console
+vi dataflow_etl.py
+```
 Paste the following production-ready streaming pipeline:
 
 ```json
@@ -177,6 +191,13 @@ with beam.Pipeline(options=options) as p:
         | "Write to ClickHouse" >> beam.ParDo(WriteToClickHouse())
     )
 ```
+
+Pipeline logic:
+
+- **ReadFromPubSub** → read streaming messages
+- **ParseMessage** → decode JSON
+- **WriteToClickHouse** → insert into ClickHouse using TabSeparated format
+
 Replace `<GCP_PROJECT_ID>`, `<PUBSUB_SUBSCRIPTION_NAME>`, and `<CLICKHOUSE_INTERNAL_IP>` with your existing GCP project ID, Pub/Sub subscription name, and the internal IP address of your ClickHouse VM.
 
 Below are the exact commands you can run from your VM to get each required value:
@@ -188,7 +209,7 @@ hostname -I
 ```
 
 ### Run the Dataflow Streaming Job
-Execute the pipeline from the Axion VM:
+Launches the pipeline on managed Dataflow workers.
 
 ```console
 python3.11 dataflow_etl.py \
@@ -207,15 +228,20 @@ python3.11 dataflow_etl.py \
 Autoscaling is enabled for Dataflow Streaming Engine. Workers will scale between 1 and 100 unless maxNumWorkers is specified.
 ```
 
+**This indicates:**
+
+- Streaming mode is active
+- Workers scale automatically
+
 ### End-to-End Validation
-Publish live streaming data
+Publish live streaming data.
 
 ```console
 gcloud pubsub topics publish logs-topic \
   --message '{"event_time":"2025-12-30 13:30:00","service":"api","level":"INFO","message":"FRESH DATAFLOW WORKING"}'
 ```
 
-Verify data in ClickHouse
+Verify data in ClickHouse:
 
 ```sql
 SELECT *
@@ -224,7 +250,7 @@ ORDER BY event_time DESC
 LIMIT 5;
 ```
 
-Expected output:
+Output:
 
 ```output
 SELECT *
@@ -244,6 +270,10 @@ Query id: 74a105d0-2e04-4053-825c-d30e53424d14
 ````
 
 This confirms:
-- Dataflow is consuming Pub/Sub
-- Dataflow can reach ClickHouse over HTTP
-- Real-time ingestion is functional
+
+- Pub/Sub events are streamed continuously
+- Dataflow processes data in real time
+- ClickHouse ingests data on Axion (Arm64) via HTTP
+- The end-to-end real-time pipeline is operational
+
+This pipeline serves as the foundation for ClickHouse latency benchmarking and real-time analytics on Google Axion.
