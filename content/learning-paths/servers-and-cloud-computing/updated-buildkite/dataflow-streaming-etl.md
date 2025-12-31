@@ -81,13 +81,16 @@ Verify the table:
 ```sql
 SHOW TABLES FROM realtime;
 ```
+```output
+Query id: aa25de9d-c07f-4538-803f-5473744631bc
 
-Verify the table:
+   ┌─name─┐
+1. │ logs │
+   └──────┘
+1 row in set. Elapsed: 0.001 sec.
+```
 
-SHOW TABLES FROM realtime;
-
-
-Exit the client:
+**Exit the client:**
 
 ```sql
 exit;
@@ -107,6 +110,14 @@ gcloud pubsub topics publish logs-topic \
 
 ```console
 gcloud pubsub subscriptions pull logs-sub --limit=1 --auto-ack
+```
+
+```output
+┌───────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────┬──────────────┬────────────┬──────────────────┬────────────┐
+│                                                DATA                                               │     MESSAGE_ID    │ ORDERING_KEY │ ATTRIBUTES │ DELIVERY_ATTEMPT │ ACK_STATUS │
+├───────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────────┼──────────────┼────────────┼──────────────────┼────────────┤
+│ {"event_time":"2025-12-30 12:00:00","service":"api","level":"INFO","message":"PRE-DATAFLOW TEST"} │ 17590032987110080 │              │            │                  │ SUCCESS    │
+└───────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────────┴──────────────┴────────────┴──────────────────┴────────────┘
 ```
 
 Successful output confirms:
@@ -129,9 +140,9 @@ import json
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 
-PROJECT_ID = "imperial-time-463411-q5"
-SUBSCRIPTION = "projects/imperial-time-463411-q5/subscriptions/logs-sub"
-CLICKHOUSE_URL = "http://10.128.0.26:8123"
+PROJECT_ID = "<GCP_PROJECT_ID>"
+SUBSCRIPTION = "projects/<GCP_PROJECT_ID>/subscriptions/<PUBSUB_SUBSCRIPTION_NAME>"
+CLICKHOUSE_URL = "projects/<GCP_PROJECT_ID>/subscriptions/<PUBSUB_SUBSCRIPTION_NAME>"
 
 class ParseMessage(beam.DoFn):
     def process(self, element):
@@ -166,6 +177,15 @@ with beam.Pipeline(options=options) as p:
         | "Write to ClickHouse" >> beam.ParDo(WriteToClickHouse())
     )
 ```
+Replace `<GCP_PROJECT_ID>`, `<PUBSUB_SUBSCRIPTION_NAME>`, and `<CLICKHOUSE_INTERNAL_IP>` with your existing GCP project ID, Pub/Sub subscription name, and the internal IP address of your ClickHouse VM.
+
+Below are the exact commands you can run from your VM to get each required value:
+
+```console
+gcloud config get-value project
+gcloud pubsub subscriptions list
+hostname -I
+```
 
 ### Run the Dataflow Streaming Job
 Execute the pipeline from the Axion VM:
@@ -173,18 +193,18 @@ Execute the pipeline from the Axion VM:
 ```console
 python3.11 dataflow_etl.py \
   --runner=DataflowRunner \
-  --project=imperial-time-463411-q5 \
-  --region=us-central1 \
-  --temp_location=gs://imperial-time-463411-q5-dataflow-temp/temp \
+  --project=<GCP_PROJECT_ID> \
+  --region=<DATAFLOW_REGION> \
+  --temp_location=gs://<GCS_TEMP_BUCKET>/temp \
   --streaming
 ```
 
-Expected behavior:
+- `<GCP_PROJECT_ID>` – Your Google Cloud project ID (e.g. my-project-123)
+- `<DATAFLOW_REGION>` – Region where Dataflow runs (e.g. us-central1)
+- `<GCS_TEMP_BUCKET>` – Existing GCS bucket used for Dataflow temp files
 
 ```output
-Job state becomes RUNNING
-Dataflow creates 1+ worker VMs
-Streaming Engine autoscaling is enabled
+Autoscaling is enabled for Dataflow Streaming Engine. Workers will scale between 1 and 100 unless maxNumWorkers is specified.
 ```
 
 ### End-to-End Validation
@@ -207,9 +227,20 @@ LIMIT 5;
 Expected output:
 
 ```output
-┌──────────event_time─┬─service─┬─level─┬─message────────────────────────┐
-│ 2025-12-30 13:30:00 │ api     │ INFO  │ FRESH DATAFLOW WORKING         │
-└─────────────────────┴─────────┴───────┴────────────────────────────────┘
+SELECT *
+FROM realtime.logs
+ORDER BY event_time DESC
+LIMIT 5
+
+Query id: 74a105d0-2e04-4053-825c-d30e53424d14
+
+   ┌──────────event_time─┬─service───┬─level─┬─message────────────────┐
+1. │ 2025-12-30 13:30:00 │ api       │ INFO  │ FRESH DATAFLOW WORKING │
+2. │ 2025-12-30 13:00:00 │ api       │ INFO  │ DATAFLOW FINAL SUCCESS │
+3. │ 2025-12-30 12:45:00 │ api       │ INFO  │ FINAL DATAFLOW SUCCESS │
+4. │ 2025-12-30 08:48:35 │ service-0 │ INFO  │ benchmark message 0    │
+5. │ 2025-12-30 08:48:34 │ service-1 │ INFO  │ benchmark message 1    │
+   └─────────────────────┴───────────┴───────┴────────────────────────┘
 ````
 
 This confirms:
