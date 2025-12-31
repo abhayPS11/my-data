@@ -1,6 +1,6 @@
 ---
 title: Create a Firewall Rule on GCP
-weight: 7
+weight: 3
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
