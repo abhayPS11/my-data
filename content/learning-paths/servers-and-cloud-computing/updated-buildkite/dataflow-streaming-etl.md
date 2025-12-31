@@ -149,7 +149,7 @@ vi dataflow_etl.py
 ```
 Paste the following production-ready streaming pipeline:
 
-```json
+```python
 import json
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
