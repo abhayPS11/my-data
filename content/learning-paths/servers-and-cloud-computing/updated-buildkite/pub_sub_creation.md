@@ -115,7 +115,7 @@ Ensure the Compute Engine service account has access to the bucket:
 
 This allows Dataflow workers to upload and read job artifacts.
 
-### Phase 1 Validation Checklist
+### Validation Checklist
 
 Before proceeding, confirm:
 
