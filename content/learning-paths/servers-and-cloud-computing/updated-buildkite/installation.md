@@ -1,6 +1,6 @@
 ---
 title: Install ClickHouse
-weight: 4
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
