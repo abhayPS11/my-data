@@ -22,14 +22,12 @@ Navigate to the [Google Cloud Console](https://console.cloud.google.com/), go to
 
 ![Create a firewall rule alt-text#center](images/firewall-rule1.png "Create a firewall rule")
 
-Next, create the firewall rule that exposes the TCP port 8123.
 Set the **Name** of the new rule to "allow-tcp-8123". Select your network that you intend to bind to your VM (default is "autoscaling-net", but your organization might have others).
 
-Set **Direction of traffic** to "Ingress". Set **Allow on match** to "Allow" and **Targets** to "Specified target tags".
 
 ![Create a firewall rule alt-text#center](images/network-rule2.png "Creating the TCP/8123 firewall rule")
 
-Next, enter "allow-tcp-8123" in the **Target tags** text field. Set **Source IPv4 ranges** to "0.0.0.0/0".
+Next, Set **Direction of traffic** to "Ingress". Set **Allow on match** to "Allow" and **Targets** to "Specified target tags". Set **Source IPv4 ranges** to "0.0.0.0/0".
 
 ![Create a firewall rule alt-text#center](images/network-rule3.png "Creating the TCP/8123 firewall rule")
 
