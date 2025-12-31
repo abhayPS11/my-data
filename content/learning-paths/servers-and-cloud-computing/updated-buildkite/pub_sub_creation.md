@@ -1,6 +1,6 @@
 ---
 title: GCP Pub/Sub and IAM Setup for ClickHouse Real-Time Analytics on Axion
-weight: 1
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
