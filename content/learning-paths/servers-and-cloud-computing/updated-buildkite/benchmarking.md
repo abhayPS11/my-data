@@ -1,6 +1,6 @@
 ---
 title: ClickHouse Benchmarking on Google Axion (Arm)
-weight: 7
+weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
