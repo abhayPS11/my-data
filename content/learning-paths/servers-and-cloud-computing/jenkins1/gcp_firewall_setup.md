@@ -17,27 +17,24 @@ For support on Azure setup, see the Learning Path [Getting started with Microsof
 {{% /notice %}}
 
 
-### Identify the VM and its NSG
+### Create an Inbound Rule for Port 8080
 
 To expose the TCP port 8080, create a firewall rule.
 
 Navigate to the [Azure Portal]([https://console.cloud.google.com/](https://portal.azure.com)), go to ****Virtual Machines**, and select **your VM**.
 
-![Create a firewall rule](images/virtual_machine.png "Virtual Machines")
+![Create a firewall rule alt-text#center](images/virtual_machine.png "Virtual Machines")
 
 Next, in the left menu, click **Networking** and in the **Networking** select **Network settings** that is associated with the VM's network interface.
 
-![Create a firewall rule](images/networking.png "Network settings")
+![Create a firewall rule alt-text#center](images/networking.png "Network settings")
 
+Now, navigate to **Create port rule**, select **Inbound port rule**.
 
-### Create an Inbound Rule for Port 8080
-
-Navigate to **Create port rule**, select **Inbound port rule**.
-
-![Create a firewall rule](images/port_rule.png "Create rule")
+![Create a firewall rule alt-text#center](images/port_rule.png "Create rule")
 
 Next, configure it using the following details. After filling in the details, click **Add** to save the rule.
 
-![Create a firewall rule](images/inbound_rule.png "Network settings")
+![Create a firewall rule alt-text#center](images/inbound_rule.png "Network settings")
 
 The network firewall rule has now been created
