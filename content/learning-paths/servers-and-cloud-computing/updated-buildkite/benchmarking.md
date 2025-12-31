@@ -31,21 +31,14 @@ weight: 7
 layout: learningpathall
 ---
 
-## Phase 4 – ClickHouse Benchmarking on Axion Processors
+## ClickHouse Benchmarking on Axion Processors
 
 This phase benchmarks **query latency on ClickHouse running on Google Axion (Arm64)**.  
 The goal is to measure **repeatable query latency** with a focus on **p95 latency**, using data ingested via the real-time Dataflow pipeline.
 
-> ⚠️ This phase assumes:
-> - ClickHouse is installed and running (Phase 2)
-> - Real-time data ingestion via Dataflow is working (Phase 3)
-> - All benchmarking is performed **only on Axion processors**
+## Prepare ClickHouse for Accurate Latency Measurement
 
----
-
-## Phase 4.1 – Prepare ClickHouse for Accurate Latency Measurement
-
-### Disable Query Cache (Important)
+### Disable Query Cache
 
 To ensure accurate and repeatable latency measurements, disable the query cache.
 
