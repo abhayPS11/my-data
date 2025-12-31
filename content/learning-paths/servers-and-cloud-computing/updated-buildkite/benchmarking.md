@@ -250,3 +250,12 @@ p95 latency = 0.011 seconds ≈ 11 ms
 ```
 
 The ClickHouse query was executed 10 times on a GCP Axion (Arm) VM. Observed p95 query latency was ~11 ms, demonstrating consistently low-latency analytical performance on Arm-based infrastructure.
+
+### Benchmark summary
+Results from the earlier run on the `c4a-standard-4` (4 vCPU, 16 GB memory) Arm64 VM in GCP (SUSE):
+
+- ClickHouse on **Google Axion (Arm64)** delivered consistently low query latency, even while scanning ~6 million rows per query.
+- Across **10 repeat executions, the p95 latency was ~11 ms**, indicating stable and predictable performance.
+- Disabling the query cache ensured true execution latency, not cache-assisted results.
+- Analytical queries sustained **500M+ rows/sec throughput** with minimal memory usage.
+- Results confirm that Arm-based Axion VMs are well-suited for real-time analytical workloads with ClickHouse.
