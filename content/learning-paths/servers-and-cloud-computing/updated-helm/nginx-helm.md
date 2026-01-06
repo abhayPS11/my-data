@@ -158,6 +158,10 @@ redis-my-redis             ClusterIP      34.118.234.155   <none>          6379/
 http://<EXTERNAL-IP>    
 ```
 
+You should see the default NGINX welcome page as shown below:
+
+![NGINX default welcome page in a web browser on an GCP VM alt-text#center](images/nginx-browser.png)
+
 ### Outcome
 This deployment achieves the following:
 
