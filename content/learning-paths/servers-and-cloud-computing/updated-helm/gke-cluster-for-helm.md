@@ -1,6 +1,6 @@
 ---
 title: Prepare GKE Cluster for Helm Deployments
-weight: 5
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
