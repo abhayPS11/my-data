@@ -140,6 +140,7 @@ kubectl get svc
 kubectl exec -it <redis-pod> -- redis-cli ping
 ```
 
+You should see an output similar to:
 ```output
 NAME                                        READY   STATUS    RESTARTS   AGE
 postgres-app-my-postgres-6dbc8759b6-jgpxs   1/1     Running   0          6m38s
