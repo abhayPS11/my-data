@@ -11,21 +11,25 @@ layout: learningpathall
 This document explains how to deploy **PostgreSQL** on Kubernetes using a **custom Helm chart** with persistent storage.
 
 ### Goal
+After completing this guide, the environment will include:
+- PostgreSQL running inside Kubernetes
+- Persistent storage using PVC
+- Secure credentials using Kubernetes Secrets
+- Ability to connect using psql
+- A clean, reusable Helm chart
 
-Deploy a PostgreSQL database with:
-- Helm
-- PersistentVolumeClaim (PVC)
-- ClusterIP service
-- Basic validation using psql
-
-### PREREQUISITES
-Verify the following commands work:
+### Prerequisites (Before you start)
+Ensure Kubernetes and Helm are working:
 
 ```console
 kubectl get nodes
 helm version
 ```
+
+If these commands fail, fix them first before continuing.
+
 ### CREATE WORKING DIRECTORY
+Creates a dedicated folder to store all Helm charts for microservices.
 
 ```console
 mkdir helm-microservices
@@ -33,6 +37,7 @@ cd helm-microservices
 ```
 
 ### Create Helm Chart
+Generates a Helm chart skeleton that will be customized for PostgreSQL.
 
 ```console
 helm create my-postgres
@@ -40,16 +45,17 @@ helm create my-postgres
 
 **Directory structure:**
 
-```perl
+```text
 helm-microservices/
-├── my-postgres/
+└── my-postgres/
+    ├── Chart.yaml
+    ├── values.yaml
+    └── templates/
 ```
 
-## POSTGRESQL
-
 ### Clean the chart
-
-Inside `my-postgres/templates/`, delete:
+The default Helm chart contains several files that are not required for a basic PostgreSQL deployment. Removing these files prevents confusion and template errors.
+Inside `my-postgres/templates/`, delete the following:
 
 - hpa.yaml
 - ingress.yaml
@@ -58,8 +64,16 @@ Inside `my-postgres/templates/`, delete:
 - NOTES.txt
 - httproute.yaml
 
-### values.yaml (Replace Completely)
-Edit `my-postgres/values.yaml`:
+Only PostgreSQL-specific templates will be maintained.
+
+### Configure values.yaml (Main Configuration File)
+`values.yaml` centralizes all configurable settings, including:
+
+- Container image details
+- Database credentials
+- Persistent storage configuration
+
+Replace the entire contents of `my-postgres/values.yaml` with the following:
 
 ```yaml
 replicaCount: 1
@@ -81,8 +95,17 @@ persistence:
   dataSubPath: data
 ```
 
-### secret.yaml (CREATE)
-Create `my-postgres/templates/secret.yaml`:
+This matters
+
+- Ensures consistent configuration
+- Avoids Helm template evaluation errors
+- Simplifies upgrades and maintenance
+
+### Create secret.yaml (Database Credentials)
+Stores PostgreSQL credentials securely using Kubernetes Secrets.
+Create the following file:
+
+`my-postgres/templates/secret.yaml`
 
 ```yaml
 apiVersion: v1
@@ -96,8 +119,16 @@ stringData:
   POSTGRES_DB: {{ .Values.postgresql.database }}
 ```
 
-### pvc.yaml (CREATE)
-Create `my-postgres/templates/pvc.yaml`:
+That matters
+
+- Prevents hard-coding credentials
+- Follows Kubernetes security best practices
+
+### Create pvc.yaml (Persistent Storage)
+Requests persistent storage so PostgreSQL data remains available even if the pod restarts.
+Create the following file:
+
+`my-postgres/templates/pvc.yaml`
 
 ```yaml
 apiVersion: v1
@@ -112,7 +143,18 @@ spec:
       storage: {{ .Values.persistence.size }}
 ```
 
-## deployment.yaml (REPLACE)
+That matters
+- Without a PVC, PostgreSQL data would be lost whenever the pod restarts.
+
+### deployment.yaml (PostgreSQL Pod Definition)
+Defines how PostgreSQL runs inside Kubernetes, including:
+- Container image
+- Environment variables
+- Volume mounts
+- Pod configuration
+
+Replace the existing `my-postgres/templates/deployment.yaml` file completely.
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -157,7 +199,13 @@ spec:
             claimName: {{ include "my-postgres.fullname" . }}-pvc
 ```
 
-### service.yaml (REPLACE)
+- PGDATA avoids the common lost+found directory issue
+- Persistent storage is mounted safely
+- Secrets inject credentials at runtime
+
+### service.yaml (Internal Access)
+Enables internal cluster communication so other services can connect to PostgreSQL.
+Replace `my-postgres/templates/service.yaml` with:
 
 ```yaml
 apiVersion: v1
@@ -173,7 +221,10 @@ spec:
     app: {{ include "my-postgres.name" . }}
 ```
 
-### Install PostgreSQL
+**ClusterIP**
+- PostgreSQL should remain accessible only inside the Kubernetes cluster.
+
+### Install PostgreSQL Using Helm
 
 ```console
 cd helm-microservices
@@ -198,6 +249,7 @@ postgres-app-my-postgres-pvc   Bound    pvc-5f3716df-39bb-4683-990a-c5cd3906fbce
 ```
 
 ### Test PostgreSQL
+Connect to PostgreSQL
 
 ```console
 kubectl exec -it <postgres-pod> -- psql -U admin -d mydb
@@ -209,6 +261,8 @@ Type "help" for help.
 
 mydb=#
 ```
+
+**Run test queries:**
 
 ```psql
 CREATE TABLE test (id INT);
@@ -229,7 +283,10 @@ INSERT 0 1
 ```
 
 ### Outcome
+You have successfully:
 
-- PostgreSQL running
-- Data persisted via PVC
-- Accessible inside the cluster
+- Created a custom Helm chart
+- Deployed PostgreSQL on Kubernetes
+- Enabled persistent storage
+- Used Secrets for credentials
+- Verified database functionality
