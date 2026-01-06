@@ -1,6 +1,6 @@
 ---
 title: PostgreSQL Deployment Using Custom Helm Chart
-weight: 6
+weight: 7
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
