@@ -7,23 +7,40 @@ layout: learningpathall
 ---
 
 ## NGINX Deployment Using Custom Helm Chart
-This document explains how to deploy **NGINX** as a frontend using Helm.
+This document explains how to deploy NGINX as a frontend service on Kubernetes using a custom Helm chart.
 
 ## Goal
+After completing this guide, the environment will include:
 
-Deploy NGINX with:
-- Helm
-- LoadBalancer service
-- External access
+- NGINX deployed using Helm
+- Public access using a LoadBalancer service
+- External IP available for browser access
+- Foundation for connecting backend services (Redis, PostgreSQL)
 
 ### Create Helm Chart
+Generates a Helm chart skeleton that will be customized for NGINX.
 
 ```console
 helm create my-nginx
 ```
 
-### values.yaml
+### Resulting structure
 
+```text
+my-nginx/
+├── Chart.yaml
+├── values.yaml
+└── templates/
+```
+
+### Configure values.yaml
+Defines configurable parameters such as:
+
+- NGINX image
+- Service type
+- Public port
+
+Replace the contents of `my-nginx/values.yaml` with:
 ```yaml
 image:
   repository: nginx
@@ -34,7 +51,20 @@ service:
   port: 80
 ```
 
-### Deployment
+That matters
+
+- Centralizes configuration
+- Allows service exposure without editing templates
+- Simplifies future changes
+
+### Deployment Definition (deployment.yaml)
+Defines how the NGINX container runs inside Kubernetes, including:
+
+- Container image
+- Pod labels
+- Port exposure
+
+Replace `my-nginx/templates/deployment.yaml` completely:
 
 ```yaml
 apiVersion: apps/v1
@@ -61,7 +91,10 @@ spec:
             - containerPort: 80
 ```
 
-### Service
+### Service Definition (service.yaml)
+Exposes NGINX to external traffic using a Kubernetes LoadBalancer.
+
+Replace `my-nginx/templates/service.yaml` with:
 
 ```yaml
 apiVersion: v1
@@ -76,11 +109,16 @@ spec:
     app: {{ include "my-nginx.name" . }}
 ```
 
+Why LoadBalancer
+
+- Provides a public IP
+- Required for browser access
+- Common pattern for frontend services
+
 ### Install & Access
 
 ```console
 helm install nginx ./my-nginx
-kubectl get svc
 ```
 
 ```output
@@ -95,22 +133,35 @@ NOTES:
            You can watch its status by running 'kubectl get --namespace default svc -w nginx-my-nginx'
   export SERVICE_IP=$(kubectl get svc --namespace default nginx-my-nginx --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
   echo http://$SERVICE_IP:80
-
-> kubectl get svc
-NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-kubernetes                 ClusterIP      34.118.224.1     <none>        443/TCP        3h21m
-nginx-my-nginx             LoadBalancer   34.118.239.19    <pending>     80:31501/TCP   13s
-postgres-app-my-postgres   ClusterIP      34.118.225.2     <none>        5432/TCP       12m
-redis-my-redis             ClusterIP      34.118.234.155   <none>        6379/TCP       6m14s
 ```
 
-### Open in browser:
+### Access NGINX from Browser
+Get External IP
+
+```console
+kubectl get svc
+```
+
+Wait until EXTERNAL-IP is assigned.
+
+```output
+NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)        AGE
+kubernetes                 ClusterIP      34.118.224.1     <none>          443/TCP        3h22m
+nginx-my-nginx             LoadBalancer   34.118.239.19    34.63.103.125   80:31501/TCP   52s
+postgres-app-my-postgres   ClusterIP      34.118.225.2     <none>          5432/TCP       13m
+redis-my-redis             ClusterIP      34.118.234.155   <none>          6379/TCP       6m53s
+```
+
+**Open in browser:**
 
 ```bash
 http://<EXTERNAL-IP>    
 ```
 
 ### Outcome
+This deployment achieves the following:
 
-- NGINX publicly accessible
-- Ready to connect to backend services
+- NGINX deployed using a custom Helm chart
+- Public access enabled via LoadBalancer
+- External IP available for frontend access
+- Ready to route traffic to backend services
