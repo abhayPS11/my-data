@@ -1,6 +1,6 @@
 ---
 title: NGINX Deployment Using Custom Helm Chart
-weight: 8
+weight: 9
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
