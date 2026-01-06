@@ -239,6 +239,7 @@ kubectl get pods
 kubectl get pvc
 ```
 
+You should see an output similar to:
 ```output
 NAME                                        READY   STATUS    RESTARTS   AGE
 postgres-app-my-postgres-6dbc8759b6-jgpxs   1/1     Running   0          40s
@@ -255,6 +256,7 @@ Connect to PostgreSQL
 kubectl exec -it <postgres-pod> -- psql -U admin -d mydb
 ```
 
+You should see an output similar to:
 ```output
 psql (15.15 (Debian 15.15-1.pgdg13+1))
 Type "help" for help.
@@ -270,6 +272,7 @@ INSERT INTO test VALUES (1);
 SELECT * FROM test;
 ```
 
+You should see an output similar to:
 ```output
 mydb=# CREATE TABLE test (id INT);
 INSERT INTO test VALUES (1);
