@@ -12,7 +12,7 @@ After connecting to your SUSE Linux Enterprise Server (SLES) VM using SSH, you'l
 
 ## Install Google Cloud CLI (gcloud)
 
-The Google Cloud CLI is required to authenticate with GCP, publish Pub/Sub messages, and interact with Google Cloud services such as GKE, Cloud SQL, Artifact Registry, and Memorystore from your Arm-based VM.
+The Google Cloud CLI is required to authenticate with GCP and allow your Django application VM to interact with Google Cloud services such as GKE, Cloud SQL, Artifact Registry, Memorystore, and to build, deploy, and operate the Django platform.
 
 ### Download gcloud SDK (Arm64)
 
