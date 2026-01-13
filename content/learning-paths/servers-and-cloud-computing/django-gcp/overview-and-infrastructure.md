@@ -1,6 +1,6 @@
 ---
 title: Deploy Django on GKE Axion (ARM) with Managed Data Services
-weight: 4
+weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -34,6 +34,60 @@ GKE (Axion ARM64)
 |---> Memorystore (Redis)
 ```
 This architecture represents a production-grade microservice deployment where compute runs on Arm, while data services are provided through fully managed GCP offerings over private networking.
+
+### Install Docker (Container Runtime)
+Docker is required to build, run, and test container images locally before pushing them to Artifact Registry.
+
+**Update system packages and install prerequisites:**
+
+```console
+sudo zypper update
+sudo zypper install -y ca-certificates curl gnupg
+```
+
+**Install Docker using the official installation script:**
+
+```console
+curl -fsSL https://get.docker.com | sudo sh
+```
+
+**Allow the current user to run Docker without sudo:**
+
+```console
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+**Verify Docker installation:**
+
+```console
+docker run hello-world
+```
+
+A successful message confirms that Docker is installed and working correctly.
+
+### Install kubectl (Kubernetes CLI)
+kubectl is the command-line tool used to interact with Kubernetes clusters, deploy workloads, and manage resources.
+
+Download the latest stable Arm64 binary:
+
+```console
+curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl
+```
+
+**Make the binary executable and move it to PATH:**
+
+```console
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+```
+
+**Verify kubectl installation:**
+
+```console
+kubectl version --client
+```
+This confirms that the Kubernetes client is correctly installed on the VM.
 
 ### Create Artifact Registry
 Artifact Registry is used to store and distribute the Docker images for your Django application. This ensures that all Kubernetes nodes pull trusted, versioned images from a private Google-managed repository.
@@ -128,6 +182,7 @@ gcloud sql instances describe django-postgres \
 ```
 
 Save this value as **CLOUDSQL_IP**.
+
 You now have a private, production-grade PostgreSQL database that can be securely accessed from GKE.
 
 ### Create Memorystore (Redis)
@@ -144,6 +199,7 @@ gcloud redis instances describe django-redis \
   --format="value(host)"
 ```
 Save this value as **REDIS_IP**.
+
 You now have a **managed Redis cache** available to your Django application over private networking.
 
 ### What you've accomplished
