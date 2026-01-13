@@ -1,6 +1,6 @@
 ---
 title: Deploy Django on GKE Axion (ARM) with Managed Data Services
-weight: 8
+weight: 7
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
