@@ -1,6 +1,6 @@
 ---
 title: Benchmark Django application performance on Arm
-weight: 7
+weight: 10
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
