@@ -137,6 +137,9 @@ Open in browser:
 ```bash
 http://<EXTERNAL-IP>/healthz/
 ```
+
+![ Django health check alt-text#center](images/django_framework.png "Django Validation")
+
 Your Arm-based Django API is live on the internet.
 
 ### What you’ve accomplished
