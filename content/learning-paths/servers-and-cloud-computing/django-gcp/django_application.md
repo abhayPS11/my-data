@@ -1,6 +1,6 @@
 ---
 title: Build a Django REST API with PostgreSQL and Redis
-weight: 2
+weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
