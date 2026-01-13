@@ -1,6 +1,6 @@
 ---
 title: Containerize and Deploy Django on Axion GKE
-weight: 3
+weight: 9
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
