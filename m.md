@@ -1,32 +1,24 @@
 ---
-
-title: PostgreSQL Deployment Using Custom Helm Chart (GKE Axion ARM64 Compatible)
+title: PostgreSQL Deployment Using Custom Helm Chart
 weight: 7
 
 ### FIXED, DO NOT MODIFY
+layout: learningpathall
+---
 
-## layout: learningpathall
 
 ## PostgreSQL Deployment Using Custom Helm Chart
+This document explains how to deploy **PostgreSQL** on Kubernetes using a **custom Helm chart** with persistent storage.
 
-This guide explains how to deploy **PostgreSQL** on Kubernetes using a **custom Helm chart** with **persistent storage**, fully compatible with **GKE Axion (C4A Arm64)** nodes.
+### Goal
+After completing this guide, the environment will include:
+- PostgreSQL running inside Kubernetes
+- Persistent storage using PVC
+- Secure credentials using Kubernetes Secrets
+- Ability to connect using psql
+- A clean, reusable Helm chart
 
----
-
-## Goal
-
-After completing this guide, your environment will include:
-
-* PostgreSQL running inside Kubernetes
-* Persistent storage using PVC (Axion-compatible)
-* Secure credentials using Kubernetes Secrets
-* Ability to connect using `psql`
-* A clean, reusable Helm chart that works on ARM64
-
----
-
-## Prerequisites
-
+### Prerequisites
 Ensure Kubernetes and Helm are working:
 
 ```console
@@ -34,42 +26,18 @@ kubectl get nodes
 helm version
 ```
 
-If these commands fail, fix them before continuing.
+If these commands fail, fix them first before continuing.
 
----
-
-## ⚠️ Important: GKE Axion (C4A) Requirements
-
-Axion node pools introduce two constraints you **must** handle:
-
-1. **ARM64 taint**
-
-   * Nodes are tainted with: `kubernetes.io/arch=arm64:NoSchedule`
-   * Pods must include a toleration.
-
-2. **StorageClass compatibility**
-
-   * Default `standard-rwo` uses `pd-balanced` ❌ (unsupported on C4A)
-   * Use `standard` (pd-standard) or a `pd-ssd` based StorageClass.
-
-This guide includes both fixes.
-
----
-
-## Create Working Directory
-
-Creates a dedicated folder to store Helm charts.
+### CREATE WORKING DIRECTORY
+Creates a dedicated folder to store all Helm charts for microservices.
 
 ```console
 mkdir helm-microservices
 cd helm-microservices
 ```
 
----
-
-## Create Helm Chart
-
-Generate the Helm chart skeleton:
+### Create Helm Chart
+Generates a Helm chart skeleton that will be customized for PostgreSQL.
 
 ```console
 helm create my-postgres
@@ -85,28 +53,27 @@ helm-microservices/
     └── templates/
 ```
 
----
+### Clean the chart
+The default Helm chart contains several files that are not required for a basic PostgreSQL deployment. Removing these files prevents confusion and template errors.
+Inside `my-postgres/templates/`, delete the following:
 
-## Clean the Chart
-
-Remove unnecessary default templates. Inside `my-postgres/templates/`, delete:
-
-* hpa.yaml
-* ingress.yaml
-* serviceaccount.yaml
-* tests/
-* NOTES.txt
-* httproute.yaml
+- hpa.yaml
+- ingress.yaml
+- serviceaccount.yaml
+- tests/
+- NOTES.txt
+- httproute.yaml
 
 Only PostgreSQL-specific templates will be maintained.
 
----
+### Configure values.yaml (Main Configuration File)
+`values.yaml` centralizes all configurable settings, including:
 
-## Configure `values.yaml` (Main Configuration)
+- Container image details
+- Database credentials
+- Persistent storage configuration
 
-Centralizes all configuration including image, credentials, storage, and ARM tolerations.
-
-Replace **entire contents** of `my-postgres/values.yaml` with:
+Replace the entire contents of `my-postgres/values.yaml` with the following:
 
 ```yaml
 replicaCount: 1
@@ -124,46 +91,21 @@ postgresql:
 persistence:
   enabled: true
   size: 10Gi
-
-  # REQUIRED for GKE Axion (C4A)
-  # Use pd-standard (supported)
-  storageClass: standard
-
   mountPath: /var/lib/postgresql
   dataSubPath: data
-
-architecture:
-  tolerations:
-    enabled: true
 ```
 
-**Why this matters**
+This matters
 
-* Prevents scheduling failures on ARM64
-* Avoids unsupported disk types on C4A
-* Simplifies upgrades and maintenance
+- Ensures consistent configuration
+- Avoids Helm template evaluation errors
+- Simplifies upgrades and maintenance
 
----
+### Create secret.yaml (Database Credentials)
+Stores PostgreSQL credentials securely using Kubernetes Secrets.
+Create the following file:
 
-## Create `_helpers.tpl`
-
-Create `my-postgres/templates/_helpers.tpl`:
-
-```yaml
-{{- define "my-postgres.name" -}}
-my-postgres
-{{- end }}
-
-{{- define "my-postgres.fullname" -}}
-{{ .Release.Name }}-{{ include "my-postgres.name" . }}
-{{- end }}
-```
-
----
-
-## Create `secret.yaml` (Database Credentials)
-
-Create `my-postgres/templates/secret.yaml`:
+`my-postgres/templates/secret.yaml`
 
 ```yaml
 apiVersion: v1
@@ -172,21 +114,21 @@ metadata:
   name: {{ include "my-postgres.fullname" . }}
 type: Opaque
 stringData:
-  POSTGRES_USER: {{ .Values.postgresql.username | quote }}
-  POSTGRES_PASSWORD: {{ .Values.postgresql.password | quote }}
-  POSTGRES_DB: {{ .Values.postgresql.database | quote }}
+  POSTGRES_USER: {{ .Values.postgresql.username }}
+  POSTGRES_PASSWORD: {{ .Values.postgresql.password }}
+  POSTGRES_DB: {{ .Values.postgresql.database }}
 ```
 
-**Why this matters**
+That matters
 
-* Avoids hard-coded credentials
-* Follows Kubernetes security best practices
+- Prevents hard-coding credentials
+- Follows Kubernetes security best practices
 
----
+### Create pvc.yaml (Persistent Storage)
+Requests persistent storage so PostgreSQL data remains available even if the pod restarts.
+Create the following file:
 
-## Create `pvc.yaml` (Persistent Storage)
-
-Create `my-postgres/templates/pvc.yaml`:
+`my-postgres/templates/pvc.yaml`
 
 ```yaml
 apiVersion: v1
@@ -194,7 +136,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "my-postgres.fullname" . }}-pvc
 spec:
-  storageClassName: {{ .Values.persistence.storageClass }}
   accessModes:
     - ReadWriteOnce
   resources:
@@ -202,16 +143,17 @@ spec:
       storage: {{ .Values.persistence.size }}
 ```
 
-**Why this matters**
+That matters
+- Without a PVC, PostgreSQL data would be lost whenever the pod restarts.
 
-* Ensures Axion-compatible disks
-* Prevents volume attach failures
+### deployment.yaml (PostgreSQL Pod Definition)
+Defines how PostgreSQL runs inside Kubernetes, including:
+- Container image
+- Environment variables
+- Volume mounts
+- Pod configuration
 
----
-
-## Create `deployment.yaml` (PostgreSQL Pod)
-
-Replace `my-postgres/templates/deployment.yaml` with:
+Replace the existing `my-postgres/templates/deployment.yaml` file completely.
 
 ```yaml
 apiVersion: apps/v1
@@ -220,7 +162,7 @@ metadata:
   name: {{ include "my-postgres.fullname" . }}
 
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: {{ include "my-postgres.name" . }}
@@ -231,14 +173,6 @@ spec:
         app: {{ include "my-postgres.name" . }}
 
     spec:
-      {{- if .Values.architecture.tolerations.enabled }}
-      tolerations:
-        - key: "kubernetes.io/arch"
-          operator: "Equal"
-          value: "arm64"
-          effect: "NoSchedule"
-      {{- end }}
-
       containers:
         - name: postgres
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -265,16 +199,12 @@ spec:
             claimName: {{ include "my-postgres.fullname" . }}-pvc
 ```
 
-**Notes**
+- PGDATA avoids the common lost+found directory issue
+- Persistent storage is mounted safely
+- Secrets inject credentials at runtime
 
-* ARM64 toleration allows scheduling on Axion nodes
-* `PGDATA` avoids the `lost+found` issue
-* PVC is safely mounted
-
----
-
-## Create `service.yaml` (Internal Access)
-
+### service.yaml (Internal Access)
+Enables internal cluster communication so other services can connect to PostgreSQL.
 Replace `my-postgres/templates/service.yaml` with:
 
 ```yaml
@@ -292,56 +222,49 @@ spec:
 ```
 
 **ClusterIP**
+- PostgreSQL should remain accessible only inside the Kubernetes cluster.
 
-* PostgreSQL remains accessible only inside the cluster
-
----
-
-## Install PostgreSQL Using Helm
+### Install PostgreSQL Using Helm
 
 ```console
 cd helm-microservices
-helm uninstall postgres-app || true
+helm uninstall postgres || true
 helm install postgres-app ./my-postgres
 ```
 
----
-
-## Verify Deployment
+**Check:**
 
 ```console
 kubectl get pods
 kubectl get pvc
 ```
 
-Expected output:
-
+You should see an output similar to:
 ```output
-NAME                                        READY   STATUS    AGE
-postgres-app-my-postgres-xxxx               1/1     Running   1m
+NAME                                        READY   STATUS    RESTARTS   AGE
+postgres-app-my-postgres-6dbc8759b6-jgpxs   1/1     Running   0          40s
 
-NAME                           STATUS   STORAGECLASS   CAPACITY
-postgres-app-my-postgres-pvc   Bound    standard       10Gi
+>kubectl get pvc
+NAME                           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-app-my-postgres-pvc   Bound    pvc-5f3716df-39bb-4683-990a-c5cd3906fbce   10Gi       RWO            standard-rwo   <unset>                 33s
 ```
 
----
-
-## Test PostgreSQL
-
-Connect to the database:
+### Test PostgreSQL
+Connect to PostgreSQL
 
 ```console
 kubectl exec -it <postgres-pod> -- psql -U admin -d mydb
 ```
 
-Expected:
-
+You should see an output similar to:
 ```output
-psql (15.x)
+psql (15.15 (Debian 15.15-1.pgdg13+1))
+Type "help" for help.
+
 mydb=#
 ```
 
-Run test queries:
+**Run test queries:**
 
 ```psql
 CREATE TABLE test (id INT);
@@ -349,22 +272,24 @@ INSERT INTO test VALUES (1);
 SELECT * FROM test;
 ```
 
-Expected:
-
+You should see an output similar to:
 ```output
+mydb=# CREATE TABLE test (id INT);
+INSERT INTO test VALUES (1);
+SELECT * FROM test;
+CREATE TABLE
+INSERT 0 1
  id
 ----
   1
+(1 row)
 ```
 
----
-
-## Outcome
-
+### Outcome
 You have successfully:
 
-* Created an **Axion-safe** custom Helm chart
-* Deployed PostgreSQL on **ARM64 GKE**
-* Enabled persistent storage with a supported disk type
-* Used Secrets for credentials
-* Verified database functionality
+- Created a custom Helm chart
+- Deployed PostgreSQL on Kubernetes
+- Enabled persistent storage
+- Used Secrets for credentials
+- Verified database functionality
