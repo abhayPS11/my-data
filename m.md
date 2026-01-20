@@ -26,7 +26,39 @@ kubectl get nodes
 helm version
 ```
 
-If these commands fail, fix them first before continuing.
+If these commands fail, you can fix them first before continuing.
+
+### Create storage
+Create `storageclass-hyperdisk.yaml` outside the chart:
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: hyperdisk-balanced
+provisioner: pd.csi.storage.gke.io
+parameters:
+  type: hyperdisk-balanced
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+```
+
+Apply it once:
+
+```console
+kubectl apply -f storageclass-hyperdisk.yaml
+kubectl get storageclass
+```
+
+```output
+NAME                     PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+hyperdisk-balanced       pd.csi.storage.gke.io   Delete          WaitForFirstConsumer   true                   10m
+premium-rwo              pd.csi.storage.gke.io   Delete          WaitForFirstConsumer   true                   29m
+standard                 kubernetes.io/gce-pd    Delete          Immediate              true                   29m
+standard-rwo (default)   pd.csi.storage.gke.io   Delete          WaitForFirstConsumer   true                   29m
+```
+
 
 ### CREATE WORKING DIRECTORY
 Creates a dedicated folder to store all Helm charts for microservices.
@@ -80,7 +112,7 @@ replicaCount: 1
 
 image:
   repository: postgres
-  tag: "15"
+  tag: "15"   
   pullPolicy: IfNotPresent
 
 postgresql:
@@ -93,6 +125,7 @@ persistence:
   size: 10Gi
   mountPath: /var/lib/postgresql
   dataSubPath: data
+  storageClass: hyperdisk-balanced   # ARM64-compatible
 ```
 
 This matters
@@ -141,6 +174,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.size }}
+  storageClassName: {{ .Values.persistence.storageClass }}
 ```
 
 That matters
@@ -173,6 +207,12 @@ spec:
         app: {{ include "my-postgres.name" . }}
 
     spec:
+      tolerations:
+        - key: "kubernetes.io/arch"
+          operator: "Equal"
+          value: "arm64"
+          effect: "NoSchedule"
+
       containers:
         - name: postgres
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -228,7 +268,8 @@ spec:
 
 ```console
 cd helm-microservices
-helm uninstall postgres || true
+helm uninstall postgres-app || true
+kubectl delete pvc postgres-app-my-postgres-pvc || true
 helm install postgres-app ./my-postgres
 ```
 
@@ -241,12 +282,14 @@ kubectl get pvc
 
 You should see an output similar to:
 ```output
+>gcpuser@helm-arm64-vm:~/helm-microservices> kubectl get pods
 NAME                                        READY   STATUS    RESTARTS   AGE
-postgres-app-my-postgres-6dbc8759b6-jgpxs   1/1     Running   0          40s
+postgres-app-my-postgres-6f987d564b-bbvrd   1/1     Running   0          78s
 
->kubectl get pvc
-NAME                           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-postgres-app-my-postgres-pvc   Bound    pvc-5f3716df-39bb-4683-990a-c5cd3906fbce   10Gi       RWO            standard-rwo   <unset>                 33s
+>gcpuser@helm-arm64-vm:~/helm-microservices> kubectl get pvc
+NAME                           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS         VOLUMEATTRIBUTESCLASS   AGE
+postgres-app-my-postgres-pvc   Bound    pvc-4722d1b3-c058-4e5c-91ad-58c11bd713f1   10Gi       RWO            hyperdisk-balanced   <unset>                 84s
+
 ```
 
 ### Test PostgreSQL
