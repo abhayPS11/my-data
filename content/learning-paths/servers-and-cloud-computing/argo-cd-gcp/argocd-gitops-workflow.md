@@ -10,6 +10,10 @@ layout: learningpathall
 
 In this section, you deploy a **production-ready application** using **pure GitOps** with Argo CD on an Arm64 GKE cluster.
 
+## Prerequisite
+
+You must have **your own GitHub repository** (an empty repository is sufficient) to store and manage GitOps manifests used by Argo CD.
+
 ## Create GitOps Repository
 
 ```console
@@ -17,6 +21,7 @@ mkdir -p argocd-arm-gitops/apps/nginx
 cd argocd-arm-gitops
 git init
 ```
+This initializes a local Git repository that will later be pushed to your own GitHub repository.
 
 **Repository structure:**
 
@@ -89,9 +94,10 @@ spec:
 git add .
 git commit -m "Initial ARM GitOps app"
 git branch -M main
-git remote add origin https://github.com/<YOUR_ORG>/argocd-arm-gitops.git
+git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/argocd-arm-gitops.git
 git push -u origin main
 ```
+Replace <YOUR_GITHUB_USERNAME> with your own GitHub username or organization name.
 
 ## Register Application in Argo CD
 
@@ -117,6 +123,7 @@ spec:
       prune: true
       selfHeal: true
 ```
+Ensure the repoURL points to your own GitHub repository.
 
 **Apply:**
 
