@@ -97,7 +97,7 @@ git push -u origin main
 
 Create **argo-app.yaml**:
 
-``yaml
+```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
