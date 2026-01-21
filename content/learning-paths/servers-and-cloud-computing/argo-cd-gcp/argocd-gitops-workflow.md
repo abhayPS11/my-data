@@ -8,14 +8,20 @@ layout: learningpathall
 
 ## Overview
 
-In this section, you deploy a **production-ready application** using **pure GitOps** with Argo CD on an Arm64 GKE cluster.
+In this section, you deploy a **production-ready NGINX application** on an **Arm64-based GKE cluster** using **GitOps principles with Argo CD**.  
+All application state is managed declaratively through Git, ensuring consistency, traceability, and automatic reconciliation.
 
 ## Prerequisite
 
-1. You must have **your own GitHub repository** (an empty repository is sufficient) to store GitOps manifests.
-2. Create the repository **on GitHub first** (via UI or CLI). For example: `argocd-arm-gitops`.
+Ensure all foundational requirements are in place before starting GitOps deployment.
+
+- An **Arm64 GKE cluster** with Argo CD installed and running
+- `kubectl` configured to access the cluster
+- A **GitHub repository** (empty repository is sufficient) for storing GitOps manifests  
+  Example: `argocd-arm-gitops`
 
 ## Create GitOps Repository
+Create a local Git repository that will act as the **single source of truth** for application manifests.
 
 ```console
 mkdir -p argocd-arm-gitops/apps/nginx
@@ -37,8 +43,9 @@ argocd-arm-gitops/
 ```
 
 ## Kubernetes Manifests
+Create declarative Kubernetes manifests that define the desired state of the application.
 
-**`namespace.yaml`**
+Creates an isolated production namespace (`apps/nginx/namespace.yaml`):
 
 ```yaml
 apiVersion: v1
@@ -47,7 +54,9 @@ metadata:
   name: prod
 ```
 
-**deployment.yaml**
+**Deployment Manifest (apps/nginx/deployment.yaml):**
+
+Deploys an NGINX application with two replicas for high availability.
 
 ```yaml
 apiVersion: apps/v1
@@ -72,7 +81,9 @@ spec:
         - containerPort: 80
 ```
 
-**service.yaml**
+**Service Manifest (apps/nginx/service.yaml):**
+
+Exposes NGINX publicly using a LoadBalancer service.
 
 ```yaml
 apiVersion: v1
@@ -90,9 +101,12 @@ spec:
 ```
 
 ## Commit and Push
+Push the application manifests to GitHub so Argo CD can continuously track and apply changes.
 
 ```console
 git add .
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
 git commit -m "Initial ARM GitOps app"
 git branch -M main
 git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/argocd-arm-gitops.git
@@ -101,6 +115,7 @@ git push -u origin main
 Replace <YOUR_GITHUB_USERNAME> with your own GitHub username or organization name.
 
 ## Register Application in Argo CD
+Create an Argo CD Application resource to link GitHub manifests with the GKE cluster.
 
 Create **argo-app.yaml**:
 
@@ -126,35 +141,73 @@ spec:
 ```
 Ensure the repoURL points to your own GitHub repository.
 
-**Apply:**
+**Apply the application:**
 
 ```console
 kubectl apply -f argo-app.yaml
 ```
 
 ## Verify GitOps Deployment
+Confirm that Argo CD has successfully synchronized and deployed the application.
 
 ```console
 kubectl get pods -n prod
 kubectl get svc -n prod
 ```
+```output
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-55d67f7b54-glhj5   1/1     Running   0          5s
+nginx-55d67f7b54-sdh9h   1/1     Running   0          5s
 
-Access application:
-
-```bash
-curl http://<NGINX_EXTERNAL_IP>
+> kubectl get svc -n prod
+NAME    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+nginx   LoadBalancer   34.118.225.71   34.30.xx.xx   80:32019/TCP   2m11s
 ```
 
+## Access the Application
+Validate the deployment by accessing the application through the external load balancer.
+
+```bash
+http://<NGINX_EXTERNAL_IP>
+```
+
+Expected result:
+
+![NGINX Welcome Page confirming successful GitOps deployment via Argo CD alt-txt#center](images/argo-cd-nginx.png "NGINX Application Output")
+
+This confirms the application is successfully deployed via GitOps.
+
+
+## Argo CD Application Status (UI)
+
+The Argo CD UI provides real-time visibility into application health, sync status, repository source, and deployment history.
+
+![Argo CD UI showing nginx-prod application in Healthy and Synced state alt-txt#center](images/argocd-app.png "Argo CD Application Status")
+
+
+Key indicators:
+
+* **Status:** Healthy & Synced
+* **Source:** GitHub repository
+* **Path:** `apps/nginx`
+* **Namespace:** `prod`
+
+
 ## Test Self-Healing
+Validate Argo CD’s self-healing capability by manually changing cluster state.
 
 ```console
 kubectl scale deployment nginx -n prod --replicas=1
 ```
 
-Argo CD automatically restores the desired state.
+Argo CD automatically restores the deployment back to 2 replicas, matching the Git-defined desired state.
 
-## Learning Outcome — Achieved
+## Learning Outcome
 
-- ARM64 GKE cluster
-- Argo CD GitOps workflow
-- Automated sync & self-healing
+By completing this section, you have successfully implemented a production-grade GitOps workflow on ARM infrastructure.
+
+- ARM64-based GKE cluster
+- Declarative GitOps deployment
+- Argo CD automated sync and pruning
+- Continuous reconciliation and self-healing
+- External application exposure via LoadBalancer
