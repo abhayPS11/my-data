@@ -1,6 +1,6 @@
 ---
 title: Deploy Applications using GitOps with Argo CD
-weight: 4
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
