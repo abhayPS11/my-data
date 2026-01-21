@@ -183,6 +183,22 @@ You should see an output similar to:
 ```output
 arm64 arm64
 ```
+## Taint the cluster nodes for arm64 support
+
+Taint the nodes to ensure proper scheduling on arm64 VMs. For each node starting with **gke**, run the following taint command. 
+
+{{% notice Note %}}
+Note the required "-" at the end... its needed!
+{{% /notice %}}
+
+For example, using the node IDs in the output above: 
+
+```console
+kubectl taint nodes gke-argocd-arm-cluster-default-pool-301523aa-6t7f kubernetes.io/arch=arm64:NoSchedule-
+kubectl taint nodes gke-argocd-arm-cluster-default-pool-301523aa-cczh kubernetes.io/arch=arm64:NoSchedule-
+```
+
+Replace the node names with your actual node names from the previous command output.
 
 ## What you've accomplished and what's next
 
