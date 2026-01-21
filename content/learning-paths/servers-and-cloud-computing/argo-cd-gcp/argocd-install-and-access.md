@@ -133,11 +133,19 @@ argocd login <ARGOCD_EXTERNAL_IP> \
   --password <PASTE_PASSWORD> \
   --insecure
 ```
+```output
+'admin:login' logged in successfully
+Context '35.232.56.107' updated
+```
 
 **Verify:**
 
 ```console
 argocd app list
+```
+
+```output
+NAME  CLUSTER  NAMESPACE  PROJECT  STATUS  HEALTH  SYNCPOLICY  CONDITIONS  REPO  PATH  TARGET
 ```
 
 ## What You’ve Accomplished
