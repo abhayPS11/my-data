@@ -71,7 +71,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret \
 ```
 
 ## Access Argo CD UI
-Accesse the Argo CD web UI using the external IP to manage and monitor GitOps applications.
+Access the Argo CD web UI using the external IP to manage and monitor GitOps applications.
 
 Open in browser:
 
@@ -85,6 +85,8 @@ https://<ARGOCD_EXTERNAL_IP>
 - Password: from the previous step
 
 Accept the TLS warning (self-signed cert).
+
+![Argo CD web UI alt-txt#center](images/argo-cd.png "Argo CD UI")
 
 ## Install Argo CD CLI (ARM64)
 Install the ARM64 Argo CD CLI for command-line GitOps management and automation.
