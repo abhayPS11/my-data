@@ -1,6 +1,6 @@
 ---
 title: Install and Access Argo CD on Arm64 GKE
-weight: 4
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
