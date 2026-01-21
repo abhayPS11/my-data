@@ -12,7 +12,8 @@ In this section, you deploy a **production-ready application** using **pure GitO
 
 ## Prerequisite
 
-You must have **your own GitHub repository** (an empty repository is sufficient) to store and manage GitOps manifests used by Argo CD.
+1. You must have **your own GitHub repository** (an empty repository is sufficient) to store GitOps manifests.
+2. Create the repository **on GitHub first** (via UI or CLI). For example: `argocd-arm-gitops`.
 
 ## Create GitOps Repository
 
