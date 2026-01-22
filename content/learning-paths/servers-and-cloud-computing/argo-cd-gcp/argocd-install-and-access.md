@@ -8,10 +8,17 @@ layout: learningpathall
 
 ## Overview
 
-In this section, you install **Argo CD** on your Arm64 GKE cluster and access it securely from your browser and CLI.
+In this section, you install Argo CD on an Arm64-based Google Kubernetes Engine (GKE) cluster and make it accessible through both a web browser and the Argo CD CLI.
+
+By the end of this guide, you will have:
+
+* Argo CD installed using official upstream manifests
+* External browser access to the Argo CD UI
+* Admin credentials retrieved securely
+* The Argo CD CLI is installed and authenticated
 
 ## Install Argo CD
-Install Argo CD on the Arm64 GKE cluster using official upstream manifests in the `argocd` namespace.
+This step installs all Argo CD components into a dedicated Kubernetes namespace using the official manifests maintained by the Argo project.
 
 **Create namespace:**
 
@@ -19,18 +26,44 @@ Install Argo CD on the Arm64 GKE cluster using official upstream manifests in th
 kubectl create namespace argocd
 ```
 
+**What this does:**
+
+* Creates an isolated Kubernetes namespace named `argocd`
+* Keeps Argo CD components logically separated from application workloads
+* Aligns with production-recommended deployment patterns
 **Install Argo CD using official manifests:**
 
 ```console
 kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
+**What this does:**
 
-**Wait for pods:**
+* Downloads the latest *stable* Argo CD installation manifest
+* Deploys all required Argo CD components into the `argocd` namespace
+* Creates Deployments, StatefulSets, Services, ConfigMaps, Secrets, and RBAC objects
+
+**Key components installed:**
+
+* `argocd-server` – Web UI and API server
+* `argocd-repo-server` – Handles Git repository interactions
+* `argocd-application-controller` – Continuously reconciles desired vs live state
+* `argocd-dex-server` – Identity and authentication service
+* `argocd-redis` – Internal cache and state store
+
+All images used support **linux/arm64**, making them compatible with Arm-based GKE nodes.
+
+### Wait for Argo CD Pods to Become Ready
 
 ```console
 kubectl get pods -n argocd -w
 ```
+
+**What this does:**
+
+* Lists all pods in the `argocd` namespace
+* `-w` (watch) continuously updates output as pod states change
+* Allows you to confirm when all components reach `Running` state
 
 ```output
 NAME                                               READY   STATUS    RESTARTS   AGE
@@ -43,37 +76,58 @@ argocd-repo-server-7f86545bc4-gcqcv                1/1     Running   0          
 argocd-server-685f5fb66f-24w8m                     1/1     Running   0          3h20m
 ```
 
+Once all pods are running, Argo CD is successfully installed.
+
 ## Expose Argo CD (External Browser Access)
-Expose the Argo CD server using a Kubernetes LoadBalancer to enable external browser access to the UI.
+By default, Argo CD is only accessible inside the cluster. This step exposes the Argo CD server externally using a Kubernetes **LoadBalancer** service, which is suitable for cloud environments like GKE.
+
+### Patch the Argo CD Server Service
 
 ```console
 kubectl patch svc argocd-server -n argocd \
   -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
-**Get external IP:**
+**What this does:**
+
+* Modifies the existing `argocd-server` Service
+* Changes the Service type from `ClusterIP` to `LoadBalancer`
+* Instructs GKE to provision a cloud load balancer with a public IP
+
+### Retrieve the External IP Address
 
 ```console
 kubectl get svc argocd-server -n argocd -w
 ```
 
+* Displays service details for `argocd-server`
+* Waits until GKE assigns an external IP address
+
 ```output
 NAME            TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 argocd-server   LoadBalancer   34.118.228.71   34.xx.xx.xx   80:30166/TCP,443:30920/TCP   3h22m
 ```
+The value under `EXTERNAL-IP` will be used to access the UI and CLI.
 
 ## Get Admin Password
-Retrieve and decode the initial Argo CD admin password stored as a Kubernetes secret.
+Argo CD generates an initial admin password and stores it securely as a Kubernetes Secret.
 
 ```console
 kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath="{.data.password}" | base64 -d && echo
 ```
+**What this does:**
+
+* Fetches the `argocd-initial-admin-secret` Secret
+* Extracts the base64-encoded password field
+* Decodes it into human-readable form
+
+Save this password — it is required for both UI and CLI login.
 
 ## Access Argo CD UI
 Access the Argo CD web UI using the external IP to manage and monitor GitOps applications.
 
-Open in browser:
+Open your browser and navigate to:
 
 ```bash
 https://<ARGOCD_EXTERNAL_IP>
@@ -84,12 +138,12 @@ https://<ARGOCD_EXTERNAL_IP>
 - Username: admin
 - Password: from the previous step
 
-Accept the TLS warning (self-signed cert).
+You will see a TLS warning because Argo CD uses a self-signed certificate by default. This is expected for lab and learning environments.
 
 ![Argo CD web UI alt-txt#center](images/argo-cd.png "Argo CD UI")
 
-## Install Argo CD CLI (ARM64)
-Install the ARM64 Argo CD CLI for command-line GitOps management and automation.
+## Install Argo CD CLI (Arm64)
+The Argo CD CLI allows you to manage applications, sync states, and automate GitOps workflows from the terminal.
 
 ```console
 curl -LO https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
@@ -97,7 +151,13 @@ chmod +x argocd-linux-arm64
 sudo mv argocd-linux-arm64 /usr/local/bin/argocd
 ```
 
-**Verify:**
+**What this does:**
+
+* Downloads the latest Argo CD CLI binary for `linux/arm64`
+* Makes the binary executable
+* Moves it into `/usr/local/bin` so it is available system-wide
+  
+### Verify CLI Installation
 
 ```console
 argocd version
@@ -123,9 +183,10 @@ argocd-server: v3.2.5+c56f440
   Kubectl Version: v0.34.0
   Jsonnet Version: v0.21.0
 ```
+This confirms version compatibility between the CLI and server.
 
 ## Login via CLI
-Authenticates the Argo CD CLI with the server to enable GitOps operations from the terminal.
+Authenticate the CLI with the Argo CD server using the external IP.
 
 ```console
 argocd login <ARGOCD_EXTERNAL_IP> \
@@ -133,16 +194,29 @@ argocd login <ARGOCD_EXTERNAL_IP> \
   --password <PASTE_PASSWORD> \
   --insecure
 ```
+**What this does:**
+
+* Connects the CLI to the Argo CD API server
+* Authenticates using admin credentials
+* `--insecure` bypasses TLS verification for the self-signed certificate
+
 ```output
 'admin:login' logged in successfully
 Context '35.232.56.107' updated
 ```
 
-**Verify:**
+### Verify CLI Connectivity
 
 ```console
 argocd app list
 ```
+
+**What this does:**
+
+* Queries Argo CD for registered applications
+* Confirms CLI authentication and API connectivity
+
+**Expected output (no apps yet):**
 
 ```output
 NAME  CLUSTER  NAMESPACE  PROJECT  STATUS  HEALTH  SYNCPOLICY  CONDITIONS  REPO  PATH  TARGET
@@ -150,5 +224,11 @@ NAME  CLUSTER  NAMESPACE  PROJECT  STATUS  HEALTH  SYNCPOLICY  CONDITIONS  REPO 
 
 ## What You’ve Accomplished
 
-Argo CD is fully installed and accessible via UI and CLI, ready for GitOps-based application deployment.
+You have successfully:
 
+* Installed Argo CD on an Arm64 GKE cluster
+* Exposed the Argo CD server securely via a LoadBalancer
+* Accessed the Argo CD web UI
+* Installed and authenticated the Argo CD CLI
+
+Your environment is now fully prepared for GitOps-based application deployment and continuous delivery using Argo CD.
