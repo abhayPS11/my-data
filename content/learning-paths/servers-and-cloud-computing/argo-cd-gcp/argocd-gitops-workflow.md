@@ -8,27 +8,31 @@ layout: learningpathall
 
 ## Overview
 
-In this section, you deploy a **production-ready NGINX application** on an **Arm64-based GKE cluster** using **GitOps principles with Argo CD**.  
-All application state is managed declaratively through Git, ensuring consistency, traceability, and automatic reconciliation.
+In this section, you deploy a **production-ready NGINX application** on an **Arm64-based GKE cluster** using **GitOps with Argo CD**.
+
+All Kubernetes resources are declared in Git and continuously reconciled by Argo CD, ensuring the cluster always matches the desired state stored in the repository.
 
 ## Prerequisite
 
-Ensure all foundational requirements are in place before starting GitOps deployment.
+Ensure the following prerequisites are met before proceeding:
 
-- An **Arm64 GKE cluster** with Argo CD installed and running
-- `kubectl` configured to access the cluster
-- A **GitHub repository** (empty repository is sufficient) for storing GitOps manifests  
-  Example: `argocd-arm-gitops`
+* Arm64 GKE cluster is running
+* Argo CD is installed and accessible (UI and CLI)
+* `kubectl` is configured for the cluster
+* A GitHub repository to store GitOps manifests (an empty repo is sufficient)
 
 ## Create GitOps Repository
-Create a local Git repository that will act as the **single source of truth** for application manifests.
+
+Create a local Git repository that acts as the **single source of truth** for application configuration.
 
 ```console
 mkdir -p argocd-arm-gitops/apps/nginx
 cd argocd-arm-gitops
 git init
 ```
-This initializes a local Git repository that will later be pushed to your own GitHub repository.
+
+* Creates a structured directory for GitOps-managed applications
+* Initializes a local Git repository that will be linked to Argo CD
 
 **Repository structure:**
 
@@ -112,7 +116,10 @@ git branch -M main
 git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/argocd-arm-gitops.git
 git push -u origin main
 ```
-Replace <YOUR_GITHUB_USERNAME> with your own GitHub username or organization name.
+
+* Commits define the desired cluster state
+* Any future Git change automatically triggers reconciliation
+* Replace <YOUR_GITHUB_USERNAME> with your own GitHub username or organization name.
 
 ## Register Application in Argo CD
 Create an Argo CD Application resource to link GitHub manifests with the GKE cluster.
@@ -139,7 +146,14 @@ spec:
       prune: true
       selfHeal: true
 ```
-Ensure the repoURL points to your own GitHub repository.
+
+
+**Key settings:**
+
+* `automated` sync keeps the cluster aligned with Git
+* `prune` removes deleted resources
+* `selfHeal` restores manual drift
+*  Ensure the repoURL points to your own GitHub repository.
 
 **Apply the application:**
 
