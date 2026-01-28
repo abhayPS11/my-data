@@ -185,7 +185,7 @@ docker buildx build \
 
 This allows the same image to run on different CPU architectures.
 
-images/buildx-push.png
+![Trivy scanning multi-architecture container image alt-txt#center](images/trivy-multiarch.png "Trivy Multi-Arch Image Scan")
 
 ## Install Trivy on Arm64
 
