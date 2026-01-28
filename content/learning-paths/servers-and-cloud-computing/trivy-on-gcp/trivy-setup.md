@@ -196,6 +196,9 @@ Download the Arm64-compatible Trivy scanner.
 ```bash
 wget https://github.com/aquasecurity/trivy/releases/download/v0.68.1/trivy_0.68.1_Linux-ARM64.deb
 ```
+{{% notice Note %}}
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends Trivy 0.29.0 or later for Arm platforms.
+{{% /notice %}}
 
 **Install:**
 
