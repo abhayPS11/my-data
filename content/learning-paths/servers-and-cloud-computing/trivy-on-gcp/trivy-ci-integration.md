@@ -171,7 +171,7 @@ mkdir -p .github/workflows
 
 ```bash
 nano .github/workflows/trivy-scan.yml
-``
+```
 
 Add:
 Defines a CI pipeline that scans images on every push.
