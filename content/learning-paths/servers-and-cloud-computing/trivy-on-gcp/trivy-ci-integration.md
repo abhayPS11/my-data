@@ -102,7 +102,7 @@ GitHub will display setup commands.
 
 This prepares GitHub to register a self-hosted Arm64 runner.
 
-im age
+![GitHub Actions Arm64 self-hosted runner connected alt-txt#center](images/arm64-runner.png "Arm64 GitHub Runner Status")
 
 ## Create Runner Directory on VM
 
@@ -158,6 +158,8 @@ Add the following secrets:
 | `DOCKER_PASSWORD` | Docker Hub password or access token |
 | `IMAGE_NAME`      | trivy-multiarch-nginx               |
 | `IMAGE_TAG`       | latest                              |
+
+![GitHub Actions secrets configuration alt-txt#center](images/secrets.png "GitHub Secrets Configuration")
 
 ## Create CI Workflow
 Create Workflow Directory
