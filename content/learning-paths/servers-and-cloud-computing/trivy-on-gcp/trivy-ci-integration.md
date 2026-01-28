@@ -245,13 +245,15 @@ GitHub → Actions → Trivy Scan on Arm Runner
 
 Select the latest workflow run.
 
-Expected Results
+Expected Results:
+
+![GitHub Actions Trivy security scan workflow execution log alt-txt#center](images/security-scan.png "Trivy CI Security Scan Execution")
 
 You should observe the following:
 
 - The multi-architecture container image is pulled successfully on the Arm-based Azure Cobalt 100 runner
 - Trivy performs a full vulnerability scan of the container image layers and installed packages
--  The pipeline fails when HIGH or CRITICAL vulnerabilities are detected
+- The pipeline fails when HIGH or CRITICAL vulnerabilities are detected
 
 This failure is intentional and indicates that the security scan is functioning correctly.
 
