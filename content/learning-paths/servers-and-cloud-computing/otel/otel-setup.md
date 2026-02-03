@@ -1,6 +1,6 @@
 ---
 title: OpenTelemetry Environment & Application Setup on ARM64
-weight: 5
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 
