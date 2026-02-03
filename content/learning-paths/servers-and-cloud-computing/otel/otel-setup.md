@@ -4,17 +4,11 @@
 
 ## 🎯 Learning Objective
 
-In this part, you will prepare a SUSE ARM64 VM on GCP, install container tooling, and build an instrumented Python Flask microservice that emits OpenTelemetry metrics and traces.
+Prepare an ARM64 SUSE VM with container tooling and deploy an instrumented Python Flask microservice that emits OpenTelemetry traces and metrics.
 
 ---
 
-## 🧱 Target Platform
-
-**GCP SUSE ARM64 Virtual Machine**
-
----
-
-## 📌 Architecture Overview
+## 📌 Architecture Scope (Part 1)
 
 ```
 Flask Microservice (ARM)
@@ -24,13 +18,11 @@ Flask Microservice (ARM)
 OpenTelemetry Collector
 ```
 
-This part focuses on preparing the application and base environment.
-
 ---
 
-## 🔓 Required Firewall Ports
+## 🔓 Required Firewall Port
 
-| Service   | Port | Description         |
+| Service   | Port | Purpose             |
 | --------- | ---- | ------------------- |
 | Flask App | 8080 | Application traffic |
 
@@ -40,7 +32,7 @@ This part focuses on preparing the application and base environment.
 
 ### Summary
 
-Installs Docker Engine to run containerized workloads on the ARM-based SUSE VM.
+Installs Docker Engine to run ARM-based containers.
 
 ```bash
 sudo zypper refresh
@@ -51,7 +43,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-Verify installation:
+Verify:
 
 ```bash
 docker --version
@@ -59,11 +51,11 @@ docker --version
 
 ---
 
-# ✅ Step 2: Install Docker Compose (Standalone)
+# ✅ Step 2: Install Docker Compose
 
 ### Summary
 
-Installs Docker Compose v2 binary for orchestrating multi-container applications.
+Installs Docker Compose v2 binary for multi-container orchestration.
 
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-aarch64 \
@@ -84,7 +76,7 @@ docker-compose --version
 
 ### Summary
 
-Creates a workspace for all OpenTelemetry demo files.
+Creates workspace for OpenTelemetry demo.
 
 ```bash
 mkdir ~/otel-demo
@@ -93,46 +85,99 @@ cd ~/otel-demo
 
 ---
 
-# 🐍 Step 4: Create Instrumented Flask Microservice
+# 🐍 Step 4: Create Instrumented Flask Application
 
 ### Summary
 
-Creates a Python Flask application integrated with OpenTelemetry SDK to generate traces and metrics.
-
-Create file:
+Creates a Flask service integrated with OpenTelemetry SDK for tracing and metrics.
 
 ```bash
 vi app.py
 ```
 
-#### File: app.py
+### 📄 File: app.py
 
-* Initializes OpenTelemetry resource
-* Configures trace exporter to Collector
-* Configures metric exporter
-* Instruments Flask automatically
-* Exposes a simple HTTP endpoint
+```python
+from flask import Flask
+import time
+
+from opentelemetry import trace, metrics
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+resource = Resource.create({
+    "service.name": "flask-arm-service"
+})
+
+trace_provider = TracerProvider(resource=resource)
+trace.set_tracer_provider(trace_provider)
+
+trace_exporter = OTLPSpanExporter(endpoint="otel-collector:4317", insecure=True)
+trace_provider.add_span_processor(
+    BatchSpanProcessor(trace_exporter)
+)
+
+metric_exporter = OTLPMetricExporter(endpoint="otel-collector:4317", insecure=True)
+
+metric_reader = PeriodicExportingMetricReader(
+    metric_exporter,
+    export_interval_millis=5000
+)
+
+meter_provider = MeterProvider(
+    resource=resource,
+    metric_readers=[metric_reader]
+)
+
+metrics.set_meter_provider(meter_provider)
+
+meter = metrics.get_meter(__name__)
+
+request_counter = meter.create_counter(
+    name="demo_requests_total",
+    description="Total number of requests"
+)
+
+app = Flask(__name__)
+FlaskInstrumentor().instrument_app(app)
+
+@app.route("/")
+def hello():
+    request_counter.add(1)
+    time.sleep(0.2)
+    return "Hello OpenTelemetry!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
+```
 
 ---
 
-# 📦 Step 5: Create Python Dependencies File
+# 📦 Step 5: Create Python Dependencies
 
 ### Summary
 
-Defines required Python libraries for Flask and OpenTelemetry.
+Defines required libraries for Flask and OpenTelemetry.
 
 ```bash
 nano requirements.txt
 ```
 
-#### File: requirements.txt
+### 📄 File: requirements.txt
 
-Includes:
-
-* Flask framework
-* OpenTelemetry API & SDK
-* OTLP exporters
-* Flask instrumentation
+```
+flask
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-otlp
+opentelemetry-instrumentation-flask
+```
 
 ---
 
@@ -140,18 +185,26 @@ Includes:
 
 ### Summary
 
-Builds a lightweight Python container image for the Flask service on ARM64.
+Builds ARM-compatible container image for Flask app.
 
 ```bash
 nano Dockerfile
 ```
 
-#### File: Dockerfile
+### 📄 File: Dockerfile
 
-* Uses Python 3.10 slim base image
-* Installs dependencies
-* Copies application code
-* Runs Flask app
+```dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py .
+
+CMD ["python", "app.py"]
+```
 
 ---
 
@@ -159,8 +212,8 @@ nano Dockerfile
 
 You now have:
 
-✔ Docker & Compose installed on ARM
-✔ An instrumented Flask microservice
-✔ Container build configuration
+✔ Docker & Compose installed on ARM64
+✔ Instrumented Flask service
+✔ Container build setup
 
-➡️ Continue to **Part 2: Observability Stack & Deployment** to connect OpenTelemetry Collector, Prometheus, and Jaeger.
+➡️ Proceed to **Part 2: Observability Stack & Telemetry Pipeline**
