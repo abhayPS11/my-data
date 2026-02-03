@@ -1,10 +1,3 @@
-Great — since you already have a **running GCP SUSE ARM64 VM** and Docker working, I’ll give you a **clean, end-to-end Learning Path** for:
-
-👉 **Instrumenting a microservice + backend observability stack (Prometheus + Jaeger) using OpenTelemetry on Arm (GCP)**
-
-This will be structured so you can directly use it in your LP content.
-
----
 
 # 🚀 OpenTelemetry on Arm (GCP SUSE ARM64) – Learning Path
 
@@ -36,17 +29,16 @@ Traces  → Jaeger
 
 ---
 
-# 🧩 Required Ports
+# Required Ports
 
 | Service             | Port  | Purpose             |
 | ------------------- | ----- | ------------------- |
 | Flask App           | 8080  | Application traffic |
 | Prometheus          | 9090  | Metrics UI          |
 | Jaeger UI           | 16686 | Traces UI           |
-| OTEL Collector gRPC | 4317  | Receive traces      |
-| OTEL Collector HTTP | 4318  | Receive metrics     |
+| Collector Metrics   | 8889  | Prometheus scrape   |
 
-👉 Open these in **GCP Firewall Rules**.
+Open these in **GCP Firewall Rules**.
 
 ---
 
@@ -102,7 +94,7 @@ cd ~/otel-demo
 Create file:
 
 ```bash
-nano app.py
+vi app.py
 ```
 
 Paste:
@@ -115,38 +107,68 @@ from opentelemetry import trace, metrics
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
-resource = Resource.create({"service.name": "flask-arm-service"})
 
-trace.set_tracer_provider(TracerProvider(resource=resource))
-metrics.set_meter_provider(
-    MeterProvider(
-        resource=resource,
-        metric_readers=[
-            PeriodicExportingMetricReader(
-                OTLPMetricExporter(endpoint="http://otel-collector:4318/v1/metrics")
-            )
-        ],
-    )
+# ----------------------
+# Resource
+# ----------------------
+resource = Resource.create({
+    "service.name": "flask-arm-service"
+})
+
+# ----------------------
+# Tracing
+# ----------------------
+trace_provider = TracerProvider(resource=resource)
+trace.set_tracer_provider(trace_provider)
+
+trace_exporter = OTLPSpanExporter(endpoint="otel-collector:4317", insecure=True)
+trace_provider.add_span_processor(
+    BatchSpanProcessor(trace_exporter)
 )
 
-span_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317")
-trace.get_tracer_provider().add_span_processor(
-    BatchSpanProcessor(span_exporter)
+# ----------------------
+# Metrics
+# ----------------------
+metric_exporter = OTLPMetricExporter(endpoint="otel-collector:4317", insecure=True)
+
+metric_reader = PeriodicExportingMetricReader(
+    metric_exporter,
+    export_interval_millis=5000
 )
 
+meter_provider = MeterProvider(
+    resource=resource,
+    metric_readers=[metric_reader]
+)
+
+metrics.set_meter_provider(meter_provider)
+
+meter = metrics.get_meter(__name__)
+
+request_counter = meter.create_counter(
+    name="demo_requests_total",
+    description="Total number of requests"
+)
+
+# ----------------------
+# Flask App
+# ----------------------
 app = Flask(__name__)
 FlaskInstrumentor().instrument_app(app)
 
+
 @app.route("/")
 def hello():
-    time.sleep(0.1)
-    return "Hello from ARM + OpenTelemetry!"
+    request_counter.add(1)
+    time.sleep(0.2)
+    return "Hello OpenTelemetry!"
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
@@ -166,8 +188,8 @@ Paste:
 flask
 opentelemetry-api
 opentelemetry-sdk
-opentelemetry-instrumentation-flask
 opentelemetry-exporter-otlp
+opentelemetry-instrumentation-flask
 ```
 
 ---
@@ -181,7 +203,7 @@ nano Dockerfile
 Paste:
 
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -189,8 +211,6 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
-
-EXPOSE 8080
 
 CMD ["python", "app.py"]
 ```
@@ -210,24 +230,28 @@ receivers:
   otlp:
     protocols:
       grpc:
+        endpoint: 0.0.0.0:4317
       http:
+        endpoint: 0.0.0.0:4318
 
 exporters:
-  prometheus:
-    endpoint: "0.0.0.0:9464"
-  jaeger:
-    endpoint: jaeger:14250
+  otlp:
+    endpoint: jaeger:4317
     tls:
       insecure: true
 
+  prometheus:
+    endpoint: 0.0.0.0:8889
+
 service:
   pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp]
+
     metrics:
       receivers: [otlp]
       exporters: [prometheus]
-    traces:
-      receivers: [otlp]
-      exporters: [jaeger]
 ```
 
 ---
@@ -247,7 +271,7 @@ global:
 scrape_configs:
   - job_name: "otel-collector"
     static_configs:
-      - targets: ["otel-collector:9464"]
+      - targets: ["otel-collector:8889"]
 ```
 
 ---
@@ -262,8 +286,7 @@ Paste:
 
 ```yaml
 services:
-
-  app:
+  otel-demo-app:
     build: .
     ports:
       - "8080:8080"
@@ -271,13 +294,19 @@ services:
       - otel-collector
 
   otel-collector:
-    image: otel/opentelemetry-collector:latest
+    image: otel/opentelemetry-collector-contrib:latest
     command: ["--config=/etc/otel-collector-config.yaml"]
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "4317:4317"
       - "4318:4318"
+      - "8889:8889"
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
 
   prometheus:
     image: prom/prometheus:latest
@@ -287,11 +316,6 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
       - "9090:9090"
-
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    ports:
-      - "16686:16686"
 ```
 
 ---
@@ -299,7 +323,7 @@ services:
 # ▶️ Step 10: Start the Stack
 
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 Check:
@@ -310,17 +334,16 @@ docker ps
 
 ---
 
-# 🌐 Step 11: Generate Traffic
+# Generate Traffic
 
 ```bash
 curl http://<VM_EXTERNAL_IP>:8080
 ```
+Or:
 
-Run a few times.
+for i in {1..10}; do curl http://<VM_EXTERNAL_IP>:8080; done
 
----
-
-# 📊 Step 12: Observe Metrics (Prometheus)
+# Observe Metrics (Prometheus)
 
 Open:
 
