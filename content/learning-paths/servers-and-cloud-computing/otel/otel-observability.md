@@ -1,7 +1,6 @@
 ---
-
 title: OpenTelemetry Observability Stack & Telemetry Pipeline on Arm64
-weight: 6
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 
