@@ -1,38 +1,42 @@
-# 🚀 OpenTelemetry on Arm (GCP SUSE ARM64) – Learning Path (Part 1: Environment & Application Setup)
+---
+title: OpenTelemetry Environment & Application Setup on ARM64
+weight: 5
 
+### FIXED, DO NOT MODIFY
+
+## layout: learningpathall
 ---
 
-## 🎯 Learning Objective
+## OpenTelemetry Environment & Application Setup
 
-Prepare an ARM64 SUSE VM with container tooling and deploy an instrumented Python Flask microservice that emits OpenTelemetry traces and metrics.
+In this guide, you will prepare an **Arm64-based SUSE Linux virtual machine** with container tooling and deploy an **instrumented Python Flask microservice** that emits OpenTelemetry traces and metrics. This forms the foundation for building a complete observability pipeline in the upcoming steps.
 
----
+## Architecture Overview
 
-## 📌 Architecture Scope (Part 1)
+This setup includes a lightweight application and telemetry flow as shown below:
 
-```
-Flask Microservice (ARM)
+```text
+Flask Microservice (ARM64)
         |
         | OpenTelemetry SDK
         v
 OpenTelemetry Collector
 ```
+The Flask application generates telemetry data using the OpenTelemetry SDK and sends it to an OpenTelemetry Collector for further processing and visualization.
 
----
+## Network & Firewall Requirements
+Ensure the following port is open on your VM firewall:
 
-## 🔓 Required Firewall Port
+| Service   | Port | Purpose                     |
+|-----------|------|-----------------------------|
+| Flask App | 8080 | Application HTTP traffic   |
 
-| Service   | Port | Purpose             |
-| --------- | ---- | ------------------- |
-| Flask App | 8080 | Application traffic |
 
----
+Opening port **8080** allows external access to the Flask microservice running inside the container.
 
-# ✅ Step 1: Install Docker on SUSE ARM64
+## Install Docker on SUSE ARM64
 
-### Summary
-
-Installs Docker Engine to run ARM-based containers.
+Docker is required to run containerized services on the ARM-based VM.
 
 ```bash
 sudo zypper refresh
@@ -43,19 +47,19 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-Verify:
+### Verify Installation
 
 ```bash
 docker --version
 ```
 
----
+Docker Engine is now installed and configured to run without sudo for the current user.
 
-# ✅ Step 2: Install Docker Compose
 
-### Summary
 
-Installs Docker Compose v2 binary for multi-container orchestration.
+## Install Docker Compose (v2)
+
+Docker Compose is used to orchestrate multi-container applications.
 
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-aarch64 \
@@ -64,38 +68,32 @@ sudo curl -L https://github.com/docker/compose/releases/download/v2.27.0/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-Verify:
+### Verify Installation
 
 ```bash
 docker-compose --version
 ```
 
----
+Docker Compose v2 is now installed and ready to manage multi-service deployments.
 
-# 📁 Step 3: Create Project Directory
-
-### Summary
-
-Creates workspace for OpenTelemetry demo.
+## Create Project Workspace
+Create a dedicated directory for the OpenTelemetry demo application.
 
 ```bash
 mkdir ~/otel-demo
 cd ~/otel-demo
 ```
 
----
+This directory will store the Flask application code, dependencies, and container configuration.
 
-# 🐍 Step 4: Create Instrumented Flask Application
-
-### Summary
-
-Creates a Flask service integrated with OpenTelemetry SDK for tracing and metrics.
+## Build an Instrumented Flask Application
+This Flask service is integrated with the OpenTelemetry SDK to emit distributed traces and metrics.
 
 ```bash
 vi app.py
 ```
 
-### 📄 File: app.py
+### File: app.py
 
 ```python
 from flask import Flask
@@ -157,19 +155,16 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
 ```
 
----
+The Flask service now automatically generates traces for HTTP requests and custom metrics for request counts.
 
-# 📦 Step 5: Create Python Dependencies
-
-### Summary
-
-Defines required libraries for Flask and OpenTelemetry.
+## Define Python Dependencies
+Create a file to list all required Python packages.
 
 ```bash
-nano requirements.txt
+vi requirements.txt
 ```
 
-### 📄 File: requirements.txt
+### File: requirements.txt
 
 ```
 flask
@@ -179,19 +174,19 @@ opentelemetry-exporter-otlp
 opentelemetry-instrumentation-flask
 ```
 
----
+This ensures all OpenTelemetry and Flask libraries are installed consistently inside the container.
 
-# 🐳 Step 6: Create Application Dockerfile
 
-### Summary
 
-Builds ARM-compatible container image for Flask app.
+## Create Application Docker Image
+
+Build an ARM-compatible container image for the Flask service.
 
 ```bash
-nano Dockerfile
+vi Dockerfile
 ```
 
-### 📄 File: Dockerfile
+### File: Dockerfile
 
 ```dockerfile
 FROM python:3.10-slim
@@ -206,14 +201,15 @@ COPY app.py .
 CMD ["python", "app.py"]
 ```
 
----
+This Dockerfile packages the instrumented Flask application into a lightweight ARM64-compatible container.
 
-## ✅ End of Part 1
+## What You Have Accomplished
 
-You now have:
+- Installed Docker and Docker Compose on an ARM64 SUSE VM
+- Created an OpenTelemetry-instrumented Flask microservice
+- Defined application dependencies
+- Built a container-ready application image
 
-✔ Docker & Compose installed on ARM64
-✔ Instrumented Flask service
-✔ Container build setup
+### What’s Next
 
-➡️ Proceed to **Part 2: Observability Stack & Telemetry Pipeline**
+In the next section, you will deploy the **OpenTelemetry Collector and observability stack** to receive, process, and visualize the telemetry data generated by this application.
