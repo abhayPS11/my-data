@@ -57,4 +57,4 @@ A browser window opens with a terminal shell connected to your VM. You're now re
 
 In this section, you provisioned a Google Axion C4A Arm VM and connected to it using SSH.
 
-Next, you'll need to install OpenTelemetryand the required dependencies on your VM.
+Next, you'll need to install OpenTelemetry and the required dependencies on your VM.
