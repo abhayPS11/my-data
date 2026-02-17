@@ -1,6 +1,6 @@
 ---
 title: Live Sensor Temperature Dashboard
-weight: 10
+weight: 8
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
