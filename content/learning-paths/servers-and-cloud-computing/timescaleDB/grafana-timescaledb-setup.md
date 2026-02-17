@@ -1,15 +1,15 @@
 ---
 title: Grafana Setup & TimescaleDB Data Source Configuration
-weight: 3
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
 ## Grafana Setup & TimescaleDB Data Source
-In this section, you will install Grafana on a SUSE Arm64 VM, log in to the UI, and connect Grafana to your TimescaleDB (PostgreSQL) database.
+In this section, you install Grafana on a SUSE Arm64 virtual machine, access its web interface, and connect it to TimescaleDB. Grafana acts as the visualization layer that queries TimescaleDB and displays time-series data in dashboards.
 
-This enables real-time visualization of sensor data stored in TimescaleDB.
+This setup enables real-time monitoring and analytics of sensor or application data stored in TimescaleDB.
 
 ## Architecture (At This Stage)
 
