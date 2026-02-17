@@ -1,5 +1,5 @@
 ---
-title: Get started with OpenTelemetry on Google Axion C4A 
+title: Get started with TimescaleDB on Google Axion C4A 
 
 weight: 2
 
