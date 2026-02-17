@@ -109,5 +109,3 @@ You have successfully:
 - Configured automatic refresh for monitoring use cases
 
 This confirms that Grafana, TimescaleDB, and your ingestion pipeline are working end-to-end.
-```console
-sudo -u postgres psql -c "SELECT COUNT(*) FROM sensor_data;"
