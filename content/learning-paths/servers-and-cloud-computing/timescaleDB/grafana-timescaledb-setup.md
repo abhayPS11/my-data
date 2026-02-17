@@ -6,8 +6,7 @@ weight: 3
 layout: learningpathall
 ---
 
-## Grafana Setup & TimescaleDB Data Source (Beginner-Friendly)
-
+## Grafana Setup & TimescaleDB Data Source
 In this section, you will install Grafana on a SUSE Arm64 VM, log in to the UI, and connect Grafana to your TimescaleDB (PostgreSQL) database.
 
 This enables real-time visualization of sensor data stored in TimescaleDB.
@@ -84,11 +83,13 @@ From the Grafana sidebar:
 Connections → Data sources → Add data source
 ```
 
-![Add PostgreSQL data source in Grafana alt-txt#center](images/psql-data-source.png "Add PostgreSQL data source")
-
 ### Step 2: Choose PostgreSQL
 
 Select PostgreSQL (TimescaleDB is PostgreSQL-compatible).
+
+
+![Add PostgreSQL data source in Grafana alt-txt#center](images/psql-data-source.png "Add PostgreSQL data source")
+
 
 ### Step 3: Configure Connection Settings
 
