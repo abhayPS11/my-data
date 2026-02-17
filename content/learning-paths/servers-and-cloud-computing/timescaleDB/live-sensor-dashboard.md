@@ -55,6 +55,8 @@ In the Query section:
 - Query type: SQL
 - Format: Time series
 
+![Grafana visualization configuration showing time series panel settings alt-txt#center](images/data-source-visualization.png "Grafana visualization configuration")
+
 Paste the following query:
 
 ```sql
@@ -65,6 +67,8 @@ FROM sensor_data
 WHERE $__timeFilter(time)
 ORDER BY time;
 ```
+![Grafana new dashboard panel editor screen alt-txt#center](images/new-dashboard.png "Create new Grafana dashboard panel")
+
 
 This query retrieves live sensor temperature data within the selected time range.
 
