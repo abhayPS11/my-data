@@ -1,6 +1,6 @@
 ---
 title: Real-Time Sensor Data Ingestion on Arm64
-weight: 2
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -8,7 +8,7 @@ layout: learningpathall
 
 ## Real-Time Sensor Data Ingestion
 
-This section demonstrates how to simulate live sensor data and continuously ingest it into TimescaleDB.
+In this section, you simulate real-time sensor data using Python and continuously ingest it into TimescaleDB running on an Arm64 VM. This creates a live time-series data stream that can later be visualized using Grafana.
 
 ## Architecture Overview
 
@@ -18,6 +18,12 @@ Python Sensor Generator
         v
 TimescaleDB Hypertable
 ```
+
+- A Python script acts as a sensor, generating temperature readings.
+- Each reading is written to TimescaleDB.
+- TimescaleDB stores the data in a hypertable, optimized for time-series workloads.
+
+This architecture mirrors real-world IoT and telemetry pipelines.
 
 ## Install Python Dependencies (SUSE)
 
@@ -40,6 +46,8 @@ EOF
 ```output
 psycopg2 OK
 ```
+- Confirms that the PostgreSQL driver is correctly installed.
+- If the import succeeds, Python can communicate with TimescaleDB.
 
 ## Create Sensor Table
 
@@ -56,8 +64,10 @@ CREATE TABLE sensor_data (
 
 SELECT create_hypertable('sensor_data', 'time');
 ```
+Created a sensor_data table and converted it into a hypertable for efficient time-series storage.
 
 ## Create Sensor Ingestion Script
+Python script simulates multiple sensors sending readings every 2 seconds and inserts them into TimescaleDB.
 
 Create a new Python file:
 
@@ -120,8 +130,8 @@ gcpuser   5401  2841  0 08:55 pts/0    00:00:00 grep --color=auto sensor_ingest.
 ```bash
 sudo -u postgres psql -c "SELECT COUNT(*) FROM sensor_data;"
 ```
-
-The count should increase continuously.
+- Verified sensor ingestion by checking running processes and data count in TimescaleDB.
+- The count should increase continuously.
 
 ```output
 gcpuser@tsdb-suse-arm64:~> sudo -u postgres psql -c "SELECT COUNT(*) FROM sensor_data;"
@@ -186,6 +196,8 @@ FROM sensor_data
 GROUP BY bucket, sensor_id;
 ```
 
+Precomputes hourly averages per sensor for faster reporting.
+
 ### Add Aggregate Refresh Policy
 
 ```sql
@@ -196,6 +208,7 @@ SELECT add_continuous_aggregate_policy(
   INTERVAL '5 minutes'
 );
 ```
+Automates hourly aggregate refresh every 5 minutes for near real-time analytics.
 
 **What this means**
 
@@ -211,6 +224,7 @@ SELECT add_continuous_aggregate_policy(
 SELECT * FROM sensor_hourly_avg LIMIT 5;
 SELECT COUNT(*) FROM sensor_data;
 ```
+Ensures ingestion and aggregation are running correctly and data is available for queries.
 
 ```output
 postgres=# SELECT * FROM sensor_hourly_avg LIMIT 5;
@@ -231,11 +245,7 @@ postgres=# SELECT COUNT(*) FROM sensor_data;
 
 ## What You Have Accomplished
 
-- Live sensor ingestion is running
-- Data is stored in a hypertable
-- Automatic retention is enabled
-- Continuous aggregates are active
-- Database is optimized for dashboards
+Fully functioning real-time ingestion pipeline: live data ingestion, hypertable storage, retention, and continuous aggregates ready for dashboards.
 
 ## What’s Next
 
@@ -244,3 +254,5 @@ In the next section, you will:
 - Install Grafana
 - Add TimescaleDB as a data source
 - Build a Live Sensor Temperature dashboard
+
+The next step is to visualize the live sensor data in Grafana dashboards for monitoring and analytics.
