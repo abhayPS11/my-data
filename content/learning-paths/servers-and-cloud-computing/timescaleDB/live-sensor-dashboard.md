@@ -67,8 +67,8 @@ FROM sensor_data
 WHERE $__timeFilter(time)
 ORDER BY time;
 ```
-![Grafana new dashboard panel editor screen alt-txt#center](images/new-dashboard.png "Create new Grafana dashboard panel")
 
+![Grafana SQL query editor showing TimescaleDB query with time filter alt-txt#center](images/timescale-query.png "TimescaleDB SQL query editor")
 
 This query retrieves live sensor temperature data within the selected time range.
 
