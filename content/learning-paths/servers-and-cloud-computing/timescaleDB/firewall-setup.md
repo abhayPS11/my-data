@@ -1,6 +1,6 @@
 ---
-title: Create a firewall rule for TimescaleDB (Grafana)
-weight: 6
+title: Create a firewall rule for TimescaleDB
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
