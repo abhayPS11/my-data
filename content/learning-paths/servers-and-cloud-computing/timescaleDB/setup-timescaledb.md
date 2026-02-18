@@ -80,6 +80,7 @@ sudo systemctl start postgresql
 psql --version
 ```
 
+The output is similar to:
 ```output
 psql (PostgreSQL) 15.10
 ```
@@ -97,6 +98,12 @@ git checkout 2.25.0
 
 - Download the official TimescaleDB source code.
 - Check out version 2.25.0 to ensure version consistency throughout the learning path
+
+{{% notice Note %}}
+According to the [release notes](https://github.com/timescale/timescaledb/releases/tag/2.16.0), TimescaleDB 2.16.0 introduces performance optimizations for DML on compressed chunks, improving upsert operations by **100×** and update/delete operations by **1000×** in some cases.  
+
+The [Arm Ecosystem Dashboard](https://developer.arm.com/ecosystem-dashboard/) recommends **TimescaleDB 2.16.0** or higher for Arm platforms.
+{{% /notice %}}
 
 ### Bootstrap and build:
 
@@ -156,6 +163,9 @@ What this does:
 ```psql
 SELECT extversion FROM pg_extension WHERE extname='timescaledb';
 ```
+
+The output is similar to:
+
 ```output
 sensors=# SELECT extversion FROM pg_extension WHERE extname='timescaledb';
  extversion
