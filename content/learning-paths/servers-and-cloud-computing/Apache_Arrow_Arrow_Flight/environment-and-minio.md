@@ -179,7 +179,7 @@ arrow-data
 
 ### Configure S3 Credentials for Python
 
-Export S3 credentials so Python libraries can access MinIO.
+In another terminal (same VM, venv active), Export S3 credentials so Python libraries can access MinIO.
 
 ```bash
 export AWS_ACCESS_KEY_ID=minioadmin
