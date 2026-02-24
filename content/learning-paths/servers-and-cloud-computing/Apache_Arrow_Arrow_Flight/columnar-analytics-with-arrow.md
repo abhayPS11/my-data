@@ -1,6 +1,6 @@
 ---
 title: Columnar Analytics with Apache Arrow on Arm64
-weight: 2
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -9,6 +9,8 @@ layout: learningpathall
 ## Columnar Analytics with Apache Arrow
 
 In this section, you use **Apache Arrow’s columnar execution engine to read and write analytical datasets stored in MinIO (S3)**. You will work with **Parquet and ORC formats** and explore predicate pushdown and column pruning, which are key performance optimizations in modern analytics engines.
+
+This section demonstrates how Arrow delivers **high-performance, vectorized analytics** on Arm64 (Axion).
 
 ## Architecture Overview
 
@@ -25,9 +27,15 @@ Parquet / ORC Columnar Files
 MinIO (S3 Object Storage)
 ```
 
-## Write Parquet Data to MinIO
+**What this architecture shows:**
 
-Create a dataset and write it in Parquet format. Create a file `write_parquet.py`.
+- Compute and execution happen in-memory using Apache Arrow
+- Data is stored in object storage (MinIO) using open columnar formats
+- Only required data is read from storage, reducing I/O and latency
+
+## Write Parquet Data to MinIO
+In this step, you create a sample dataset in memory using Apache Arrow and write it to MinIO in Parquet format, the most common columnar format used in analytics engines.
+Create a file named `write_parquet.py`.
 
 ```python
 import pyarrow as pa
@@ -61,15 +69,24 @@ Parquet file written to MinIO
 
 ### Verify in MinIO UI
 
-Open bucket arrow-data → you should see:
+Open the arrow-data bucket in the MinIO console.
 
 ```test
 dataset.parquet
 ```
 
-## Read Parquet Using Arrow Dataset API
+![MinIO object browser showing dataset.parquet stored inside the arrow-data bucket alt-txt#center](images/dataset-parquet.png "MinIO Web UI displaying dataset.parquet object in arrow-data bucket")
 
-Create a file `read_parquet.py`.
+**What this confirms:**
+
+- Apache Arrow successfully serialized in-memory data
+- Parquet files were written directly to S3-compatible storage
+- No local filesystem dependency is required
+
+## Read Parquet Using Arrow Dataset API
+Next, you read the Parquet dataset using the Arrow Dataset API, which enables efficient scanning, filtering, and projection.
+
+Create a file named `read_parquet.py`.
 
 ```python
 import pyarrow.dataset as ds
@@ -105,9 +122,16 @@ value: int64
 Rows: 1000
 ```
 
-## Predicate Pushdown & Column Pruning
+**What this demonstrates:**
 
-Create file `filter_parquet.py`
+- Schema inference from Parquet metadata
+- Efficient columnar scanning
+- Fully vectorized execution on Arm64
+
+## Predicate Pushdown & Column Pruning
+One of the biggest performance advantages of columnar formats is that queries can **push filters and column selection down to the storage layer**.
+
+Create a file named `filter_parquet.py`.
 
 ```python
 import pyarrow.dataset as ds
@@ -139,12 +163,6 @@ print(filtered)
 python filter_parquet.py
 ```
 
-**This confirms:**
-
-- Predicate pushdown
-- Column pruning
-- Vectorized execution
-
 The output is similar to:
 ```output
 pyarrow.Table
@@ -153,9 +171,18 @@ id: int64
 id: [[991,992,993,994,995,996,997,998,999]]
 ```
 
-## Write ORC Data to MinIO
+**This confirms:**
 
-Create a file `write_orc.py`.
+- Predicate pushdown: Only rows with id > 990 are read
+- Column pruning: Only the id column is loaded
+- Vectorized execution: Processing happens in columnar batches
+
+These optimizations significantly reduce I/O and CPU usage for large datasets.
+
+## Write ORC Data to MinIO
+In addition to Parquet, Apache Arrow also supports ORC, another popular columnar format widely used in Hive and Spark ecosystems.
+
+Create a file named `write_orc.py`.
 
 ```pyhton
 import pyarrow as pa
@@ -192,15 +219,29 @@ ORC file written to MinIO
 
 **Verify in MinIO UI:**
 
-- **dataset.orc** appears next to Parquet
+In the arrow-data bucket, you should now see.
+
+- dataset.parquet
+- dataset.orc
+
+![MinIO object browser showing dataset.orc stored inside the arrow-data bucket alt-txt#center](images/datset-orc.png "MinIO Web UI displaying dataset.orc object in arrow-data bucket")
 
 ## What You Have Accomplished
 
-- Used Parquet and ORC on Arm64
-- Performed vectorized analytics with Arrow
-- Leveraged dataset pushdown optimizations
-- Built a cloud-native analytics storage layer
+In this section, you have:
+
+- Written analytical datasets in Parquet and ORC formats
+- Stored columnar data in S3-compatible object storage
+- Used the Arrow Dataset API for efficient reads
+- Applied predicate pushdown and column pruning
+- Executed vectorized analytics optimized for Arm64 (Axion)
+
+This forms the core analytics layer used by modern engines such as Spark, DuckDB, Trino, and Polars.
 
 ## What’s Next
 
-In the next section, you will enable high-speed memory-to-memory analytics using Apache Arrow Flight
+In the next section, you will enable high-speed memory-to-memory analytics using Apache Arrow Flight, demonstrating:
+
+- gRPC-based data transfer
+- Zero-copy serialization
+- High-throughput analytics communication
