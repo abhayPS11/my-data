@@ -1,6 +1,6 @@
 ---
 title: Apache Arrow Environment and MinIO Setup on Arm64
-weight: 1
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
@@ -13,6 +13,10 @@ In this section, you prepare an **Arm64-based SUSE Linux Enterprise Server (SLES
 This foundation ensures all analytics libraries are natively optimized for Arm64 (Axion).
 
 ## Architecture (What You Are Building)
+
+
+This architecture represents a single-node analytics environment that mirrors how modern cloud analytics stacks operate:
+compute and memory-local processing with object storage–backed datasets.
 
 ```text
 SUSE Linux Enterprise Server (Arm64)
@@ -51,6 +55,12 @@ The output is similar to:
 ```output
 Python 3.11.10
 ```
+
+**Why this matters:**
+
+- Python 3.11 provides better performance and memory efficiency
+- Apache Arrow wheels are fully supported on Arm64 for Python 3.11
+- Ensures compatibility with modern analytics libraries
 
 ## Create Python Virtual Environment
 
@@ -110,7 +120,9 @@ This confirms Apache Arrow is correctly installed on Arm64.
 
 ## Install and Start MinIO (S3-Compatible Storage)
 
-Download MinIO (Arm64)
+MinIO provides high-performance, S3-compatible object storage, which is widely used in modern analytics architectures.
+
+Download MinIO (Arm64):
 
 ```bash
 curl -LO https://dl.min.io/server/minio/release/linux-arm64/minio
@@ -139,28 +151,12 @@ Leave this process running.
 The output is similar to:
 ```output
 MinIO Object Storage Server
-Copyright: 2015-2026 MinIO, Inc.
-License: GNU AGPLv3 - https://www.gnu.org/licenses/agpl-3.0.html
-Version: RELEASE.2025-09-07T16-13-09Z (go1.24.6 linux/arm64)
-
-API: http://10.128.0.51:9000  http://127.0.0.1:9000
-   RootUser: minioadmin
-   RootPass: minioadmin
-
-WebUI: http://10.128.0.51:9001 http://127.0.0.1:9001
-   RootUser: minioadmin
-   RootPass: minioadmin
-
-CLI: https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart
-   $ mc alias set 'myminio' 'http://10.128.0.51:9000' 'minioadmin' 'minioadmin'
-
-Docs: https://docs.min.io
-WARN: Detected default credentials 'minioadmin:minioadmin', we recommend that you change these values with 'MINIO_ROOT_USER' and 'MINIO_ROOT_PASSWORD' environment variables
+API: http://127.0.0.1:9000
+WebUI: http://127.0.0.1:9001
 ```
 
 ## Create MinIO Bucket
-
-Open the MinIO console in a browser:
+Once logged in to the MinIO console, create a bucket that will store analytics datasets.
 
 ```bash
 http://<VM-IP>:9001
@@ -171,15 +167,26 @@ http://<VM-IP>:9001
 - **Username**: minioadmin
 - **Password**: minioadmin
 
+![MinIO Web UI dashboard showing object browser and storage usage for arrow-data bucket alt-txt#center](images/minio-webui.png "MinIO Web UI displaying buckets and stored Parquet/ORC objects")
+
 ### Create a bucket named:
 
 ```bash
 arrow-data
 ```
 
+![MinIO Web UI bucket list view showing arrow-data bucket created successfully alt-txt#center](images/minio-bucket.png "MinIO Web UI displaying the arrow-data bucket")
+
+MinIO Bucket View
+
+- This bucket will be used to store:
+- Parquet datasets
+- ORC datasets
+- Analytics output files
+
 ### Configure S3 Credentials for Python
 
-In another terminal (same VM, venv active), Export S3 credentials so Python libraries can access MinIO.
+In another terminal (same VM, virtual environment active), export S3 credentials so Python libraries can access MinIO.
 
 ```bash
 export AWS_ACCESS_KEY_ID=minioadmin
@@ -199,6 +206,15 @@ AWS_SECRET_ACCESS_KEY=minioadmin
 AWS_DEFAULT_REGION=us-east-1
 AWS_ACCESS_KEY_ID=minioadmin
 ```
+
+**What this enables:**
+
+- pyarrow
+- s3fs
+- pandas
+- Other S3-compatible analytics libraries
+
+to communicate with MinIO exactly like Amazon S3.
 
 ## What You Have Accomplished
 
