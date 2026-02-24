@@ -10,6 +10,10 @@ layout: learningpathall
 
 In this section, you deploy Apache Arrow Flight, a high-performance RPC framework designed for analytics workloads. Arrow Flight enables zero-copy, memory-to-memory data transfer over gRPC, making it ideal for distributed analytics engines.
 
+Arrow Flight enables **zero-copy, memory-to-memory data transfer over gRPC**, allowing analytical data to be shared between processes and systems without serialization overhead. This makes it ideal for distributed analytics engines, interactive query systems, and real-time data pipelines.
+
+This section demonstrates how Arrow Flight works on Arm64 (Axion) using a simple **server–client setup on the same VM.**
+
 ## Architecture Overview
 
 ```text
@@ -22,9 +26,17 @@ Arrow Flight Server (gRPC)
 Arrow Flight Client
 ```
 
-## Start Arrow Flight Server (Same Machine)
+**What this architecture shows:**
 
-Create a file `flight_server.py`.
+- Data remains in Arrow’s in-memory columnar format
+- gRPC is used as the transport layer
+- No intermediate files or object storage are involved
+- Data is transferred efficiently with minimal CPU overhead
+
+## Start Arrow Flight Server (Same Machine)
+In this step, you create an Arrow Flight server that exposes an in-memory Arrow table to clients over gRPC.
+
+Create a file named `flight_server.py`.
 
 
 ```pyhton
@@ -54,7 +66,7 @@ if __name__ == "__main__":
 python flight_server.py
 ```
 
-This terminal will block — that means the server is running.
+This terminal will block — this indicates the server is running and listening for client connections.
 
 The output is similar to:
 ```output
@@ -64,7 +76,7 @@ Arrow Flight server running on port 8815
 
 ### Verify server is running
 
-Open another terminal:
+Open another terminal on the same VM and check that the gRPC port is listening.
 
 ```bash
 ss -lntp | grep 8815
@@ -78,8 +90,9 @@ LISTEN 0      4096               *:8815             *:*    users:(("python",pid=
 ```
 
 ## Connect Using Arrow Flight Client (Same VM)
+Now you connect to the Arrow Flight server using a client and retrieve the in-memory dataset.
 
-Create a file `flight_client.py`.
+Create a file named `flight_client.py`.
 
 ```python
 import pyarrow.flight as flight
@@ -106,17 +119,19 @@ value: int64
 Rows: 1000
 ```
 
-This confirms:
+**What this demonstrates:**
 
-- Arrow Flight works
-- gRPC transport
-- Zero-copy memory transfer
+- The client successfully connected over gRPC
+- Data was transferred directly from server memory
+- Arrow’s columnar format was preserved end-to-end
 
 ## What You Have Learned
 
-- How Arrow works on Arm64 (Axion)
-- How Parquet and ORC are written and read from object storage
-- How MinIO acts as S3 for analytics
-- How the Arrow Dataset API enables pushdown
-- How Arrow Flight enables high-speed data transfer
-- How all components work together on one VM
+Across this learning path, you have learned:
+
+- How Apache Arrow works on Arm64 (Axion)
+- How Parquet and ORC datasets are written and read from object storage
+- How MinIO acts as S3-compatible storage for analytics
+- How the Arrow Dataset API enables predicate pushdown and column pruning
+- How Arrow Flight enables high-speed, memory-to-memory data transfer
+- How all components work together on a single Arm64 VM
