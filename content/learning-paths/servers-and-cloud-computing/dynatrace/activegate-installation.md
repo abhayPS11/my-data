@@ -112,6 +112,7 @@ The installer automatically performs the following tasks:
 - Configures communication with Dynatrace SaaS
 - Starts the ActiveGate service
 
+The output is similar to: 
 ```output
 2026-03-12 05:59:21 UTC Starting Dynatrace ActiveGate AutoUpdater...
 2026-03-12 05:59:21 UTC Checking if Dynatrace ActiveGate AutoUpdater is running ...
@@ -151,7 +152,6 @@ sudo ss -tulnp | grep 9999
 ```
 
 The output is similar to:
-
 ```console
 tcp   LISTEN 0      50                 *:9999             *:*    users:(("java",pid=20319,fd=403))
 ```
@@ -230,6 +230,6 @@ You should see a process similar to:
 You've successfully installed Dynatrace ActiveGate on your Azure Ubuntu Arm64 virtual machine. Your environment now includes:
 
 - Dynatrace OneAgent performing host monitoring
-- ActiveGate routing monitoring traffic securely
+- ActiveGate routing monitors traffic securely
 - Communication with Dynatrace SaaS through port 9999
 - Full compatibility with Arm64-based Cobalt 100 processors
