@@ -134,6 +134,7 @@ Run:
 sudo /bin/sh Dynatrace-OneAgent-Linux-x86-1.331.49.20260227-104933.sh --set-monitoring-mode=fullstack --set-app-log-content-access=true
 ```
 
+The output is similar to: 
 ```output
 2026-03-12 05:59:21 UTC Starting Dynatrace ActiveGate AutoUpdater...
 2026-03-12 05:59:21 UTC Checking if Dynatrace ActiveGate AutoUpdater is running ...
@@ -161,6 +162,7 @@ This confirms the monitoring agent started successfully.
 sudo systemctl status oneagent
 ```
 
+The output is similar to: 
 ```output
 ● dynatracegateway.service - Dynatrace ActiveGate service
      Loaded: loaded (/etc/systemd/system/dynatracegateway.service; enabled; preset: enabled)
@@ -179,6 +181,7 @@ This confirms the monitoring agent started successfully.
 ps aux | grep oneagent
 ```
 
+The output is similar to: 
 ```output
 dtuser     17754  0.0  0.0 307872  4388 ?        Ssl  05:48   0:00 /opt/dynatrace/oneagent/agent/lib64/oneagentwatchdog -bg -config=/opt/dynatrace/oneagent/agent/conf/watchdog.conf
 dtuser     17761  0.2  0.3 1183000 59136 ?       Sl   05:48   0:06 oneagentos -Dcom.compuware.apm.WatchDogTimeout=900 -watchdog.restart_file_location=/var/lib/dynatrace/oneagent/agent/watchdog/watchdog_restart_file -Dcom.compuware.apm.WatchDogPipe=/var/lib/dynatrace/oneagent/agent/watchdog/oneagentos_pipe_17754
