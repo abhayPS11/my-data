@@ -97,6 +97,7 @@ wget -O Dynatrace-ActiveGate-Linux-arm.sh \
 ```console
 wget https://ca.dynatrace.com/dt-root.cert.pem ; ( echo 'Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="--SIGNED-INSTALLER"'; echo ; echo ; echo '----SIGNED-INSTALLER' ; cat Dynatrace-ActiveGate-Linux-arm64-1.331.24.20260210-044521.sh ) | openssl cms -verify -CAfile dt-root.cert.pem > /dev/null
 ```
+![Dynatrace ActiveGate installer command for Linux ARM64 environment alt-txt#center](images/activegate-installation-commands.png "Dynatrace ActiveGate installer command")
 
 **Install ActiveGate as the privileged user:**
 
@@ -170,6 +171,59 @@ You should see your ActiveGate instance listed with:
 - Host name
 - Version
 - Status: Connected
+
+![Dynatrace ActiveGate details page displaying modules architecture and configuration alt-txt#center](images/activegate-details.png "Dynatrace ActiveGate details view")
+
+## Test application monitoring with Nginx
+
+To validate that Dynatrace is collecting monitoring data correctly, deploy a simple web server on the virtual machine. Dynatrace OneAgent will automatically detect and monitor the process.
+
+### Install Nginx
+
+Update the package index and install the Nginx web server.
+
+```console
+sudo apt update
+sudo apt install -y nginx
+```
+## Check the Nginx service status.
+
+```console
+sudo systemctl status nginx
+```
+
+The output is similar to:
+
+```output
+Active: active (running)
+```
+
+## Verify process detection in Dynatrace
+
+Dynatrace OneAgent automatically discovers running processes and services.
+
+Return to the Dynatrace web interface and navigate to:
+
+```text
+Infrastructure & Operations → Hosts
+```
+
+Select your monitored host and open:
+
+```text
+Processes
+```
+
+You should see a process similar to:
+
+- nginx
+- Dynatrace automatically begins collecting metrics such as:
+- CPU usage
+- memory consumption
+- network activity
+- request throughput
+
+![Dynatrace Infrastructure Explorer showing NGINX process monitoring on an ARM64 host alt-txt#center](images/nginx-monitoring.png "Dynatrace NGINX process monitoring dashboard")
 
 ## What you've accomplished 
 
