@@ -40,9 +40,23 @@ aarch64
 ```
 This confirms the system is using the Arm64 architecture required for Cobalt 100 processors.
 
-## Step 1 — Log in to Dynatrace
+## Create your Dynatrace trial environment
 
-Open your Dynatrace environment:
+Fill in the required information:
+
+- First name
+- Last name
+- Work email address
+- Company name
+- Country
+
+After submitting the form, Dynatrace creates a new SaaS monitoring environment for you.
+
+This process usually takes 1–2 minutes.
+
+## Access your Dynatrace environment
+
+After the environment is created, you will receive an email with a link similar to:
 
 ```console
 https://<ENVIRONMENT-ID>.live.dynatrace.com
@@ -53,26 +67,36 @@ Example:
 ```text
 https://qzo72404.live.dynatrace.com
 ```
+The Environment ID uniquely identifies your Dynatrace tenant and is required for agent installation.
+
+![Dynatrace environment login page showing the SaaS environment URL alt-txt#center](images/dynatrace-env-id.png "Dynatrace SaaS environment login")
 
 ## Navigate to Deployment
 
-In the Dynatrace UI:
+From the Dynatrace dashboard:
 
-Select oneagent then select setup
+- Select Deploy Dynatrace
+- Choose OneAgent
+- Select Linux
 
-Cloud platform → Linux
+![Dynatrace deployment page showing OneAgent setup options alt-txt#center](images/oneagent1.png "Dynatrace OneAgent deployment setup page")
+
+This page generates the installation command tailored for your environment.
 
 ## Select ARM Architecture
 
 In the installer page:
 
+- Cloud platform → Linux
 - Select architecture → ARM64
 - Select monitoring mode:
   >Full-stack monitoring
 
+![Dynatrace installer configuration page showing ARM64 architecture selection alt-txt#center](images/oneagent-arch.png "Dynatrace OneAgent ARM64 architecture selection")
+
 ## Copy OneAgent Installer Command
 
-Dynatrace will generate a command like this:
+Dynatrace generates an installer command that includes your environment ID and API token.:
 
 ```console
 wget -O Dynatrace-OneAgent-Linux-arm.sh \
@@ -87,13 +111,20 @@ wget -O Dynatrace-OneAgent-Linux-arm.sh \
 "https://qzo72404.live.dynatrace.com/api/v1/deployment/installer/agent/unix/default/latest?arch=arm" \
 --header="Authorization: Api-Token DT_API_TOKEN"
 ```
+- The API token allows secure access to the Dynatrace installer.
+
+Run this command on the virtual machine to download the installer.
 
 **Verify signature**
+
+For security, verify the installer signature using Dynatrace’s root certificate.
 
 ```console
 wget https://ca.dynatrace.com/dt-root.cert.pem ; ( echo 'Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="--SIGNED-INSTALLER"'; echo ; echo ; echo '----SIGNED-INSTALLER' ; cat Dynatrace-OneAgent-Linux-x86-1.331.49.20260227-104933.sh ) | openssl cms -verify -CAfile dt-root.cert.pem > /dev/null
 ```
 Run it on the VM.
+
+![Dynatrace UI displaying the generated OneAgent installer command alt-txt#center](images/onagent-install.png "Dynatrace OneAgent installation command")
 
 ## Install OneAgent as the privileged user
 
@@ -114,14 +145,18 @@ sudo /bin/sh Dynatrace-OneAgent-Linux-x86-1.331.49.20260227-104933.sh --set-moni
 2026-03-12 05:59:21 UTC Installation finished successfully.
 ```
 
-Installer performs:
+The installer performs several tasks automatically:
 
-- kernel module setup
-- service installation
-- environment configuration
+- Downloads monitoring components
+- Configures kernel instrumentation
+- Installs the OneAgent system service
+- Registers the host with your Dynatrace environment
 
 ## Verify OneAgent Service
 
+Check that the Dynatrace monitoring service is running.
+
+This confirms the monitoring agent started successfully.
 ```console
 sudo systemctl status oneagent
 ```
@@ -134,7 +169,11 @@ sudo systemctl status oneagent
    Main PID: 20316 (dynatracegatewa)
 ```
 
+This confirms the monitoring agent started successfully.
+
 ## Verify Dynatrace Processes
+
+This confirms the monitoring agent started successfully.
 
 ```console
 ps aux | grep oneagent
@@ -149,9 +188,13 @@ dtuser     17883  0.0  0.0  28212  5340 ?        Sl   05:49   0:00 /opt/dynatrac
 azureus+   23847  0.0  0.0   9988  2772 pts/0    S+   06:33   0:00 grep --color=auto oneagent
 ```
 
+This confirms the monitoring agent started successfully.
+
 ## Confirm Host Detection in Dynatrace
 
-In the Dynatrace UI go to:
+Return to the Dynatrace web interface.
+
+Navigate to:
 
 ```text
 Infrastructure & Operations
@@ -167,15 +210,26 @@ Architecture: ARM64
 Monitoring mode: Full Stack
 ```
 
+![Dynatrace hosts dashboard showing detected ARM64 virtual machine alt-txt#center](images/dynatrace-host.png "Dynatrace host monitoring dashboard")
+
 ## Check Automatic Process Discovery
 
-Dynatrace automatically discovers running services.
+Dynatrace automatically discovers running applications and services.
 
 View them under:
 
 ```text
 Hosts → Processes
 ```
+
+Dynatrace identifies services such as:
+
+- system processes
+- web servers
+- databases
+- container runtimes
+
+![Dynatrace process monitoring dashboard showing automatically discovered services alt-txt#center](images/dynatrace-process.png "Dynatrace process discovery view")
 
 ## What you've accomplished and what's next
 
@@ -187,4 +241,4 @@ You've successfully installed Dynatrace OneAgent on your Azure Ubuntu Arm64 virt
 - Full-stack monitoring of system resources and processes
 - Arm64-native monitoring on Azure Cobalt 100 processors
 
-Next, you'll install Dynatrace ActiveGate to enable advanced features such as Kubernetes monitoring, secure data routing, and extension support.
+Next, you'll install Dynatrace ActiveGate to enable additional capabilities such as Kubernetes monitoring, secure data routing, and extension support.
