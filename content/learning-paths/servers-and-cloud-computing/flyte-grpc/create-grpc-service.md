@@ -8,11 +8,29 @@ layout: learningpathall
 
 # Create Feature Engineering gRPC Service
 
-In modern ML pipelines, feature engineering services often run as independent microservices so they can scale independently.
 
-In this section, you create a **gRPC service that generates features for ML models**.
+In modern machine learning pipelines, feature engineering is often implemented as a separate service so it can scale independently from the training workflow.
+
+In this section, you create a **gRPC-based feature engineering service** that generates features used by the machine learning pipeline.
+
+This service will later be called by the Flyte workflow during pipeline execution.
+
+## Architecture overview
+
+The feature engineering service acts as an external microservice used by the ML workflow.
+
+```text
+Flyte Workflow
+        |
+        v
+Feature Engineering Service (gRPC)
+        |
+        v
+Generated Features for Model Training
+```
 
 ## Create project directory
+Create a directory for the ML workflow project.
 
 ```bash
 mkdir flyte-ml-pipeline
@@ -20,8 +38,7 @@ cd flyte-ml-pipeline
 ```
 
 ## Create protobuf definition
-
-Create the service definition file.
+Create the gRPC service definition file.
 
 ```bash
 vi feature.proto
@@ -45,9 +62,11 @@ message FeatureResponse {
 }
 ```
 
-## Generate gRPC code
+This file defines the service interface used by the workflow and the feature service.
 
-Compile the protobuf file.
+## Generate gRPC code
+Compile the protobuf file to generate Python client and server code.
+
 
 ```python
 python3.11 -m grpc_tools.protoc \
@@ -57,10 +76,22 @@ python3.11 -m grpc_tools.protoc \
 feature.proto
 ```
 
-This generates the Python service files used by the gRPC server.
+This generates the following files:
 
-## Create feature service
+```text
+feature_pb2.py
+feature_pb2_grpc.py
+```
 
+These files contain the Python classes used by the gRPC server and client.
+
+Why this matters:
+
+- Protobuf defines a strongly typed service interface
+- Generated code simplifies client-server communication
+- Enables efficient RPC communication using gRPC
+
+## Create the feature engineering service
 Create the server implementation.
 
 ```bash
@@ -109,7 +140,11 @@ if __name__ == "__main__":
     serve()
 ```
 
-## Run the service.
+This service receives a value from the workflow and generates a derived feature used during model training.
+
+## Run the feature service
+
+Start the gRPC service.
 
 ```bash
 python3.11 feature_server.py
@@ -122,10 +157,10 @@ Feature gRPC service running on port 50051
 
 ## What you've learned and what's next
 
-In this section, you learned how to:
+- Created a project directory for the ML workflow
+- Defined a gRPC service using protobuf
+- Generated Python client and server code
+- Implemented a feature engineering microservice
+- Started the gRPC feature service
 
-- define gRPC services using protobuf
-- generate Python service code
-- implement a feature engineering microservice
-
-In the next section, you will create the **Flyte ML training workflow** that calls this service.
+In the next section, you will create a Flyte ML training workflow that calls this feature engineering service during pipeline execution.
