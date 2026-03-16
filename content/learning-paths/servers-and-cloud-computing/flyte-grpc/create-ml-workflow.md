@@ -6,45 +6,47 @@ weight: 6
 layout: learningpathall
 ---
 
-# Create ML Training Workflow
+## Create a machine learning workflow using Flyte
 
-In this section, you create a machine learning workflow pipeline using **Flyte**. Flyte workflows allow developers to define ML pipelines as a set of tasks with dependencies between them.
+In this section, you create a machine learning workflow pipeline using **Flyte**. Flyte workflows allow developers to define machine learning pipelines as Python tasks with explicit dependencies. This enables reproducible and scalable pipeline execution.
 
-The workflow you will build performs the following steps:
+The workflow you build will perform the following steps:
 
-- Load dataset
-- Preprocess data
+- Load a dataset
+- Preprocess the data
 - Generate features using a gRPC service
 - Train a machine learning model
 - Evaluate the model performance
 
-This demonstrates how Flyte orchestrates tasks across distributed services.
+This demonstrates how Flyte orchestrates tasks across distributed services within a machine learning pipeline.
 
 ## Architecture overview
 
-The workflow integrates Flyte tasks with a gRPC feature engineering service.
+The Flyte workflow interacts with the gRPC feature engineering service created in the previous section.
 
 ```text
 Flyte Workflow
-      │
-      ▼
-Load Dataset Task
-      │
-      ▼
-Preprocess Data Task
-      │
-      ▼
+        |
+        v
+Dataset Loader Task
+        |
+        v
+Data Preprocessing Task
+        |
+        v
 Feature Engineering (gRPC Service)
-      │
-      ▼
+        |
+        v
 Model Training Task
-      │
-      ▼
+        |
+        v
 Model Evaluation Task
-      │
-      ▼
+        |
+        v
 Pipeline Result
 ```
+
+This architecture separates workflow orchestration from feature generation, allowing different components of the pipeline to scale independently.
 
 ## Create workflow script
 
