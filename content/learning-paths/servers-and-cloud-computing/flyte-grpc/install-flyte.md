@@ -1,18 +1,21 @@
 ---
 title: Install Flyte and Dependencies
-weight: 2
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-# Install Flyte and Dependencies
 
 In this section, you prepare a SUSE Linux Enterprise Server (SLES) arm64 virtual machine and install the core components required to build machine learning workflow pipelines using Flyte.
 
-Flyte enables scalable workflow orchestration for machine learning pipelines, while gRPC enables efficient communication between distributed services.
+Flyte provides workflow orchestration for scalable ML pipelines, while gRPC enables efficient communication between distributed services used within those pipelines.
+
+This environment ensures that the workflow orchestration tools and communication libraries run natively on Arm-based Axion processors.
 
 ## Architecture overview
+
+This architecture represents a single-node development environment used to build and run distributed machine learning workflows.
 
 ```text
 SUSE Linux Enterprise Server (arm64)
@@ -38,7 +41,7 @@ sudo zypper update -y
 
 ## Install system dependencies
 
-Install Python and development tools.
+Install Python, development tools, and system libraries required to run Flyte workflows.
 
 ```bash
 sudo zypper install -y \
@@ -59,9 +62,15 @@ The output is similar to:
 Python 3.11.x
 ```
 
+**Why this matters:**
+
+- Python 3.11 provides improved performance and memory efficiency
+- Modern workflow libraries are optimized for Python 3.11
+- Ensures compatibility with Flyte and gRPC libraries
+
 ## Install Flyte SDK
 
-Install Flyte workflow libraries.
+Install the Flyte Python SDK used to define and execute workflows.
 
 ```bash
 python3.11 -m pip install --upgrade pip
@@ -74,17 +83,21 @@ python3.11 -m pip install flytekit
 python3.11 -c "import flytekit; print(flytekit.__version__)"
 ```
 
+This confirms that Flyte is correctly installed.
+
 ## Install gRPC libraries
 
-Install libraries used for service communication.
+Install the libraries required for communication between distributed services.
 
 ```bash
 python3.11 -m pip install grpcio grpcio-tools protobuf
 ```
 
+These libraries enable remote procedure calls between workflow tasks and microservices.
+
 ## Install Flyte CLI
 
-Download the Flyte command line tool.
+Download and install the Flyte command-line tool.
 
 ```bash
 curl -L https://github.com/flyteorg/flytectl/releases/latest/download/flytectl_Linux_arm64.tar.gz -o flytectl.tar.gz
@@ -92,19 +105,31 @@ tar -xzf flytectl.tar.gz
 sudo mv flytectl /usr/local/bin/
 ```
 
-**Verify installation:**
+**Verify Flyte CLI installation**
 
 ```bash
 flytectl version
 ```
+The output is similar to:
+
+```output
+{
+  "App": "flytectl",
+  "Build": "0a0cbce",
+  "Version": "0.8.18",
+  "BuildTime": "2026-03-16 11:18:15.958506423 +0000 UTC m=+0.010167662"
+}
+```
+This confirms that the Flyte CLI is correctly installed.
 
 ## What you've learned and what's next
 
 In this section, you learned how to:
 
-- Prepare a SUSE arm64 environment
-- Install Flyte SDK
-- Install gRPC communication libraries
-- configure Flyte CLI tools
+- Prepared a SUSE arm64 environment for ML workflow development
+- Installed Python 3.11 and development dependencies
+- Installed Flyte SDK for workflow orchestration
+- Installed gRPC libraries for service communication
+- Configured Flyte CLI tools
 
-In the next section, you will create a gRPC-based feature engineering service that will be used by the ML workflow pipeline.
+In the next section, you will create a gRPC-based feature engineering service that will be integrated with the Flyte ML workflow pipeline.
