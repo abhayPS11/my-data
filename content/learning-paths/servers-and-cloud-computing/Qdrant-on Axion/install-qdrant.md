@@ -50,6 +50,7 @@ Install Docker and Python dependencies.
 ```bash
 sudo zypper install -y docker python3 python3-pip git
 sudo zypper install -y python311 python311-pip
+python3.11 -m pip install --upgrade pip
 ```
 
 **Verify Python installation:**
