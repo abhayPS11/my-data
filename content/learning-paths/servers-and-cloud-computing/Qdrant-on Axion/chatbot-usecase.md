@@ -170,6 +170,20 @@ Chatbot Response:
 exit
 ```
 
+## How the Chatbot Works
 
+1. The user asks a question.
+2. The system converts the question into a vector embedding.
+3. Qdrant performs a similarity search.
+4. The chatbot returns the most relevant knowledge documents.
+5. This enables semantic search instead of simple keyword matching.
 
+## Real-World Applications
 
+This architecture is widely used in:
+
+- Customer support chatbots
+- Enterprise knowledge assistants
+- AI documentation search tools
+- Technical support bots
+- RAG-based AI assistants
