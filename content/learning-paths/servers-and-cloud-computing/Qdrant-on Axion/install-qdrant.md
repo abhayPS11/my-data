@@ -14,8 +14,6 @@ Qdrant enables applications to store and retrieve embeddings — numerical vecto
 
 Running Qdrant on **Google Axion Arm-based infrastructure** enables efficient execution of modern AI workloads including semantic search, recommendation systems, and chatbot retrieval pipelines.
 
----
-
 ## Architecture overview
 
 This architecture represents a simple vector search system where embeddings are generated and stored in Qdrant, enabling fast semantic similarity queries.
