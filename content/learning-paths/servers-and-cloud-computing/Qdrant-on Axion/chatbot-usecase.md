@@ -169,6 +169,11 @@ Chatbot Response:
 ```bash
 exit
 ```
+## Example Chatbot Interaction
+
+The following screenshot shows the chatbot running on the Axion VM and responding to semantic search queries.
+
+![Qdrant chatbot semantic search example running on Axion ARM alt-txt#center](images/chatbot-demo.png "Qdrant chatbot semantic search demo on Axion")
 
 ## How the Chatbot Works
 
