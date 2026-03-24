@@ -1,6 +1,6 @@
 ---
 title: Use MinIO for AI/ML Dataset and Model Storage
-weight: 6
+weight: 7
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
