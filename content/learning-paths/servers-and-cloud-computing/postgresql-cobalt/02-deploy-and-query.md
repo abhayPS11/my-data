@@ -204,27 +204,6 @@ Connect using the application user.
 psql -h localhost -U appuser -d appdb
 ```
 
-## Run a query performance check:
-
-```sql
-EXPLAIN ANALYZE
-SELECT * FROM orders WHERE amount > 500;
-```
-
-The output is similar to:
-
-```output
-----------------------------------------------------------------------------------------------------------------
- Seq Scan on orders  (cost=0.00..10417.00 rows=248493 width=35) (actual time=0.009..48.198 rows=250660 loops=1)
-   Filter: (amount > '500'::numeric)
-   Rows Removed by Filter: 249340
- Planning Time: 0.338 ms
- Execution Time: 56.880 ms
-(5 rows)
-```
-
-A sequential scan is expected at this stage because no indexes are defined yet.
-
 ## What you've accomplished and what's next
 
 You've successfully deployed a relational schema and executed analytical queries on PostgreSQL. Your setup includes:
