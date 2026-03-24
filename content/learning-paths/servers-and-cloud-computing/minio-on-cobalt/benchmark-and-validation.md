@@ -1,6 +1,6 @@
 ---
 title: Benchmark and Validate MinIO Storage
-weight: 5
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
