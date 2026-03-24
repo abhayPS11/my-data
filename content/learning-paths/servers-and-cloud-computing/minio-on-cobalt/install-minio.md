@@ -120,6 +120,8 @@ Open the following URLs in your browser:
 - **API:** http://<VM-IP>:9000
 - **Console:** http://<VM-IP>:9001
 
+![MinIO login page alt-txt#center](images/minio-console.png "MinIO login interface")
+
 ## Login credentials:
 
 - **Username:** admin
@@ -137,6 +139,10 @@ Buckets are logical containers for storing objects.
 
 - Buckets organize data similarly to folders
 - Required before uploading objects  
+
+![MinIO create bucket alt-txt#center](images/minio-bucket.png "Create bucket in MinIO")
+
+![MinIO bucket view alt-txt#center](images/minio-bucket1.png "Bucket created in MinIO")
 
 ## Install MinIO client (mc)
 
@@ -181,6 +187,7 @@ The output is similar to:
 [2026-03-24 04:16:22 UTC]    13B STANDARD test.txt
 [2026-03-24 04:54:02 UTC]     0B dataset/
 ```
+![MinIO object upload alt-txt#center](images/minio-object.png "Uploaded object in MinIO")
 
 **Why this matters:**
 
