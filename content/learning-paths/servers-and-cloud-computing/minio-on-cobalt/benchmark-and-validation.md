@@ -84,7 +84,31 @@ sys     0m0.494s
 - Validates low-latency access for workloads
 - Important for inference and analytics pipelines
 
-## Validate S3 compatibility (Python) — Optional
+## Performance summary on Azure Cobalt ARM (Arm64)
+
+The benchmark results demonstrate strong performance characteristics of MinIO running on Azure Cobalt ARM64 infrastructure.
+
+### Key observations
+
+- **Upload throughput:** ~108 MiB/s  
+- **Download throughput:** ~1.50 GiB/s  
+- **Upload time (1 GB):** ~9 seconds  
+- **Download time (1 GB):** <1 second  
+
+### What this means
+
+- MinIO delivers **high-throughput data ingestion**, suitable for large dataset uploads  
+- Extremely fast download speeds enable **low-latency data access** for inference workloads  
+- ARM64-based Cobalt processors provide **efficient and consistent performance** for storage-heavy applications  
+- The system handles **GB-scale object transfers smoothly**, making it ideal for AI/ML and analytics pipelines  
+
+### Why this is important
+
+- AI/ML workflows require fast access to large datasets and models  
+- Data pipelines benefit from high read/write throughput  
+- ARM-based infrastructure provides **cost-efficient performance at scale**  
+
+## Validate S3 compatibility (Python)
 
 MinIO provides an S3-compatible API. In this step, you verify compatibility using the Python SDK.
 
