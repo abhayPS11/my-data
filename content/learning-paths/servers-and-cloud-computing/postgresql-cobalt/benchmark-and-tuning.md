@@ -1,6 +1,6 @@
 ---
 title: Benchmark and Tune PostgreSQL
-weight: 3
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
