@@ -1,6 +1,6 @@
 ---
 title: Deploy Schema and Run Queries
-weight: 2
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
