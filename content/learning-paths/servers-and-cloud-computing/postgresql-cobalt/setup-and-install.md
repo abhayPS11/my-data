@@ -1,6 +1,6 @@
 ---
 title: Setup and Install PostgreSQL on Cobalt 100
-weight: 1
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
