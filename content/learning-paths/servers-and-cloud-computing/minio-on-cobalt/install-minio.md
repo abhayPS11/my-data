@@ -1,6 +1,6 @@
 ---
 title: Install and Configure MinIO on Azure Cobalt ARM
-weight: 4
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
