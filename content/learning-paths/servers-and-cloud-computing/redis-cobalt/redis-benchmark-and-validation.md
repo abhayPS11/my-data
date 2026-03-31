@@ -1,6 +1,6 @@
 ---
 title: Benchmark and validate Redis on Azure Cobalt 100
-weight: 2
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
