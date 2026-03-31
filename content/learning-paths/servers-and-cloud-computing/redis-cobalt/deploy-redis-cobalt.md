@@ -1,6 +1,6 @@
 ---
 title: Deploy Redis on Azure Cobalt 100
-weight: 1
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
