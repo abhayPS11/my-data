@@ -171,7 +171,7 @@ This confirms that events are stored and can be read reliably.
 - Streams persist messages and allow replay
 - Streams support consumer groups for scalability
 
-## Summary and what's next
+## What you've learned and what's next
 You have successfully:
 
 - Installed Redis on an Arm-based Cobalt 100 VM
