@@ -89,6 +89,8 @@ Redis Pub/Sub enables real-time communication between producers and consumers.
 SUBSCRIBE chat_channel
 ```
 
+The output is similar to:
+
 ```output
 127.0.0.1:6379> SUBSCRIBE chat_channel
 1) "subscribe"
@@ -132,6 +134,7 @@ XADD mystream * user jack action login
 XADD mystream * user yan action purchase
 ```
 
+The output is similar to:
 ```output
 127.0.0.1:6379> XADD mystream * user jack action login
 "1774931844279-0"
@@ -145,6 +148,7 @@ XADD mystream * user yan action purchase
 XREAD COUNT 2 STREAMS mystream 0
 ```
 
+The output is similar to:
 ```output
 1) 1) "mystream"
    2) 1) 1) "1774931844279-0"
