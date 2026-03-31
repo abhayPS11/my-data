@@ -171,6 +171,17 @@ XADD: 136425.66 requests per second, p50=0.191 msec
 
 These results demonstrate high throughput and efficient performance on the Arm architecture.
 
+### Arm64 performance analysis
+
+The benchmark results highlight the strong performance characteristics of Redis on Azure Cobalt 100 Arm64 infrastructure:
+
+- **High throughput:** Redis consistently achieves **130K–136K** operations per second across multiple commands.
+- **Low latency:** Median latency remains around **~0.19 ms**, ensuring near real-time responsiveness.
+- **Efficient stream ingestion:** XADD operations reach **~136K ops/sec**, making Redis Streams suitable for high-ingestion event pipelines.
+- **Stable performance across workloads:** Consistent performance across **SET, GET, HASH, and STREAM operations** demonstrates efficient CPU and memory utilization on Arm.
+
+These results validate that Arm-based infrastructure can handle high-performance, low-latency data workloads effectively.
+
 ## Benchmark Pub/Sub performance
 
 Run a publish benchmark to evaluate messaging throughput:
@@ -180,7 +191,7 @@ src/redis-benchmark -t publish -n 100000
 ```
 
 {{% notice Note %}}
-Ensure a subscriber is active before running this benchmark to observe message delivery.
+The Redis benchmark tool does not display detailed output for Pub/Sub operations. To validate Pub/Sub behavior, use a subscriber or monitor Redis metrics using the INFO command.
 {{% /notice %}}
 
 ## Monitor Redis metrics
@@ -263,6 +274,14 @@ acl_access_denied_cmd:0
 acl_access_denied_key:0
 acl_access_denied_channel:0
 ```
+
+### Key observations
+
+- Redis achieves **~130K+ ops/sec** on ARM64
+- Latency remains under **1 millisecond**
+- No rejected connections during load
+- Streams provide reliable and scalable messaging
+- System remains stable under high throughput
 
 ## What you've learned 
 
