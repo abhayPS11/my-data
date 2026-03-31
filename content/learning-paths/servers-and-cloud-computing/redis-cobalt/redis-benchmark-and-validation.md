@@ -39,9 +39,11 @@ The output is similar to:
 
 ```output
 1) 1) "mystream"
-   2) 1) 1) "1774856537955-0"
-         2) 1) "event"
-            2) "msg-0"
+   2) 1) 1) "1774931844279-0"
+         2) 1) "user"
+            2) "jack"
+            3) "action"
+            4) "login"
 ```
 
 ## Acknowledge processed messages
@@ -119,8 +121,17 @@ python3 consumer.py
 The output is similar to:
 
 ```output
-Consumed 1774856537955-0: {'event': 'msg-0'}
-Consumed 1774856537955-1: {'event': 'msg-1'}
+Consumed 1774931858864-0: {'user': 'yan', 'action': 'purchase'}
+Consumed 1774935598721-0: {'event': 'msg-0'}
+Consumed 1774935598721-1: {'event': 'msg-1'}
+Consumed 1774935598721-2: {'event': 'msg-2'}
+Consumed 1774935598721-3: {'event': 'msg-3'}
+Consumed 1774935598722-0: {'event': 'msg-4'}
+Consumed 1774935598722-1: {'event': 'msg-5'}
+Consumed 1774935598722-2: {'event': 'msg-6'}
+Consumed 1774935598722-3: {'event': 'msg-7'}
+Consumed 1774935598722-4: {'event': 'msg-8'}
+Consumed 1774935598722-5: {'event': 'msg-9'}
 ```
 
 ## Benchmark Redis performance
@@ -135,9 +146,27 @@ src/redis-benchmark -q -n 100000 -c 50
 The output is similar to:
 
 ```output
-SET: 130000 requests per second
-GET: 128000 requests per second
-XADD: 131000 requests per second
+PING_INLINE: 132978.73 requests per second, p50=0.191 msec
+PING_MBULK: 131752.31 requests per second, p50=0.191 msec
+SET: 132802.12 requests per second, p50=0.191 msec
+GET: 133689.83 requests per second, p50=0.191 msec
+INCR: 131926.12 requests per second, p50=0.191 msec
+LPUSH: 131406.05 requests per second, p50=0.191 msec
+RPUSH: 130548.30 requests per second, p50=0.199 msec
+LPOP: 131061.59 requests per second, p50=0.191 msec
+RPOP: 135685.22 requests per second, p50=0.191 msec
+SADD: 135869.56 requests per second, p50=0.191 msec
+HSET: 136612.02 requests per second, p50=0.191 msec
+SPOP: 134952.77 requests per second, p50=0.191 msec
+ZADD: 136798.91 requests per second, p50=0.191 msec
+ZPOPMIN: 134952.77 requests per second, p50=0.191 msec
+LPUSH (needed to benchmark LRANGE): 136425.66 requests per second, p50=0.191 msec
+LRANGE_100 (first 100 elements): 75357.95 requests per second, p50=0.335 msec
+LRANGE_300 (first 300 elements): 31645.57 requests per second, p50=0.791 msec
+LRANGE_500 (first 500 elements): 22036.14 requests per second, p50=1.127 msec
+LRANGE_600 (first 600 elements): 19109.50 requests per second, p50=1.295 msec
+MSET (10 keys): 137931.03 requests per second, p50=0.215 msec
+XADD: 136425.66 requests per second, p50=0.191 msec
 ```
 
 These results demonstrate high throughput and efficient performance on the Arm architecture.
@@ -165,20 +194,74 @@ src/redis-cli info stats
 The output is similar to:
 
 ```output
-total_commands_processed:2300144
-keyspace_hits:800158
+# Stats
+total_connections_received:1058
+total_commands_processed:2300074
+instantaneous_ops_per_sec:0
+total_net_input_bytes:129526426
+total_net_output_bytes:1373991650
+total_net_repl_input_bytes:0
+total_net_repl_output_bytes:0
+instantaneous_input_kbps:0.00
+instantaneous_output_kbps:0.00
+instantaneous_input_repl_kbps:0.00
+instantaneous_output_repl_kbps:0.00
 rejected_connections:0
-Key observations
-Redis achieves ~130K operations per second on Arm
-Latency remains under 1 millisecond
-Streams provide reliable, persistent messaging
-Consumer groups enable scalable processing
-No connection rejections observed during benchmarking
-Real-world use cases
-Real-time messaging systems
-Event-driven microservices
-Data ingestion pipelines
-Streaming analytics workloads
+sync_full:0
+sync_partial_ok:0
+sync_partial_err:0
+expired_subkeys:0
+expired_subkeys_active:0
+expired_keys:0
+expired_keys_active:0
+expired_stale_perc:0.00
+expired_time_cap_reached_count:0
+expire_cycle_cpu_milliseconds:65
+evicted_keys:0
+evicted_clients:0
+evicted_scripts:0
+total_eviction_exceeded_time:0
+current_eviction_exceeded_time:0
+keyspace_hits:800087
+keyspace_misses:0
+pubsub_channels:0
+pubsub_patterns:0
+pubsubshard_channels:0
+latest_fork_usec:430
+total_forks:3
+migrate_cached_sockets:0
+slave_expires_tracked_keys:0
+active_defrag_hits:0
+active_defrag_misses:0
+active_defrag_key_hits:0
+active_defrag_key_misses:0
+total_active_defrag_time:0
+current_active_defrag_time:0
+tracking_total_keys:0
+tracking_total_items:0
+tracking_total_prefixes:0
+unexpected_error_replies:0
+total_error_replies:0
+dump_payload_sanitizations:0
+total_reads_processed:2301131
+total_writes_processed:2300077
+io_threaded_reads_processed:0
+io_threaded_writes_processed:0
+io_threaded_total_prefetch_batches:0
+io_threaded_total_prefetch_entries:0
+client_query_buffer_limit_disconnections:0
+client_output_buffer_limit_disconnections:0
+reply_buffer_shrinks:167
+reply_buffer_expands:0
+eventloop_cycles:1973082
+eventloop_duration_sum:24187445
+eventloop_duration_cmd_sum:4769476
+instantaneous_eventloop_cycles_per_sec:9
+instantaneous_eventloop_duration_usec:142
+acl_access_denied_auth:0
+acl_access_denied_cmd:0
+acl_access_denied_key:0
+acl_access_denied_channel:0
 ```
 
 ## What you've learned 
