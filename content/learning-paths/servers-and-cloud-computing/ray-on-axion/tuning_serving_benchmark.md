@@ -130,6 +130,12 @@ The output is similar to:
 {"message":"Hello from Ray Serve on ARM VM!"}
 ```
 
+## Ray Tune Execution in Dashboard
+
+![Ray Dashboard Jobs tab showing ray_tune.py trials with SUCCEEDED status#center](images/ray-jobs-status.png "Ray Tune trials executed successfully with different configurations")
+
+The dashboard shows all jobs executed successfully, confirming correct Ray cluster operation.
+
 ## Benchmark distributed execution
 
 Create benchmark script:
