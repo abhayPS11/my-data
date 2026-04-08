@@ -8,11 +8,13 @@ layout: learningpathall
 
 ## Run Distributed Workloads with Ray
 
-This section demonstrates how to execute parallel tasks and distributed training workloads using Ray on ARM.
+This section demonstrates how to execute parallel tasks and distributed training workloads using Ray on Arm.
+
+You will run simple distributed functions and then scale to multi-worker training using Ray.
 
 ## Run distributed tasks
 
-Create a Python file:
+Create a Python script to execute parallel tasks:
 
 ```bash
 vi ray_test.py
@@ -30,6 +32,13 @@ results = ray.get([square.remote(i) for i in range(10)])
 print("Results:", results)
 ```
 
+### Explanation
+
+* `ray.init()` → connects to the running Ray cluster
+* `@ray.remote` → converts a function into a distributed task
+* `square.remote(i)` → submits tasks asynchronously
+* `ray.get()` → collects results from all workers
+
 ### Execute the script
 
 ```bash
@@ -45,7 +54,7 @@ This confirms parallel execution across CPU cores.
 
 ## Run distributed training
 
-Create the training script:
+Create a script for distributed model training:
 
 ```bash
 vi ray_train.py
@@ -101,16 +110,28 @@ The output is similar to:
 
 This confirms distributed training across multiple workers.
 
+## Explanation
+
+* `TorchTrainer` → handles distributed training execution
+* `ScalingConfig(num_workers=2)` → runs training on 2 workers
+* Each worker executes training in parallel
+* Logs may appear from multiple processes
+
 ## Ray Jobs View (Tasks & Training)
 
 ![Ray Dashboard Jobs tab showing successful execution of ray_test.py and ray_train.py#center](images/ray-jobs.png "Ray Jobs tab showing distributed tasks and training execution status")
+
+* Each script execution appears as a job
+* Status shows **SUCCEEDED**
+* Confirms correct distributed execution
 
 ## What you've learned and what's next
 
 You have successfully:
 
-* Executed distributed tasks
-* Performed multi-worker training
-* Utilized CPU cores efficiently
+* Executed parallel tasks using Ray Core
+* Converted functions into distributed workloads
+* Performed distributed training using multiple workers
+* Observed execution in the Ray dashboard
 
-Next, you will explore hyperparameter tuning, model serving, and benchmarking.
+Next, you will perform hyperparameter tuning, deploy models, and benchmark performance.
