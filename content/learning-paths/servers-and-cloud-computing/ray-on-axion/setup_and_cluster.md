@@ -1,6 +1,6 @@
 ---
 title: Deploy Ray on GCP SUSE ARM64
-weight: 1
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
