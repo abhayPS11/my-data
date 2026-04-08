@@ -41,6 +41,18 @@ pip install "ray[default]" "ray[train]" "ray[tune]" "ray[serve]"
 pip install torch torchvision pandas scikit-learn
 ```
 
+## Verify installation:
+
+```bash
+python -c "import ray; print(ray.__version__)"
+```
+
+The output is similar to:
+
+```output
+2.54.1
+```
+
 ## Start the Ray cluster
 
 ```bash
