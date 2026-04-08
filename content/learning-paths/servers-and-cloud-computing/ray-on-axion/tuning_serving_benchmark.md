@@ -1,6 +1,6 @@
 ---
 title: Ray Tune, Serve and Benchmarking
-weight: 3
+weight: 7
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
