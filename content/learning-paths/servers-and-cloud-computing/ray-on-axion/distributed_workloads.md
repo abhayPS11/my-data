@@ -101,6 +101,9 @@ The output is similar to:
 
 This confirms distributed training across multiple workers.
 
+## Ray Jobs View (Tasks & Training)
+
+![Ray Dashboard Jobs tab showing successful execution of ray_test.py and ray_train.py#center](images/ray-jobs.png "Ray Jobs tab showing distributed tasks and training execution status")
 
 ## What you've learned and what's next
 
