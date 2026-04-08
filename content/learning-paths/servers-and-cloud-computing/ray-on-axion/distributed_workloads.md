@@ -1,6 +1,6 @@
 ---
 title: Run Distributed Workloads with Ray
-weight: 2
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
