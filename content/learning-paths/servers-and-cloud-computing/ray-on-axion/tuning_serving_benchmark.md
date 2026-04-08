@@ -10,7 +10,6 @@ layout: learningpathall
 
 This section demonstrates hyperparameter tuning, model serving, and performance benchmarking using Ray.
 
-
 ## Hyperparameter tuning with Ray Tune
 
 Create the tuning script:
@@ -42,6 +41,13 @@ results = tuner.fit()
 
 print("Best result:", results.get_best_result(metric="score", mode="max"))
 ```
+
+### Explanation
+
+* `tune.grid_search()` → tries multiple hyperparameter values
+* Each value runs as a **separate parallel trial**
+* `session.report()` → sends metrics back to Ray
+* `Tuner.fit()` → executes all trials
 
 ### Execute tuning
 
@@ -111,6 +117,12 @@ class Model:
 app = Model.bind()
 serve.run(app)
 ```
+
+### Explanation
+
+* `serve.start()` → initializes serving system
+* `@serve.deployment` → defines deployable service
+* `serve.run()` → launches API
 
 ### Run the service
 
@@ -196,3 +208,5 @@ You have successfully:
 * Identified the best configuration automatically
 * Deployed a model using Ray Serve
 * Validated parallel performance with benchmarking
+
+You can now extend this setup to multi-node clusters, real ML pipelines, and production deployments.
