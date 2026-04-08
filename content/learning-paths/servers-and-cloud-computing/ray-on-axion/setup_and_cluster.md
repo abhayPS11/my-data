@@ -92,6 +92,10 @@ http://<VM-IP>:8265
 
 This dashboard provides visibility into jobs, tasks, and resource utilization.
 
+## Ray Dashboard Overview
+
+![Ray Dashboard showing cluster overview, utilization, and navigation tabs#center](images/ray-dashboard.png "Ray Dashboard Overview showing cluster status and metrics")
+
 ## What you've learned and what's next
 
 You have successfully:
