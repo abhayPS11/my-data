@@ -10,7 +10,14 @@ layout: learningpathall
 
 This guide walks you through deploying OpenStack using Kolla-Ansible on an Azure Ubuntu 24.04 Arm64 virtual machine.
 
-The deployment is fully containerized and optimized for ARM64 (aarch64).
+Kolla-Ansible deploys OpenStack services as Docker containers, making the deployment modular, reproducible, and easier to manage.
+
+After completing this guide, your environment will:
+
+* Run core OpenStack services (Nova, Neutron, Keystone, Glance)
+* Support ARM64 (`aarch64`) architecture
+* Provide CLI and Horizon access
+* Allow launching virtual machines
 
 
 ## Prerequisites
@@ -30,6 +37,9 @@ sudo ip addr flush dev eth1
 sudo ip link set eth1 up
 ```
 
+This ensures OpenStack can use `eth1` for external networking.
+
+
 ## Install system dependencies
 
 ```console
@@ -42,23 +52,21 @@ libdbus-1-dev libglib2.0-dev pkg-config \
 meson ninja-build curl
 ```
 
-## Fix and install Docker
+These packages are required for Python builds and OpenStack dependencies.
+
+## install Docker
 
 ```console
-## Fix and install Docker
-
-```console
-sudo apt update
 sudo apt install -y docker.io
 
 sudo systemctl enable docker
 sudo systemctl start docker
 
 sudo usermod -aG docker $USER
-
-# Apply group without logout
 newgrp docker
 ```
+
+Docker is used to run all OpenStack services as containers.
 
 ## Create Python virtual environment
 
@@ -67,6 +75,7 @@ python3 -m venv ~/kolla-venv
 source ~/kolla-venv/bin/activate
 ```
 
+Using a virtual environment ensures dependency isolation.
 
 ## Install Kolla-Ansible and dependencies
 
@@ -81,6 +90,8 @@ dbus-python
 ansible-galaxy collection install openstack.kolla
 kolla-ansible install-deps
 ```
+
+This installs Kolla-Ansible and requires Ansible collections.
 
 ## Configure Kolla
 
@@ -106,12 +117,19 @@ openstack_tag_suffix: "-aarch64"
 network_interface: "eth0"
 neutron_external_interface: "eth1"
 
-kolla_internal_vip_address: "10.2.0.4"
+kolla_internal_vip_address: "127.0.0.1"
 
 enable_keepalived: "no"
 ```
 
-## Configure Nova (QEMU for ARM)
+### Why this configuration?
+
+* Debian base → ARM images supported
+* VIP = localhost → avoids MariaDB binding issues
+* keepalived disabled → single-node setup
+
+
+## Configure Nova (ARM fix)
 
 ```console
 sudo mkdir -p /etc/kolla/config
@@ -123,14 +141,14 @@ cpu_mode = none
 EOF
 ```
 
+This ensures compatibility with ARM (KVM is not supported).
+
 
 ## Generate passwords
 
 ```console
 kolla-genpwd
 ```
-
----
 
 ## Deploy OpenStack
 
