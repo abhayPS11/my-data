@@ -6,7 +6,9 @@ weight: 6
 layout: learningpathall
 ---
 
-## Deploy OpenStack on Azure Ubuntu 24.04 Arm64 using Kolla-Ansible
+## Deploy OpenStack on Azure Cobalt 100 VM using Kolla-Ansible
+
+{{% notice Note %}}Use the virtual machine prepared for Kolla-Ansible deployment (with dual NICs and a data disk). This setup is required for proper networking and storage configuration.{{% /notice %}}
 
 This guide walks you through deploying OpenStack using Kolla-Ansible on an Azure Ubuntu 24.04 Arm64 virtual machine.
 
