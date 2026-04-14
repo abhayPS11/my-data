@@ -256,6 +256,11 @@ Login:
 * Username: admin
 * Domain: Default
 
+The following image shows a successfully launched instance in the OpenStack Horizon UI.
+
+![OpenStack Horizon dashboard showing running instance test-vm alt-txt#center](images/openstack-ui.png "OpenStack Horizon Instances view with ACTIVE VM")
+
+
 ## What you've learned
 
 You successfully validated your OpenStack deployment and confirmed that all services are operational.
