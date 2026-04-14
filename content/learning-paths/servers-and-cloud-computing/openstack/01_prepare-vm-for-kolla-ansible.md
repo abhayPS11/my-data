@@ -96,7 +96,7 @@ You successfully prepared the Azure Arm64 virtual machine for Kolla-Ansible by:
 
 * Adding and configuring a second network interface  
 * Attaching a dedicated storage disk  
-* Preparing networking for OpenStack provider network  
+* Preparing networking for the OpenStack provider network  
 * Ensuring the system is ready for containerized OpenStack deployment  
 
 ## What's next
