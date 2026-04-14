@@ -80,7 +80,10 @@ This learning path requires **two virtual machines** with the same base configur
 * VM 1 → Used for DevStack deployment (single NIC setup)
 * VM 2 → Used for Kolla-Ansible deployment (advanced setup)
 
+{{% notice Note %}}Two separate VMs are recommended because running DevStack and Kolla-Ansible on the same machine can lead to service and port conflicts during deployment.{{% /notice %}}
+
 Both virtual machines should be created using the steps described above.
+
 
 ## What's next
 
