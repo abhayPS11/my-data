@@ -45,32 +45,19 @@ meson ninja-build curl
 ## Fix and install Docker
 
 ```console
-sudo rm -f /etc/apt/sources.list.d/docker.list
-sudo rm -f /etc/apt/sources.list.d/*docker*
-sudo rm -f /etc/apt/keyrings/docker.gpg
-sudo rm -f /etc/apt/keyrings/docker.asc
-
-sudo apt clean
-sudo apt update
-```
+## Fix and install Docker
 
 ```console
-sudo mkdir -p /etc/apt/keyrings
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-https://download.docker.com/linux/ubuntu noble stable" | \
-sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
 sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo apt install -y docker.io
 
 sudo systemctl enable docker
 sudo systemctl start docker
 
-docker run hello-world
+sudo usermod -aG docker $USER
+
+# Apply group without logout
+newgrp docker
 ```
 
 ## Create Python virtual environment
@@ -91,7 +78,7 @@ pip install \
 kolla-ansible \
 docker \
 dbus-python
-
+ansible-galaxy collection install openstack.kolla
 kolla-ansible install-deps
 ```
 
