@@ -1,6 +1,6 @@
 ---
-title: Validate OpenStack Deployment and Launch VM on Azure Arm64
-weight: 6
+title: Validate OpenStack Deployment and Launch VM on Azure Cobalt 100 vm
+weight: 7
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
