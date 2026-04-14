@@ -91,6 +91,8 @@ pip install \
 kolla-ansible \
 docker \
 dbus-python
+
+kolla-ansible install-deps
 ```
 
 ## Configure Kolla
@@ -146,10 +148,51 @@ kolla-genpwd
 ## Deploy OpenStack
 
 ```console
-kolla-ansible -i all-in-one bootstrap-servers
-kolla-ansible -i all-in-one prechecks
-kolla-ansible -i all-in-one pull
-kolla-ansible -i all-in-one deploy
+kolla-ansible bootstrap-servers -i all-in-one
+```
+
+```output
+TASK [openstack.kolla.baremetal : Set https proxy for git] ***************************************************************************
+skipping: [localhost]
+
+TASK [openstack.kolla.baremetal : Set http proxy for git] ****************************************************************************
+skipping: [localhost]
+
+TASK [openstack.kolla.baremetal : Configure ceph for zun] ****************************************************************************
+skipping: [localhost]
+
+PLAY RECAP ***************************************************************************************************************************
+localhost                  : ok=41   changed=13   unreachable=0    failed=0    skipped=30   rescued=0    ignored=0
+```
+
+```
+kolla-ansible prechecks -i all-in-one 
+```
+
+```output
+PLAY [Apply role venus] **************************************************************************************************************
+skipping: no hosts matched
+[WARNING]: Could not match supplied host pattern, ignoring: enable_skyline_True
+
+PLAY [Apply role skyline] ************************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ***************************************************************************************************************************
+localhost                  : ok=96   changed=0    unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
+```
+
+```console
+kolla-ansible pull -i all-in-one
+```
+
+```output
+PLAY [Apply role skyline] ************************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ***************************************************************************************************************************
+localhost                  : ok=33   changed=14   unreachable=0    failed=0    skipped=52   rescued=0    ignored=0
+```
+kolla-ansible deploy -i all-in-one deploy
 kolla-ansible -i all-in-one post-deploy
 ```
 
