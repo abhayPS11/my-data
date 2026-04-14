@@ -1,13 +1,14 @@
 ---
-
 title: Deploy OpenStack on Azure Arm using DevStack (Cobalt 100)
-weight: 6
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
 ## Deploy OpenStack on Arm using DevStack (Azure Cobalt 100)
+
+{{% notice Note %}}Use the VM with a single network interface (DevStack setup). You do not need to add an extra NIC or data disk for these steps.{{% /notice %}}
 
 This guide walks you through deploying OpenStack using DevStack on an Arm-based Azure virtual machine (Azure Cobalt 100).
 
@@ -249,6 +250,7 @@ Example:
 http://4.186.31.18/dashboard
 ```
 
+![OpenStack Horizon login page alt-txt#center](images/openstack-horizon-dashboard-converted.png "OpenStack Horizon Login Screen")
 
 ## Login credentials
 
