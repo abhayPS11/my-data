@@ -250,7 +250,7 @@ Example:
 http://4.186.31.18/dashboard
 ```
 
-![OpenStack Horizon login page alt-txt#center](images/openstack-horizon-dashboard-converted.png "OpenStack Horizon Login Screen")
+![OpenStack Horizon login page alt-txt#center](images/openstack-horizon-dashboard.png "OpenStack Horizon Login Screen")
 
 ## Login credentials
 
