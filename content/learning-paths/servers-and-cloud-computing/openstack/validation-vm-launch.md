@@ -8,8 +8,15 @@ layout: learningpathall
 
 ## Validate OpenStack Deployment and Launch a Virtual Machine
 
-This guide verifies your deployment and launches a test VM.
+After deploying OpenStack using Kolla-Ansible, it is important to verify that all services are functioning correctly and that the environment can successfully launch virtual machines.
 
+In this guide, you will:
+
+* Validate OpenStack services
+* Fix common ARM + Azure networking issues
+* Upload an ARM-compatible image
+* Create network and compute resources
+* Launch and verify a virtual machine
 
 
 ## Install OpenStack CLI (if not installed)
@@ -18,6 +25,7 @@ This guide verifies your deployment and launches a test VM.
 pip install python-openstackclient
 ```
 
+This tool allows you to interact with OpenStack services via the command line.
 
 ## Load admin credentials
 
@@ -25,6 +33,7 @@ pip install python-openstackclient
 source /etc/kolla/admin-openrc.sh
 ```
 
+This sets environment variables required to authenticate with OpenStack.
 
 ## Verify services
 
@@ -33,7 +42,14 @@ openstack compute service list
 openstack network agent list
 ```
 
-Ensure all services are UP.
+**Expected result:**
+
+All services should show:
+
+- Status → enabled
+- State → up
+
+If any service is down, the deployment is incomplete or misconfigured.
 
 ## Open vSwitch bridges
 
@@ -59,19 +75,27 @@ Verify OVS configuration:
 sudo ovs-vsctl show
 ```
 
-**Expected:**
+**Expected output:**
 
-* `br-int`
-* `br-ex`
-* `br-tun`
+You should see:
 
-All should be present and active.
+- br-int → integration bridge
+- br-ex → external bridge
+- br-tun → tunnel bridge
+
+All bridges must exist and be active.
 
 ## Upload image
 
+Download a Debian ARM64 cloud image:
+
 ```console
 wget https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2
+```
 
+Upload it to OpenStack:
+
+```console
 openstack image create "test-image" \
   --file debian-12-genericcloud-arm64.qcow2 \
   --disk-format qcow2 \
@@ -95,6 +119,8 @@ The output is similar to:
 +--------------------------------------+------------+--------+
 ```
 
+The image must be in an active state before launching VMs.
+
 ## Create network
 
 ```console
@@ -105,7 +131,15 @@ openstack subnet create test-subnet \
   --subnet-range 192.168.0.0/24
 ```
 
+### Why this is required
+
+OpenStack networking (Neutron) requires:
+
+- Network → logical network
+- Subnet → IP range for instances
+
 ## Verify network
+
 ```console
 openstack network list
 ```
@@ -136,12 +170,23 @@ The output is similar to:
 +--------------------------------------+-------------+--------------------------------------+----------------+
 ```
 
+Both should show your created resources.
 
 ## Create flavor
 
 ```console
 openstack flavor create m1.tiny --ram 512 --disk 5 --vcpus 1
 ```
+
+### Why is flavor required
+
+A flavor defines:
+
+- CPU
+- RAM
+- Disk
+
+for the virtual machine.
 
 ## Verify flavor
 
@@ -186,6 +231,11 @@ The output is similar to:
 +--------------------------------------+---------+--------+------------------------+------------+---------+
 ```
 
+If the VM stays in ERROR, check:
+
+- OVS bridges
+- compute service status
+- image compatibility
 
 ## Access Horizon dashboard
 
@@ -208,4 +258,13 @@ Login:
 
 ## What you've learned
 
-You validated your OpenStack deployment, created networking, uploaded an image, and successfully launched a virtual machine using OpenStack.
+You successfully validated your OpenStack deployment and confirmed that all services are operational.
+
+You also:
+
+- Created vSwitch networking specific to ARM + Azure
+- Uploaded an ARM-compatible image
+- Created network and compute resources
+- Launched and verified a virtual machine
+
+Your OpenStack environment is now fully functional and ready for use.
