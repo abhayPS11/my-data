@@ -13,8 +13,8 @@ After deploying OpenStack using Kolla-Ansible, it is important to verify that al
 In this guide, you will:
 
 * Validate OpenStack services
-* Fix common ARM + Azure networking issues
-* Upload an ARM-compatible image
+* Fix common Arm + Azure networking issues
+* Upload an Arm-compatible image
 * Create network and compute resources
 * Launch and verify a virtual machine
 
@@ -53,7 +53,7 @@ If any service is down, the deployment is incomplete or misconfigured.
 
 ## Open vSwitch bridges
 
-In ARM + Azure environments, OVS bridges may not come up automatically.
+In Arm + Azure environments, OVS bridges may not come up automatically.
 
 This causes:
 
@@ -87,17 +87,17 @@ All bridges must exist and be active.
 
 ## Upload image
 
-Download a Debian ARM64 cloud image:
+Download a Debian Arm64 cloud image:
 
 ```console
-wget https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2
+wget https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-Arm64.qcow2
 ```
 
 Upload it to OpenStack:
 
 ```console
 openstack image create "test-image" \
-  --file debian-12-genericcloud-arm64.qcow2 \
+  --file debian-12-genericcloud-Arm64.qcow2 \
   --disk-format qcow2 \
   --container-format bare \
   --public
@@ -267,8 +267,8 @@ You successfully validated your OpenStack deployment and confirmed that all serv
 
 You also:
 
-- Created vSwitch networking specific to ARM + Azure
-- Uploaded an ARM-compatible image
+- Created vSwitch networking specific to Arm + Azure
+- Uploaded an Arm-compatible image
 - Created network and compute resources
 - Launched and verified a virtual machine
 
