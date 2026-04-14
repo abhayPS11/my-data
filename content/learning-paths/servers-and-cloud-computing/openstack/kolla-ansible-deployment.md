@@ -179,7 +179,19 @@ skipping: no hosts matched
 PLAY RECAP ***************************************************************************************************************************
 localhost                  : ok=33   changed=14   unreachable=0    failed=0    skipped=52   rescued=0    ignored=0
 ```
+```console
 kolla-ansible deploy -i all-in-one deploy
+````
+
+```output
+PLAY [Apply role skyline] ************************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ***************************************************************************************************************************
+localhost                  : ok=368  changed=34   unreachable=0    failed=0    skipped=267  rescued=0    ignored=0
+```
+
+```
 kolla-ansible -i all-in-one post-deploy
 ```
 
