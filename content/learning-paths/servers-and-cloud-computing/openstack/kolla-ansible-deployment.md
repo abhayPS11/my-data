@@ -15,14 +15,14 @@ Kolla-Ansible deploys OpenStack services as Docker containers, making the deploy
 After completing this guide, your environment will:
 
 * Run core OpenStack services (Nova, Neutron, Keystone, Glance)
-* Support ARM64 (`aarch64`) architecture
+* Support Arm64 (`aarch64`) architecture
 * Provide CLI and Horizon access
 * Allow launching virtual machines
 
 
 ## Prerequisites
 
-* Ubuntu 24.04 ARM64 VM (Azure)
+* Ubuntu 24.04 Arm64 VM (Azure)
 * Minimum 4 vCPU, 8 GB RAM (16 GB recommended)
 * Disk: 100 GB+
 * Two network interfaces:
@@ -37,7 +37,7 @@ sudo ip addr flush dev eth1
 sudo ip link set eth1 up
 ```
 
-This ensures OpenStack can use `eth1` for external networking.
+This ensures that OpenStack can use `eth1` as the external/provider network.
 
 
 ## Install system dependencies
@@ -56,17 +56,34 @@ These packages are required for Python builds and OpenStack dependencies.
 
 ## install Docker
 
+Docker is used to run all OpenStack services as containers.
+
 ```console
 sudo apt install -y docker.io
 
 sudo systemctl enable docker
 sudo systemctl start docker
+```
 
+**Add user to Docker group:**
+
+```console
 sudo usermod -aG docker $USER
+```
+
+**Apply group permissions (IMPORTANT):**
+
+```console
 newgrp docker
 ```
 
-Docker is used to run all OpenStack services as containers.
+**Verify Docker installation:**
+
+```console
+docker run hello-world
+```
+
+This step is critical. Without applying group permissions, Docker commands will fail with a permission error.
 
 ## Create Python virtual environment
 
@@ -75,7 +92,7 @@ python3 -m venv ~/kolla-venv
 source ~/kolla-venv/bin/activate
 ```
 
-Using a virtual environment ensures dependency isolation.
+A virtual environment isolates dependencies required for Kolla-Ansible.
 
 ## Install Kolla-Ansible and dependencies
 
@@ -91,7 +108,7 @@ ansible-galaxy collection install openstack.kolla
 kolla-ansible install-deps
 ```
 
-This installs Kolla-Ansible and requires Ansible collections.
+These tools are required to deploy and manage OpenStack services.
 
 ## Configure Kolla
 
@@ -124,12 +141,14 @@ enable_keepalived: "no"
 
 ### Why this configuration?
 
-* Debian base → ARM images supported
-* VIP = localhost → avoids MariaDB binding issues
-* keepalived disabled → single-node setup
+- **Debian base** → Arm images are available
+- **aarch64 suffix** → ensures correct image selection
+- **VIP = VM IP** → avoids Azure networking issues
+- **HA disabled**→ required for single-node deployments
 
 
-## Configure Nova (ARM fix)
+## Configure Nova (Arm fix)
+
 
 ```console
 sudo mkdir -p /etc/kolla/config
@@ -141,8 +160,9 @@ cpu_mode = none
 EOF
 ```
 
-This ensures compatibility with ARM (KVM is not supported).
+### Why this is required
 
+Arm-based Azure VMs do not support KVM virtualization. Using QEMU ensures that instances can be launched successfully.
 
 ## Generate passwords
 
@@ -150,38 +170,31 @@ This ensures compatibility with ARM (KVM is not supported).
 kolla-genpwd
 ```
 
+This creates all required passwords for OpenStack services.
+
 ## Deploy OpenStack
+
+Run the following commands in order:
 
 ```console
 kolla-ansible bootstrap-servers -i all-in-one
 ```
 
+The output is similar to:
+
 ```output
-TASK [openstack.kolla.baremetal : Set https proxy for git] ***************************************************************************
-skipping: [localhost]
-
-TASK [openstack.kolla.baremetal : Set http proxy for git] ****************************************************************************
-skipping: [localhost]
-
-TASK [openstack.kolla.baremetal : Configure ceph for zun] ****************************************************************************
-skipping: [localhost]
 
 PLAY RECAP ***************************************************************************************************************************
 localhost                  : ok=41   changed=13   unreachable=0    failed=0    skipped=30   rescued=0    ignored=0
 ```
 
-```
+```console
 kolla-ansible prechecks -i all-in-one 
 ```
 
+The output is similar to:
+
 ```output
-PLAY [Apply role venus] **************************************************************************************************************
-skipping: no hosts matched
-[WARNING]: Could not match supplied host pattern, ignoring: enable_skyline_True
-
-PLAY [Apply role skyline] ************************************************************************************************************
-skipping: no hosts matched
-
 PLAY RECAP ***************************************************************************************************************************
 localhost                  : ok=96   changed=0    unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
 ```
@@ -189,6 +202,8 @@ localhost                  : ok=96   changed=0    unreachable=0    failed=0    s
 ```console
 kolla-ansible pull -i all-in-one
 ```
+
+The output is similar to:
 
 ```output
 PLAY [Apply role skyline] ************************************************************************************************************
@@ -201,6 +216,8 @@ localhost                  : ok=33   changed=14   unreachable=0    failed=0    s
 kolla-ansible deploy -i all-in-one deploy
 ````
 
+The output is similar to:
+
 ```output
 PLAY [Apply role skyline] ************************************************************************************************************
 skipping: no hosts matched
@@ -209,7 +226,15 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=368  changed=34   unreachable=0    failed=0    skipped=267  rescued=0    ignored=0
 ```
 
-```
+#### What happens during deployment?
+
+- **Bootstrap** → prepares system (Docker, users, configs)
+- **Prechecks** → validates environment
+- **Pull** → downloads OpenStack container images
+- **Deploy** → starts all services
+- **Post-deploy** → generates access credentials
+
+```console
 kolla-ansible -i all-in-one post-deploy
 ```
 
@@ -219,6 +244,8 @@ kolla-ansible -i all-in-one post-deploy
 source /etc/kolla/admin-openrc.sh
 ```
 
+This enables OpenStack CLI commands.
+
 ## Verify services
 
 ```console
@@ -227,6 +254,8 @@ openstack network agent list
 ```
 
 All services should be UP.
+
+The output is similar to:
 
 ```output
 openstack network agent list
@@ -251,7 +280,16 @@ openstack network agent list
 +------------------------+--------------------+--------------+-------------------+-------+-------+--------------------------+
 ```
 
-
 ## What you've learned
 
-You deployed OpenStack using Kolla-Ansible on an ARM-based system with Docker, networking, and compute fully configured.
+You successfully deployed OpenStack using Kolla-Ansible on an Arm-based Azure VM.
+
+You also resolved key challenges, including:
+
+- Docker permission issues
+- Arm virtualization limitations (QEMU)
+- Image compatibility (aarch64)
+- Azure networking constraints (VIP handling)
+- Single-node deployment limitations (HA disabled)
+
+You now have a fully functional OpenStack environment capable of launching and managing virtual machines.
