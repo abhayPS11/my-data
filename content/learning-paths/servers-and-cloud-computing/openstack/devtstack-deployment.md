@@ -63,7 +63,7 @@ git curl vim net-tools python3-pip
 ## Set hostname
 
 ```console id="host01"
-sudo hostnamectl set-hostname openstack-arm
+sudo hostnamectl set-hostname devstack-arm
 exec bash
 ```
 
