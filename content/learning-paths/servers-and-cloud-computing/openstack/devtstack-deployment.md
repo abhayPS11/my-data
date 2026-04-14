@@ -1,15 +1,15 @@
 ---
 
-title: Deploy OpenStack on Azure ARM using DevStack (Cobalt 100)
+title: Deploy OpenStack on Azure Arm using DevStack (Cobalt 100)
 weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Deploy OpenStack on ARM using DevStack (Azure Cobalt 100)
+## Deploy OpenStack on Arm using DevStack (Azure Cobalt 100)
 
-This guide walks you through deploying OpenStack using DevStack on an ARM-based Azure virtual machine (Azure Cobalt 100).
+This guide walks you through deploying OpenStack using DevStack on an Arm-based Azure virtual machine (Azure Cobalt 100).
 
 DevStack is a lightweight OpenStack deployment tool designed for development and testing.
 It installs core OpenStack services such as Nova, Keystone, Glance, and Horizon on a single node.
@@ -18,15 +18,15 @@ After completing this guide, your environment will:
 
 * Run OpenStack services locally
 * Provide access to the Horizon
-* Support ARM64 (`aarch64`) architecture
+* Support Arm64 (`aarch64`) architecture
 * Be accessible via browser and CLI
 
 ## Objective
 
 In this guide, you will:
 
-* Deploy OpenStack on ARM using DevStack
-* Fix ARM-specific compatibility issues (etcd, libvirt)
+* Deploy OpenStack on Arm using DevStack
+* Fix Arm-specific compatibility issues (etcd, libvirt)
 * Access Horizon dashboard via public IP
 * Validate services using OpenStack CLI
 
@@ -34,7 +34,7 @@ In this guide, you will:
 
 | Component | Value                |
 | --------- | -------------------- |
-| Platform  | Azure Cobalt (ARM64) |
+| Platform  | Azure Cobalt (Arm64) |
 | OS        | Ubuntu 24.04         |
 | VM Size   | D4ps_v6              |
 | RAM       | ≥ 8 GB               |
@@ -79,7 +79,7 @@ These tools are required for:
 ## Configure hostname
 
 ```console
-sudo hostnamectl set-hostname devstack-arm
+sudo hostnamectl set-hostname devstack-Arm
 exec bash
 ```
 
@@ -88,29 +88,29 @@ Setting a consistent hostname ensures:
 * Proper service registration
 * Correct identification in OpenStack services
 
-## Install etcd (ARM fix)
+## Install etcd (Arm fix)
 
-DevStack uses etcd internally, but on Ubuntu 24.04 ARM:
+DevStack uses etcd internally, but on Ubuntu 24.04 Arm:
 
  * Built-in etcd service is unstable ❌
 
-So we install a stable ARM-compatible version manually.
+So we install a stable Arm-compatible version manually.
 
-```console id="etcd01"
+```console
 cd /tmp
-wget https://github.com/etcd-io/etcd/releases/download/v3.5.13/etcd-v3.5.13-linux-arm64.tar.gz
-tar -xvf etcd-v3.5.13-linux-arm64.tar.gz
-cd etcd-v3.5.13-linux-arm64
+wget https://github.com/etcd-io/etcd/releases/download/v3.5.13/etcd-v3.5.13-linux-Arm64.tar.gz
+tar -xvf etcd-v3.5.13-linux-Arm64.tar.gz
+cd etcd-v3.5.13-linux-Arm64
 sudo cp etcd etcdctl /usr/local/bin/
 ```
 
 ## Configure etcd service
 
-```console id="etcd02"
+```console
 sudo vi /etc/systemd/system/etcd.service
 ```
 
-```ini id="etcdconf"
+```ini
 [Unit]
 Description=etcd
 After=network.target
@@ -133,7 +133,7 @@ This configuration ensures:
 
 ## Start etcd
 
-```console id="etcd03"
+```console
 sudo mkdir -p /var/lib/etcd
 sudo chown -R $USER:$USER /var/lib/etcd
 
@@ -147,7 +147,7 @@ Verify:
 sudo systemctl status etcd
 ```
 
-Expected:
+The output is similar to:
 
 ```output
 Active: active (running)
@@ -172,9 +172,9 @@ This downloads the DevStack scripts required to install OpenStack.
 vi local.conf
 ```
 
-### ARM-optimized configuration
+### Arm-optimized configuration
 
-```ini id="localconf"
+```ini
 [[local|localrc]]
 ADMIN_PASSWORD=admin
 DATABASE_PASSWORD=admin
@@ -208,9 +208,9 @@ disable_service tempest
 
 ### Why these changes?
 
-* **Disable Neutron** → avoids ARM networking issues
+* **Disable Neutron** → avoids Arm networking issues
 * **Disable etcd3** → uses our stable external etcd
-* **LIBVIRT_TYPE=qemu** → avoids KVM issues on ARM
+* **LIBVIRT_TYPE=qemu** → avoids KVM issues on Arm
 * **Enable Horizon** → provides web UI
 
 ## Get private IP
@@ -223,7 +223,7 @@ Replace `<Private_IP>` in `local.conf`.
 
 ## Deploy OpenStack
 
-```console id="deploy01"
+```console
 ./stack.sh | tee stack.log
 ```
 
@@ -310,10 +310,10 @@ Compute:
 +--------------------------------------+----------------+--------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host         | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+--------------+----------+---------+-------+----------------------------+
-| 46946541-a6c1-4b8c-92e3-5d037bb2d577 | nova-scheduler | devstack-arm | internal | enabled | up    | 2026-04-14T08:14:42.000000 |
-| e1aa2f20-3f39-4d12-9702-4b144a739f56 | nova-conductor | devstack-arm | internal | enabled | up    | 2026-04-14T08:14:46.000000 |
-| caeab24b-a938-420b-9ae0-e335ed8acfea | nova-conductor | devstack-arm | internal | enabled | up    | 2026-04-14T08:15:56.000000 |
-| b612363d-b7ad-4c9e-93b8-afd20fb9b863 | nova-compute   | devstack-arm | nova     | enabled | up    | 2026-04-14T08:15:05.000000 |
+| 46946541-a6c1-4b8c-92e3-5d037bb2d577 | nova-scheduler | devstack-Arm | internal | enabled | up    | 2026-04-14T08:14:42.000000 |
+| e1aa2f20-3f39-4d12-9702-4b144a739f56 | nova-conductor | devstack-Arm | internal | enabled | up    | 2026-04-14T08:14:46.000000 |
+| caeab24b-a938-420b-9ae0-e335ed8acfea | nova-conductor | devstack-Arm | internal | enabled | up    | 2026-04-14T08:15:56.000000 |
+| b612363d-b7ad-4c9e-93b8-afd20fb9b863 | nova-compute   | devstack-Arm | nova     | enabled | up    | 2026-04-14T08:15:05.000000 |
 +--------------------------------------+----------------+--------------+----------+---------+-------+----------------------------+
 
 ```
@@ -321,9 +321,9 @@ Compute:
 
 ## What you've learned
 
-You successfully deployed OpenStack using DevStack on an ARM-based Azure VM.
+You successfully deployed OpenStack using DevStack on an Arm-based Azure VM.
 
-You resolved ARM-specific issues, including:
+You resolved Arm-specific issues, including:
 
 * etcd compatibility
 * networking limitations
