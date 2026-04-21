@@ -22,7 +22,7 @@ author: Pareena Verma
 
 ### Tags
 skilllevels: Introductory
-subjects: Databases
+subjects: Performance and Architecture
 cloud_service_providers:
   - Microsoft Azure
 
