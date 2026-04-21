@@ -27,7 +27,7 @@ Creating a virtual machine based on Azure Cobalt 100 is no different from creati
 - Launch the Azure portal and navigate to **Virtual Machines**.
 - Select **Create**, and select **Virtual Machine** from the drop-down list.
 - Inside the **Basic** tab, fill in the instance details such as **Virtual machine name** and **Region**.
-- Select the image for your virtual machine (for example, Ubuntu Pro 22.04 LTS) and select **Arm64** as the VM architecture.
+- Select the image for your virtual machine (for example, Ubuntu 22.04 LTS Server) and select **Arm64** as the VM architecture.
 - In the **Size** field, select **See all sizes** and select the D-Series v6 family of virtual machines.
 - Select **D8ps_v6** from the list as shown in the diagram below:
 
@@ -67,6 +67,22 @@ Your virtual machine should be ready and running in a few minutes. You can SSH i
 
 ## What you've learned and what's next
 
-You've created an Azure Cobalt 100 Arm64 virtual machine running Ubuntu 24.04 LTS with SSH authentication configured. The virtual machine is now ready for installing and running Redis workloads.
+You have successfully created an Azure Cobalt 100 Arm64 virtual machine running **Ubuntu 22.04 LTS Server** with SSH authentication configured. The VM is now fully prepared for running distributed data processing workloads.
 
-Next, you'll install Redis on the VM and begin building a real-time messaging and event processing system using Pub/Sub and Redis Streams.
+On this VM, you have:
+
+- Set up a stable ARM64 environment  
+- Configured SSH access and hostname for cluster communication  
+- Prepared the system for big data stack installation (Hadoop, Spark, Hive)  
+- Ensured compatibility for Java 17 and ARM-based execution  
+
+## What’s Next
+
+On this VM, you will now build a **high-performance Spark SQL analytics platform** using modern acceleration technologies.
+
+### You will:
+
+- Install and configure **Hadoop (HDFS + YARN)**  
+- Install and configure **Apache Spark**  
+- Set up **Hive Metastore (MySQL-based)**  
+- Build and integrate **Gluten + Velox (native engine)**  
