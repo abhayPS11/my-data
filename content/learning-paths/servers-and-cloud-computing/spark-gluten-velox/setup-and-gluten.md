@@ -8,9 +8,7 @@ layout: learningpathall
 
 ## Deploy Apache Spark with Gluten + Velox on ARM64
 
-{{% notice Note %}}
-This guide is tested on ARM64 VM and provides a **stable working setup** for Spark + Gluten + Velox.
-{{% /notice %}}
+This guide provides a **stable, tested setup** of Spark + Gluten + Velox on ARM64.It includes all required fixes for Java 17, Hadoop, and native execution.
 
 This guide walks you through setting up:
 
@@ -19,21 +17,28 @@ This guide walks you through setting up:
 - Apache Hive Metastore
 - Gluten + Velox native engine
 
-on an ARM64 system.
-
----
-
 ## Objective
 
 In this guide, you will:
 
-* Install Hadoop, Spark, and Hive
-* Configure a single-node cluster
-* Build Gluten with Velox backend
-* Enable native query execution (off-JVM)
-* Prepare environment for benchmarking
+- Install Hadoop, Spark, and Hive
+- Configure a single-node cluster
+- Fix Java 17 compatibility issues
+- Build Gluten with Velox backend
+- Enable native execution (off-JVM)
+- Prepare system for benchmarking
 
----
+
+## Why Gluten + Velox?
+
+- Spark (default) runs on JVM ❌
+- Gluten + Velox runs queries in native C++ engine -
+
+**Benefits:**
+
+- Faster execution  
+- Lower CPU usage  
+- Better ARM performance  
 
 ## Environment
 
@@ -44,8 +49,6 @@ In this guide, you will:
 | CPU | 4–8 vCPU |
 | RAM | 8–32 GB |
 | Disk | ≥ 80 GB |
-
----
 
 ## System preparation
 
@@ -223,6 +226,15 @@ jps
 hdfs dfs -ls /
 ```
 
+The output is similar to:
+```output
+159473 DataNode
+159876 Jps
+159260 NameNode
+159725 SecondaryNameNode
+108254 RunJar
+```
+
 ## Setup Hive Metastore
 
 ```console
@@ -239,6 +251,13 @@ EOF
 ```console
 $HIVE_HOME/bin/schematool -dbType mysql -initSchema
 nohup hive --service metastore &
+```
+
+The output is similar to:
+
+```output
+Initialization script completed
+schemaTool completed
 ```
 
 ## Build Gluten with Velox
@@ -295,21 +314,38 @@ $SPARK_HOME/sbin/start-thriftserver.sh
 jps
 ```
 
+The output is similar to:
 
 ```output
-NameNode
-DataNode
-ResourceManager
-NodeManager
-SparkThriftServer
+159473 DataNode
+159911 SparkSubmit
+160009 Jps
+159260 NameNode
+159725 SecondaryNameNode
+108254 RunJar
 ```
 
-## What you've achieved
+##  What You Have Accomplished
 
 You have successfully:
 
-- Setup Hadoop cluster
-- Installed Spark + Hive
-- Built Gluten with Velox
-- Enabled native query execution
-- Prepared system for benchmarking
+- Installed Hadoop, Spark, and Hive  
+- Configured a stable ARM64 single-node cluster  
+- Fixed Java 17 compatibility issues for Hadoop/Spark  
+- Built and integrated Gluten with the Velox backend  
+- Enabled native (off-JVM) query execution  
+- Optimized Spark configuration for ARM workloads  
+- Prepared the environment for large-scale analytics  
+
+## What’s Next
+
+Now that the platform is fully ready, the next step is to **evaluate performance**.
+
+In the next phase, you will:
+
+- Generate TPC-DS dataset (10GB / 50GB)  
+- Load data into HDFS  
+- Create Spark SQL tables  
+- Run analytical queries  
+- Measure execution time  
+- Compare performance improvements  
