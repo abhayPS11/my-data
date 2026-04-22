@@ -11,23 +11,34 @@ layout: learningpathall
 This section covers model versioning, alias assignment, and serving the model as an API.
 
 
-## Terminal usage
+## Terminal usage (Important)
 
-- **Terminal A** → Model operations, testing  
+We continue using the same terminals:
+
+- **Terminal A** → Run scripts and test API  
 - **Terminal B** → MLflow server (already running)  
-- **Optional Terminal C** → Model serving (optional)
+- **Optional Terminal C** → Model serving (if you want a separate terminal)
+
+If you want simplicity, you can use only **Terminal A + B**
 
 ## Set tracking URI
+
+In **Terminal A**, run:
 
 ```bash
 export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
 ```
+
+- This tells MLflow to use your running server.
+- Without this, MLflow will not find your models.
 
 ## Create alias script
 
 ```bash
 cd ~/mlflow-learning-path/demo
 ```
+
+Create a script to select the best model automatically:
 
 ```bash
 cat > set_prod.py <<'EOF'
@@ -56,11 +67,21 @@ EOF
 
 ## Assign production model
 
+**Run the script:**
+
 ```bash
 python set_prod.py
 ```
 
+**What this does:**
+
+- checks all model versions.
+- finds the best accuracy.
+- marks it as production.
+
 ## Serve model
+
+Now we deploy the model as an API.
 
 You can run this in **Terminal A** or open **Terminal C**.
 
@@ -88,6 +109,11 @@ Go to:
 
 ![MLflow Model Registry showing model versions#center](images/mlflow-model.png "MLflow Model Registry with versions")
 
+You should see:
+
+- multiple versions (v1, v2, v3…)
+- one marked as production
+
 ## Test inference from the Free Terminal ( A or C)
 
 ```bash
@@ -104,12 +130,17 @@ curl -X POST http://127.0.0.1:6000/invocations \
     ]
 ```
 
+You will get a prediction output like:
+
+```output
+[0]
+```
+
 ## What you've learned
 
 You have successfully:
 
-- Versioned models
-- Selected the best model
-- Assigned production alias
-- Served model as API
-- Performed inference
+- Selected the best model from experiments
+- Assigned a production alias
+- Deployed the model as an API
+- Performed inference using curl
