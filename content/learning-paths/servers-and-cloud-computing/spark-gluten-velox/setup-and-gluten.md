@@ -343,7 +343,7 @@ Now that the platform is fully ready, the next step is to **evaluate performance
 
 In the next phase, you will:
 
-- Generate TPC-DS dataset (10GB / 50GB)  
+- Generate TPC-DS dataset (10GB)  
 - Load data into HDFS  
 - Create Spark SQL tables  
 - Run analytical queries  
