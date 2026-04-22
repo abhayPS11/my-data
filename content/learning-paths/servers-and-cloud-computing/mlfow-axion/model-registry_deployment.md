@@ -80,6 +80,14 @@ mlflow models serve \
   --no-conda
 ```
 
+## View registered models
+
+Go to:
+
+- Model training → Models
+
+![MLflow Model Registry showing model versions#center](images/mlflow-model.png "MLflow Model Registry with versions")
+
 ## Test inference from the Free Terminal ( A or C)
 
 ```bash
