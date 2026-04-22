@@ -1,14 +1,14 @@
 ---
-title: Deploy Spark SQL with Gluten + Velox on ARM64 (Stable Setup)
+title: Deploy Spark SQL with Gluten + Velox on Arm64 (Stable Setup)
 weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
 
-## Deploy Apache Spark with Gluten + Velox on ARM64
+## Deploy Apache Spark with Gluten + Velox on Arm64
 
-This guide helps you **set up Spark with native acceleration (Gluten + Velox)** on ARM64 (Azure Cobalt 100).
+This guide helps you **set up Spark with native acceleration (Gluten + Velox)** on Arm64 (Azure Cobalt 100).
 
 We will build everything step-by-step from scratch.
 
@@ -44,7 +44,7 @@ In this guide, you will:
 
 | Component | Value |
 |----------|------|
-| Architecture | ARM64 |
+| Architecture | Arm64 |
 | OS | Ubuntu 22.04 / 24.04 |
 | CPU | 4–8 vCPU |
 | RAM | 8–32 GB |
@@ -155,7 +155,7 @@ ln -s apache-hive-3.1.3-bin hive
 ```console
 cat >> ~/.consolerc <<EOF
 
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-Arm64
 export HADOOP_HOME=/opt/hadoop
 export SPARK_HOME=/opt/spark
 export HIVE_HOME=/opt/hive
@@ -230,7 +230,7 @@ EOF
 ```console
 cat >> $HADOOP_HOME/etc/hadoop/hadoop-env.sh <<EOF
 
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-Arm64
 
 export HDFS_NAMENODE_USER=root
 export HDFS_DATANODE_USER=root
@@ -371,7 +371,7 @@ The output is similar to:
 You have successfully:
 
 - Installed Hadoop, Spark, and Hive  
-- Configured a stable ARM64 single-node cluster  
+- Configured a stable Arm64 single-node cluster  
 - Fixed Java 17 compatibility issues for Hadoop/Spark  
 - Built and integrated Gluten with the Velox backend  
 - Enabled native (off-JVM) query execution  
