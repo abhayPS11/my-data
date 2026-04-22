@@ -8,17 +8,26 @@ layout: learningpathall
 
 ## Deploy MLflow on GCP SUSE Arm64
 
-This section guides you through setting up MLflow on a GCP Arm64 (Axion) virtual machine using SUSE Linux and Python 3.11.
+In this section, you will learn how to set up MLflow on a GCP Arm64 (Axion) virtual machine using SUSE Linux and Python 3.11.
 
-You will install dependencies, configure the MLflow tracking server, and run experiments.
+By the end of this section, you will be able to:
 
-## Terminal usage
+- Install MLflow and required dependencies  
+- Start the MLflow tracking server  
+- Run machine learning experiments  
+- View results in the MLflow UI
 
-This guide uses **two terminals only**:
+## Terminal usage (Important)
 
-- **Terminal A** → Setup, training, and scripts  
-- **Terminal B** → Runs MLflow server (keep it running)
+To keep things simple, we will use only **two terminals**:
 
+- **Terminal A** → For setup, training, and running commands  
+- **Terminal B** → For running the MLflow server (keep this running)
+
+Think of it like:
+
+- Terminal A = “work terminal”
+- Terminal B = “server terminal”
 
 ## Connect to the VM
 
@@ -29,6 +38,8 @@ ssh <your-user>@<your-vm-ip>
 ```
 
 ## Verify system:
+
+Check your system architecture:
 
 ```bash
 uname -m
@@ -50,14 +61,21 @@ CPE_NAME="cpe:/o:suse:sles:15:sp5"
 DOCUMENTATION_URL="https://documentation.suse.com/"
 ```
 
+This confirms you are on an Arm-based VM
+
 ## Update your system
+
+Update all system packages:
 
 ```bash
 sudo zypper refresh
 sudo zypper update -y
 ```
+This ensures your system is up to date before installing anything.
 
 ## Install required dependencies
+
+Now install Python 3.11 and other tools:
 
 ```bash
 sudo zypper install -y \
@@ -71,6 +89,13 @@ sudo zypper install -y \
   make \
   git
 ```
+
+**What these do:**
+
+- python311 → Python 3.11 runtime
+- pip → install Python packages
+- gcc/g++/make → build tools
+- sqlite3 → MLflow database
 
 **Verify:**
 
@@ -95,6 +120,7 @@ cd ~/mlflow-learning-path
 python3.11 -m venv mlflow-env
 source mlflow-env/bin/activate
 ```
+This is where all your MLflow files will live.
 
 **Upgrade tools:**
 
@@ -107,6 +133,7 @@ pip install --upgrade pip setuptools wheel
 ```bash
 pip install mlflow scikit-learn pandas numpy matplotlib
 ```
+This installs MLflow + ML libraries.
 
 ## Create directories
 
@@ -114,6 +141,12 @@ pip install mlflow scikit-learn pandas numpy matplotlib
 mkdir -p backend artifacts demo
 touch backend/mlflow.db
 ```
+
+**These folders store:**
+
+- experiments
+- models
+- logs
 
 ## Start MLflow server
 
@@ -123,7 +156,9 @@ touch backend/mlflow.db
 ssh <your-user>@<your-vm-ip>
 cd ~/mlflow-learning-path
 source mlflow-env/bin/activate
-``
+```
+
+**Start MLflow server:**
 
 ```bahs
 mlflow server \
@@ -135,6 +170,9 @@ mlflow server \
   --cors-allowed-origins "*"
 ```
 
+- Keep this terminal running.
+- This is your MLflow backend.
+
 ## Access MLflow UI
 
 **Open in browser:**
@@ -142,7 +180,6 @@ mlflow server \
 ```text
 http://<VM-IP>:5000
 ```
-
 
 ![MLflow UI Home Screen#center](images/mlflow-ui.png "MLflow UI Home Page")
 
@@ -153,11 +190,13 @@ http://<VM-IP>:5000
 
 ## Create training script
 
-**Back in Terminal A:**
+**Go back to Terminal A:**
 
 ```bash
 cd ~/mlflow-learning-path/demo
 ```
+
+**Create the file:**
 
 ```bash
 cat > train.py <<'EOF'
@@ -197,11 +236,21 @@ with mlflow.start_run():
 EOF
 ```
 
+**This script:**
+
+- trains a model
+- logs accuracy
+- registers the model
+
 ## Run experiments
+
+**Set MLflow server:**
 
 ```bash
 export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
 ```
+
+**Run experiments:**
 
 ```bash
 python train.py
@@ -210,6 +259,11 @@ python train.py
 export C=2.0
 python train.py
 ```
+
+**Each run creates:**
+
+- new experiment entry
+- new model version
 
 The output is similar to:
 
