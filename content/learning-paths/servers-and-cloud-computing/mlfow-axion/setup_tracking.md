@@ -143,7 +143,13 @@ mlflow server \
 http://<VM-IP>:5000
 ```
 
-- Select Model training
+
+![MLflow UI Home Screen#center](images/mlflow-ui.png "MLflow UI Home Page")
+
+- Select **Model training**
+- See experiments
+- Compare runs
+- View accuracy
 
 ## Create training script
 
@@ -249,6 +255,13 @@ In UI:
 - Accuracy metrics
 - Model versions (v1, v2, v3)
 
+## View experiment runs
+
+Go to:
+
+- Model training → iris-exp → Runs
+
+![MLflow Runs View showing experiments and metrics#center](images/mlflow-runs.png "MLflow Runs showing experiment tracking")
 
 ## What you've learned
 
