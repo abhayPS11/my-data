@@ -8,16 +8,14 @@ layout: learningpathall
 
 ## Run TPC-DS Benchmark on Spark (Gluten + Velox)
 
-This guide demonstrates a **stable and production-ready benchmarking approach** using Parquet format.
-It avoids schema issues and failures commonly seen with Spark SQL Perf
+This guide walks through running a **stable TPC-DS benchmark (10GB)** on Spark with Gluten + Velox.
 
-In this guide, you will:
+You will:
 
-- Generate a TPC-DS dataset (10GB)
-- Store data in HDFS
-- Convert CSV → Parquet (optimized format)
-- Register tables in Spark
-- Execute analytical SQL queries
+- Generate dataset
+- Upload to HDFS
+- Convert to Parquet
+- Run SQL queries
 - Measure performance
 
 ## Why This Approach?
@@ -42,6 +40,8 @@ git clone https://github.com/gregrahn/tpcds-kit.git
 cd tpcds-kit/tools
 make
 ```
+
+This builds the `dsdgen` tool used for data generation.\
 
 ## Generate 10GB dataset (stable)
 
