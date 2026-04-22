@@ -8,9 +8,9 @@ layout: learningpathall
 
 ## Deploy Apache Spark with Gluten + Velox on ARM64
 
-This guide provides a **stable, tested setup** of Spark + Gluten + Velox on ARM64.It includes all required fixes for Java 17, Hadoop, and native execution.
+This guide helps you **set up Spark with native acceleration (Gluten + Velox)** on ARM64 (Azure Cobalt 100).
 
-This guide walks you through setting up:
+We will build everything step-by-step from scratch.
 
 - Apache Hadoop
 - Apache Spark
@@ -52,6 +52,12 @@ In this guide, you will:
 
 ## System preparation
 
+We install all required tools for:
+
+- Java (Spark/Hadoop)
+- Build tools (Gluten)
+- Database (Hive metastore)
+
 ```console
 sudo -i
 
@@ -68,6 +74,7 @@ These tools are required for:
 - Hive metastore (MySQL)
 
 ## Configure hostname
+Hadoop requires proper hostname for internal communication.
 
 ```console
 hostnamectl set-hostname spark-master
@@ -81,11 +88,17 @@ exec console
 
 ## Configure hosts
 
+Prevents connection errors (very important)
+
 ```console
 echo "127.0.0.1 spark-master" >> /etc/hosts
 ```
 
 ## Setup passwordless SSH
+
+**Why?**
+
+- Hadoop services use SSH internally.
 
 ```console
 ssh-keygen -t rsa -P ""
@@ -99,6 +112,13 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 ## Install Hadoop
 
+**Why?**
+
+Hadoop provides:
+
+- HDFS → Storage
+- YARN → Resource manager
+
 ```console
 cd /opt
 
@@ -109,6 +129,8 @@ ln -s hadoop-3.3.1 hadoop
 
 ## Install Spark
 
+Spark is the main engine for SQL and analytics.
+
 ```console
 wget https://archive.apache.org/dist/spark/spark-3.4.2/spark-3.4.2-bin-hadoop3.tgz
 tar -xvf spark-3.4.2-bin-hadoop3.tgz
@@ -116,6 +138,11 @@ ln -s spark-3.4.2-bin-hadoop3 spark
 ```
 
 ## Install Hive
+
+Hive provides:
+
+- Metadata (table structure)
+- SQL layer for Spark
 
 ```cnsole
 wget https://archive.apache.org/dist/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz
@@ -140,7 +167,13 @@ EOF
 source ~/.consolerc
 ```
 
+**Why?**
+
+- So the system knows where Hadoop/Spark are installed.
+
 ## Hadoop directory setup
+
+HDFS needs storage directories.
 
 ```console
 mkdir -p $HADOOP_HOME/dfs/name
@@ -149,6 +182,8 @@ mkdir -p /opt/dfs/data
 ```
 
 ## Configure Hadoop
+
+Define cluster behavior (single node setup)
 
 **core-site.xml**
 
@@ -189,6 +224,8 @@ EOF
 ```
 
 ## Java 17 compatibility fix
+
+- Without this → Hadoop & Spark crash
 
 ```console
 cat >> $HADOOP_HOME/etc/hadoop/hadoop-env.sh <<EOF
@@ -237,6 +274,8 @@ The output is similar to:
 
 ## Setup Hive Metastore
 
+Hive stores table metadata.
+
 ```console
 mysql -u root <<EOF
 CREATE DATABASE hive_metastore;
@@ -261,6 +300,8 @@ schemaTool completed
 ```
 
 ## Build Gluten with Velox
+
+This enables native execution (C++).
 
 ```console
 cd /opt
