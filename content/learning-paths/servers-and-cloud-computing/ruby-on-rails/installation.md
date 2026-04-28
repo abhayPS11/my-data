@@ -7,7 +7,7 @@ layout: learningpathall
 ---
 
 ## Install Ruby on Rails
-In this section, you will learn how to install Ruby, Rails, and related tools (like rbenv and Bundler) on a SUSE Arm-based virtual machine. This guide will also cover installing the necessary dependencies to compile Ruby and run Rails applications smoothly.
+In this section, you will learn how to install Ruby, Rails, and related tools (like rbenv and Bundler) on a SUSE Arm-based virtual machine. This guide will also cover installing the necessary dependencies to compile Ruby and run Rails applications smoothly
 
 
 ### Update System Packages
