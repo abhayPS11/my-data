@@ -182,6 +182,16 @@ Alluxio cached read:  ~0.39 seconds
 http://<VM-IP>:19999
 ```
 
+![Alluxio cluster load and worker resource usage during Spark job execution on Azure Cobalt 100 VM#center](images/alluxio-load.png "Alluxio cluster load and worker utilization during processing")
+
+![Alluxio data browser showing cached files and directories on Azure Cobalt 100 VM#center](images/alluxion-data.png "Alluxio data view displaying cached datasets")
+
+### What this shows:
+
+- Files stored in Alluxio namespace
+- Cached dataset visibility
+- Data available for fast access
+
 ### Alluxio UI (Caching in Action)
 
 What to observe:
