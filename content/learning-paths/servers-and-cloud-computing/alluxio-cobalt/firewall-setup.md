@@ -36,7 +36,7 @@ Configure the inbound security rule with the following settings:
 - **Destination port ranges:** **19999**  
 - **Protocol:** TCP  
 - **Action:** Allow  
-- **Name:** allow-tcp-19999 
+- **Name:** allow-alluxio-port
 
 After filling in the details, select **Add** to save the rule.
 
