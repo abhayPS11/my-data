@@ -10,6 +10,28 @@ layout: learningpathall
 
 This section demonstrates how to integrate Alluxio with Apache Spark, enable caching, and optimize data access performance.
 
+In this section, you will learn how to:
+
+- Connect Spark with Alluxio
+- Enable in-memory caching
+- Measure performance improvements
+
+## Why integrate Alluxio with Spark?
+
+**Without Alluxio:**
+
+```text
+Spark → Disk → Slow (every time)
+```
+
+**With Alluxio:**
+
+```text
+Spark → Alluxio → Memory → Fast
+```
+
+Alluxio caches frequently accessed data in memory, reducing repeated disk reads.
+
 ## Install Apache Spark
 
 ```bash
@@ -30,6 +52,7 @@ source ~/.bashrc
 ```
 
 ## Connect Spark with Alluxio
+Edit Spark configuration:
 
 ```bash
 nano $SPARK_HOME/conf/spark-defaults.conf
@@ -42,6 +65,11 @@ spark.hadoop.fs.alluxio.impl=alluxio.hadoop.FileSystem
 spark.driver.extraClassPath=/opt/alluxio/client/alluxio-2.9.4-client.jar
 spark.executor.extraClassPath=/opt/alluxio/client/alluxio-2.9.4-client.jar
 ```
+
+**Explanation:**
+
+- Enables Spark to read from `alluxio://`
+- Adds Alluxio client libraries to Spark
 
 ## Create dataset
 
@@ -62,10 +90,33 @@ done
 wc -l /mnt/data/demo/data.txt
 ```
 
+The output is similar to:
+
+```output
+100000 /mnt/data/demo/data.txt
+```
+
 ## Run Spark
 
 ```bash
 spark-shell
+```
+
+The output is similar to:
+
+```output
+Welcome to
+ ____ __
+ / __/__ ___ _____/ /__
+ _\ \/ _ \/ _ `/ __/ '_/
+ /___/ .__/\_,_/_/ /_/\_\ version 3.4.2
+ /_/
+
+Using Scala version 2.12.17 (OpenJDK 64-Bit Server VM, Java 11.0.30)
+ Type in expressions to have them evaluated.
+ Type :help for more information.
+
+scala>
 ```
 
 ## Load data via Alluxio
@@ -88,6 +139,8 @@ df.cache()
 df.count()
 ```
 
+This loads data into memory (Alluxio + Spark cache)
+
 ## Measure performance
 
 **First run:**
@@ -108,14 +161,20 @@ val t4 = System.nanoTime()
 println((t4 - t3)/1e9 + " seconds")
 ```
 
-**Expected behavior:**
-
-```text
-First run reads from disk (slower)
-Second run reads from memory cache (faster)
+```output
+Disk read:            ~0.44 seconds
+Alluxio first read:   ~0.44 seconds
+Alluxio cached read:  ~0.39 seconds
 ```
 
-**Verify in Alluxio UI:**
+**Performance analysis**
+
+- First read → data comes from disk
+- Second read → data is served from memory (cache)
+- Cached read is faster due to reduced disk I/O
+
+
+## Verify in Alluxio UI
 
 **Open:**
 
@@ -123,11 +182,12 @@ Second run reads from memory cache (faster)
 http://<VM-IP>:19999
 ```
 
-**Observe:**
+### Alluxio UI (Caching in Action)
 
-- Increased memory usage
-- Cached file blocks
-- Improved access speed
+What to observe:
+Increased worker memory usage
+Cached file blocks
+Active data access
 
 ## Compare with direct file access
 
@@ -136,13 +196,14 @@ val df1 = spark.read.text("file:///mnt/data/demo/data.txt")
 val df2 = spark.read.text("alluxio:///demo/data.txt")
 ```
 
-This demonstrates the performance benefit of Alluxio.
+This shows the advantage of using Alluxio as a caching layer.
 
 ## Key concepts
 
-- Alluxio acts as a caching layer between compute and storage
-- Frequently accessed data is stored in memory
+- Alluxio sits between compute and storage
+- Frequently used data is cached in memory
 - Spark reads cached data instead of disk
+- This improves analytics performance significantly
 
 ## What you've learned and what's next
 
