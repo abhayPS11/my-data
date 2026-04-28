@@ -189,6 +189,8 @@ Open in your browser:
 http://<VM-IP>:19999
 ```
 
+![Alluxio dashboard showing cluster summary and worker status on Azure Cobalt 100 VM#center](images/alluxio-ui.png "Alluxio Web UI with cluster summary and worker details")
+
 ## Alluxio UI Overview
 
 What you can see:
