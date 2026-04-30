@@ -307,7 +307,13 @@ Open the continuously updating frame in browser.
 http://<VM-IP>:8000/index.html
 ```
 
-![Processed image showing ARM PROCESSOR text with OpenCV transformations on Arm VM#center](images/opencv-image.png "OpenCV image pipeline output")
+You should see a live video effect where:
+
+- Frames update automatically in the browser
+- OpenCV processes each frame in real-time
+- "VIDEO PIPELINE" text is overlaid on the video
+
+![Processed image showing ARM PROCESSOR text with OpenCV transformations on Arm VM#center](images/opencv-video.png "OpenCV image pipeline output")
 
 ## What you've learned
 
