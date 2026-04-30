@@ -199,7 +199,7 @@ http://<VM-IP>:8000/latest.jpg
 
 ## Video Pipeline
 
-**Create video:**
+**Create synthetic video:**
 
 This script generates a sample video so you don’t depend on external files.
 
@@ -232,12 +232,7 @@ out.release()
 - Writes them into video.mp4
 - Helps simulate real video input
 
-```bash
-python create_video.py
-```
-
-## Create pipeline
-This script reads video frames and continuously updates output for browser display.
+## Create video pipeline
 
 ```bash
 vi video_pipeline.py
@@ -264,25 +259,48 @@ while True:
     time.sleep(0.05)
 ```
 
-### What this script does
-
-- Reads frames from video
-- Loops continuously (like a stream)
-- Updates latest.jpg repeatedly
-- Enables pseudo real-time viewing in browser
-
-## Run
-Start the video pipeline.
+## Run video pipeline
 
 ```bash
 python video_pipeline.py
+```
+
+## Correct browser visualization
+Do NOT open latest.jpg directly. Instead, create a live viewer.
+
+### Create live viewer
+
+```bash
+vi index.html
+```
+
+```html
+<html>
+<head>
+<title>Video Pipeline</title>
+</head>
+<body>
+
+<h2>Live Video Feed</h2>
+
+<img id="img" src="latest.jpg" width="640">
+
+<script>
+setInterval(function(){
+    document.getElementById("img").src =
+        "latest.jpg?t=" + new Date().getTime();
+}, 200);
+</script>
+
+</body>
+</html>
 ```
 
 ## Verify
 Open the continuously updating frame in browser.
 
 ```text
-http://<VM-IP>:8000/latest.jpg
+http://<VM-IP>:8000/index.html
 ```
 
 ## What you've learned
@@ -290,11 +308,12 @@ http://<VM-IP>:8000/latest.jpg
 - Installed OpenCV on Arm
 - Built image processing pipeline
 - Built video pipeline
-- Viewed results in browser
+- Implemented browser-based visualization
 
 ## Next
+
 You will:
 
 - Integrate ML (YOLO)
 - Enable real-time detection
-- Build live streaming UI
+- Optimize performance for Arm
