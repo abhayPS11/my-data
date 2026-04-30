@@ -98,6 +98,8 @@ You should see an image with text:
 OpenCV OK
 ```
 
+![OpenCV test image showing "OpenCV OK" text rendered using OpenCV on Arm VM#center](images/opencv-test.png "OpenCV verification output")
+
 ## Start browser server (used in all steps)
 Start a simple HTTP server to view output images in browser.
 
@@ -196,6 +198,8 @@ http://<VM-IP>:8000/latest.jpg
 
 - ARM PROCESSOR text
 - OpenCV processing applied
+
+![Processed image showing ARM PROCESSOR text with OpenCV transformations on Arm VM#center](images/opencv-image.png "OpenCV image pipeline output")
 
 ## Video Pipeline
 
@@ -302,6 +306,8 @@ Open the continuously updating frame in browser.
 ```text
 http://<VM-IP>:8000/index.html
 ```
+
+![Processed image showing ARM PROCESSOR text with OpenCV transformations on Arm VM#center](images/opencv-image.png "OpenCV image pipeline output")
 
 ## What you've learned
 
