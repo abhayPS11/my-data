@@ -6,7 +6,7 @@ weight: 5
 layout: learningpathall
 ---
 
-## Build OpenCV Pipelines on GCP Axion (Arm) - Part 1
+## Build OpenCV Pipelines on GCP Axion (Arm)
 
 This section guides you through setting up OpenCV on an Arm-based VM and building **image and video processing pipelines with browser visualization**.
 
@@ -17,15 +17,16 @@ This section guides you through setting up OpenCV on an Arm-based VM and buildin
 - Build video pipeline  
 - Visualize output in browser  
 
----
 
 ## Update your system
+Refresh package metadata to ensure latest packages are available.
 
 ```bash
 sudo zypper refresh
 ```
 
 ## Install dependencies
+Install Python and build tools required to run OpenCV pipelines.
 
 ```bash
 sudo zypper install -y \
@@ -34,6 +35,7 @@ gcc gcc-c++ make cmake \
 ```
 
 ## Create project
+Create a dedicated workspace for your OpenCV project.
 
 ```bash
 mkdir -p ~/opencv-project
@@ -41,6 +43,7 @@ cd ~/opencv-project
 ```
 
 ## Setup Python environment
+Create an isolated Python environment to avoid dependency conflicts.
 
 ```bash
 python3.11 -m venv cv-env
@@ -48,6 +51,7 @@ source cv-env/bin/activate
 ```
 
 ## Install Python packages
+Install OpenCV and required Python libraries.
 
 ```bash
 pip install --upgrade pip
@@ -55,6 +59,7 @@ pip install numpy opencv-python-headless flask
 ```
 
 ## Start browser server (used in all steps)
+Start a simple HTTP server to view output images in browser.
 
 ```bash
 python -m http.server 8000
@@ -67,7 +72,10 @@ http://<VM-IP>:8000/
 ```
 
 ## Image Pipeline
-Create script
+
+**Create script**
+
+This script reads an image, processes it, and saves the result for browser viewing.
 
 ```bash
 vi image_pipeline.py
@@ -90,26 +98,39 @@ cv2.putText(img, "IMAGE PIPELINE", (20,40),
 cv2.imwrite("latest.jpg", img)
 ```
 
+### What this script does
+
+- Loads an image using OpenCV
+- Applies basic processing (resize + text overlay)
+- Saves output as `latest.jpg`
+- This file is used for browser visualization
+
 ## Download image
+Download a sample image to test the pipeline.
 
 ```bash
 wget https://ultralytics.com/images/bus.jpg -O input.jpg
 ```
 
-## Run
+## Execute image pipeline
+Execute the image pipeline script.
 
 ```bash
 python image_pipeline.py
 ```
 
 ## Verify
+Open the processed image in browser.
 
 ```text
 http://<VM-IP>:8000/latest.jpg
 ```
 
 ## Video Pipeline
-Create video
+
+**Create video:**
+
+This script generates a sample video so you don’t depend on external files.
 
 ```bash
 vi create_video.py
@@ -133,11 +154,19 @@ for i in range(200):
 out.release()
 ```
 
+### What this script does
+
+- Creates a synthetic video
+- Generates frames dynamically
+- Writes them into video.mp4
+- Helps simulate real video input
+
 ```bash
 python create_video.py
 ```
 
 ## Create pipeline
+This script reads video frames and continuously updates output for browser display.
 
 ```bash
 vi video_pipeline.py
@@ -164,13 +193,22 @@ while True:
     time.sleep(0.05)
 ```
 
+### What this script does
+
+- Reads frames from video
+- Loops continuously (like a stream)
+- Updates latest.jpg repeatedly
+- Enables pseudo real-time viewing in browser
+
 ## Run
+Start the video pipeline.
 
 ```bash
 python video_pipeline.py
 ```
 
 ## Verify
+Open the continuously updating frame in browser.
 
 ```text
 http://<VM-IP>:8000/latest.jpg
