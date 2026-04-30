@@ -1,5 +1,5 @@
 ---
-title: Build OpenCV Pipelines on GCP Axion (Arm) - Part 1
+title: Build OpenCV Pipelines on GCP Axion (Arm)
 weight: 5
 
 ### FIXED, DO NOT MODIFY
@@ -58,6 +58,46 @@ pip install --upgrade pip
 pip install numpy opencv-python-headless flask
 ```
 
+## Quick OpenCV Test
+
+Before building pipelines, verify that OpenCV is working correctly.
+
+This step creates a simple image using OpenCV and saves it for browser viewing.
+
+```bash
+python3.11 - <<EOF
+import cv2
+import numpy as np
+
+# Create a blank image
+img = np.zeros((300,300,3), dtype=np.uint8)
+
+# Add text using OpenCV
+cv2.putText(img, "OpenCV OK", (30,150),
+            cv2.FONT_HERSHEY_SIMPLEX, 1,
+            (255,255,255), 2)
+
+# Save output
+cv2.imwrite("test.jpg", img)
+
+print("Test image created")
+EOF
+```
+
+## Verify OpenCV setup
+
+Open in browser:
+
+```text
+http://<VM-IP>:8000/test.jpg
+```
+
+You should see an image with text:
+
+```text
+OpenCV OK
+```
+
 ## Start browser server (used in all steps)
 Start a simple HTTP server to view output images in browser.
 
@@ -105,15 +145,41 @@ cv2.imwrite("latest.jpg", img)
 - Saves output as `latest.jpg`
 - This file is used for browser visualization
 
-## Download image
-Download a sample image to test the pipeline.
+## Generate sample ARM image
+
+Instead of downloading external images, generate a sample image locally. This ensures the guide works in all environments without internet dependency.
 
 ```bash
-wget https://ultralytics.com/images/bus.jpg -O input.jpg
+python3.11 - <<EOF
+import cv2
+import numpy as np
+
+# Create blank image
+img = np.zeros((600,800,3), dtype=np.uint8)
+
+# Add ARM-themed labels
+cv2.putText(img, "ARM PROCESSOR", (150,250),
+            cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 3)
+
+cv2.putText(img, "OpenCV PIPELINE", (150,350),
+            cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+
+# Save image
+cv2.imwrite("input.jpg", img)
+
+print("Generated input.jpg")
+EOF
 ```
 
+## What this step does
+
+- Creates an image using NumPy
+- Uses OpenCV to draw text
+- Saves it as input.jpg
+- Removes dependency on external downloads
+
 ## Execute image pipeline
-Execute the image pipeline script.
+Run the pipeline using generated image.
 
 ```bash
 python image_pipeline.py
@@ -125,6 +191,11 @@ Open the processed image in browser.
 ```text
 http://<VM-IP>:8000/latest.jpg
 ```
+
+## You should see:
+
+- ARM PROCESSOR text
+- OpenCV processing applied
 
 ## Video Pipeline
 
