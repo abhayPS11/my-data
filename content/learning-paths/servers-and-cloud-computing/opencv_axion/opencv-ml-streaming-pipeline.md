@@ -1,6 +1,6 @@
 ---
 title: Integrate ML Models with OpenCV on GCP Axion (Arm)
-weight: 7
+weight: 6
  
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
