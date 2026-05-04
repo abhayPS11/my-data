@@ -32,7 +32,7 @@ To create a virtual machine based on the C4A instance type:
   - For the license type, choose **Pay as you go**.
   - Increase **Size (GB)** from **10** to **100** to allocate sufficient disk space.
   - Select **Choose** to apply the changes.
-- Expand the **Networking** section and enter `allow-openCV-ports` in the **Network tags** field. This tag links the VM to the firewall rule you created earlier, enabling external access to the OpenCV Dashboard and Serve API ports.
+- Expand the **Networking** section and enter `allow-opencv` in the **Network tags** field. This tag links the VM to the firewall rule you created earlier, enabling external access to the OpenCV Dashboard and Serve API ports.
 - Select **Create** to launch the virtual machine.
 
 After the instance starts, select **SSH** next to the VM in the instance list to open a browser-based terminal session.
