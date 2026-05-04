@@ -1,229 +1,325 @@
 ---
-title: OpenCV ML Streaming Pipeline on GCP Axion (Arm)
-weight: 6
-
+title: Integrate ML Models with OpenCV on GCP Axion (Arm)
+weight: 7
+ 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
 ---
-
-## OpenCV ML Streaming Pipeline on GCP Axion (Arm)
-
-In this section, you will extend your pipeline by integrating a **Machine Learning model (YOLO)** and enabling **real-time browser visualization**.
-
-
+ 
+## Integrate ML Models with OpenCV on GCP Axion (Arm)
+This section extends the OpenCV learning path by integrating a machine learning model with an OpenCV pipeline. You will train a simple ML model, load it inside an OpenCV-based Python script, generate a visual prediction output, and view the result in a browser.
+ 
+This guide assumes that you have already completed the OpenCV installation, Python virtual environment setup, and browser visualization setup from the previous section.
+ 
 ## Learning Objectives
-
-- Integrate ML model with OpenCV  
-- Perform real-time inference on video  
-- Stream output in browser  
-- Optimize performance for real-time use  
-
-
-## Navigate to project and activate environment
-Move to your project directory and activate the virtual environment.
-
+ 
+- Install ML dependencies in the existing OpenCV environment
+- Train a simple machine learning model
+- Integrate the ML model with an OpenCV pipeline
+- Generate visual prediction output using OpenCV
+- View the ML pipeline result in a browser
+ 
+## Prerequisites
+Before starting this section, make sure you have:
+ 
+- A running GCP Axion Arm-based VM
+- SUSE Linux running on the VM
+- Python 3.11 installed
+- OpenCV project directory created at `~/opencv-project`
+- Python virtual environment created at `~/opencv-project/cv-env`
+- OpenCV installed in the virtual environment
+- Port `8000` allowed in the GCP firewall if you want to view output from a browser
+ 
+## Terminal usage
+Use two terminals for this section:
+ 
+- **Terminal A:** Train the ML model and run the OpenCV + ML pipeline
+- **Terminal B:** Run the browser HTTP server
+ 
+## Go to the project directory
+Run the following commands in Terminal A.
+ 
 ```bash
 cd ~/opencv-project
 source cv-env/bin/activate
 ```
-
-## Install ML dependencies
-Install PyTorch (CPU version) and Ultralytics YOLO.
-
+ 
+**Verify Python and OpenCV:**
+ 
 ```bash
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-pip install ultralytics
-```
-
-## Verify OpenCV and ML setup 
-Ensure OpenCV and YOLO are working correctly.
-
-```bash
-python -c "import cv2; print(cv2.__version__)"
-python -c "from ultralytics import YOLO; print('YOLO OK')"
-```
-
-## Create ML pipeline script
-
-This script integrates YOLO with OpenCV and processes video frames.
-
-```bash
-vi ml_pipeline.py
-```
-
-```python
+python --version
+python - <<'PYEOF'
 import cv2
-import time
-from ultralytics import YOLO
-
-# Load lightweight YOLO model
-model = YOLO("yolov8n.pt")
-
-# Open video source
-cap = cv2.VideoCapture("video.mp4")
-
-if not cap.isOpened():
-    print("Video not opening")
-    exit()
-
-# Optional: limit CPU threads
-cv2.setNumThreads(4)
-
-while True:
-    ret, frame = cap.read()
-
-    if not ret:
-        # Restart video when finished
-        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-        continue
-
-    # Resize for faster processing
-    frame = cv2.resize(frame, (480,360))
-
-    # Run ML inference
-    results = model(frame)
-
-    # Draw detection results
-    frame = results[0].plot()
-
-    # Add pipeline label
-    cv2.putText(frame, "ML PIPELINE", (20,40),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
-
-    # Save frame for browser
-    cv2.imwrite("latest.jpg", frame)
-
-    print("ML frame updated")
-
-    # Control frame rate
-    time.sleep(0.05)
+print("OpenCV version:", cv2.__version__)
+PYEOF
 ```
-
-### What this script does
-
-- Loads YOLOv8 model
-- Reads video frame-by-frame
-- Runs object detection on each frame
-- Draws bounding boxes
-- Saves output as `latest.jpg`
-- Enables real-time browser visualization
-
-## Run ML pipeline
-Start the ML-based video processing.
-
+ 
+Expected output is similar to:
+```output
+Python 3.11.10
+OpenCV version: 4.13.0
+```
+ 
+## Install ML dependencies
+Install `scikit-learn` to train a simple model and `joblib` to save and load the model.
+ 
 ```bash
-python ml_pipeline.py
+pip install scikit-learn joblib
 ```
-
-## Verify in browser
-
-Open the updated frames in browser:
-
+**Verify the installation:**
+ 
+```bash
+python - <<'PYEOF'
+import sklearn
+import joblib
+print("scikit-learn version:", sklearn.__version__)
+print("joblib imported successfully")
+PYEOF
+```
+ 
+## Train a simple ML model
+Create a training script that uses the Iris dataset and trains a Random Forest classifier.
+ 
+```bash
+cat > train_ml_model.py <<'EOF'
+from sklearn.datasets import load_iris
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+import joblib
+ 
+iris = load_iris()
+X = iris.data
+y = iris.target
+ 
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+ 
+model = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+ 
+model.fit(X_train, y_train)
+ 
+predictions = model.predict(X_test)
+accuracy = accuracy_score(y_test, predictions)
+ 
+joblib.dump(model, "iris_model.joblib")
+joblib.dump(iris.target_names, "iris_labels.joblib")
+ 
+print("ML model trained successfully")
+print("Model file: iris_model.joblib")
+print("Label file: iris_labels.joblib")
+print(f"Accuracy: {accuracy:.2f}")
+EOF
+```
+ 
+**Run the script:**
+ 
+```bash
+python train_ml_model.py
+```
+ 
+The output is similar to:
+ 
+```output
+ML model trained successfully
+Model file: iris_model.joblib
+Label file: iris_labels.joblib
+Accuracy: 1.00
+```
+ 
+**Verify that the model files were created:**
+ 
+```bash
+ls -lh iris_model.joblib iris_labels.joblib
+```
+## Create the OpenCV + ML pipeline
+Create a script that loads the trained model, runs prediction, and uses OpenCV to generate a visual output image.
+ 
+```bash
+cat > opencv_ml_pipeline.py <<'EOF'
+import cv2
+import numpy as np
+import joblib
+ 
+model = joblib.load("iris_model.joblib")
+labels = joblib.load("iris_labels.joblib")
+ 
+# Sample input format:
+# [sepal length, sepal width, petal length, petal width]
+sample = np.array([[5.1, 3.5, 1.4, 0.2]])
+ 
+prediction = model.predict(sample)[0]
+predicted_label = labels[prediction]
+ 
+img = np.zeros((500, 900, 3), dtype=np.uint8)
+ 
+cv2.putText(
+    img,
+    "OpenCV + ML Pipeline on GCP Axion",
+    (50, 80),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    1,
+    (0, 255, 0),
+    2
+)
+ 
+cv2.putText(
+    img,
+    "Platform: Arm64",
+    (50, 150),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    0.8,
+    (255, 255, 255),
+    2
+)
+ 
+cv2.putText(
+    img,
+    f"Input Features: {sample.tolist()[0]}",
+    (50, 230),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    0.75,
+    (255, 255, 255),
+    2
+)
+ 
+cv2.putText(
+    img,
+    f"Prediction: {predicted_label}",
+    (50, 320),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    1,
+    (255, 255, 0),
+    2
+)
+ 
+cv2.putText(
+    img,
+    "ML model executed successfully with OpenCV visualization",
+    (50, 410),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    0.7,
+    (0, 200, 255),
+    2
+)
+ 
+cv2.imwrite("ml_output.jpg", img)
+ 
+print("OpenCV + ML pipeline completed")
+print("Prediction:", predicted_label)
+print("Output image saved as ml_output.jpg")
+EOF
+```
+ 
+**Run the pipeline:**
+ 
+```bash
+python opencv_ml_pipeline.py
+```
+ 
+The output is similar to:
+ 
+```output
+OpenCV + ML pipeline completed
+Prediction: setosa
+Output image saved as ml_output.jpg
+```
+ 
+Verify the output file:
+```bash
+ls -lh ml_output.jpg
+```
+ 
+## Start the browser server
+Open Terminal B and run:
+ 
+```bash
+cd ~/opencv-project
+source cv-env/bin/activate
+python -m http.server 8000
+```
+ 
+The output is similar to:
+ 
+```output
+Serving HTTP on 0.0.0.0 port 8000 ...
+```
+Keep this terminal running.
+ 
+## View the ML output in browser
+Open the following URL in your browser:
+ 
 ```text
-http://<VM-IP>:8000/latest.jpg
+http://<VM-PUBLIC-IP>:8000/ml_output.jpg
 ```
-
-If no objects are detected, you will see:
+Replace `<VM-PUBLIC-IP>` with the external IP address of your GCP Axion VM.
+ 
+**You should see an image showing:**
+ 
+```output
+OpenCV + ML Pipeline on GCP Axion
+Platform: Arm64
+Input features
+Prediction result
+ML execution confirmation
+```
+![OpenCV ML pipeline output showing prediction result on GCP Axion Arm VM#center](images/opencv-ml.png "OpenCV ML pipeline output")
+ 
+## Troubleshooting
+**Issue:** `ModuleNotFoundError: No module named 'sklearn'`
+ 
+Make sure the virtual environment is activated and install the dependency again.
+ 
 ```bash
-(no detections)
+cd ~/opencv-project
+source cv-env/bin/activate
+pip install scikit-learn joblib
 ```
-This is normal because the sample video contains only text frames.
-
-
-## Create Live Web UI
-
-Instead of refreshing manually, create an auto-refreshing web page.
-
+ 
+**Issue:** `iris_model.joblib` not found
+ 
+Run the training script before running the ML pipeline.
 ```bash
-vi index.html
+python train_ml_model.py
 ```
-
-```html
-<html>
-<head>
-<title>Live ML Pipeline</title>
-</head>
-<body>
-
-<h2>Live ML Pipeline Feed</h2>
-
-<img id="img" src="latest.jpg" width="640">
-
-<script>
-setInterval(function(){
-    document.getElementById("img").src =
-        "latest.jpg?t=" + new Date().getTime();
-}, 500);
-</script>
-
-</body>
-</html>
-```
-
-### What this file does
-
-- Displays latest.jpg in browser
-- Auto-refreshes every 500ms
-- Simulates live video streaming
-
-## Open live UI in browser
-
-```text
-http://<VM-IP>:8000/index.html
-```
-
-## (Optional) Test real detection
-
-To verify ML detection, use a real image:
-
+ 
+**Issue:** Browser cannot access the output image
+ 
+Check that the HTTP server is running in Terminal B.
 ```bash
-wget https://ultralytics.com/images/bus.jpg
+python -m http.server 8000
 ```
-
-## Modify script temporarily:
-
+ 
+Also make sure port `8000` is allowed in the GCP firewall.
+ 
+**Issue:** Output image does not update
+ 
+Run the ML pipeline again after changing the sample input.
 ```bash
-frame = cv2.imread("bus.jpg")
+python opencv_ml_pipeline.py
 ```
-
-**You will see:**
-
-- Object detection boxes
-- Person / vehicle detection
-
-## Performance Optimization
-To improve real-time performance:
-
-### Resize frames
-
+Then refresh the browser page.
+ 
+**Clean up generated files**
+ 
+Use this only if you want to remove generated ML and output files.
+ 
 ```bash
-frame = cv2.resize(frame, (480,360))
+rm -f iris_model.joblib iris_labels.joblib ml_output.jpg
 ```
-
-### Control FPS
-
-```bash
-time.sleep(0.05)
-```
-
-### Skip frames (optional)
-
-```bash
-if frame_count % 2 != 0:
-    continue
-```
-
-## Use lightweight model
-
-```bash
-YOLO("yolov8n.pt")
-```
-
+ 
 ## What you've learned
-
-You have successfully:
-
-- Integrated ML with OpenCV
-- Built real-time inference pipeline
-- Streamed output in browser
-- Optimized performance for ARM
+In this section, you learned how to:
+ 
+- Install ML libraries in an OpenCV environment
+- Train a machine learning model on an Arm-based GCP Axion VM
+- Save and load a trained model using `joblib`
+- Integrate ML inference with an OpenCV pipeline
+- Generate browser-viewable ML prediction output
