@@ -1,6 +1,6 @@
 ---
 title: Train and Benchmark AI Workloads on GCP Axion (Arm)
-weight: 2
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
