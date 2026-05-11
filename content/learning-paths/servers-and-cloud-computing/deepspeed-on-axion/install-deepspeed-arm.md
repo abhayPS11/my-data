@@ -100,6 +100,11 @@ Verify:
 ninja --version
 ```
 
+The output is similar to:
+```output
+1.13.0.git.kitware.jobserver-pipe-1
+```
+
 ## Install CPU-only PyTorch
 
 ```bash
@@ -112,15 +117,19 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 python -c "import torch; print(torch.__version__)"
 ```
 
+The output is similar to:
+```output
+2.11.0+cpu
+```
+
 Check CUDA availability:
 
 ```bash
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
-Expected output:
-
-```text
+The output is similar to:
+```output
 False
 ```
 
@@ -155,9 +164,9 @@ DS_BUILD_OPS=0 pip install deepspeed
 ds_report
 ```
 
-You may see:
+The output is similar to:
 
-```text
+```output
 [NO] ....... [OKAY]
 ```
 
@@ -171,20 +180,6 @@ mkdir ~/deepspeed-demo
 
 cd ~/deepspeed-demo
 ```
-
-
-## Environment validation
-
-Save environment details:
-
-```bash
-python --version
-
-pip list
-
-gcc --version
-```
-
 
 ## Important note
 
