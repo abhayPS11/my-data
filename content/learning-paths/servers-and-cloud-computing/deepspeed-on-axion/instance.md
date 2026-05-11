@@ -1,6 +1,6 @@
 ---
 title: Create a Google Axion C4A virtual machine for DeepSpeed
-weight: 4
+weight: 3
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
