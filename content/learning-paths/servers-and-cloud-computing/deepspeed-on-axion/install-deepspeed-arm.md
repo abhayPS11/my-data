@@ -1,6 +1,6 @@
 ---
 title: Setup PyTorch and DeepSpeed on GCP Axion (Arm)
-weight: 1
+weight: 4
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
