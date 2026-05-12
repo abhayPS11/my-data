@@ -20,13 +20,14 @@ Open both terminals connected to the VM before starting.
 
 ## Connect to the VM
 
-Connect to the VM using terminal A:
+Connect to the GCP Axion Arm64 virtual machine using SSH. This VM will be used for XGBoost training, benchmarking, and inference deployment.
 
 ```bash
 ssh <your-user>@<your-vm-ip>
 ```
 
 ## Update the system
+Update all system packages before installing Python and machine learning dependencies. This helps avoid package conflicts and ensures the latest updates are applied.
 
 ```bash
 sudo zypper refresh
@@ -34,6 +35,7 @@ sudo zypper update -y
 ```
 
 ## Install required dependencies
+Install Python 3.11, development libraries, and build tools required for XGBoost and machine learning workloads.
 
 ```bash
 sudo zypper install -y \
@@ -47,13 +49,14 @@ sudo zypper install -y \
   wget
 ```
 
-**Verify Python:**
+Verify that Python 3.11 is installed correctly.
 
 ```bash
 python3.11 --version
 ```
 
 ## Create Python environment
+Create a dedicated project directory and isolated Python virtual environment for the XGBoost learning path.
 
 ```bash
 mkdir -p ~/xgboost-learning-path
@@ -63,13 +66,17 @@ python3.11 -m venv xgb-env
 source xgb-env/bin/activate
 ```
 
+The virtual environment helps isolate Python packages from the system installation.
+
 ## Upgrade pip tools:
+Upgrade pip, setuptools, and wheel to ensure compatibility with the latest Python packages and build dependencies.
 
 ```bash
 pip install --upgrade pip setuptools wheel
 ```
 
 ## Create requirements file
+Create a requirements file containing all Python packages required for XGBoost training and benchmarking.
 
 ```bash
 cat > requirements.txt <<'EOF'
@@ -83,12 +90,13 @@ EOF
 ```
 
 ## Install dependencies:
+Install all machine learning dependencies inside the Python virtual environment.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Verify XGBoost:**
+Verify that XGBoost is installed correctly.
 
 ```bash
 python -c "import xgboost; print(xgboost.__version__)"
@@ -101,6 +109,9 @@ The output is similar to:
 ```
 
 ## Create XGBoost training script
+In this step, you'll create a machine learning training script using the Breast Cancer dataset from Scikit-learn.
+
+The script trains an XGBoost classification model, measures training time, evaluates accuracy, and saves the trained model for inference.
 
 ```bash
 cat > train_xgboost.py <<'EOF'
@@ -150,6 +161,7 @@ EOF
 ```
 
 ## Train the model
+Run the training script to start XGBoost model training on the Arm64 processor.
 
 ```bash
 python train_xgboost.py
@@ -163,7 +175,10 @@ Training Time  : 0.04 seconds
 Model saved successfully
 ```
 
+This confirms that the XGBoost model trained successfully and the model artifacts were generated.
+
 ## Verify generated model files
+Verify that the trained model files were created successfully after training.
 
 ```bash
 ls -lh
@@ -179,7 +194,12 @@ xgboost-model.json
 xgboost-model.pkl
 ```
 
+The `.json` and `.pkl` files will be used later for inference API deployment.
+
 ## Hyperparameter tuning
+In this step, you'll optimize model performance using GridSearchCV and multiple hyperparameter combinations.
+
+The script tests different values for tree depth, learning rate, and estimators to identify the best-performing model configuration.
 
 Create the tuning script:
 
@@ -223,7 +243,7 @@ print(grid.best_params_)
 EOF
 ```
 
-**Run:**
+Run the hyperparameter tuning workflow.
 
 ```bash
 python tune_xgboost.py
@@ -236,7 +256,12 @@ Best Parameters:
 {'learning_rate': 0.1, 'max_depth': 4, 'n_estimators': 100}
 ```
 
+This identifies the best hyperparameter combination for the dataset.
+
 ## Benchmark large-scale training
+In this step, you'll benchmark XGBoost training performance using a larger synthetic dataset.
+
+The benchmark simulates large-scale tabular machine learning workloads on the GCP Axion Arm64 processor.
 
 Create benchmark script:
 
@@ -271,6 +296,7 @@ EOF
 ```
 
 ## Run benchmark
+Run the benchmark script to measure large-scale training performance on Arm64.
 
 ```bash
 python benchmark_xgboost.py
@@ -281,6 +307,8 @@ The output is similar to:
 ```output
 Benchmark completed in 9.36 seconds
 ```
+
+This validates that the Arm64-based Axion processor can efficiently handle large-scale XGBoost workloads.
 
 ## What you've accomplished and what's next
 
