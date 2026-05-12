@@ -10,7 +10,7 @@ layout: learningpathall
 
 Create a firewall rule in Google Cloud Console to expose the required port for the XGBoost inference API and browser-based access.
 
-{{% notice Note %}}For help with GCP setup, see the Learning Path [Getting started with Google Cloud Platform](/learning-paths/servers-and-cloud-computing/csp/google/).{{% /notice %}}
+{{% notice Note %}} For help with GCP setup, see the Learning Path [Getting started with Google Cloud Platform](/learning-paths/servers-and-cloud-computing/csp/google/).{{% /notice %}}
 
 ## Configure the firewall rule in Google Cloud Console
 
