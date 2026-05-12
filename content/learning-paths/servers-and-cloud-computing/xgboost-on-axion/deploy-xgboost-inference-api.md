@@ -17,27 +17,28 @@ You'll use:
 **Terminal B** → API testing
 
 ## Connect to the VM
-Connect to the VM:
+Connect to the VM where the trained XGBoost model and Python environment were created. This VM will host the inference API service.
 
 ```bash
 ssh <your-user>@<your-vm-ip>
 ```
 
-Navigate to the project:
+Navigate to the XGBoost project directory that contains the trained model files and scripts.
 
 ```bash
 cd ~/xgboost-learning-path
 ```
 
-Activate environment:
+Activate the Python virtual environment to load all required Python packages and dependencies.
 
 ```bash
 source xgb-env/bin/activate
 ```
 
 ## Install Flask
+Flask is used to create the lightweight REST API that serves XGBoost predictions through HTTP requests.
 
-Create updated requirements:
+Create an updated requirements file containing all required Python dependencies.
 
 ```bash
 cat > requirements.txt <<'EOF'
@@ -51,13 +52,13 @@ flask
 EOF
 ```
 
-**Install Flask:**
+Install all dependencies including Flask inside the Python virtual environment.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Verify:**
+Verify that Flask is installed successfully.
 
 ```bash
 pip list | grep Flask
@@ -70,6 +71,9 @@ Flask            3.1.3
 ```
 
 ## Create inference API
+In this step, you'll create a Flask-based API that loads the trained XGBoost model and exposes prediction endpoints over HTTP.
+
+The `/` endpoint is used for browser validation, while the `/predict` endpoint handles prediction requests using JSON input data.
 
 ```bash
 cat > inference_api.py <<'EOF'
@@ -112,8 +116,7 @@ EOF
 ```
 
 ## Start the inference API
-
-Run:
+Start the Flask application so the API becomes accessible locally and externally through the VM public IP address.
 
 ```bash
 python inference_api.py
@@ -127,9 +130,10 @@ The output is similar to:
  * Running on http://10.128.15.209:8080
 ```
 
-Leave this terminal running.
+Leave this terminal running because the Flask server must remain active to handle incoming requests.
 
 ## Access API from browser
+The Flask API can now be accessed externally from your browser using the VM public IP and port `8080`.
 
 Open:
 
@@ -154,16 +158,19 @@ This API is running on Google Cloud Axion Arm64.
 Use the POST /predict endpoint to send prediction requests.
 ```
 
-## Test inference locally
+The following screenshot shows the XGBoost inference API successfully running and accessible from the browser.
 
-Open terminal B:
+![Browser window showing the XGBoost Inference API homepage running on a Google Cloud Axion Arm64 virtual machine. The page confirms that the inference API is active and accessible externally through port 8080 using the VM public IP address.#center](images/xgboost-api.png "XGBoost inference API running on Google Cloud Axion Arm64")
+
+## Test inference locally
+Open terminal B and activate the same Python virtual environment used for the API server.
 
 ```bash
 cd ~/xgboost-learning-path
 source xgb-env/bin/activate
 ```
 
-Run:
+In this step, you'll send a prediction request to the XGBoost API using `curl`. The input data is passed as JSON to the `/predict` endpoint.
 
 ```bash
 curl -X POST http://127.0.0.1:8080/predict \
@@ -176,6 +183,7 @@ The output is similar to:
 ```output
 {"prediction":0}
 ```
+This confirms that the trained XGBoost model successfully received the input features and generated an inference response through the REST API.
 
 ## What you've accomplished
 
@@ -185,3 +193,4 @@ You've successfully:
 * Exposed the API externally
 * Accessed the API using the VM public IP
 * Performed inference using REST API requests
+* Validated real-time predictions using Flask and XGBoost
