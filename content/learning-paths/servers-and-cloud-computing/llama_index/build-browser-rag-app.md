@@ -400,6 +400,3 @@ The application automatically indexes the new documents and makes them searchabl
 ## What you've accomplished
 
 You've successfully built a browser-based RAG application using LlamaIndex on a Google Cloud Axion Arm64 VM. You created sample documents, generated embeddings using HuggingFace models, stored vectors in ChromaDB, exposed the backend using FastAPI, and queried custom documents directly from a browser using Ollama.
-
-
-```
