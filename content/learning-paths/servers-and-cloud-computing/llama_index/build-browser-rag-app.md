@@ -1,6 +1,6 @@
 ---
 title: Build a Browser-Based RAG Application with LlamaIndex
-weight: 2
+weight: 6
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
