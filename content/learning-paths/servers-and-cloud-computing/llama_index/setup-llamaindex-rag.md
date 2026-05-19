@@ -1,6 +1,6 @@
 ---
 title: Install and Configure LlamaIndex on Google Cloud Axion
-weight: 1
+weight: 5
 
 ### FIXED, DO NOT MODIFY
 layout: learningpathall
