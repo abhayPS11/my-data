@@ -47,8 +47,8 @@ kubectl get pvc
 The output is similar to:
 
 ```output
-NAME           STATUS   VOLUME
-openebs-pvc    Bound    pvc-xxxxx
+NAME          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       VOLUMEATTRIBUTESCLASS   AGE
+openebs-pvc   Bound    pvc-4784909a-837e-457d-90aa-0aa6867f26de   5Gi        RWO            openebs-hostpath   <unset>                 134m
 ```
 
 The PVC is dynamically provisioned by OpenEBS LocalPV.
@@ -102,16 +102,37 @@ Check the pod status:
 kubectl get pods
 ```
 
+The output is similar to:
+
+```output
+NAME                             READY   STATUS    RESTARTS   AGE
+nginx-openebs-84d6bfddd4-6rf5v   1/1     Running   0          133m
+```
+
 Check the PVC:
 
 ```bash
 kubectl get pvc
 ```
 
+The output is similar to:
+
+```output
+NAME          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       VOLUMEATTRIBUTESCLASS   AGE
+openebs-pvc   Bound    pvc-4784909a-837e-457d-90aa-0aa6867f26de   5Gi        RWO            openebs-hostpath   <unset>                 136m
+```
+
 Check the Persistent Volume (PV):
 
 ```bash
 kubectl get pv
+```
+
+The output is similar to:
+
+```output
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS       VOLUMEATTRIBUTESCLASS   REASON   AGE
+pvc-4784909a-837e-457d-90aa-0aa6867f26de   5Gi        RWO            Delete           Bound    default/openebs-pvc   openebs-hostpath   <unset>                          134m
 ```
 
 The output confirms that the Persistent Volume has been dynamically created and attached.
@@ -197,8 +218,9 @@ kubectl get svc
 The output is similar to:
 
 ```output
-NAME             TYPE       CLUSTER-IP      PORT(S)
-nginx-openebs    NodePort   10.x.x.x        80:30080/TCP
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.x.x.x      <none>        443/TCP        143m
+nginx-openebs   NodePort    10.x.x.x  <none>        80:31635/TCP   7s
 ```
 
 ## Access the application
@@ -206,7 +228,7 @@ nginx-openebs    NodePort   10.x.x.x        80:30080/TCP
 Open the following URL in your browser:
 
 ```text
-http://<VM_PUBLIC_IP>:30080
+http://<VM_PUBLIC_IP>:31635
 ```
 
 You should see:
