@@ -237,6 +237,8 @@ You should see:
 OpenEBS on Azure Cobalt D4ps Arm64
 ```
 
+![NGINX application running on Kubernetes with persistent storage provisioned by OpenEBS LocalPV on Azure Cobalt 100 Arm64.#center](images/openebs-browser.png "NGINX application using OpenEBS persistent storage")
+
 ## Cleanup resources
 
 Delete the deployment:
