@@ -178,7 +178,9 @@ openebs-zfs-localpv-node-p28g2                    2/2     Running   0          1
 
 Check the available Kubernetes storage classes:
 
+```bash
 kubectl get sc
+```
 
 The output is similar to:
 
