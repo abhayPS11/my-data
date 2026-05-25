@@ -19,9 +19,9 @@ You will learn how to:
 - Build a Flask demo application
 - Validate OAuth2/OpenID Connect integration
 - Test authentication workflows
-- Create a Realm
 
-## Inside the Keycloak Admin Console:
+## Create a Realm
+Create a dedicated realm for the Flask OAuth2 demo application.
 
 Inside Admin Console:
 
@@ -38,6 +38,8 @@ demo-realm
 ![Keycloak Create Realm page showing the configuration of the demo-realm on the Azure Cobalt 100 Arm64 virtual machine before creating the new authentication realm.#center](images/create-realm.png "Keycloak Create Realm configuration page")
 
 ## Create a User
+Create a dedicated realm for the Flask OAuth2 demo application.
+
 Navigate:
 
 ```text
@@ -65,6 +67,7 @@ Disable temporary password.
 This section demonstrates how to use Keycloak as an OAuth2/OpenID Connect provider for a Flask application.
 
 ## Create OpenID Connect Client
+Create a Keycloak client for the Flask application.
 
 Navigate:
 
@@ -97,7 +100,7 @@ Save the client.
 ![Keycloak Create Client page showing the OpenID Connect client configuration for the Flask OAuth2 demo application running on the Azure Cobalt 100 Arm64 virtual machine.#center](images/create-client.png "Keycloak OpenID Connect client configuration for Flask demo application")
 
 ## Create Flask Demo Application
-Create project directory:
+Create a project directory for the Flask OAuth2 application.
 
 ```bash
 mkdir ~/flask-keycloak-demo
@@ -105,6 +108,7 @@ cd ~/flask-keycloak-demo
 ```
 
 ## Create Python virtual environment
+Create and activate a Python virtual environment for dependency isolation.
 
 ```bash
 python3 -m venv venv
@@ -117,12 +121,14 @@ source venv/bin/activate
 ```
 
 ## Install Flask dependencies
+Install Flask and OAuth-related Python packages.
 
 ```bash
 pip install flask authlib requests
 ```
 
 ## Create Flask Application
+Create a simple Flask application for testing Keycloak integration.
 
 ```bash
 cat > app.py <<'EOF'
@@ -140,6 +146,7 @@ EOF
 ```
 
 ## Run Flask Application
+Start the Flask application.
 
 ```bash
 python app.py
@@ -180,9 +187,10 @@ sudo ss -tulpn | grep -E '8080|9000|5000'
 ```
 
 ## Common Troubleshooting
-Admin console stuck loading
 
-Fix:
+**Admin console stuck loading:**
+
+Recreate temporary directories and restart Keycloak.
 
 ```bash
 sudo mkdir -p /opt/keycloak/data/tmp
@@ -192,7 +200,7 @@ sudo systemctl restart keycloak
 
 ## HTTPS required issue
 
-Fix:
+Disable SSL enforcement for the master realm.
 
 ```bash
 UPDATE realm
@@ -208,7 +216,7 @@ If logs show:
 permission denied for schema public
 ```
 
-Grant schema permissions again.
+grant schema permissions again.
 
 ## What you've learned
 
