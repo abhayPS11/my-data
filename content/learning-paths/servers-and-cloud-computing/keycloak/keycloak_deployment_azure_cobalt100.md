@@ -223,6 +223,14 @@ KC_BOOTSTRAP_ADMIN_PASSWORD=AdminPassword123! \
 /opt/keycloak/bin/kc.sh bootstrap-admin user --optimized
 ```
 
+The output is similar to:
+
+```output
+Enter username [temp-admin]:
+Enter password:
+Enter password again:
+```
+
 When prompted:
 
 ```text
@@ -318,7 +326,9 @@ If browser shows:
 HTTPS required
 ```
 
-Run:
+![Keycloak browser page showing the initial HTTPS required error while accessing the Keycloak Admin Console on the Azure Cobalt 100 Arm64 virtual machine. This occurs before disabling SSL enforcement for the master realm.#center](images/keycloak-http-error.png "Keycloak HTTPS required error page")
+
+Then Run:
 
 ```bash
 sudo -u postgres psql -d keycloak
@@ -352,6 +362,8 @@ Open browser:
 http://YOUR_PUBLIC_IP:8080/admin/
 ```
 
+![Keycloak login page running on the Azure Cobalt 100 Arm64 virtual machine after fixing the HTTPS required issue and successfully loading the authentication screen.#center](images/keycloak-ui.png "Keycloak login page on Azure Cobalt 100 Arm64")
+
 Login:
 
 ```text
@@ -359,15 +371,17 @@ Username: admin
 Password: AdminPassword123!
 ```
 
+![Keycloak Admin Console welcome page showing the master realm dashboard after successful login on the Azure Cobalt 100 Arm64 virtual machine.#center](images/keycloak-welcome-page.png "Keycloak Admin Console welcome dashboard")
+
 ## Verify health endpoint
 
 ```bash
 curl http://localhost:9000/health
 ```
 
-Expected:
+The output is similar to:
 
-```json
+```output
 {"status":"UP"}
 ```
 
