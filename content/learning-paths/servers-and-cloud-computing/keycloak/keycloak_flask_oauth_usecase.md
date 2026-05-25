@@ -38,8 +38,6 @@ demo-realm
 ![Keycloak Create Realm page showing the configuration of the demo-realm on the Azure Cobalt 100 Arm64 virtual machine before creating the new authentication realm.#center](images/create-realm.png "Keycloak Create Realm configuration page")
 
 ## Create a User
-
-
 Navigate:
 
 ```text
@@ -65,8 +63,6 @@ Disable temporary password.
 ## OAuth2 Login for Flask Application
 
 This section demonstrates how to use Keycloak as an OAuth2/OpenID Connect provider for a Flask application.
-
----
 
 ## Create OpenID Connect Client
 
