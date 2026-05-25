@@ -61,6 +61,6 @@ Your virtual machine should be ready and running in a few minutes. You can SSH i
 
 ## What you've accomplished and what's next
 
-You've created an Azure Cobalt 100 Arm64 virtual machine running Ubuntu 24.04 LTS with SSH authentication configured. The virtual machine is now ready for installing and running Alluxio workloads.
+You've created an Azure Cobalt 100 Arm64 virtual machine running Ubuntu 24.04 LTS with SSH authentication configured. The virtual machine is now ready for installing PostgreSQL, Keycloak, and the Flask OAuth2 demo application.
 
-Next, you'll install Alluxio on the VM and begin building a data orchestration and caching layer to accelerate analytics workloads and improve data access performance.
+Next, you'll install Keycloak on the VM, configure PostgreSQL as the backend database, and deploy a demo OAuth2/OpenID Connect application using Flask.
