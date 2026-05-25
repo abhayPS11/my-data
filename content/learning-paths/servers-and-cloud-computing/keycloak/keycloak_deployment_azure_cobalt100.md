@@ -6,9 +6,13 @@ weight: 5
 layout: learningpathall
 ---
 
-## Deploy Keycloak on Azure Cobalt 100 Arm64 VM
+## Set up Keycloak on the VM
 
-## Overview
+In this section, you'll install Keycloak on an Azure Cobalt 100 Arm64 virtual machine and configure PostgreSQL as the backend database.
+
+Keycloak provides centralized identity and access management for applications using standards such as OAuth2, OpenID Connect, and SAML.
+
+### Overview
 
 This learning path explains how to deploy and configure Keycloak on Azure Cobalt 100 Arm64 virtual machines using PostgreSQL as the backend database.
 
@@ -21,21 +25,7 @@ You will learn how to:
 - Fix common Keycloak 26.x issues
 - Access the Keycloak administration console
 
-## What is Keycloak?
-
-Keycloak is an open-source Identity and Access Management (IAM) platform.
-
-It provides:
-
-- Single Sign-On (SSO)
-- OAuth2 authentication
-- OpenID Connect (OIDC)
-- SAML authentication
-- Multi-factor authentication
-- Role-based access control
-- User federation
-
-## Target platform
+### Target platform
 
 | Component      | Value                         |
 | -------------- | ----------------------------- |
@@ -44,7 +34,7 @@ It provides:
 | Recommended VM | Standard_D4ps_v6              |
 | OS             | Ubuntu Server 24.04 LTS Arm64 |
 
-## Architecture
+### Architecture
 
 ```text
 Azure Cobalt 100 Arm64 VM
@@ -55,7 +45,7 @@ Azure Cobalt 100 Arm64 VM
         └── Browser Access
 ```
 
-## Configure Azure networking
+### Configure Azure networking
 
 Allow these inbound ports:
 
@@ -67,19 +57,17 @@ Allow these inbound ports:
 | 5000 | Flask demo application       |
 
 
-## Connect to VM
+### Update your system
 
-```bash
-ssh azureuser@YOUR_PUBLIC_IP
-```
-
-## Update packages
+Start by updating the package index and installing the latest available package updates on the virtual machine.
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-## Install dependencies
+## Install required dependencies
+
+Install Java, PostgreSQL, Python, and utility packages required for running Keycloak and the Flask demo application.
 
 ```bash
 sudo apt install -y \
@@ -93,40 +81,42 @@ wget \
 tar
 ```
 
-## Verify Java
+## Verify Java installation
+Keycloak requires Java, so verify that Java 21 is installed correctly.
 
 ```bash
 java -version
 ```
 
-Expected:
-
+The output is similar to:
 ```output
 openjdk version "21"
 ```
 
 
-## Configure PostgreSQL
+### Configure PostgreSQL Database 
+Keycloak needs a persistent database to store realms, users, clients, roles, and authentication configuration.
 
-Login to PostgreSQL:
+### Create the Keycloak database and user
+Log in to PostgreSQL as the default `postgres` user.
 
 ```bash
 sudo -u postgres psql
 ```
 
-Create database:
+Create a database for Keycloak.
 
 ```sql
 CREATE DATABASE keycloak;
 ```
 
-Create user:
+Create a PostgreSQL user for Keycloak.
 
 ```sql
 CREATE USER keycloakuser WITH PASSWORD 'StrongPassword123!';
 ```
 
-Grant privileges:
+Grant database access to the Keycloak user.
 
 ```sql
 GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloakuser;
@@ -138,7 +128,7 @@ Connect to Keycloak database:
 \c keycloak
 ```
 
-Grant schema permissions:
+Grant schema permissions so Keycloak can create and manage its internal database tables.
 
 ```sql
 GRANT ALL ON SCHEMA public TO keycloakuser;
@@ -153,7 +143,8 @@ Exit PostgreSQL:
 \q
 ```
 
-## Download Keycloak
+### Download Keycloak
+Download the Keycloak release archive, extract it, and move it to /opt/keycloak.
 
 ```bash
 cd ~
@@ -162,22 +153,18 @@ tar -xzf keycloak-26.2.5.tar.gz
 sudo mv keycloak-26.2.5 /opt/keycloak
 ```
 
-## Create Keycloak Linux user
+### Create Keycloak Linux user
+Create a dedicated Linux user to run Keycloak securely as a system service.
 
 ```bash
 sudo useradd -r -s /bin/false keycloak
 sudo chown -R keycloak:keycloak /opt/keycloak
 ```
 
-## Configure Keycloak
+### Configure Keycloak
+Create the Keycloak configuration file and connect it to the PostgreSQL database.
 
-Replace `YOUR_PUBLIC_IP` with your VM public IP.
-
-Example:
-
-```text
-20.x.x.x
-```
+Replace YOUR_PUBLIC_IP with the public IP address of your Azure VM.
 
 Create configuration:
 
@@ -199,23 +186,21 @@ metrics-enabled=true
 EOF
 ```
 
-Important:
+{{% notice Note %}}
+Do not use proxy=edge with this setup because it can cause hostname and admin console loading issues in newer Keycloak versions.
+{{% /notice %}}
 
-Do NOT use:
+### Build the Keycloak server
 
-```ini
-proxy=edge
-```
-
-because it causes issues in newer Keycloak versions.
-
-## Build Keycloak
+Build Keycloak so the server configuration is optimized and persisted before startup.
 
 ```bash
 sudo /opt/keycloak/bin/kc.sh build
 ```
 
-## Bootstrap admin user
+### Create the Keycloak admin user
+
+Bootstrap the initial admin user that will be used to log in to the Keycloak Admin Console.
 
 ```bash
 sudo KC_BOOTSTRAP_ADMIN_USERNAME=admin \
@@ -231,29 +216,22 @@ Enter password:
 Enter password again:
 ```
 
-When prompted:
+When prompted for the username, press Enter.
 
-```text
-Enter username [temp-admin]:
-```
-
-Press Enter.
-
-Then enter:
+When prompted for the password, enter the following password twice:
 
 ```text
 AdminPassword123!
 ```
-
-twice.
-
 Successful output includes:
 
 ```text
 Created temporary admin user with username admin
 ```
 
-## Create systemd service
+### Configure Keycloak as a systemd service
+
+Create a systemd service so Keycloak starts automatically and runs in the background.
 
 ```bash
 sudo tee /etc/systemd/system/keycloak.service > /dev/null <<EOF
@@ -276,7 +254,9 @@ WantedBy=multi-user.target
 EOF
 ```
 
-## Create required directories
+### Configure Keycloak runtime directories
+
+Create writable runtime directories required by Keycloak for temporary files, logs, and cache.
 
 ```bash
 sudo mkdir -p /opt/keycloak/data/tmp
@@ -284,43 +264,46 @@ sudo mkdir -p /opt/keycloak/data/log
 sudo mkdir -p /opt/keycloak/data/cache
 ```
 
-Fix ownership:
+Set the correct ownership for the Keycloak service user.
 
 ```bash
 sudo chown -R keycloak:keycloak /opt/keycloak/data
 ```
 
-Fix permissions:
+Set directory permissions.
 
 ```bash
 sudo chmod -R 755 /opt/keycloak/data
 ```
 
 
-## Start Keycloak
+### Start and verify Keycloak
+Start Keycloak and verify that the service is running correctly.
 
+Start Keycloak:
+
+Reload systemd, enable the service, and start Keycloak.
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable keycloak
 sudo systemctl start keycloak
 ```
 
-Check status:
+Check the service status.
 
 ```bash
 sudo systemctl status keycloak
 ```
 
-Check logs:
+View live Keycloak logs.
 
 ```bash
 sudo journalctl -u keycloak -f
 ```
 
 
-## Fix HTTPS required error
-
-If browser shows:
+### Fix HTTPS required error
+If the browser shows an HTTPS required message, disable SSL enforcement for the master realm for this HTTP-based learning path setup.
 
 ```text
 HTTPS required
@@ -328,13 +311,13 @@ HTTPS required
 
 ![Keycloak browser page showing the initial HTTPS required error while accessing the Keycloak Admin Console on the Azure Cobalt 100 Arm64 virtual machine. This occurs before disabling SSL enforcement for the master realm.#center](images/keycloak-http-error.png "Keycloak HTTPS required error page")
 
-Then Run:
+Log in to the Keycloak database.
 
 ```bash
 sudo -u postgres psql -d keycloak
 ```
 
-Execute:
+Disable SSL enforcement for the master realm.
 
 ```sql
 UPDATE realm
@@ -342,7 +325,7 @@ SET ssl_required = 'NONE'
 WHERE name = 'master';
 ```
 
-Exit:
+Exit PostgreSQL.
 
 ```sql
 \q
@@ -354,9 +337,9 @@ Restart Keycloak:
 sudo systemctl restart keycloak
 ```
 
-## Access Keycloak
+### Access the Keycloak Admin Console
 
-Open browser:
+Open the Keycloak Admin Console in your browser.
 
 ```text
 http://YOUR_PUBLIC_IP:8080/admin/
@@ -373,7 +356,7 @@ Password: AdminPassword123!
 
 ![Keycloak Admin Console welcome page showing the master realm dashboard after successful login on the Azure Cobalt 100 Arm64 virtual machine.#center](images/keycloak-welcome-page.png "Keycloak Admin Console welcome dashboard")
 
-## Verify health endpoint
+### Verify health endpoint
 
 ```bash
 curl http://localhost:9000/health
@@ -385,8 +368,8 @@ The output is similar to:
 {"status":"UP"}
 ```
 
-## What you've learned and what's next
+### What you've learned and what's next
 
-You now have Keycloak running successfully on Azure Cobalt 100 Arm64 with PostgreSQL integration and a working admin console.
+You now have Keycloak running successfully on Azure Cobalt 100 Arm64 with PostgreSQL integration, a systemd service, and a working admin console.
 
-Next, you'll configure a Flask application and integrate it with Keycloak using OAuth2/OpenID Connect authentication.
+Next, you'll configure a Flask application and integrate it with Keycloak using OAuth2/OpenID Connect authenticatio
