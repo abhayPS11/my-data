@@ -268,7 +268,6 @@ longhorn (default)     driver.longhorn.io      Delete          Immediate        
 longhorn-static        driver.longhorn.io      Delete          Immediate              true                   6m26s
 ```
 
-
 ### What You've Learned
 
 In this section, you learned how to:
