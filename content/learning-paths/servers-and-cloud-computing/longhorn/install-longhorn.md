@@ -80,7 +80,7 @@ The output is similar to:
 
 ```output
 NAME             STATUS   ROLES                  AGE   VERSION
-longhorn-arm64   Ready    control-plane,master   1m    v1.35.5+k3s1
+longhorn-Arm64   Ready    control-plane,master   1m    v1.35.5+k3s1
 ```
 
 ### Configure kubectl access
@@ -126,7 +126,7 @@ The output is similar to:
 
 ```output
 NAME             STATUS   ROLES           AGE   VERSION
-longhorn-arm64   Ready    control-plane   5s    v1.35.5+k3s1
+longhorn-Arm64   Ready    control-plane   5s    v1.35.5+k3s1
 ```
 
 ### Create Longhorn storage directory
